@@ -160,7 +160,7 @@ public class ModelBSBelegungsstrategien extends JPanel {
                 }
             }
     	} catch (Exception ex) {
-    		//System.out.println(ex.toString());
+    		ex.printStackTrace();
     	}        
     }
     

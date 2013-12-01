@@ -55,7 +55,7 @@ public class PanelBSBelegungsstrategien extends JPanel {
 	
 	private EnumSurface color = EnumSurface.COLORED;
 	
-	private AutoThread tAuto = new AutoThread();
+	private AutoThread tAuto; //= new AutoThread();
 	
 	private void drawList() {
 		List<ISpace> listSpace = memory.getListSpace();
@@ -394,13 +394,13 @@ public class PanelBSBelegungsstrategien extends JPanel {
 						tAuto.interrupt();
 						memory.setAuto(false);
 					}
-					tAuto = new AutoThread();
+					// tAuto = new AutoThread();
 					memory.reset();
 					drawList();
 				}
 				updateComponents();
 			} catch (Exception ex) {
-				
+				ex.printStackTrace();
 			}
 		}
 	};
@@ -435,7 +435,7 @@ public class PanelBSBelegungsstrategien extends JPanel {
 				}		
 				updateComponents();
 			} catch (Exception ex) {
-				
+				ex.printStackTrace();
 			}
 		}
 	};	
@@ -469,9 +469,10 @@ public class PanelBSBelegungsstrategien extends JPanel {
                     Thread.sleep(1000);  
 	            }
 	    		memory.setAuto(false);
-	    		interrupt();
+	    		//interrupt();
             } catch (InterruptedException e) {
                 //e.printStackTrace();
+            	System.out.println("Thread abgebrochen");
             }
 	    }
 	}

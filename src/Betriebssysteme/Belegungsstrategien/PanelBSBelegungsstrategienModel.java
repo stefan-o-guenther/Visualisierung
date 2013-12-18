@@ -1,7 +1,5 @@
 package Betriebssysteme.Belegungsstrategien;
 
-
-
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -12,17 +10,17 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import Base.BasePanelModel;
+import Base.EnumSurface;
 
-
-public class ModelBSBelegungsstrategien extends JPanel {
-    
+public class PanelBSBelegungsstrategienModel extends BasePanelModel {
 	
 	private List<ISpace> listSpace = new ArrayList<ISpace>();
-	private EnumSurface color = EnumSurface.COLORED;
+	
 	private final Integer MAX_WIDTH = 1000;
 	
 	
-	public ModelBSBelegungsstrategien(List<ISpace> value) {
+	public PanelBSBelegungsstrategienModel(List<ISpace> value) {
 		if (value != null) {
 			listSpace = value;
 		} else {
@@ -31,18 +29,15 @@ public class ModelBSBelegungsstrategien extends JPanel {
 	}
 	
 	
-	public void drawListSpace(List<ISpace> valueL, EnumSurface valueC) {
-		if ((valueL != null) && (valueC != null)) {
-			listSpace = valueL;
-			color = valueC;
+	public void drawListSpace(List<ISpace> list) {
+		if (list != null) {
+			listSpace = list;
 			Graphics g = getGraphics();
 			doDrawing(g);
 		}
 	}
-	
-	
-	
-    private void doDrawing(Graphics g) {
+		
+    protected void doDrawing(Graphics g) {
     	try {
     		repaint();
         	
@@ -61,7 +56,7 @@ public class ModelBSBelegungsstrategien extends JPanel {
             
             Integer xPoint = 0;
             Integer yPoint = 0;
-            Integer xRect = xPoint + 0;
+            Integer xRect = xPoint + 5;
             Integer yRect = yPoint + 30;
             Integer xValue = 0;
             Integer yValue = 0;
@@ -141,8 +136,11 @@ public class ModelBSBelegungsstrategien extends JPanel {
                 		g2d.setColor(Color.RED);
                 	} else {
                 		g2d.setColor(Color.BLACK);
-                	}       	
-                    g2d.drawString((Integer.toString(value)), xValue, yValue);
+                	}
+                	
+                	if (space.getType() != EnumSpace.FULL) {
+                		g2d.drawString((Integer.toString(value)), xValue, yValue);
+                	}                    
                     
                     // rest number
                 	Integer rv = space.getRestValue();
@@ -152,7 +150,12 @@ public class ModelBSBelegungsstrategien extends JPanel {
                     	} else {
                     		g2d.setColor(Color.BLACK);
                     	}
-                		g2d.drawString((Integer.toString(rv)), xValue, yRV);
+                		if (rv >= 0) {
+                			g2d.drawString((Integer.toString(rv)), xValue, yRV);
+                		} else {
+                			g2d.drawString("-", xValue, yRV);
+                		}
+                		
                 	}            
                     
                     
@@ -163,13 +166,8 @@ public class ModelBSBelegungsstrategien extends JPanel {
     		ex.printStackTrace();
     	}        
     }
-    
-    
-    @Override
-    public void paintComponent(Graphics g) {
-        
-        super.paintComponent(g);
-        doDrawing(g);
-    }    
+
+
+	
 }
 

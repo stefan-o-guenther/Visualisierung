@@ -23,7 +23,7 @@ public class Space implements ISpace {
 	}
 
 	@Override
-	public void setActivated(Boolean value) {
+	public void activate(Boolean value) {
 		isActivated = value;
 	}
 	

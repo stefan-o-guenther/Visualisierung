@@ -2,8 +2,10 @@ package Betriebssysteme.Belegungsstrategien;
 
 public interface ISpace {
 
+	
+	
 	Boolean isActivated();
-	void setActivated(Boolean value);
+	void activate(Boolean value);
 	
 	EnumSpace getType();
 	void setType(EnumSpace value);

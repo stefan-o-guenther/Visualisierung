@@ -4,20 +4,17 @@ import java.util.List;
 
 public interface IMemoryManagement {
 	
-	EnumStrategy getStrategy();
-	void setStrategy(EnumStrategy value);
+	EnumMemoryStrategy getStrategy();
+	void setStrategy(EnumMemoryStrategy value);
 	
 	Integer getNumber();
 	void setNumber(Integer value);
 	
-	EnumStatus getStatus();
+	EnumMemoryStatus getStatus();
 	
-	void execute();	
+	Boolean execute();	
 	
 	void reset();
 	
 	List<ISpace> getListSpace();
-	
-	Boolean isAuto();
-	void setAuto(Boolean value);
 }

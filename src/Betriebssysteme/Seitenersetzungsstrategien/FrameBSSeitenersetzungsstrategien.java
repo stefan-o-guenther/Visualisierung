@@ -1,42 +1,16 @@
 package Betriebssysteme.Seitenersetzungsstrategien;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+import Base.BaseFrame;
 
-public class FrameBSSeitenersetzungsstrategien extends JFrame {
+public class FrameBSSeitenersetzungsstrategien extends BaseFrame {
 
-	private final int LENGTH = 1024;
-	private final int HEIGHT = 768;
-	
-    public FrameBSSeitenersetzungsstrategien() {
-
-        initUI();
-    }
-
-    private void initUI() {
-
-        setTitle("Belegungsstrategien");
-
-        add(new PanelBSSeitenersetzungsstrategien());
-
-        setSize(LENGTH, HEIGHT);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+	public FrameBSSeitenersetzungsstrategien() {
+        initUI("Seitenersetzungsstrategien", new PanelBSSeitenersetzungsstrategienMain());
     }
 
     public static void main(String[] args) {
-
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-            	try {
-            		FrameBSSeitenersetzungsstrategien fm = new FrameBSSeitenersetzungsstrategien();
-                    fm.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}            	
-            }
-        });
+    	initToolTipManager();
+    	initLookAndFeel();
+    	baseMain(new FrameBSSeitenersetzungsstrategien());	
     }
 }

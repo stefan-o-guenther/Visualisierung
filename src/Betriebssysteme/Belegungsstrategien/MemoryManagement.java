@@ -5,8 +5,8 @@ import java.util.List;
 
 public class MemoryManagement implements IMemoryManagement {
 
-	private EnumStatus status = EnumStatus.START;
-	private EnumStrategy strategy = EnumStrategy.NULL;
+	private EnumMemoryStatus status = EnumMemoryStatus.START;
+	private EnumMemoryStrategy strategy = EnumMemoryStrategy.NULL;
 	private Integer number = 0;
 	private List<ISpace> listSpace = new ArrayList<ISpace>();
 	
@@ -18,18 +18,17 @@ public class MemoryManagement implements IMemoryManagement {
 	private Integer zBestWorst = null;
 	private Integer pBestWorst = START;
 	
-	private Boolean auto = false;
+	private Boolean suitable = false;
 	
 	private void init() {
-		status = EnumStatus.START;
-		strategy = EnumStrategy.NULL;
+		status = EnumMemoryStatus.START;
+		strategy = EnumMemoryStrategy.NULL;
 		number = 0;
 		start = START;
 		position = start;
 		first = true;
 		zBestWorst = null;
 		pBestWorst = START;
-		auto = false;
 				
 		listSpace = new ArrayList<ISpace>();
 		listSpace.add(new Space(10, EnumSpace.EMPTY));
@@ -47,6 +46,8 @@ public class MemoryManagement implements IMemoryManagement {
 		listSpace.add(new Space(12, EnumSpace.EMPTY));
 		listSpace.add(new Space(1, EnumSpace.FULL));
 		listSpace.add(new Space(15, EnumSpace.EMPTY));
+		listSpace.add(new Space(1, EnumSpace.FULL));
+		listSpace.add(new Space(8, EnumSpace.EMPTY));
 	}
 	
 	private ISpace findNextFreeSpace() {
@@ -76,6 +77,131 @@ public class MemoryManagement implements IMemoryManagement {
 		return space;
 	}
 	
+	private void deleteNegativeRestValues() {
+		if (listSpace != null) {
+			for (ISpace sp : listSpace) {
+				Integer value = sp.getRestValue();
+				if ((value != null) && (value < 0)) {
+					sp.setRestValue(null);
+				}
+			}
+		}
+	}
+	
+	private Boolean search() {
+		Boolean ok = false;
+		if ((number != null) && (number > 0)) {
+			if (suitable) {
+				ok = true;
+				suitable = false;
+				finishFit();
+			} else {
+				ISpace space = this.findNextFreeSpace();
+				if (space != null) {
+					space.activate(true);
+					space.setNewValue(number);
+					Integer value = space.getCurrentValue();
+					space.setRestValue(value - number);
+					if (value >= number) {							
+						if (isBestWorst()) {
+							setBestWorst(value);
+							if ((isBestFit()) && (value.equals(number))) {
+								suitable = true;									
+							}
+						} else {
+							//finishFit();
+							suitable = true;
+						}
+					} else {
+						status = EnumMemoryStatus.SEARCH;
+					}
+					ok = true;
+				} else if ((isBestWorst()) && (zBestWorst != null)) {	
+					ok = true;
+					finishFit();
+				} else {
+					ok = false;
+					finishFit();
+					status = EnumMemoryStatus.INPUT;							
+				}
+			}
+		} else {
+			ok = true;
+		}
+		return ok;
+	}
+	
+	private void finished() {
+		if ((position != null) && (position >= 0) && (listSpace != null)) {			
+			for (ISpace sp : listSpace) {		
+				sp.setRestValue(null);
+			}
+			Integer pos = 0;
+			if ((isBestWorst()) && (zBestWorst != null)) {
+				pos = pBestWorst;
+			} else {
+				pos = position;
+			}
+			ISpace space = listSpace.get(pos);
+			Integer value = space.getCurrentValue();		
+			if (space.getType() == EnumSpace.EMPTY) {
+				if (value > number) {
+					ISpace newSpace = new Space(number, EnumSpace.USED);
+					space.setCurrentValue(value - number);
+					listSpace.add(pos, newSpace);
+				} else if (value.equals(number)) {
+					space.setType(EnumSpace.USED);
+				}
+			}			
+			if (isNextFit()) {
+				start = position;
+			} else {
+				start = START;
+				position = start;
+			}			
+			if (isBestWorst()) {
+				zBestWorst = null;
+				pBestWorst = START;
+			}
+			status = EnumMemoryStatus.INPUT;		
+		}
+	}
+	
+	
+	
+	private void finishFit() {
+		status = EnumMemoryStatus.FINISHED;
+		deleteNegativeRestValues();
+	}
+	
+	private void setBestWorst(Integer value) {
+		if ((value != null) && (value >= 0)) {
+			if ((zBestWorst == null) || ((isBestFit()) && (value < zBestWorst)) || ((isWorstFit()) && (value > zBestWorst))) {									
+				zBestWorst = value;
+				pBestWorst = position;
+			}
+		}
+	}
+	
+	private Boolean isFirstFit() {
+		return (strategy == EnumMemoryStrategy.FIRST_FIT);
+	}
+	
+	private Boolean isNextFit() {
+		return (strategy == EnumMemoryStrategy.NEXT_FIT);
+	}
+	
+	private Boolean isBestFit() {
+		return (strategy == EnumMemoryStrategy.BEST_FIT);
+	}
+	
+	private Boolean isWorstFit() {
+		return (strategy == EnumMemoryStrategy.WORST_FIT);
+	}
+	
+	private Boolean isBestWorst() {
+		return ((isBestFit()) || (isWorstFit()));
+	}
 	
 	public MemoryManagement() {
 		init();
@@ -83,21 +209,21 @@ public class MemoryManagement implements IMemoryManagement {
 	
 	
 	@Override
-	public EnumStrategy getStrategy() {
+	public EnumMemoryStrategy getStrategy() {
 		return strategy;
 	}
 
 	@Override
-	public void setStrategy(EnumStrategy value) {		
+	public void setStrategy(EnumMemoryStrategy value) {		
 		if (value != null) {
 			strategy = value;
-			if (value != EnumStrategy.NULL) {
-				status = EnumStatus.INPUT;
+			if (value != EnumMemoryStrategy.NULL) {
+				status = EnumMemoryStatus.INPUT;
 			} else {
-				status = EnumStatus.START;
+				status = EnumMemoryStatus.START;
 			}
 		} else {
-			status = EnumStatus.START;
+			status = EnumMemoryStatus.START;
 		}		
 	}
 
@@ -108,142 +234,41 @@ public class MemoryManagement implements IMemoryManagement {
 
 	@Override
 	public void setNumber(Integer value) {
-		if ((value != null) && (value > 0) && (status == EnumStatus.INPUT)) {
+		if ((value != null) && (value > 0) && (status == EnumMemoryStatus.INPUT)) {
 			number = value;
-			status = EnumStatus.SEARCH;
-			if (strategy != EnumStrategy.NEXT_FIT) {
+			status = EnumMemoryStatus.SEARCH;
+			if (strategy != EnumMemoryStrategy.NEXT_FIT) {
 				start = START;
 			}
 			position = start;
 			first = true;
 		} else {
-			status = EnumStatus.INPUT;
+			status = EnumMemoryStatus.INPUT;
 		}
 	}
 
 	@Override
-	public EnumStatus getStatus() {
+	public EnumMemoryStatus getStatus() {
 		return status;
 	}
 	
-	
-	private void executeFirstFitNextFit() {
-		if (listSpace != null) {
-			for (ISpace sp : listSpace) {				
-				sp.setRestValue(null);
-			}
-			if (status == EnumStatus.SEARCH) {
-				if (number != null) {
-					ISpace space = this.findNextFreeSpace();
-					if (space != null) {
-						space.setActivated(true);
-						space.setNewValue(number);
-						Integer value = space.getCurrentValue();
-						if (value >= number) {
-							space.setRestValue(value - number);
-							status = EnumStatus.FINISHED;
-						} else {
-							status = EnumStatus.SEARCH;
-						}
-					} else {
-						status = EnumStatus.INPUT;
-					}
-				}
-			} else if (status == EnumStatus.FINISHED) {
-				ISpace space = listSpace.get(position);
-				Integer value = space.getCurrentValue();
-				if (space.getType() == EnumSpace.EMPTY) {
-					if (value > number) {
-						ISpace newSpace = new Space(number, EnumSpace.USED);
-						space.setCurrentValue(value - number);
-						listSpace.add(position, newSpace);
-					} else if (value.equals(number)) {
-						space.setType(EnumSpace.USED);
-					}
-				}
-				if (strategy == EnumStrategy.FIRST_FIT) {
-					start = START;
-				} else {
-					start = position;
-				}
-				position = start;
-				status = EnumStatus.INPUT;
-			}
-		}
-	}
-	
-	
-	private void executeBestFitWorstFit() {
-		if (listSpace != null) {			
-			if (status == EnumStatus.SEARCH) {
-				if (number != null) {
-					ISpace space = this.findNextFreeSpace();
-					if (space != null) {
-						space.setActivated(true);
-						space.setNewValue(number);
-						Integer value = space.getCurrentValue();
-						if (value >= number) {
-							space.setRestValue(value - number);
-							if ((zBestWorst == null) || 
-								((strategy == EnumStrategy.BEST_FIT) && (value < zBestWorst)) || 
-								((strategy == EnumStrategy.WORST_FIT) && (value > zBestWorst))) {									
-								zBestWorst = value;
-								pBestWorst = position;
-							}
-							if ((strategy == EnumStrategy.BEST_FIT) && (value.equals(number))) {
-								status = EnumStatus.FINISHED;
-							}
-						} else {
-							status = EnumStatus.SEARCH;
-						}
-					} else if (zBestWorst != null) {
-						status = EnumStatus.FINISHED;
-					} else {					
-						status = EnumStatus.INPUT;					
-					}					
-				}
-			} else if (status == EnumStatus.FINISHED) {
-				for (ISpace sp : listSpace) {				
-					sp.setRestValue(null);
-				}
-				ISpace space = listSpace.get(pBestWorst);
-				Integer value = space.getCurrentValue();
-				if (space.getType() == EnumSpace.EMPTY) {
-					if (value > number) {
-						ISpace newSpace = new Space(number, EnumSpace.USED);
-						space.setCurrentValue(value - number);
-						listSpace.add(pBestWorst, newSpace);
-					} else if (value.equals(number)) {
-						space.setType(EnumSpace.USED);
-					}
-				}		
-				start = START;				
-				position = start;
-				status = EnumStatus.INPUT;
-				zBestWorst = null;
-				pBestWorst = START;
-			}
-		}
-	}
-	
-	
 	@Override
-	public void execute() {
+	public Boolean execute() {
+		Boolean ok = false;
 		if (listSpace != null) {
 			for (ISpace sp : listSpace) {
-				sp.setActivated(false);
+				sp.activate(false);
 				sp.setNewValue(null);				
 			}
-			
-			if ((strategy == EnumStrategy.FIRST_FIT) || (strategy == EnumStrategy.NEXT_FIT)) {
-				executeFirstFitNextFit();
-			} else if ((strategy == EnumStrategy.BEST_FIT) || (strategy == EnumStrategy.WORST_FIT)) {
-				executeBestFitWorstFit();
+			if (status == EnumMemoryStatus.SEARCH) {
+				ok = search();
+			} else if (status == EnumMemoryStatus.FINISHED) {
+				ok = true;
+				finished();				
 			}
-		}	
-	}
-
-	
+		}
+		return ok;
+	}	
 
 	@Override
 	public void reset() {		
@@ -252,19 +277,6 @@ public class MemoryManagement implements IMemoryManagement {
 
 	@Override
 	public List<ISpace> getListSpace() {
-		return listSpace;		
+		return new ArrayList<ISpace>(listSpace); 		
 	}
-
-	@Override
-	public Boolean isAuto() {
-		return auto;
-	}
-
-	@Override
-	public void setAuto(Boolean value) {
-		if (value != null) {
-			auto = value;
-		}
-	}
-
 }

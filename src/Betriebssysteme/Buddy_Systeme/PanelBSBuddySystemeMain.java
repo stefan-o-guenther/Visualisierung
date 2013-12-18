@@ -12,7 +12,7 @@ public class PanelBSBuddySystemeMain extends BasePanelMain {
 	protected void initComponents() {
 		panelModel = new PanelBSBuddySystemeModel();
 		panelMenu = new PanelBSBuddySystemeMenu( (PanelBSBuddySystemeModel) panelModel);
-		panelTitle = new PanelTitle("Belegungsstrategien", panelModel);
+		panelTitle = new PanelTitle("Buddy Systeme", panelModel);
 		initLayout(200);
 	}
 		

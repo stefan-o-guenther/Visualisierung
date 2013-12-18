@@ -5,7 +5,8 @@ import Base.BaseFrame;
 public class FrameRNTCPRetransmission extends BaseFrame {
 
 	public FrameRNTCPRetransmission() {
-        initUI("Belegungsstrategien", new PanelRNTCPRetransmission());
+		super("TCP-Retransmission");
+        initUI(new PanelRNTCPRetransmissionMain());
     }
 
     public static void main(String[] args) {

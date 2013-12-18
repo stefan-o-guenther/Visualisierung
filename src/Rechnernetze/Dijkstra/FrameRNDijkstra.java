@@ -5,7 +5,8 @@ import Base.BaseFrame;
 public class FrameRNDijkstra extends BaseFrame {
 
 	public FrameRNDijkstra() {
-        initUI("Belegungsstrategien", new PanelRNDijkstra());
+		super("Dijkstra");
+        initUI(new PanelRNDijkstraMain());
     }
 
     public static void main(String[] args) {

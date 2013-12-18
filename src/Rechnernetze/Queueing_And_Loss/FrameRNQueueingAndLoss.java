@@ -5,7 +5,8 @@ import Base.BaseFrame;
 public class FrameRNQueueingAndLoss extends BaseFrame {
 
 	public FrameRNQueueingAndLoss() {
-        initUI("Belegungsstrategien", new PanelRNQueueingAndLoss());
+		super("Queueing And Loss");
+        initUI(new PanelRNQueueingAndLossMain());
     }
 
     public static void main(String[] args) {

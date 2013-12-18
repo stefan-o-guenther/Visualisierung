@@ -31,10 +31,12 @@ public class FrameMain extends BaseFrame {
 	/**
 	 * Create the frame.
 	 */
-	public FrameMain() {
+	public FrameMain() {	
+		super("Bachelorarbeit - Visualisierung");
 		showMenuBar();        
         pack();
-		initUI("Bachelorarbeit - Visualisierung", globalPanel);
+        initUI(globalPanel);
+        
 	}
 	
 	private void showMenuBar() {		

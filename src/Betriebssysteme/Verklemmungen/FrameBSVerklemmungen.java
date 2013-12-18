@@ -5,7 +5,8 @@ import Base.BaseFrame;
 public class FrameBSVerklemmungen extends BaseFrame {
 
 	public FrameBSVerklemmungen() {
-        initUI("Verklemmungen", new PanelBSVerklemmungenMain());
+		super("Verklemmungen");
+		initUI(new PanelBSVerklemmungenMain());
     }
 
     public static void main(String[] args) {

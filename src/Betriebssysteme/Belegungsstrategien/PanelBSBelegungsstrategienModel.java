@@ -8,33 +8,28 @@ import java.awt.RenderingHints;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JPanel;
-
 import Base.BasePanelModel;
 import Base.EnumSurface;
 
 public class PanelBSBelegungsstrategienModel extends BasePanelModel {
 	
-	private List<ISpace> listSpace = new ArrayList<ISpace>();
-	
+	private List<ISpace> listSpace = new ArrayList<ISpace>();	
 	private final Integer MAX_WIDTH = 1000;
 	
+	private IMemoryManagement memory;	
 	
-	public PanelBSBelegungsstrategienModel(List<ISpace> value) {
-		if (value != null) {
-			listSpace = value;
-		} else {
-			listSpace = new ArrayList<ISpace>();
+	public PanelBSBelegungsstrategienModel(IMemoryManagement imemory) {
+		if (imemory == null) {
+			imemory = new MemoryManagement();
 		}
-	}
+		memory = imemory;
+		listSpace = memory.getListSpace();
+	}	
 	
-	
-	public void drawListSpace(List<ISpace> list) {
-		if (list != null) {
-			listSpace = list;
-			Graphics g = getGraphics();
-			doDrawing(g);
-		}
+	public void update() {
+		listSpace = memory.getListSpace();
+		Graphics g = getGraphics();
+		doDrawing(g);		
 	}
 		
     protected void doDrawing(Graphics g) {
@@ -66,7 +61,8 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModel {
             Integer height = 100;
             Integer times = 0;        
             
-            Integer sum = 0;
+            Integer sum = 0;           
+            
             for (ISpace space : listSpace) {
             	sum += space.getCurrentValue();
             }        

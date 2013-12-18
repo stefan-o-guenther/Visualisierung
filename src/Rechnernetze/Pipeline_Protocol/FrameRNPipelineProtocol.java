@@ -5,7 +5,8 @@ import Base.BaseFrame;
 public class FrameRNPipelineProtocol extends BaseFrame {
 
 	public FrameRNPipelineProtocol() {
-        initUI("Belegungsstrategien", new PanelRNPipelineProtocol());
+		super("Pipeline Protocol");
+        initUI(new PanelRNPipelineProtocolMain());
     }
 
     public static void main(String[] args) {

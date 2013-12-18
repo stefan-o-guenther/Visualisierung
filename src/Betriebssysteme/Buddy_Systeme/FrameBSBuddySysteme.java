@@ -5,7 +5,8 @@ import Base.BaseFrame;
 public class FrameBSBuddySysteme extends BaseFrame {
 
 	public FrameBSBuddySysteme() {
-        initUI("Buddy Systeme", new PanelBSBuddySystemeMain());
+        super("Buddy Systeme");
+        initUI(new PanelBSBuddySystemeMain());
     }
 
     public static void main(String[] args) {

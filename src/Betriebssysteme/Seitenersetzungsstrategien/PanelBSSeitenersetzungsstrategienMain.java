@@ -1,14 +1,16 @@
 package Betriebssysteme.Seitenersetzungsstrategien;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-
 import Base.BasePanelMain;
 import Base.PanelTitle;
 
 public class PanelBSSeitenersetzungsstrategienMain extends BasePanelMain {
 	
-	//private IMemoryManagement memory;
+	/**
+	 * Create the panel.
+	 */
+	public PanelBSSeitenersetzungsstrategienMain() {
+		initComponents();
+	}	
 	
 	protected void initComponents() {
 		panelModel = new PanelBSSeitenersetzungsstrategienModel();
@@ -18,11 +20,5 @@ public class PanelBSSeitenersetzungsstrategienMain extends BasePanelMain {
 	}
 	
 	
-	/**
-	 * Create the panel.
-	 */
-	public PanelBSSeitenersetzungsstrategienMain() {
-		//memory = new MemoryManagement();
-		initComponents();
-	}	
+	
 }

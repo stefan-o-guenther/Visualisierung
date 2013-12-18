@@ -5,7 +5,8 @@ import Base.BaseFrame;
 public class FrameRNTCPFairness extends BaseFrame {
 
 	public FrameRNTCPFairness() {
-        initUI("Belegungsstrategien", new PanelRNTCPFairness());
+		super("TCP-Fairness");
+        initUI(new PanelRNTCPFairnessMain());
     }
 
     public static void main(String[] args) {

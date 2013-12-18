@@ -5,7 +5,8 @@ import Base.BaseFrame;
 public class FrameBSSeitenersetzungsstrategien extends BaseFrame {
 
 	public FrameBSSeitenersetzungsstrategien() {
-        initUI("Seitenersetzungsstrategien", new PanelBSSeitenersetzungsstrategienMain());
+		super("Seitenersetzungsstrategien");
+		initUI(new PanelBSSeitenersetzungsstrategienMain());
     }
 
     public static void main(String[] args) {

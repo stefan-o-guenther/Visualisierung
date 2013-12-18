@@ -12,6 +12,14 @@ public abstract class BaseFrame extends JFrame {
 	
 	protected final int LENGTH = 1024;
 	protected final int HEIGHT = 768;
+	protected String title = "";
+	
+	protected BaseFrame(String value) {
+		if (value == null) {
+			value = "";
+		}
+		title = value;
+	}
 	
 	protected void showWindowCenterScreen() {
 		// Get the size of the screen
@@ -27,20 +35,17 @@ public abstract class BaseFrame extends JFrame {
         setLocation(x, y); 
 	}
 	
-	protected void initWindowSize() {
-		setSize(LENGTH, HEIGHT);
-	}
-	
-	protected void initUI(String title, JPanel panel) {
-		if (title == null) {
-			title = "";
-		}		
+	protected void initUI(JPanel panel) {
 		setTitle(title);        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         initWindowSize();
         showWindowCenterScreen();
         add(panel);
+	}
+	
+	protected void initWindowSize() {
+		setSize(LENGTH, HEIGHT);
 	}	
 	
 	protected static void initToolTipManager() {

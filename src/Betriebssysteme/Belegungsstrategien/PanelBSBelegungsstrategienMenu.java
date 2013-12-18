@@ -27,7 +27,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	protected String sToolTipSpeed = "";
 	protected String sToolTipSpeicher = "";
 		
-	private IMemoryManagement memory = new MemoryManagement();
+	private IMemoryManagement memory;
 		
 	private JLabel lblStrategie;
 	private JLabel lblSpeicher;
@@ -397,16 +397,18 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	
 	@Override
 	protected void updateModel() {
-		List<ISpace> listSpace = memory.getListSpace();
-		((PanelBSBelegungsstrategienModel) panelModel).drawListSpace(listSpace);
+		((PanelBSBelegungsstrategienModel) panelModel).update();
 	}
 	
 	/**
 	 * Create the panel.
 	 */
-	public PanelBSBelegungsstrategienMenu(PanelBSBelegungsstrategienModel panelModel) {
+	public PanelBSBelegungsstrategienMenu(PanelBSBelegungsstrategienModel panelModel, IMemoryManagement imemory) {
 		super(panelModel);
-		memory = new MemoryManagement();
+		if (imemory == null) {
+			imemory = new MemoryManagement();
+		}
+		memory = imemory;
 		initComponents();
 		updateComponents();
 		System.out.println();

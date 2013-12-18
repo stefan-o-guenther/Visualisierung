@@ -19,4 +19,10 @@ public class PanelRNQueueingAndLossModel extends BasePanelModel {
 		
 	}
 
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

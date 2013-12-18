@@ -18,5 +18,11 @@ public class PanelDefaultModel extends BasePanelModel {
 	public void updateColor(EnumSurface c) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}   
 }

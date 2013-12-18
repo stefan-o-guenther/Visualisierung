@@ -28,4 +28,10 @@ public class PanelBSVerklemmungenModel extends BasePanelModel {
 		
 	}
 
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

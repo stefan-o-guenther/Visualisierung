@@ -10,6 +10,8 @@ public abstract class BasePanelModel extends JPanel {
 	
 	protected abstract void doDrawing(Graphics g);
 	
+	public abstract void update();
+	
 	public void updateColor(EnumSurface c) {
 		if (c != null) {
 			color = c;

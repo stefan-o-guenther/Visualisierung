@@ -26,6 +26,7 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModel {
 		listSpace = memory.getListSpace();
 	}	
 	
+	@Override
 	public void update() {
 		listSpace = memory.getListSpace();
 		Graphics g = getGraphics();

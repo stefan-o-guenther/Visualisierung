@@ -140,5 +140,12 @@ public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModel {
         
         //g2d.setColor(Color.BLACK);
     	
-    } 
+    }
+
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	} 
 }

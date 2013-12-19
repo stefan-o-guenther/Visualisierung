@@ -20,6 +20,7 @@ public class PanelBSBuddySystemeMain extends BasePanelMain {
 	 * Create the panel.
 	 */
 	public PanelBSBuddySystemeMain() {
+		super(null);
 		initComponents();
 	}
 }

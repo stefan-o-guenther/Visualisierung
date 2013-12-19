@@ -9,16 +9,16 @@ public class PanelRNTCPFairnessMain extends BasePanelMain {
 	 * Create the panel.
 	 */
 	public PanelRNTCPFairnessMain() {
-		panelModel = new PanelRNTCPFairnessModel();
-		panelMenu = new PanelRNTCPFairnessMenu((PanelRNTCPFairnessModel) panelModel);
-		panelTitle = new PanelTitle("TCP-Fairness", panelModel);		
-		initLayout(200);
+		super(null);
+		initComponents();
 	}
 
 	@Override
 	protected void initComponents() {
-		// TODO Auto-generated method stub
-		
+		panelModel = new PanelRNTCPFairnessModel();
+		panelMenu = new PanelRNTCPFairnessMenu((PanelRNTCPFairnessModel) panelModel);
+		panelTitle = new PanelTitle("TCP-Fairness", panelModel);		
+		initLayout(200);
 	}
 
 }

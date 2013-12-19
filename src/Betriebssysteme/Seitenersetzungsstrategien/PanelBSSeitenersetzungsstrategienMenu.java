@@ -27,7 +27,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 	
 	protected ButtonGroup groupColor = new ButtonGroup();
 	
-	private IPaging paging = new Paging();
+	private IPagingManagement paging;
 	
 	//private JPanel panel;	
 
@@ -136,8 +136,12 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 	 * Create the panel.
 	 * @param panelModel 
 	 */
-	public PanelBSSeitenersetzungsstrategienMenu(PanelBSSeitenersetzungsstrategienModel panelModel) {		
+	public PanelBSSeitenersetzungsstrategienMenu(PanelBSSeitenersetzungsstrategienModel panelModel, IPagingManagement ipaging) {		
 		super(panelModel);
+		if (ipaging == null) {
+			ipaging = new PagingManagement();
+		}
+		paging = ipaging;
 		initComponents();
 	}
 	

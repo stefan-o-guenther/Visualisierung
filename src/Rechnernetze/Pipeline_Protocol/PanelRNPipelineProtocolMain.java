@@ -9,16 +9,16 @@ public class PanelRNPipelineProtocolMain extends BasePanelMain {
 	 * Create the panel.
 	 */
 	public PanelRNPipelineProtocolMain() {
-		panelModel = new PanelRNPipelineProtocolModel();
-		panelMenu = new PanelRNPipelineProtocolMenu((PanelRNPipelineProtocolModel) panelModel);
-		panelTitle = new PanelTitle("Pipeline Protocol", panelModel);		
-		initLayout(200);
+		super(null);
+		initComponents();
 	}
 
 	@Override
 	protected void initComponents() {
-		// TODO Auto-generated method stub
-		
+		panelModel = new PanelRNPipelineProtocolModel();
+		panelMenu = new PanelRNPipelineProtocolMenu((PanelRNPipelineProtocolModel) panelModel);
+		panelTitle = new PanelTitle("Pipeline Protocol", panelModel);		
+		initLayout(200);
 	}
 
 }

@@ -8,6 +8,14 @@ import Base.BasePanelMain;
 import Base.PanelTitle;
 
 public class PanelDefaultMain extends BasePanelMain {
+	
+	/**
+	 * Create the panel.
+	 */
+	public PanelDefaultMain() {
+		super(null);
+		initComponents();
+	}	
 
 	protected void initComponents() {
 		panelModel = new PanelDefaultModel();
@@ -15,12 +23,4 @@ public class PanelDefaultMain extends BasePanelMain {
 		panelTitle = new PanelTitle("Bachelorarbeit - Visualisierung", panelModel);		
 		initLayout(200);
 	}
-	
-	
-	/**
-	 * Create the panel.
-	 */
-	public PanelDefaultMain() {
-		initComponents();
-	}	
 }

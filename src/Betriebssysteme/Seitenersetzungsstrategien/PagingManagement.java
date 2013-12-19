@@ -3,48 +3,162 @@ package Betriebssysteme.Seitenersetzungsstrategien;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Paging implements IPaging {
+public class PagingManagement implements IPagingManagement {
 
 	private EnumPagingStrategy strategy = EnumPagingStrategy.NULL;
 	private EnumPagingStatus status = EnumPagingStatus.START;
 	private List<ICacheBox> listCache = new ArrayList<ICacheBox>();
 	private List<Integer> listSequence = new ArrayList<Integer>();	
-	private Integer maxRam = 3;
-	private Integer maxDisk = 3;
+	private Integer maxRam = 1;
+	private Integer maxDisk = 1;
 	
 	private void init() {
-		listSequence.add(0);
-		listSequence.add(1);
-		listSequence.add(2);
-		listSequence.add(3);
-		listSequence.add(4);
-		listSequence.add(0);
-		listSequence.add(1);
-		listSequence.add(5);
-		listSequence.add(6);
-		listSequence.add(0);
-		listSequence.add(1);
-		listSequence.add(2);
-		listSequence.add(3);
-		listSequence.add(5);
-		listSequence.add(6);
+		listSequence = new ArrayList<Integer>();		
 		
-		maxRam = 3;
-		maxDisk = 3;
+		listSequence.add(0);
+		listSequence.add(1);
+		listSequence.add(2);
+		listSequence.add(3);
+		listSequence.add(4);		
+		listSequence.add(5);
+		listSequence.add(6);
+		listSequence.add(7);
+		listSequence.add(3);
+		listSequence.add(5);		
+		listSequence.add(0);
+		listSequence.add(8);
+		listSequence.add(1);
+		listSequence.add(9);
+		listSequence.add(6);		
+		listSequence.add(2);
+		listSequence.add(4);
+		listSequence.add(9);
+		listSequence.add(5);
+		listSequence.add(3);		
+		listSequence.add(0);
+		listSequence.add(1);
+		listSequence.add(2);
+		listSequence.add(8);
+		listSequence.add(3);		
+		listSequence.add(0);
 	}
 	
 	
 	private void initListCache() {
+		init();
 		listCache = new ArrayList<ICacheBox>();
-		if (listSequence != null) {
-			for (Integer x : listSequence) {
-				listCache.add( new CacheBox(x, maxRam, maxDisk));
+		
+		
+		maxRam = 7;
+		maxDisk = 0;
+		
+		Boolean change = true;
+		
+		for (Integer i : listSequence) {
+			Integer cbZahl = i % 10;
+			if (cbZahl == 0) {
+				change = !change;
+			}
+			if (change) {
+				cbZahl = 9 - cbZahl;
+			}			
+			ICacheBox cb = new CacheBox(cbZahl);
+			listCache.add(cb);			
+		}
+		fifo();
+	}
+	
+	private void second() {
+		Integer count = 0;
+		if (maxRam > 0) {
+			for (Integer i = 0; i < listCache.size(); i++) {
+				ICacheBox cb = listCache.get(i);
+				Integer number = cb.getNumber();
+				
+				List<ICache> ram = null;
+				List<ICache> disk = null;
+				if (i == 0) {
+					ram = cb.getRam();
+					ICache cache = new Cache();
+					cache.setItem(number);
+					ram.add(cache);
+				} else {
+					ICacheBox ocb = listCache.get(i-1);
+					ram = ocb.getRamCopy();
+					Integer pos = isAvailable(ram, number);
+					if (pos != null) {
+						ram.remove(pos.intValue());
+					}
+					ICache cache = new Cache();
+					cache.setItem(number);
+					ram.add(0, cache);
+					while (ram.size() > maxRam) {
+						Integer last = ram.size() - 1;
+						ram.remove(last.intValue());
+						count += 1;
+					}
+				}
+				cb.setRam(ram);
 			}
 		}
+		System.out.println(count);
 	}
 	
 	
-	private void doFIFO() {
+	
+	private void fifo() {
+		Integer count = 0;
+		if (maxRam > 0) {
+			for (Integer i = 0; i < listCache.size(); i++) {
+				ICacheBox cb = listCache.get(i);
+				Integer number = cb.getNumber();
+				
+				List<ICache> ram = null;
+				List<ICache> disk = null;
+				if (i == 0) {
+					ram = cb.getRam();
+					ICache cache = new Cache();
+					cache.setItem(number);
+					ram.add(cache);
+				} else {
+					ICacheBox ocb = listCache.get(i-1);
+					ram = ocb.getRamCopy();
+					if (isAvailable(ram, number) == null) {
+						ICache cache = new Cache();
+						cache.setItem(number);
+						ram.add(0, cache);						
+					}
+					while (ram.size() > maxRam) {
+						Integer last = ram.size() - 1;
+						ram.remove(last.intValue());
+						count += 1;
+					}
+				}
+				cb.setRam(ram);
+			}
+		}
+		System.out.println(count);
+	}
+	
+	private Integer isAvailable(List<ICache> list, Integer number) {
+		Integer result = null;
+		if ((number != null) && (list != null)) {
+			for (Integer i = 0; i < list.size(); i++) {
+				ICache cache = list.get(i);
+				Integer x = cache.getItem();
+				if (x.equals(number)) {
+					result = i;
+					break;
+				}
+			}
+		}	
+		return result;
+	}
+	
+	
+	
+	private void doFIFO() {	
+		
 		for (int i = 0; i < listCache.size(); i++) {
 			ICacheBox cb = listCache.get(i);
 			Integer number = cb.getNumber();
@@ -110,9 +224,9 @@ public class Paging implements IPaging {
 		
 	}
 	
-	public Paging() {
-		this.initListCache();
-		init();
+	public PagingManagement() {
+		initListCache();
+		//init();
 	}
 	
 	

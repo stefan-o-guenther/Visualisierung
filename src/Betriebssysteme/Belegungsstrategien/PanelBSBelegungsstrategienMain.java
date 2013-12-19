@@ -1,26 +1,21 @@
 package Betriebssysteme.Belegungsstrategien;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-
 import Base.BasePanelMain;
 import Base.PanelTitle;
 
 public class PanelBSBelegungsstrategienMain extends BasePanelMain {
-	
-	private IMemoryManagement memory;
-	
+		
 	/**
 	 * Create the panel.
 	 */
 	public PanelBSBelegungsstrategienMain() {
-		memory = new MemoryManagement();
+		super(new MemoryManagement());
 		initComponents();
 	}
 	
 	protected void initComponents() {
-		panelModel = new PanelBSBelegungsstrategienModel(memory);
-		panelMenu = new PanelBSBelegungsstrategienMenu((PanelBSBelegungsstrategienModel) panelModel, memory);
+		panelModel = new PanelBSBelegungsstrategienModel((IMemoryManagement) management);
+		panelMenu = new PanelBSBelegungsstrategienMenu((PanelBSBelegungsstrategienModel) panelModel, (IMemoryManagement) management);
 		panelTitle = new PanelTitle("Belegungsstrategien", panelModel);		
 		initLayout(160);
 	}

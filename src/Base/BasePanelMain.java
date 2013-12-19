@@ -9,8 +9,17 @@ public abstract class BasePanelMain extends JPanel {
 	protected PanelTitle panelTitle;
 	protected BasePanelMenu panelMenu;
 	protected BasePanelModel panelModel;
+	protected IBaseManagement management;
 	
 	protected abstract void initComponents();
+	
+	protected BasePanelMain(IBaseManagement bm) {
+		if (bm != null) {
+			management = bm;
+			//initComponents();
+		}
+	}
+	
 	
 	protected void initLayout(Integer sizeMenu) {
 		if ((sizeMenu != null) && (sizeMenu >= 0)) {

@@ -2,8 +2,10 @@ package Betriebssysteme.Seitenersetzungsstrategien;
 
 import java.util.List;
 
+import Base.IBaseManagement;
 
-public interface IPaging {
+
+public interface IPagingManagement extends IBaseManagement {
 	EnumPagingStrategy getStrategy();
 	void setStrategy(EnumPagingStrategy value);
 	

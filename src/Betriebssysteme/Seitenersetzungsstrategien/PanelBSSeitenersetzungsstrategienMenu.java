@@ -19,13 +19,29 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import Base.BasePanelMenu;
 
 public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
+	
+	private String sToolTipStrategie = "";
+	private String sToolTipReferenzfolge = "";
+	private String sToolTipRam = "";
+	private String sToolTipDisk = "";
+	private String sToolTipR = "";
+	private String sToolTipM = "";
+	
 	private JLabel lblStrategie;
 	private JLabel lblReferenzfolge;
+	private JLabel lblRam;
+	private JLabel lblDisk;	
 	private JTextField tfReferezfolge;
 	private JTextField tfDisk;
 	private JTextField tfRam;
-	
-	protected ButtonGroup groupColor = new ButtonGroup();
+	private JLabel lblToolTipR;
+	private JLabel lblToolTipM;
+	private JComboBox cbStrategie;
+	private JButton btnExecute2;
+	private JButton btnExecute1;
+	private JButton btnR;
+	private JButton btnM;
+		
 	
 	private IPagingManagement paging;
 	
@@ -33,33 +49,45 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 
 	//@Override
 	protected void updateComponents() {
-		// TODO Auto-generated method stub
-		
+		EnumPagingStatus status = paging.getStatus();
+		switch (status) {
+			case START: {
+				
+			}
+			case SEARCH: {
+				
+			}
+			case FINISHED: {
+				
+			}
+		}
 	}
 	
 	//@Override
 	protected void initComponents() {		
 		initToolTips();
-		
-		//panel = new PanelBSSeitenersetzungsstrategienModel();
-		
+				
 		lblStrategie = new JLabel("Strategie:");
-		lblStrategie.setIcon(new ImageIcon("C:\\Eclipse\\Workspace\\Visualisierung\\img\\help16x16.png"));
+		lblStrategie.setIcon(IMG_HELP);
+		lblStrategie.setToolTipText(sToolTipStrategie);
 		
 		lblReferenzfolge = new JLabel("Referenzfolge:");
-		lblReferenzfolge.setIcon(new ImageIcon("C:\\Eclipse\\Workspace\\Visualisierung\\img\\help16x16.png"));
+		lblReferenzfolge.setIcon(IMG_HELP);
+		lblReferenzfolge.setToolTipText(sToolTipReferenzfolge);
 		
 		tfReferezfolge = new JTextField();
 		tfReferezfolge.setColumns(10);
 		
-		JComboBox cbStrategie = new JComboBox();
-		cbStrategie.setModel(new DefaultComboBoxModel(new String[] {"Optimale Strategie", "FIFO", "FIFO - 2nd Chance"}));
+		cbStrategie = new JComboBox();
+		cbStrategie.setModel(new DefaultComboBoxModel(new String[] {"Optimale Strategie", "FIFO", "FIFO - 2nd Chance", "LRU", "NFU / LFU", "NRU/RNU"}));
 		
-		JLabel lblRam = new JLabel("Anzahl RAM:");
-		lblRam.setIcon(new ImageIcon("C:\\Eclipse\\Workspace\\Visualisierung\\img\\help16x16.png"));
+		lblRam = new JLabel("Anzahl RAM:");
+		lblRam.setIcon(IMG_HELP);
+		lblRam.setToolTipText(sToolTipRam);
 		
-		JLabel lblDisk = new JLabel("Anzahl DISK:");
-		lblDisk.setIcon(new ImageIcon("C:\\Eclipse\\Workspace\\Visualisierung\\img\\help16x16.png"));
+		lblDisk = new JLabel("Anzahl DISK:");
+		lblDisk.setIcon(IMG_HELP);
+		lblDisk.setToolTipText(sToolTipDisk);
 		
 		tfDisk = new JTextField();
 		tfDisk.setColumns(10);
@@ -67,16 +95,26 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		tfRam = new JTextField();
 		tfRam.setColumns(10);
 		
-		JButton btnExecute = new JButton("\u00FCbernehmen");
-		btnExecute.addActionListener(ActionExecute);
+		btnExecute1 = new JButton("Beispiel laden");
+		btnExecute1.addActionListener(ActionExecute1);
 		
-		JButton btnReset = new JButton("zur\u00FCcksetzen");
+		btnExecute2 = new JButton("übernehmen");
+		btnExecute2.addActionListener(ActionExecute2);		
 		
-		JButton btnR = new JButton("R-Bits zur\u00FCcksetzen");
+		btnR = new JButton("R-Bits zurücksetzen");
+		btnR.addActionListener(ActionResetR);
 		
-		JButton btnM = new JButton("M-Bit setzen");
-		//panel = new JPanel();
+		btnM = new JButton("M-Bit setzen");
+		btnM.addActionListener(ActionSetM);
 		
+		lblToolTipR = new JLabel(" ");
+		lblToolTipR.setIcon(IMG_HELP);
+		lblToolTipR.setToolTipText(sToolTipR);
+		
+		lblToolTipM = new JLabel(" ");
+		lblToolTipM.setIcon(IMG_HELP);
+		lblToolTipM.setToolTipText(sToolTipM);
+				
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -99,34 +137,42 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 						.addComponent(tfRam, GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(btnExecute, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnReset, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(btnExecute2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnExecute1, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblToolTipR)
+						.addComponent(lblToolTipM))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(btnM, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(btnR, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addContainerGap(173, Short.MAX_VALUE))
+					.addContainerGap(194, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblStrategie)
-						.addComponent(cbStrategie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblRam)
-						.addComponent(tfRam, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnReset)
-						.addComponent(btnR))
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblStrategie)
+							.addComponent(cbStrategie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblRam)
+							.addComponent(tfRam, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnExecute1))
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(btnR)
+							.addComponent(lblToolTipR)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblReferenzfolge)
 						.addComponent(tfReferezfolge, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblDisk)
 						.addComponent(tfDisk, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnExecute)
-						.addComponent(btnM))
-					.addContainerGap(395, Short.MAX_VALUE))
+						.addComponent(btnExecute2)
+						.addComponent(btnM)
+						.addComponent(lblToolTipM))
+					.addContainerGap(12, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 		
@@ -136,33 +182,64 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 	 * Create the panel.
 	 * @param panelModel 
 	 */
-	public PanelBSSeitenersetzungsstrategienMenu(PanelBSSeitenersetzungsstrategienModel panelModel, IPagingManagement ipaging) {		
-		super(panelModel);
+	public PanelBSSeitenersetzungsstrategienMenu(IPagingManagement ipaging) {		
 		if (ipaging == null) {
 			ipaging = new PagingManagement();
 		}
 		paging = ipaging;
 		initComponents();
+	}	
+	
+	@Override
+	protected void initToolTips() {
+		
+		
+
+
+
+		
+		
+		sToolTipStrategie = 	
+	        	  "<html>"
+		    	+ "<h3>:</h3>"
+		    	+ "<br>"
+		    	+ "<br>"
+		    	+ "<br>"
+		    	+ "<h3>:</h3>"
+		    	+ "<br>"
+		    	+ "<br>"		    	
+		    	+ "<br>"
+		    	+ "<br>"
+		    	+ "</html>";
+		
+		sToolTipReferenzfolge = "";
+		sToolTipRam = "";
+		sToolTipDisk = "";
 	}
 	
-	ActionListener ActionExecute = new ActionListener() {
+	ActionListener ActionExecute1 = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
-			//paging.execute();
-			//panel.drawListSpace(paging.getListCache(),paging.getMaxRam(), paging.getMaxDisk());
+			// Beispiel laden und Reset
+			paging.loadExample();
+		}
+	};
+	
+	ActionListener ActionExecute2 = new ActionListener() {
+		public void actionPerformed (ActionEvent e) {
+			// Starten und Weiter
+			paging.execute();
+		}
+	};
+	
+	ActionListener ActionResetR = new ActionListener() {
+		public void actionPerformed (ActionEvent e) {
+			
 		}
 	};
 
-	@Override
-	protected void updateModel() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void initToolTips() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
+	ActionListener ActionSetM = new ActionListener() {
+		public void actionPerformed (ActionEvent e) {
+			
+		}
+	};
 }

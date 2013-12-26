@@ -1,16 +1,19 @@
 package Rechnernetze.TCP_Retransmission;
 
-import javax.swing.JPanel;
-
 import Base.BasePanelMenu;
 
 public class PanelRNTCPRetransmissionMenu extends BasePanelMenu {
 
+	private IRetransmissionManagement retransmission;
+	
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNTCPRetransmissionMenu(PanelRNTCPRetransmissionModel panelModel) {
-		super(panelModel);
+	public PanelRNTCPRetransmissionMenu(IRetransmissionManagement iretransmission) {
+		if (iretransmission == null) {
+			iretransmission = new RetransmissionManagement();
+		}
+		retransmission = iretransmission;
 	}
 
 	@Override
@@ -21,12 +24,6 @@ public class PanelRNTCPRetransmissionMenu extends BasePanelMenu {
 
 	@Override
 	protected void updateComponents() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void updateModel() {
 		// TODO Auto-generated method stub
 		
 	}

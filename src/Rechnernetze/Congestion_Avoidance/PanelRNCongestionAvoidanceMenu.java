@@ -4,11 +4,16 @@ import Base.BasePanelMenu;
 
 public class PanelRNCongestionAvoidanceMenu extends BasePanelMenu {
 
+	INetworkManagement network;
+	
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNCongestionAvoidanceMenu(PanelRNCongestionAvoidanceModel panelModel) {
-		super(panelModel);
+	public PanelRNCongestionAvoidanceMenu(INetworkManagement inetwork) {
+		if (inetwork == null) {
+			inetwork = new NetworkManagement();
+		}
+		network = inetwork;
 	}
 
 	@Override
@@ -19,12 +24,6 @@ public class PanelRNCongestionAvoidanceMenu extends BasePanelMenu {
 
 	@Override
 	protected void updateComponents() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void updateModel() {
 		// TODO Auto-generated method stub
 		
 	}

@@ -14,9 +14,19 @@ public class PanelBSBelegungsstrategienMain extends BasePanelMain {
 	}
 	
 	protected void initComponents() {
-		panelModel = new PanelBSBelegungsstrategienModel((IMemoryManagement) management);
-		panelMenu = new PanelBSBelegungsstrategienMenu((PanelBSBelegungsstrategienModel) panelModel, (IMemoryManagement) management);
-		panelTitle = new PanelTitle("Belegungsstrategien", panelModel);		
+		IMemoryManagement memory = (IMemoryManagement) management;
+				
+		String tooltip = 
+	        	  "<html>"
+	        	+ "Unabhängig vom dem Mechanismus der Speicherbelegungslisten gibt es verschiedene Strategien,<br>"
+	        	+ "um aus der Menge der unbelegten Speicherbereiche den geeignetsten auszusuchen.<br>"
+	        	+ "Ziel der Strategien ist es, die Anzahl der freien Bereiche möglichst klein zu halten und ihre Größe möglichst groß.<br>"
+	        	+ "Die wichtigsten Strategien sind: First-Fit, Next-Fit, Best-Fit, Worst-Fit<br>"
+	        	+ "</html>";
+		
+		panelModel = new PanelBSBelegungsstrategienModel(memory);
+		panelMenu = new PanelBSBelegungsstrategienMenu(memory);
+		panelTitle = new PanelTitle("Belegungsstrategien", tooltip, memory);		
 		initLayout(160);
 	}
 }

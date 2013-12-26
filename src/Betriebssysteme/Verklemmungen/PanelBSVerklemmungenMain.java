@@ -13,14 +13,23 @@ public class PanelBSVerklemmungenMain extends BasePanelMain {
 	 * Create the panel.
 	 */
 	public PanelBSVerklemmungenMain() {
-		super(null);
+		super(new DeadlockManagement());
 		initComponents();
 	}	
 	
 	protected void initComponents() {
-		panelModel = new PanelBSVerklemmungenModel();
-		panelMenu = new PanelBSVerklemmungenMenu((PanelBSVerklemmungenModel) panelModel);
-		panelTitle = new PanelTitle("Verklemmungen", panelModel);		
+		IDeadlockManagement deadlock = (IDeadlockManagement) management;
+		
+		String tooltip = 
+	        	  "<html>"
+	        	+ "Mit diesem Geschwindigkeitsregeler können Sie einstellen,<br>"
+	        	+ "wie schnell der Auto-Durchlauf ausgeführt werden soll.<br>"
+	        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
+	        	+ "</html>";
+		
+		panelModel = new PanelBSVerklemmungenModelScroll(deadlock);
+		panelMenu = new PanelBSVerklemmungenMenu(deadlock);
+		panelTitle = new PanelTitle("Verklemmungen", tooltip, deadlock);		
 		initLayout(200);
 	}
 }

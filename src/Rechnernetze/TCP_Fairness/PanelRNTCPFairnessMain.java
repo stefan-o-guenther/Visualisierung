@@ -9,15 +9,24 @@ public class PanelRNTCPFairnessMain extends BasePanelMain {
 	 * Create the panel.
 	 */
 	public PanelRNTCPFairnessMain() {
-		super(null);
+		super(new FairnessManagement());
 		initComponents();
 	}
 
 	@Override
 	protected void initComponents() {
-		panelModel = new PanelRNTCPFairnessModel();
-		panelMenu = new PanelRNTCPFairnessMenu((PanelRNTCPFairnessModel) panelModel);
-		panelTitle = new PanelTitle("TCP-Fairness", panelModel);		
+		IFairnessManagement fairness = (IFairnessManagement) management;
+		
+		String tooltip = 
+	        	  "<html>"
+	        	+ "Mit diesem Geschwindigkeitsregeler können Sie einstellen,<br>"
+	        	+ "wie schnell der Auto-Durchlauf ausgeführt werden soll.<br>"
+	        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
+	        	+ "</html>";
+		
+		panelModel = new PanelRNTCPFairnessModel(fairness);
+		panelMenu = new PanelRNTCPFairnessMenu(fairness);
+		panelTitle = new PanelTitle("TCP-Fairness", tooltip, fairness);		
 		initLayout(200);
 	}
 

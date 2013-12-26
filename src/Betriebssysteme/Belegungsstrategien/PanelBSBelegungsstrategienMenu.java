@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -20,12 +19,13 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import Base.BasePanelMenu;
+import javax.swing.ImageIcon;
 
 public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 
-	protected String sToolTipStrategie = "";
-	protected String sToolTipSpeed = "";
-	protected String sToolTipSpeicher = "";
+	private String sToolTipStrategie = "";
+	private String sToolTipSpeed = "";
+	private String sToolTipSpeicher = "";
 		
 	private IMemoryManagement memory;
 		
@@ -53,33 +53,11 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	private JCheckBox chcxbxAuto;
 	
 	private JSlider sSpeed;
-
-	
 	
 	private AutoThread tAuto; //= new AutoThread();
-	private Boolean isAutoChecked = false;
-	private Boolean isThread = false;
-		
+	private Boolean isAutomaticChecked = false;
+	private Boolean isAutomaticRunning = false;	
 	private Integer speed = 0;
-	
-	private void startThread() {
-		if (!(isThread)) {
-			isThread = true;
-			tAuto = new AutoThread();
-			tAuto.start();
-		}
-	}
-	
-	private void stopThread() {
-		if (isThread) {
-			isThread = false;
-			isAutoChecked = false;
-			//tAuto.interrupt();
-			updateComponents();
-		}
-	}
-	
-	
 	
 	private void noInput() {
 		Object[] option = {"schließen"};
@@ -112,11 +90,26 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		speed = 2500 - (sSpeed.getValue() * 20);
 	}
 	
+	private void startAutomatic() {
+		if ((!(isAutomaticRunning)) && (isAutomaticChecked)) {
+			isAutomaticRunning = true;
+			tAuto = new AutoThread();
+			tAuto.start();
+		}
+	}
+
+	private void stopAutomatic() {
+		if (isAutomaticRunning) {
+			isAutomaticRunning = false;
+			isAutomaticChecked = false;
+		}
+	}
+	
 	protected void initToolTips() {
 		sToolTipStrategie = 	
 	        	  "<html>"
 		    	+ "<h3>First-Fit:</h3>"
-		    	+ "Wähle den ersten Speicherblock, der ausreichend<br>"//JOptionPane.OK_CANCEL_OPTION
+		    	+ "Wähle den ersten Speicherblock, der ausreichend<br>"
 		    	+ "groß ist.<br>"
 		    	+ "<br>"
 		    	+ "<h3>Next-Fit:</h3>"
@@ -176,59 +169,70 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
     	Double rate = (((double) used) * 100) / ((double) total); 
     	DecimalFormat f = new DecimalFormat("#0.00"); 
     	
-    	EnumMemoryStatus status = memory.getStatus();
-    	
-    	if (status == EnumMemoryStatus.START) {
-    		cbStrategie.setEnabled(true);
-        	tSpeicher.setEnabled(false);
-        	tSpeicher.setEditable(false);
-        	tSpeicher.setText("");
-        	btnExecute1.setEnabled(true);
-        	btnExecute1.setText("übernehmen");
-        	btnExecute2.setEnabled(false);
-        	btnExecute2.setText("speichern");
-        	chcxbxAuto.setEnabled(false);
-        	isAutoChecked = false;
-    	} else if (status == EnumMemoryStatus.INPUT) {
-    		cbStrategie.setEnabled(false);
-        	tSpeicher.setEnabled(true);
-        	tSpeicher.setEditable(true);
-        	tSpeicher.setText("");
-        	btnExecute1.setEnabled(true);
-        	btnExecute1.setText("zurücksetzen");
-        	btnExecute2.setEnabled(true);
-        	btnExecute2.setText("speichern");
-        	chcxbxAuto.setEnabled(false);
-        	isAutoChecked = false;
-    	} else if (status == EnumMemoryStatus.SEARCH) {
-    		cbStrategie.setEnabled(false);
-        	tSpeicher.setEnabled(false);
-        	tSpeicher.setEditable(false);
-        	btnExecute1.setEnabled(true);
-        	btnExecute1.setText("zurücksetzen");
-        	btnExecute2.setEnabled(true);
-        	if (isThread) {
-        		btnExecute2.setText("stop");
-        	} else {
-        		btnExecute2.setText("weiter");
-        	}        	
-        	chcxbxAuto.setEnabled(true);        	
-    	} else if (status == EnumMemoryStatus.FINISHED) {
-    		cbStrategie.setEnabled(false);
-        	tSpeicher.setEnabled(false);
-        	tSpeicher.setEditable(false);
-        	btnExecute1.setEnabled(true);
-        	btnExecute1.setText("zurücksetzen");
-        	btnExecute2.setEnabled(!(isAutoChecked));
-        	btnExecute2.setText("weiter");
-        	chcxbxAuto.setEnabled(false);        	       	
-    	}
-    	chcxbxAuto.setSelected(isAutoChecked);
+    	EnumMemoryStatus status = memory.getStatus();    	
+    	switch (status) {
+	    	case START: {
+	    		cbStrategie.setEnabled(true);
+	        	tSpeicher.setEnabled(false);
+	        	tSpeicher.setEditable(false);
+	        	tSpeicher.setText("");
+	        	btnExecute1.setEnabled(true);
+	        	btnExecute1.setText("übernehmen");
+	        	btnExecute2.setEnabled(false);
+	        	btnExecute2.setText("speichern");
+	        	chcxbxAuto.setEnabled(false);
+	        	isAutomaticChecked = false;
+	    		break;
+	    	}
+	    	case INPUT: {
+	    		cbStrategie.setEnabled(false);
+	        	tSpeicher.setEnabled(true);
+	        	tSpeicher.setEditable(true);
+	        	btnExecute1.setEnabled(true);
+	        	btnExecute1.setText("zurücksetzen");
+	        	btnExecute2.setEnabled(true);
+	        	btnExecute2.setText("speichern");
+	        	chcxbxAuto.setEnabled(false);
+	        	isAutomaticChecked = false;
+	    		break;
+	    	}
+	    	case SEARCH:
+	    	case CHOOSE: {
+	    		cbStrategie.setEnabled(false);
+	        	tSpeicher.setEnabled(false);
+	        	tSpeicher.setEditable(false);
+	        	btnExecute1.setEnabled(true);
+	        	btnExecute1.setText("zurücksetzen");
+	        	btnExecute2.setEnabled(true);
+	        	if (isAutomaticRunning) {
+	        		btnExecute2.setText("stop");
+	        	} else {
+	        		btnExecute2.setText("weiter");
+	        	}        	
+	        	chcxbxAuto.setEnabled(true);   
+	    		break;
+	    	}
+	    	case FINISHED: {
+	    		cbStrategie.setEnabled(false);
+	        	tSpeicher.setEnabled(false);
+	        	tSpeicher.setEditable(false);
+	        	tSpeicher.setText("");
+	        	btnExecute1.setEnabled(true);
+	        	btnExecute1.setText("zurücksetzen");
+	        	btnExecute2.setEnabled(!(isAutomaticChecked));
+	        	btnExecute2.setText("weiter");
+	        	chcxbxAuto.setEnabled(false);  
+	    	}
+	    	default: {
+	    		break;
+	    	}
+    	}    	
+    	chcxbxAuto.setSelected(isAutomaticChecked);
     	lblTotalSpaceOutput.setText(total.toString());
     	lblFreeSpaceOutput.setText(free.toString());
     	lblUsedSpaceOutput.setText(used.toString());
     	lblRateOutput.setText(f.format(rate));
-    	sSpeed.setEnabled(isAutoChecked);
+    	sSpeed.setEnabled(isAutomaticChecked);
 	}	
 	
 	@Override
@@ -251,6 +255,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 			
 			tSpeicher = new JTextField();
 			tSpeicher.setColumns(10);
+			tSpeicher.setText("");
 			
 			btnExecute1 = new JButton("zurücksetzen");
 			btnExecute1.addActionListener(ActionExecute1);
@@ -260,10 +265,10 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 			
 			chcxbxAuto = new JCheckBox("Automatischer Durchlauf");
 			chcxbxAuto.addActionListener(ActionAuto);
-			chcxbxAuto.setSelected(isAutoChecked);
+			chcxbxAuto.setSelected(isAutomaticChecked);
 			
-			lblSpeedTip = new JLabel("");
-			lblSpeedTip.setIcon(new ImageIcon("C:\\Eclipse\\Workspace\\Visualisierung\\img\\help16x16.png"));
+			lblSpeedTip = new JLabel(" ");
+			lblSpeedTip.setIcon(IMG_HELP);
 			lblSpeedTip.setToolTipText(sToolTipSpeed);
 			
 			sSpeed = new JSlider( 0, 100, 50 );
@@ -293,10 +298,10 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 			lblRateOutput = new JLabel("");
 			
 			lblTurtle = new JLabel("");
-			lblTurtle.setIcon(new ImageIcon("C:\\Eclipse\\Workspace\\Visualisierung\\img\\turtle.png"));
+			lblTurtle.setIcon(IMG_TURTLE);
 			
 			lblRabbit = new JLabel("");
-			lblRabbit.setIcon(new ImageIcon("C:\\Eclipse\\Workspace\\Visualisierung\\img\\rabbit.png"));
+			lblRabbit.setIcon(IMG_RABBIT);
 			
 			GroupLayout groupLayout = new GroupLayout(this);
 			groupLayout.setHorizontalGroup(
@@ -313,7 +318,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 								.addComponent(lblFreeSpaceLabel)
 								.addPreferredGap(ComponentPlacement.RELATED)
 								.addComponent(lblFreeSpaceOutput)
-								.addContainerGap(1044, Short.MAX_VALUE))
+								.addContainerGap(1050, Short.MAX_VALUE))
 							.addGroup(groupLayout.createSequentialGroup()
 								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 									.addGroup(groupLayout.createSequentialGroup()
@@ -338,18 +343,21 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 										.addComponent(lblTotalSpaceLabel)
 										.addPreferredGap(ComponentPlacement.RELATED)
 										.addComponent(lblTotalSpaceOutput)))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-									.addComponent(lblTurtle)
-									.addComponent(lblSpeedTip))
-								.addPreferredGap(ComponentPlacement.RELATED)
 								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 									.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(sSpeed, GroupLayout.PREFERRED_SIZE, 570, GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(lblRabbit))
-									.addComponent(chcxbxAuto))
-								.addContainerGap(211, Short.MAX_VALUE))))
+										.addGap(7)
+										.addComponent(lblTurtle))
+									.addGroup(groupLayout.createSequentialGroup()
+										.addGap(18)
+										.addComponent(lblSpeedTip)
+										.addGap(4)
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+											.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(sSpeed, GroupLayout.PREFERRED_SIZE, 570, GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(lblRabbit))
+											.addComponent(chcxbxAuto))))
+								.addContainerGap(233, Short.MAX_VALUE))))
 			);
 			groupLayout.setVerticalGroup(
 				groupLayout.createParallelGroup(Alignment.LEADING)
@@ -360,58 +368,50 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 								.addComponent(lblStrategie)
 								.addComponent(cbStrategie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnExecute1))
-							.addComponent(chcxbxAuto)
-							.addComponent(lblSpeedTip))
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(chcxbxAuto)
+								.addComponent(lblSpeedTip)))
 						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addComponent(lblRabbit)
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 							.addComponent(lblTurtle)
-							.addGroup(groupLayout.createSequentialGroup()
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-									.addGroup(groupLayout.createSequentialGroup()
-										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-											.addComponent(lblSpeicher)
-											.addComponent(tSpeicher, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-											.addComponent(btnExecute2))
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-											.addComponent(lblTotalSpaceLabel)
-											.addComponent(lblTotalSpaceOutput))
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-											.addComponent(lblFreeSpaceLabel)
-											.addComponent(lblFreeSpaceOutput)))
-									.addComponent(sSpeed, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-									.addComponent(lblUsedSpaceLabel)
-									.addComponent(lblUsedSpaceOutput))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-									.addComponent(lblRateLabel)
-									.addComponent(lblRateOutput))))
-						.addContainerGap(12, Short.MAX_VALUE))
+									.addComponent(lblSpeicher)
+									.addComponent(tSpeicher, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+									.addComponent(btnExecute2))
+								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+									.addComponent(lblRabbit)
+									.addComponent(sSpeed, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblTotalSpaceLabel)
+							.addComponent(lblTotalSpaceOutput))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblFreeSpaceLabel)
+							.addComponent(lblFreeSpaceOutput))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblUsedSpaceLabel)
+							.addComponent(lblUsedSpaceOutput))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblRateLabel)
+							.addComponent(lblRateOutput))
+						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 			);
 			setLayout(groupLayout);
 	}	
 	
-	@Override
-	protected void updateModel() {
-		((PanelBSBelegungsstrategienModel) panelModel).update();
-	}
-	
 	/**
 	 * Create the panel.
 	 */
-	public PanelBSBelegungsstrategienMenu(PanelBSBelegungsstrategienModel panelModel, IMemoryManagement imemory) {
-		super(panelModel);
+	public PanelBSBelegungsstrategienMenu(IMemoryManagement imemory) {
 		if (imemory == null) {
 			imemory = new MemoryManagement();
 		}
 		memory = imemory;
 		initComponents();
-		updateComponents();
-		System.out.println();
 	}
 	
 	ActionListener ActionExecute1 = new ActionListener() {
@@ -439,60 +439,75 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 					}				
 				} else {
 					// zurücksetzen
-					stopThread();
-					// tAuto = new AutoThread();
-					memory.reset();					
+					stopAutomatic();;
+					memory.reset();
+					tSpeicher.setText("");
 				}
-				updateModel();
-				updateComponents();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
 		}
 	};
 	
+	private void input() {
+		// Eingabe
+		String text = tSpeicher.getText();			
+		try {
+			Integer space = new Integer(text);
+			memory.setNumber(space);	
+		} catch (Exception ex) {
+			tSpeicher.setText("");
+			noInput();
+		} finally {
+			
+		}
+	}
+	
+	private void automatic() {
+		if (isAutomaticRunning) {
+			stopAutomatic();
+		} else {
+			startAutomatic();;							
+		}
+	}
+	
+	private void search() {
+		// Suche
+		if (isAutomaticChecked) {
+			automatic();						
+		} else {
+			foundSpace(memory.execute());
+		}
+	}	
 	
 	ActionListener ActionExecute2 = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			try {
 				EnumMemoryStatus status = memory.getStatus();
-				if (status == EnumMemoryStatus.INPUT) {
-					// Eingabe
-					String text = tSpeicher.getText();			
-					try {
-						Integer space = new Integer(text);
-						memory.setNumber(space);	
-					} catch (Exception ex) {
-						noInput();
-						} finally {
-						updateComponents();
+				switch (status) {
+					case INPUT: {
+						input();
+						break;
 					}
-				} else if ((status == EnumMemoryStatus.SEARCH) || (status == EnumMemoryStatus.FINISHED)) {
-					// Suche
-					if (isAutoChecked == true) {
-						if (isThread) {
-							stopThread();
-						} else {
-							startThread();							
-						}						
-					} else {
-						foundSpace(memory.execute());
+					case SEARCH:
+					case CHOOSE:
+					case FINISHED: {
+						search();
+						break;
+					}
+					default: {
+						break;
 					}
 				}
-				updateModel();
-				updateComponents();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
 		}
 	};	
 	
-	
-	
 	ActionListener ActionAuto = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
-			isAutoChecked = chcxbxAuto.isSelected();
-			updateComponents();
+			isAutomaticChecked = chcxbxAuto.isSelected();
 		}
 	};
 	
@@ -502,7 +517,6 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		}
 	};
 	
-		
 	class AutoThread extends Thread {
 	    String text;
 	  
@@ -512,20 +526,14 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	  
 	    public void run() {
 	    	try {
-	    		while(isThread && isAutoChecked && ((memory.getStatus() == EnumMemoryStatus.SEARCH) || (memory.getStatus() == EnumMemoryStatus.FINISHED))) {
+	    		while(isAutomaticRunning && isAutomaticChecked && ((memory.getStatus() == EnumMemoryStatus.SEARCH) || (memory.getStatus() == EnumMemoryStatus.CHOOSE) || (memory.getStatus() == EnumMemoryStatus.FINISHED))) {
 	                foundSpace(memory.execute());
-	                updateModel();
-					updateComponents();
                     Thread.sleep(speed);
 	            }
-	    		isAutoChecked = false;
-	    		isThread = false;
-	    		//interrupt();
+	    		isAutomaticChecked = false;
+	    		isAutomaticRunning = false;
             } catch (InterruptedException e) {
-                //e.printStackTrace();
             	System.out.println("Thread abgebrochen");
-            } finally {
-            	updateComponents();
             }
 	    }
 	}

@@ -9,15 +9,24 @@ public class PanelRNDijkstraMain extends BasePanelMain {
 	 * Create the panel.
 	 */
 	public PanelRNDijkstraMain() {
-		super(null);
+		super(new DijkstraManagement());
 		initComponents();
 	}
 
 	@Override
 	protected void initComponents() {
-		panelModel = new PanelRNDijkstraModel();
-		panelMenu = new PanelRNDijkstraMenu((PanelRNDijkstraModel) panelModel);
-		panelTitle = new PanelTitle("Dijkstra", panelModel);		
+		IDijkstraManagement dijkstra = (IDijkstraManagement) management;
+		
+		String tooltip = 
+	        	  "<html>"
+	        	+ "Mit diesem Geschwindigkeitsregeler können Sie einstellen,<br>"
+	        	+ "wie schnell der Auto-Durchlauf ausgeführt werden soll.<br>"
+	        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
+	        	+ "</html>";
+		
+		panelModel = new PanelRNDijkstraModel(dijkstra );
+		panelMenu = new PanelRNDijkstraMenu(dijkstra );
+		panelTitle = new PanelTitle("Dijkstra", tooltip, dijkstra );		
 		initLayout(200);
 	}
 

@@ -4,11 +4,16 @@ import Base.BasePanelMenu;
 
 public class PanelRNTCPFairnessMenu extends BasePanelMenu {
 
+	private IFairnessManagement fairness;
+	
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNTCPFairnessMenu(PanelRNTCPFairnessModel panelModel) {
-		super(panelModel);
+	public PanelRNTCPFairnessMenu(IFairnessManagement ifairness) {
+		if (ifairness == null) {
+			ifairness = new FairnessManagement();
+		}
+		fairness = ifairness;
 	}
 
 	@Override
@@ -19,12 +24,6 @@ public class PanelRNTCPFairnessMenu extends BasePanelMenu {
 
 	@Override
 	protected void updateComponents() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void updateModel() {
 		// TODO Auto-generated method stub
 		
 	}

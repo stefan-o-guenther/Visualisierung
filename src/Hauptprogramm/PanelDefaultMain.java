@@ -1,9 +1,5 @@
 package Hauptprogramm;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JPanel;
-
 import Base.BasePanelMain;
 import Base.PanelTitle;
 
@@ -13,14 +9,23 @@ public class PanelDefaultMain extends BasePanelMain {
 	 * Create the panel.
 	 */
 	public PanelDefaultMain() {
-		super(null);
+		super(new DefaultManagement());
 		initComponents();
 	}	
 
 	protected void initComponents() {
-		panelModel = new PanelDefaultModel();
-		panelMenu = new PanelDefaultMenu((PanelDefaultModel) panelModel);
-		panelTitle = new PanelTitle("Bachelorarbeit - Visualisierung", panelModel);		
+		IDefaultManagement main = (IDefaultManagement) management;
+		
+		String tooltip = 
+	        	  "<html>"
+	        	+ "Mit diesem Geschwindigkeitsregeler können Sie einstellen,<br>"
+	        	+ "wie schnell der Auto-Durchlauf ausgeführt werden soll.<br>"
+	        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
+	        	+ "</html>";
+		
+		panelModel = new PanelDefaultModel(main);
+		panelMenu = new PanelDefaultMenu(main);
+		panelTitle = new PanelTitle("Bachelorarbeit - Visualisierung", tooltip, main);		
 		initLayout(200);
 	}
 }

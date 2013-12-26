@@ -9,15 +9,24 @@ public class PanelRNCongestionAvoidanceMain extends BasePanelMain {
 	 * Create the panel.
 	 */
 	public PanelRNCongestionAvoidanceMain() {
-		super(null);
+		super(new NetworkManagement());
 		initComponents();
 	}
 
 	@Override
 	protected void initComponents() {
-		panelModel = new PanelRNCongestionAvoidanceModel();
-		panelMenu = new PanelRNCongestionAvoidanceMenu((PanelRNCongestionAvoidanceModel) panelModel);
-		panelTitle = new PanelTitle("Congestion Avoidance", panelModel);		
+		INetworkManagement network = (INetworkManagement) management;
+		
+		String tooltip = 
+	        	  "<html>"
+	        	+ "Mit diesem Geschwindigkeitsregeler können Sie einstellen,<br>"
+	        	+ "wie schnell der Auto-Durchlauf ausgeführt werden soll.<br>"
+	        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
+	        	+ "</html>";
+		
+		panelModel = new PanelRNCongestionAvoidanceModel(network);
+		panelMenu = new PanelRNCongestionAvoidanceMenu(network);
+		panelTitle = new PanelTitle("Congestion Avoidance", tooltip, network);		
 		initLayout(200);
 	}
 }

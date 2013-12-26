@@ -2,15 +2,20 @@ package Rechnernetze.TCP_Fairness;
 
 import java.awt.Graphics;
 
-import Base.BasePanelModel;
+import Base.BasePanelModelDraw;
 
-public class PanelRNTCPFairnessModel extends BasePanelModel {
+public class PanelRNTCPFairnessModel extends BasePanelModelDraw {
 
+	private IFairnessManagement fairness;
+	
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNTCPFairnessModel() {
-
+	public PanelRNTCPFairnessModel(IFairnessManagement ifairness) {
+		if (ifairness == null) {
+			ifairness = new FairnessManagement();
+		}
+		fairness = ifairness;
 	}
 
 	@Override

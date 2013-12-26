@@ -1,16 +1,19 @@
 package Hauptprogramm;
 
-import javax.swing.JPanel;
-
 import Base.BasePanelMenu;
 
 public class PanelDefaultMenu extends BasePanelMenu {
 
+	IDefaultManagement main;
+	
 	/**
 	 * Create the panel.
 	 */
-	public PanelDefaultMenu(PanelDefaultModel panelModel) {
-		super(panelModel);
+	public PanelDefaultMenu(IDefaultManagement imain) {
+		if (imain == null) {
+			imain = new DefaultManagement();
+		}
+		main = imain;
 	}
 
 	@Override
@@ -21,12 +24,6 @@ public class PanelDefaultMenu extends BasePanelMenu {
 
 	@Override
 	protected void updateComponents() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void updateModel() {
 		// TODO Auto-generated method stub
 		
 	}

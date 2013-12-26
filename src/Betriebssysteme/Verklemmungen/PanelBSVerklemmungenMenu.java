@@ -30,6 +30,8 @@ public class PanelBSVerklemmungenMenu extends BasePanelMenu {
 	private JComboBox cbExample;
 	private JButton btnUse;
 	
+	private IDeadlockManagement deadlock;
+	
 	@Override
 	protected void initComponents() {
 		
@@ -151,15 +153,12 @@ public class PanelBSVerklemmungenMenu extends BasePanelMenu {
 		
 	}
 	
-	public PanelBSVerklemmungenMenu(PanelBSVerklemmungenModel panelModel) {
-		super(panelModel);
+	public PanelBSVerklemmungenMenu(IDeadlockManagement ideadlock) {
+		if (ideadlock == null) {
+			ideadlock = new DeadlockManagement();
+		}
+		deadlock = ideadlock;
 		initComponents();
-	}
-
-	@Override
-	protected void updateModel() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

@@ -2,15 +2,16 @@ package Betriebssysteme.Seitenersetzungsstrategien;
 
 import java.util.List;
 
-import Base.IBaseManagement;
+import Base.IManagement;
 
 
-public interface IPagingManagement extends IBaseManagement {
+public interface IPagingManagement extends IManagement {
 	EnumPagingStrategy getStrategy();
 	void setStrategy(EnumPagingStrategy value);
 	
-	List<Integer> getSequence();
 	void setSequence(List<Integer> value);
+	
+	void loadExample();
 	
 	Integer getMaxRam();
 	void setMaxRam(Integer value);

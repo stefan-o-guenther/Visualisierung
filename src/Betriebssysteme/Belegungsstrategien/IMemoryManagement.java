@@ -2,9 +2,9 @@ package Betriebssysteme.Belegungsstrategien;
 
 import java.util.List;
 
-import Base.IBaseManagement;
+import Base.IManagement;
 
-public interface IMemoryManagement extends IBaseManagement {
+public interface IMemoryManagement extends IManagement {
 	
 	EnumMemoryStrategy getStrategy();
 	void setStrategy(EnumMemoryStrategy value);
@@ -14,7 +14,7 @@ public interface IMemoryManagement extends IBaseManagement {
 	
 	EnumMemoryStatus getStatus();
 	
-	Boolean execute();	
+	Boolean execute();
 	
 	void reset();
 	

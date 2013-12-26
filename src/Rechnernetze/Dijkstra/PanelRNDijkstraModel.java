@@ -2,17 +2,20 @@ package Rechnernetze.Dijkstra;
 
 import java.awt.Graphics;
 
-import javax.swing.JPanel;
+import Base.BasePanelModelDraw;
 
-import Base.BasePanelModel;
+public class PanelRNDijkstraModel extends BasePanelModelDraw {
 
-public class PanelRNDijkstraModel extends BasePanelModel {
-
+	private IDijkstraManagement dijkstra;
+	
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNDijkstraModel() {
-
+	public PanelRNDijkstraModel(IDijkstraManagement idijkstra) {
+		if (idijkstra == null) {
+			idijkstra = new DijkstraManagement();
+		}
+		dijkstra = idijkstra;
 	}
 
 	@Override

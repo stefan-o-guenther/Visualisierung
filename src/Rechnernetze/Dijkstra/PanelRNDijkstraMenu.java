@@ -4,11 +4,16 @@ import Base.BasePanelMenu;
 
 public class PanelRNDijkstraMenu extends BasePanelMenu {
 
+	private IDijkstraManagement dijkstra;
+	
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNDijkstraMenu(PanelRNDijkstraModel panelModel) {
-		super(panelModel);
+	public PanelRNDijkstraMenu(IDijkstraManagement idijkstra) {
+		if (idijkstra == null) {
+			idijkstra = new DijkstraManagement();
+		}
+		dijkstra = idijkstra;
 	}
 
 	@Override
@@ -19,12 +24,6 @@ public class PanelRNDijkstraMenu extends BasePanelMenu {
 
 	@Override
 	protected void updateComponents() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void updateModel() {
 		// TODO Auto-generated method stub
 		
 	}

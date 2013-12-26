@@ -2,17 +2,20 @@ package Rechnernetze.Pipeline_Protocol;
 
 import java.awt.Graphics;
 
-import javax.swing.JPanel;
+import Base.BasePanelModelDraw;
 
-import Base.BasePanelModel;
+public class PanelRNPipelineProtocolModel extends BasePanelModelDraw {
 
-public class PanelRNPipelineProtocolModel extends BasePanelModel {
-
+	IPipelineManagement pipeline;
+	
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNPipelineProtocolModel() {
-
+	public PanelRNPipelineProtocolModel(IPipelineManagement ipipeline) {
+		if (ipipeline == null) {
+			ipipeline = new PipelineManagement();
+		}
+		pipeline = ipipeline;
 	}
 
 	@Override

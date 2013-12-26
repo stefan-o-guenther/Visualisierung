@@ -9,16 +9,25 @@ public class PanelRNQueueingAndLossMain extends BasePanelMain {
 	 * Create the panel.
 	 */
 	public PanelRNQueueingAndLossMain() {
-		super(null);
+		super(new QALManagement());
 		initComponents();
 	}
 
 	@Override
 	protected void initComponents() {
-		panelModel = new PanelRNQueueingAndLossModel();
-		panelMenu = new PanelRNQueueingAndLossMenu((PanelRNQueueingAndLossModel) panelModel);
-		panelTitle = new PanelTitle("Queueing And Loss", panelModel);		
-		initLayout(200);
+		IQALManagement qal = (IQALManagement) management;
+		
+		String tooltip = 
+	        	  "<html>"
+	        	+ "Mit diesem Geschwindigkeitsregeler können Sie einstellen,<br>"
+	        	+ "wie schnell der Auto-Durchlauf ausgeführt werden soll.<br>"
+	        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
+	        	+ "</html>";
+		
+		panelModel = new PanelRNQueueingAndLossModel(qal);
+		panelMenu = new PanelRNQueueingAndLossMenu(qal);
+		panelTitle = new PanelTitle("Queueing And Loss", tooltip, qal);		
+		initLayout(130);
 	}
 
 }

@@ -6,11 +6,16 @@ import Base.BasePanelMenu;
 
 public class PanelRNPipelineProtocolMenu extends BasePanelMenu {
 
+	IPipelineManagement pipeline;
+	
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNPipelineProtocolMenu(PanelRNPipelineProtocolModel panelModel) {
-		super(panelModel);
+	public PanelRNPipelineProtocolMenu(IPipelineManagement ipipeline) {
+		if (ipipeline == null) {
+			ipipeline = new PipelineManagement();
+		}
+		pipeline = ipipeline;
 	}
 
 	@Override
@@ -21,12 +26,6 @@ public class PanelRNPipelineProtocolMenu extends BasePanelMenu {
 
 	@Override
 	protected void updateComponents() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void updateModel() {
 		// TODO Auto-generated method stub
 		
 	}

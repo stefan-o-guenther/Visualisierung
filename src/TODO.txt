@@ -34,4 +34,24 @@ generell:
       (fertig)
     - Fragezeigen mit Inhalt füllen
     
-
+19.12.2013
+BS
+	- Schildkröte etwas kleiner machen
+	- Seitenersetzung zuende programmieren
+	- Buddy Systeme
+		- Speichergröße auf 1024 bis 4096 beschränken, ggfs auf 2er Potenz aufrunden
+		- Prozessnamen auch in der farbigen Grafik anzeigen
+		- aktuelle Belegungen in einem Rollfenster anzeigen, neueste immer oben
+		- komplette Breite für die Belegungen nutzen.
+		- die Auswahlbuttons kompakter darstellen, demo oben rechts, prozess beenden neben prozess starten.
+RN:
+	- Dijkstra
+		- überflüssige Leerschritte entfernen.
+		- das "-"-Zeichen nur setzen, wenn man den kürzesten Weg gefunden hat.
+		- Tabelle auf Breite des Bildes vergrößern.
+		- Bild und Tabelle auf maximale Breite anpassen.
+		- Startbutton und Geschwindigkeitsleiste weiter nach rechts, Darstellung wie gehabt. (Hase und Schildkröte)
+	- Queueing and Loss
+		- 
+		
+nächster Termin: 09.01.2014

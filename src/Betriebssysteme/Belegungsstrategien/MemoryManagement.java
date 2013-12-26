@@ -3,12 +3,15 @@ package Betriebssysteme.Belegungsstrategien;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MemoryManagement implements IMemoryManagement {
+import Base.BaseManagement;
+
+public class MemoryManagement extends BaseManagement implements IMemoryManagement {
 
 	private EnumMemoryStatus status = EnumMemoryStatus.START;
 	private EnumMemoryStrategy strategy = EnumMemoryStrategy.NULL;
 	private Integer number = 0;
-	private List<ISpace> listSpace = new ArrayList<ISpace>();
+	private List<ISpace> listSpaceWork = new ArrayList<ISpace>();
+	private List<ISpace> listSpacePublic = new ArrayList<ISpace>();
 	
 	private final Integer START = 0;
 	private Integer start = START;
@@ -20,6 +23,14 @@ public class MemoryManagement implements IMemoryManagement {
 	
 	private Boolean suitable = false;
 	
+	
+	
+	private Boolean executionOK = true;
+	
+	private void copyListSpace() {
+		listSpacePublic = new ArrayList<ISpace>(listSpaceWork);
+	}
+	
 	private void init() {
 		status = EnumMemoryStatus.START;
 		strategy = EnumMemoryStrategy.NULL;
@@ -30,30 +41,32 @@ public class MemoryManagement implements IMemoryManagement {
 		zBestWorst = null;
 		pBestWorst = START;
 				
-		listSpace = new ArrayList<ISpace>();
-		listSpace.add(new Space(10, EnumSpace.EMPTY));
-		listSpace.add(new Space(1, EnumSpace.FULL));
-		listSpace.add(new Space(4, EnumSpace.EMPTY));
-		listSpace.add(new Space(1, EnumSpace.FULL));
-		listSpace.add(new Space(20, EnumSpace.EMPTY));
-		listSpace.add(new Space(1, EnumSpace.FULL));
-		listSpace.add(new Space(18, EnumSpace.EMPTY));
-		listSpace.add(new Space(1, EnumSpace.FULL));
-		listSpace.add(new Space(7, EnumSpace.EMPTY));
-		listSpace.add(new Space(1, EnumSpace.FULL));
-		listSpace.add(new Space(9, EnumSpace.EMPTY));
-		listSpace.add(new Space(1, EnumSpace.FULL));
-		listSpace.add(new Space(12, EnumSpace.EMPTY));
-		listSpace.add(new Space(1, EnumSpace.FULL));
-		listSpace.add(new Space(15, EnumSpace.EMPTY));
-		listSpace.add(new Space(1, EnumSpace.FULL));
-		listSpace.add(new Space(8, EnumSpace.EMPTY));
+		listSpaceWork = new ArrayList<ISpace>();
+		listSpaceWork.add(new Space(10, EnumSpace.EMPTY));
+		listSpaceWork.add(new Space(1, EnumSpace.FULL));
+		listSpaceWork.add(new Space(4, EnumSpace.EMPTY));
+		listSpaceWork.add(new Space(1, EnumSpace.FULL));
+		listSpaceWork.add(new Space(20, EnumSpace.EMPTY));
+		listSpaceWork.add(new Space(1, EnumSpace.FULL));
+		listSpaceWork.add(new Space(18, EnumSpace.EMPTY));
+		listSpaceWork.add(new Space(1, EnumSpace.FULL));
+		listSpaceWork.add(new Space(7, EnumSpace.EMPTY));
+		listSpaceWork.add(new Space(1, EnumSpace.FULL));
+		listSpaceWork.add(new Space(9, EnumSpace.EMPTY));
+		listSpaceWork.add(new Space(1, EnumSpace.FULL));
+		listSpaceWork.add(new Space(12, EnumSpace.EMPTY));
+		listSpaceWork.add(new Space(1, EnumSpace.FULL));
+		listSpaceWork.add(new Space(15, EnumSpace.EMPTY));
+		listSpaceWork.add(new Space(1, EnumSpace.FULL));
+		listSpaceWork.add(new Space(8, EnumSpace.EMPTY));
+		
+		copyListSpace();
 	}
 	
 	private ISpace findNextFreeSpace() {
 		ISpace space = null;
-		if (listSpace != null) {
-			Integer size = listSpace.size();
+		if (listSpaceWork != null) {
+			Integer size = listSpaceWork.size();
 			Boolean notFinished = true;		
 			while (notFinished) {
 				if (first) {
@@ -65,7 +78,7 @@ public class MemoryManagement implements IMemoryManagement {
 					}
 				}
 				if (notFinished) {
-					space = listSpace.get(position);				
+					space = listSpaceWork.get(position);				
 					if (space.getType() != EnumSpace.EMPTY) {
 						space = null;
 					} else {
@@ -78,8 +91,8 @@ public class MemoryManagement implements IMemoryManagement {
 	}
 	
 	private void deleteNegativeRestValues() {
-		if (listSpace != null) {
-			for (ISpace sp : listSpace) {
+		if (listSpaceWork != null) {
+			for (ISpace sp : listSpaceWork) {
 				Integer value = sp.getRestValue();
 				if ((value != null) && (value < 0)) {
 					sp.setRestValue(null);
@@ -88,11 +101,11 @@ public class MemoryManagement implements IMemoryManagement {
 		}
 	}
 	
-	private Boolean search() {
-		Boolean ok = false;
+	private void search() {
+		executionOK = false;
 		if ((number != null) && (number > 0)) {
 			if (suitable) {
-				ok = true;
+				executionOK = true;
 				suitable = false;
 				finishFit();
 			} else {
@@ -115,25 +128,24 @@ public class MemoryManagement implements IMemoryManagement {
 					} else {
 						status = EnumMemoryStatus.SEARCH;
 					}
-					ok = true;
+					executionOK = true;
 				} else if ((isBestWorst()) && (zBestWorst != null)) {	
-					ok = true;
+					executionOK = true;
 					finishFit();
 				} else {
-					ok = false;
+					executionOK = false;
 					finishFit();
-					status = EnumMemoryStatus.INPUT;							
+					status = EnumMemoryStatus.FINISHED;							
 				}
 			}
 		} else {
-			ok = true;
+			executionOK = true;
 		}
-		return ok;
 	}
 	
-	private void finished() {
-		if ((position != null) && (position >= 0) && (listSpace != null)) {			
-			for (ISpace sp : listSpace) {		
+	private void choose() {
+		if ((position != null) && (position >= 0) && (listSpaceWork != null)) {			
+			for (ISpace sp : listSpaceWork) {		
 				sp.setRestValue(null);
 			}
 			Integer pos = 0;
@@ -142,13 +154,13 @@ public class MemoryManagement implements IMemoryManagement {
 			} else {
 				pos = position;
 			}
-			ISpace space = listSpace.get(pos);
+			ISpace space = listSpaceWork.get(pos);
 			Integer value = space.getCurrentValue();		
 			if (space.getType() == EnumSpace.EMPTY) {
 				if (value > number) {
 					ISpace newSpace = new Space(number, EnumSpace.USED);
 					space.setCurrentValue(value - number);
-					listSpace.add(pos, newSpace);
+					listSpaceWork.add(pos, newSpace);
 				} else if (value.equals(number)) {
 					space.setType(EnumSpace.USED);
 				}
@@ -163,14 +175,15 @@ public class MemoryManagement implements IMemoryManagement {
 				zBestWorst = null;
 				pBestWorst = START;
 			}
-			status = EnumMemoryStatus.INPUT;		
+			executionOK = true;
+			status = EnumMemoryStatus.FINISHED;
 		}
 	}
 	
 	
 	
 	private void finishFit() {
-		status = EnumMemoryStatus.FINISHED;
+		status = EnumMemoryStatus.CHOOSE;
 		deleteNegativeRestValues();
 	}
 	
@@ -255,21 +268,24 @@ public class MemoryManagement implements IMemoryManagement {
 	@Override
 	public Boolean execute() {
 		Boolean ok = false;
-		if (listSpace != null) {
-			for (ISpace sp : listSpace) {
+		if (listSpaceWork != null) {
+			for (ISpace sp : listSpaceWork) {
 				sp.activate(false);
 				sp.setNewValue(null);				
 			}
 			if (status == EnumMemoryStatus.SEARCH) {
-				ok = search();
+				search();
+			} else if (status == EnumMemoryStatus.CHOOSE) {
+				choose();				
 			} else if (status == EnumMemoryStatus.FINISHED) {
-				ok = true;
-				finished();				
+				status = EnumMemoryStatus.INPUT;
+				executionOK = true;
 			}
 		}
-		return ok;
-	}	
-
+		copyListSpace();
+		return executionOK;
+	}
+	
 	@Override
 	public void reset() {		
 		init();
@@ -277,6 +293,7 @@ public class MemoryManagement implements IMemoryManagement {
 
 	@Override
 	public List<ISpace> getListSpace() {
-		return new ArrayList<ISpace>(listSpace); 		
+		return listSpacePublic;
+		//return new ArrayList<ISpace>(listSpacePublic); 		
 	}
 }

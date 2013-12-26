@@ -9,15 +9,24 @@ public class PanelRNPipelineProtocolMain extends BasePanelMain {
 	 * Create the panel.
 	 */
 	public PanelRNPipelineProtocolMain() {
-		super(null);
+		super(new PipelineManagement());
 		initComponents();
 	}
 
 	@Override
 	protected void initComponents() {
-		panelModel = new PanelRNPipelineProtocolModel();
-		panelMenu = new PanelRNPipelineProtocolMenu((PanelRNPipelineProtocolModel) panelModel);
-		panelTitle = new PanelTitle("Pipeline Protocol", panelModel);		
+		IPipelineManagement pipeline = (IPipelineManagement) management;
+		
+		String tooltip = 
+	        	  "<html>"
+	        	+ "Mit diesem Geschwindigkeitsregeler können Sie einstellen,<br>"
+	        	+ "wie schnell der Auto-Durchlauf ausgeführt werden soll.<br>"
+	        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
+	        	+ "</html>";
+		
+		panelModel = new PanelRNPipelineProtocolModel(pipeline);
+		panelMenu = new PanelRNPipelineProtocolMenu(pipeline);
+		panelTitle = new PanelTitle("Pipeline Protocol", tooltip, pipeline);		
 		initLayout(200);
 	}
 

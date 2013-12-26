@@ -1,26 +1,63 @@
 package Betriebssysteme.Buddy_Systeme;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JPanel;
-
 import Base.BasePanelMain;
 import Base.PanelTitle;
 
 public class PanelBSBuddySystemeMain extends BasePanelMain {
 
-	protected void initComponents() {
-		panelModel = new PanelBSBuddySystemeModel();
-		panelMenu = new PanelBSBuddySystemeMenu( (PanelBSBuddySystemeModel) panelModel);
-		panelTitle = new PanelTitle("Buddy Systeme", panelModel);
-		initLayout(200);
-	}
-		
 	/**
 	 * Create the panel.
 	 */
 	public PanelBSBuddySystemeMain() {
-		super(null);
+		super(new BuddyManagement());
 		initComponents();
 	}
+	
+	/*
+	 * 
+	 * 
+
+
+
+
+
+Ihre Anfangsadressen sind identisch bis auf das k-te Bit in ihrer Adresse, das invertiert ist. Beispiel: ...XYZ0000... und ...XYZ1000... sind die Anfangsadressen von Partnern.
+
+Dies lässt sich ausnutzen, um sehr schnell (in einem Schritt!) prüfen zu können, ob ein freigewordenes Speicherstück einen freien Partner in der Belegungstabelle hat, mit dem es zu einem (doppelt so großen) Stück verschmolzen werden kann.
+
+Beide Vorgänge, sowohl das Suchen eines passenden freien Stücks (bzw. das dafür nötigen Auseinanderbrechen eines größeren) als auch das Zusammenfügen zu größeren Einheiten lässt sich rekursiv über mehrere Partnerebenen (mehrere Zweierpotenzen) durchführen.
+	 * 
+	 * 
+	 * 
+	 * 
+	 *
+	 * */
+	
+	
+	
+	protected void initComponents() {
+		IBuddyManagement buddy = (IBuddyManagement) management;
+		
+		String tooltip = 
+	        	  "<html>"
+	        	+ "Für jede gängige Belegungsgröße (am besten Speicher in den Größen von Zweierpotenzen)<br>"
+	        	+ "wird eine eigene Liste vorgesehen und nur Speicherstücke einer solchen festen Größe vergeben.<br>"
+	        	+ "Alle Anforderungen müssen also auf die nächste Zweierpotenz aufgerundet werden.<br>"
+	        	+ "<br>"
+	        	+ "Ein Speicherplatz der Länge 280 Bytes = 256+16+8 = 28 + 24 + 23 Bytes muss also auf 29 = 512 Bytes aufgerundet werden.<br>"
+	        	+ "<br>"
+	        	+ "Ist kein freies Speicherstück der Größe 2k vorhanden, so muss ein freies Speicherstück der Größe 2k+1 in zwei Stücke von je 2k Byte aufgeteilt werden. <br>"
+	        	+ "Beide Stücke, die Partner (Buddy), sind genau gekennzeichnet:<br>"
+	        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
+	        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
+	        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
+	        	+ "</html>";
+		
+		panelModel = new PanelBSBuddySystemeModelScroll(buddy);
+		panelMenu = new PanelBSBuddySystemeMenu(buddy);
+		panelTitle = new PanelTitle("Buddy Systeme", tooltip, buddy);
+		initLayout(100);
+	}
+		
+	
 }

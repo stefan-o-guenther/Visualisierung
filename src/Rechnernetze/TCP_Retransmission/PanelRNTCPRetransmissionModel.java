@@ -2,15 +2,20 @@ package Rechnernetze.TCP_Retransmission;
 
 import java.awt.Graphics;
 
-import Base.BasePanelModel;
+import Base.BasePanelModelDraw;
 
-public class PanelRNTCPRetransmissionModel extends BasePanelModel {
+public class PanelRNTCPRetransmissionModel extends BasePanelModelDraw {
 
+	private IRetransmissionManagement retransmission;
+	
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNTCPRetransmissionModel() {
-
+	public PanelRNTCPRetransmissionModel(IRetransmissionManagement iretransmission) {
+		if (iretransmission == null) {
+			iretransmission = new RetransmissionManagement();
+		}
+		retransmission = iretransmission;
 	}
 
 	@Override

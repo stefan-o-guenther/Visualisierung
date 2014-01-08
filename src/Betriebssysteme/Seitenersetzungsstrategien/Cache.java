@@ -2,21 +2,27 @@ package Betriebssysteme.Seitenersetzungsstrategien;
 
 public class Cache implements ICache {
 
-	private Integer item = null;
+	private Integer number = null;
 	private Integer r = null;
 	private Integer m = null;
-	private EnumCache status = EnumCache.EMPTY;
+	private EnumCache status;
+	
+	public Cache(Integer value) {
+		if (value != null) {
+			number = value;
+		} else {
+			number = 0;
+		}
+		status = EnumCache.NORMAL;
+		r = 0;
+		m = 0;
+	}
 	
 	@Override
-	public Integer getItem() {
-		return item;
+	public Integer getNumber() {
+		return number;
 	}
-
-	@Override
-	public void setItem(Integer value) {
-		item = value;		
-	}
-
+	
 	@Override
 	public Integer getR() {
 		return r;
@@ -24,7 +30,9 @@ public class Cache implements ICache {
 
 	@Override
 	public void setR(Integer value) {
-		r = value;		
+		if (value != null) {
+			r = value;	
+		}			
 	}
 
 	@Override
@@ -33,16 +41,18 @@ public class Cache implements ICache {
 	}
 
 	@Override
-	public void setM(Integer value) {		
-		m = value;
+	public void setM(Integer value) {
+		if (value != null) {
+			m = value;
+		}		
 	}
 
 	@Override
 	public ICache getCopy() {
-		ICache cache = new Cache();
-		cache.setItem(item);
+		ICache cache = new Cache(number);
 		cache.setM(m);
 		cache.setR(r);
+		cache.setStatus(EnumCache.NORMAL);
 		return cache;
 	}
 

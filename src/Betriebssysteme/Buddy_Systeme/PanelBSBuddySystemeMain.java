@@ -9,7 +9,7 @@ public class PanelBSBuddySystemeMain extends BasePanelMain {
 	 * Create the panel.
 	 */
 	public PanelBSBuddySystemeMain() {
-		super(new BuddyManagement());
+		super(new BuddyMemoryAllocation());
 		initComponents();
 	}
 	
@@ -36,7 +36,7 @@ Beide Vorgänge, sowohl das Suchen eines passenden freien Stücks (bzw. das dafür 
 	
 	
 	protected void initComponents() {
-		IBuddyManagement buddy = (IBuddyManagement) management;
+		IBuddyMemoryAllocation buddy = (IBuddyMemoryAllocation) management;
 		
 		String tooltip = 
 	        	  "<html>"

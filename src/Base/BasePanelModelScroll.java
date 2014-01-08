@@ -9,7 +9,7 @@ public abstract class BasePanelModelScroll extends BasePanelModel {
 
 	protected void initComponents(BasePanelModelDraw panel) {
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		
 		GroupLayout groupLayout = new GroupLayout(this);

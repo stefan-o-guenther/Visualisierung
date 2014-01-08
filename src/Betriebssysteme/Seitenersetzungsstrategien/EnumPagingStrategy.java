@@ -1,7 +1,6 @@
 package Betriebssysteme.Seitenersetzungsstrategien;
 
 public enum EnumPagingStrategy {
-	NULL,
 	OPTIMAL,
 	FIFO,
 	FIFO_SECOND_CHANCE,
@@ -9,6 +8,6 @@ public enum EnumPagingStrategy {
 	NRU_RNU_SECOND_CHANCE,
 	LRU,
 	NFU_LFU,
-	RANDOM
-	//"Optimale Strategie", "FIFO", "FIFO - 2nd Chance", "NRU / RNU", "LRU", "NFU / LFU", "Zufall"
+	NULL
+	//"Optimale Strategie", "FIFO", "FIFO - 2nd Chance", "NRU / RNU", "LRU", "NFU / LFU""
 }

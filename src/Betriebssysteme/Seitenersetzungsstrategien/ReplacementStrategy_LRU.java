@@ -1,0 +1,83 @@
+package Betriebssysteme.Seitenersetzungsstrategien;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ReplacementStrategy_LRU extends BaseReplacementStrategy implements IReplacementStrategy_LRU {
+
+	private List<Integer> listLRU;
+	
+	protected ReplacementStrategy_LRU(List<Integer> sequence, Integer ram, Integer disk) {
+		super(sequence, ram, disk);
+	}
+
+	@Override
+	public EnumPagingStrategy getStrategy() {
+		return EnumPagingStrategy.LRU;
+	}
+
+	@Override
+	public Boolean useRM() {
+		return false;
+	}
+	
+	@Override
+	protected void initClass() {
+		listLRU = new ArrayList<Integer>();
+	}
+
+	@Override
+	protected void useNumber(Integer number) {
+		if (number != null) {
+			Integer size;					
+			size = listLRU.size();
+			for (Integer i = size; i <= number; i++) {				
+				listLRU.add(null);
+			}			
+			listLRU.set(number, position);						
+		}
+	}
+
+	@Override
+	protected Boolean putOnOldPosition() {
+		return false;
+	}
+
+	@Override
+	protected void remove(List<ICache> ram, List<ICache> disk) {		
+		if ((ram != null) && (disk != null)) {
+			while (ram.size() > maxRam) {
+				Integer minNumber = null;				
+				Integer minIndex = null;
+				Integer minPos = null;
+				ICache res = null;
+				for (Integer index = 1; index < ram.size(); index++) {
+					res = ram.get(index);
+					Integer number = res.getNumber();					
+					Integer pos;
+					if (listLRU.size() > number) {
+						pos = listLRU.get(number);
+					} else {
+						System.out.println("Fehler");
+						pos = 0;
+					}					
+					if ((res != cache) && (pos != null) && ((minPos == null) || (pos <= minPos))) {
+						minNumber = number;
+						minPos = pos;
+						minIndex = index;
+					}			
+				}				
+				if (minNumber != null) {
+					res = ram.remove(minIndex.intValue());
+					disk.add(0, res);
+					error();
+				}				
+			}
+			while (disk.size() > maxDisk) {
+				Integer l = disk.size() - 1;
+				disk.remove(l.intValue());
+			}
+		}		
+	}
+
+}

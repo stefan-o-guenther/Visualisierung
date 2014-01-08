@@ -1,5 +1,8 @@
 package Betriebssysteme.Buddy_Systeme;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
 import Base.BasePanelModelScroll;
 
 public class PanelBSBuddySystemeModelScroll extends BasePanelModelScroll {
@@ -7,11 +10,11 @@ public class PanelBSBuddySystemeModelScroll extends BasePanelModelScroll {
 	/**
 	 * Create the panel.
 	 */
-	public PanelBSBuddySystemeModelScroll(IBuddyManagement ibuddy) {
+	public PanelBSBuddySystemeModelScroll(IBuddyMemoryAllocation ibuddy) {
 		if (ibuddy == null) {
-			ibuddy = new BuddyManagement();
+			ibuddy = new BuddyMemoryAllocation();
 		}
-		IBuddyManagement buddy = ibuddy;
+		IBuddyMemoryAllocation buddy = ibuddy;
 		initComponents(new PanelBSBuddySystemeModelDraw(buddy));
-	}
+	}	
 }

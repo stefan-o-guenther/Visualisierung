@@ -2,8 +2,7 @@ package Betriebssysteme.Seitenersetzungsstrategien;
 
 public interface ICache {
 
-	Integer getItem();
-	void setItem(Integer value);
+	Integer getNumber();	
 	
 	Integer getR();
 	void setR(Integer value);
@@ -15,4 +14,6 @@ public interface ICache {
 	
 	EnumCache getStatus();
 	void setStatus(EnumCache value);
+	
+	
 }

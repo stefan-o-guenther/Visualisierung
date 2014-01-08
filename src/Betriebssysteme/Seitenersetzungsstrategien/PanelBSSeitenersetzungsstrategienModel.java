@@ -1,5 +1,6 @@
 package Betriebssysteme.Seitenersetzungsstrategien;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -7,10 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Base.BasePanelModelDraw;
+import Base.EnumSurface;
 
 public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModelDraw {
 	
-	private IPagingManagement paging;
+	private IMemoryManager paging;
 	
 	private Graphics2D G2D; // = (Graphics2D) getGraphics();
 	//private Font FONT = G2D.getFont();
@@ -24,10 +26,11 @@ public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModelDraw {
 	private List<ICacheBox> listCache = new ArrayList<ICacheBox>();
 	private Integer maxRam = 3;
 	private Integer maxDisk = 3;
+	private EnumSurface surface;
 	
-	public PanelBSSeitenersetzungsstrategienModel(IPagingManagement ipaging) {
+	public PanelBSSeitenersetzungsstrategienModel(IMemoryManager ipaging) {
 		if (ipaging == null) {
-			ipaging = new PagingManagement();
+			ipaging = new MemoryManager();
 		}
 		paging = ipaging;		
 	}	
@@ -40,6 +43,7 @@ public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModelDraw {
         Integer y = Y_FIRST-30;        
         
         Font font = G2D.getFont();
+        G2D.setColor(Color.BLACK);
         G2D.setFont(new Font(font.getFontName(), Font.BOLD, 18));        
         G2D.drawString(text, x+13, y+25);
 	}	
@@ -53,6 +57,7 @@ public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModelDraw {
         	y += GAP;
         }
         Font font = G2D.getFont();
+        G2D.setColor(Color.BLACK);
         G2D.drawRect(x, y, w, h);
                
         G2D.setFont(new Font(font.getFontName(), Font.BOLD, 18));        
@@ -63,42 +68,103 @@ public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModelDraw {
         G2D.drawString("M", x+w-15, y+h-3);		
 	}
 	
+	private void drawEmptyBox(Integer x, Integer y) {
+		G2D.setColor(Color.BLACK);
+		G2D.drawRect(x, y, LENGTH_BOX, LENGTH_BOX);
+	}
 	
-	private void box(Integer z, Integer r, Integer m, Integer countX, Integer countY, Boolean gapX, Boolean gapY) {
+	private Integer getGap(Boolean gap) {
+		if (gap) {
+			return GAP;
+		} else {
+			return 0;
+		}
+	}
+	
+	private Integer getX(Integer countX, Boolean gapX) {
+		return (X_FIRST + WIDTH_LABEL + (LENGTH_BOX * countX) + (getGap(gapX)));	
+	}
+	
+	private Integer getY(Integer countY, Boolean gapY) {
+		return (Y_FIRST + (LENGTH_BOX * countY) + (getGap(gapY)));
+	}
+	
+	private void boxEmpty(Integer countX, Integer countY, Boolean gapX, Boolean gapY) {
 		if ((countX != null) && (countY != null) && (gapY != null)) {
-			Integer x = X_FIRST + WIDTH_LABEL+(LENGTH_BOX*countX);
-			if (gapX) {
-	        	x += GAP;
-	        }
-	        Integer y = Y_FIRST+(LENGTH_BOX*countY);	        
-	        if (gapY) {
-	        	y += GAP;
-	        }
+			Integer x = getX(countX, gapX);			
+	        Integer y = getY(countY, gapY);
+			drawEmptyBox(x, y);	
+		}
+	}
+	
+	
+	private void boxFull(Integer number, Integer r, Integer m, Integer countX, Integer countY, Boolean gapX, Boolean gapY, EnumCache status) {
+		if ((number != null) && (r != null) && (m != null) && (countX != null) && (countY != null) && (gapY != null)) {
+			Integer x = getX(countX, gapX);			
+	        Integer y = getY(countY, gapY);
+	        drawEmptyBox(x, y);	
+	        
 	        String sZ = "";
-	        if ((z != null) && (z >= 0)) {
-	        	sZ = z.toString();
+	        if (number >= 0) {
+	        	sZ = number.toString();
 	        }
 	        String sM = "";
-	        if ((m != null) && (m >= 0)) {
+	        if (m >= 0) {
 	        	sM = m.toString();
 	        }
 	        String sR = "";
-	        if ((r != null) && (r >= 0)) {
+	        if (r >= 0) {
 	        	sR = r.toString();
-	        }
+	        }	        
 	        
-	        
-	        Font font = G2D.getFont();
-			G2D.drawRect(x, y, LENGTH_BOX, LENGTH_BOX);
+	        Font font = G2D.getFont();			
 			
 			// Zahl
+	        G2D.setColor(Color.BLACK);
 	        G2D.setFont(new Font(font.getFontName(), Font.BOLD, 18));
 	        G2D.drawString(sZ, x+13, y+25);
 	        
+	        
+	        
 	        // r und m
-	        G2D.setFont(new Font(font.getFontName(), Font.BOLD, 10));
-	        G2D.drawString(sR, x+4, y+12);
-	        G2D.drawString(sM, x+4, y+LENGTH_BOX-3); 
+	       
+	        	
+		        
+	        if ((!(gapY)) && (paging.useRM())) {
+	        	G2D.setColor(Color.BLACK);
+	        	G2D.setFont(new Font(font.getFontName(), Font.BOLD, 10));
+	        	G2D.drawString(sR, x+4, y+12);
+	        	G2D.drawString(sM, x+4, y+LENGTH_BOX-3); 
+	        }
+		        
+	        
+	        	                
+	        switch (surface) {
+		        case COLORED: {
+		        	G2D.setColor(Color.RED);
+		        	break;
+		        }
+		        case GRAY: {
+		        	G2D.setColor(Color.BLACK);
+		        	break;
+		        }
+		        default: {
+		        	break;
+		        }
+	        }	        
+	        switch (status) {
+	        	case OVERWRITE: {
+	        		G2D.drawOval(x+8, y+8, LENGTH_BOX-15, LENGTH_BOX-15);
+	        		break;
+	        	}
+		        case NEW: {		        	
+		        	G2D.drawRect(x+10, y+9, LENGTH_BOX-19, LENGTH_BOX-17);
+		        	break;
+		        }
+		        default: {
+		        	break;
+		        }
+	        }
 		}		       
 	}	
 	
@@ -154,9 +220,9 @@ public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModelDraw {
     		for (Integer r = 0; r < maxRam; r++) {
     			if (listRam.size() > r) {
     				ICache v = listRam.get(r);
-    				box(v.getItem(), v.getR(), v.getM(), c, r, gapX, false);
-    			} else {
-    				box(null, null, null, c, r, gapX, false);
+    				boxFull(v.getNumber(), v.getR(), v.getM(), c, r, gapX, false, v.getStatus());
+    			} else {    				
+    				boxEmpty(c, r, gapX, false);
     			}
             }       	       	   
             
@@ -165,9 +231,9 @@ public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModelDraw {
     		for (Integer d = 0; d < maxDisk; d++) {
     			if (listDisk.size() > d) {
     				ICache v = listDisk.get(d);
-        			box(v.getItem(), v.getR(), v.getM(), c, d+maxRam, gapX, true);
+        			boxFull(v.getNumber(), v.getR(), v.getM(), c, d + maxRam, gapX, true, v.getStatus());
     			} else {
-    				box(null, null, null, c, d+maxRam, gapX, true);
+    				boxEmpty(c, (d + maxRam), gapX, true);
     			}    			
     		}        	        	
         }  
@@ -184,5 +250,6 @@ public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModelDraw {
 		listCache = paging.getListCache();
 		maxRam = paging.getMaxRam();
 		maxDisk = paging.getMaxDisk();
+		surface = paging.getSurface();
 	} 
 }

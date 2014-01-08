@@ -127,14 +127,14 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		    	+ "bzw. Verschnitt übrig bleibt.<br><br>"
 		    	+ "</html>";
 			
-	        sToolTipSpeed = 
+		sToolTipSpeed = 
 	        	  "<html>"
 	        	+ "Mit diesem Geschwindigkeitsregeler können Sie einstellen,<br>"
 	        	+ "wie schnell der Auto-Durchlauf ausgeführt werden soll.<br>"
 	        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
 	        	+ "</html>";
 	        
-	        sToolTipSpeicher = "ganze Zahl, die größer als Null ist, eintragen";
+	    sToolTipSpeicher = "ganze Zahl, die größer als Null ist, eintragen";
 	}
 	
 	@Override
@@ -237,170 +237,170 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	
 	@Override
 	protected void initComponents() {		
-			initToolTips();
-			
-			String[] strategy = {"First Fit", "Next Fit", "Best Fit", "Worst Fit"};
-			
-			lblStrategie = new JLabel("Strategie:");
-			lblStrategie.setIcon(IMG_HELP);
-			lblStrategie.setToolTipText(sToolTipStrategie);
-			
-			lblSpeicher = new JLabel("Speicher:");
-			lblSpeicher.setIcon(IMG_HELP);
-			lblSpeicher.setToolTipText(sToolTipSpeicher);
-			
-			cbStrategie = new JComboBox(strategy);
-			cbStrategie.setEditable( false );
-	        cbStrategie.setSelectedItem("");	
-			
-			tSpeicher = new JTextField();
-			tSpeicher.setColumns(10);
-			tSpeicher.setText("");
-			
-			btnExecute1 = new JButton("zurücksetzen");
-			btnExecute1.addActionListener(ActionExecute1);
-						
-			btnExecute2 = new JButton("übernehmen");
-			btnExecute2.addActionListener(ActionExecute2);
-			
-			chcxbxAuto = new JCheckBox("Automatischer Durchlauf");
-			chcxbxAuto.addActionListener(ActionAuto);
-			chcxbxAuto.setSelected(isAutomaticChecked);
-			
-			lblSpeedTip = new JLabel(" ");
-			lblSpeedTip.setIcon(IMG_HELP);
-			lblSpeedTip.setToolTipText(sToolTipSpeed);
-			
-			sSpeed = new JSlider( 0, 100, 50 );
-	    	sSpeed.setPaintTicks( true );
-	    	sSpeed.setMinorTickSpacing(10); //Abstände im Feinraster
-	    	sSpeed.setMajorTickSpacing(20); //Abstände im Großraster
-	    	sSpeed.setSnapToTicks(true);
-	    	sSpeed.setPaintLabels(false);
-	    	sSpeed.addChangeListener(ChangeSpeed);
-	    	
-	    	setSpeed();
-			
-			lblTotalSpaceLabel = new JLabel("Gesammter Speicherplatz:");
-			
-			lblTotalSpaceOutput = new JLabel("");
-			
-			lblFreeSpaceLabel = new JLabel("Freier Speicherplatz:");
-			
-			lblFreeSpaceOutput = new JLabel("");
-			
-			lblUsedSpaceLabel = new JLabel("Belegter Speicherplatz:");
-			
-			lblUsedSpaceOutput = new JLabel("");
-			
-			lblRateLabel = new JLabel("Belegter Speicherplatz in %:");
-			
-			lblRateOutput = new JLabel("");
-			
-			lblTurtle = new JLabel("");
-			lblTurtle.setIcon(IMG_TURTLE);
-			
-			lblRabbit = new JLabel("");
-			lblRabbit.setIcon(IMG_RABBIT);
-			
-			GroupLayout groupLayout = new GroupLayout(this);
-			groupLayout.setHorizontalGroup(
-				groupLayout.createParallelGroup(Alignment.TRAILING)
-					.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(lblUsedSpaceLabel)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(lblUsedSpaceOutput, GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
-								.addGap(786))
-							.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(lblFreeSpaceLabel)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(lblFreeSpaceOutput)
-								.addContainerGap(1050, Short.MAX_VALUE))
-							.addGroup(groupLayout.createSequentialGroup()
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-									.addGroup(groupLayout.createSequentialGroup()
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-											.addGroup(groupLayout.createSequentialGroup()
-												.addComponent(lblRateLabel)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(lblRateOutput))
-											.addGroup(groupLayout.createSequentialGroup()
-												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-													.addComponent(lblSpeicher)
-													.addComponent(lblStrategie))
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-													.addComponent(tSpeicher)
-													.addComponent(cbStrategie, 0, 106, Short.MAX_VALUE))))
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-											.addComponent(btnExecute2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addComponent(btnExecute1, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)))
-									.addGroup(groupLayout.createSequentialGroup()
-										.addComponent(lblTotalSpaceLabel)
-										.addPreferredGap(ComponentPlacement.RELATED)
-										.addComponent(lblTotalSpaceOutput)))
-								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-									.addGroup(groupLayout.createSequentialGroup()
-										.addGap(7)
-										.addComponent(lblTurtle))
-									.addGroup(groupLayout.createSequentialGroup()
-										.addGap(18)
-										.addComponent(lblSpeedTip)
-										.addGap(4)
-										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-											.addGroup(groupLayout.createSequentialGroup()
-												.addComponent(sSpeed, GroupLayout.PREFERRED_SIZE, 570, GroupLayout.PREFERRED_SIZE)
-												.addPreferredGap(ComponentPlacement.RELATED)
-												.addComponent(lblRabbit))
-											.addComponent(chcxbxAuto))))
-								.addContainerGap(233, Short.MAX_VALUE))))
-			);
-			groupLayout.setVerticalGroup(
-				groupLayout.createParallelGroup(Alignment.LEADING)
-					.addGroup(groupLayout.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblStrategie)
-								.addComponent(cbStrategie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnExecute1))
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(chcxbxAuto)
-								.addComponent(lblSpeedTip)))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-							.addComponent(lblTurtle)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-									.addComponent(lblSpeicher)
-									.addComponent(tSpeicher, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-									.addComponent(btnExecute2))
-								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-									.addComponent(lblRabbit)
-									.addComponent(sSpeed, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblTotalSpaceLabel)
-							.addComponent(lblTotalSpaceOutput))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblFreeSpaceLabel)
-							.addComponent(lblFreeSpaceOutput))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+		initToolTips();
+		
+		String[] strategy = {"First Fit", "Next Fit", "Best Fit", "Worst Fit"};
+		
+		lblStrategie = new JLabel("Strategie:");
+		lblStrategie.setIcon(IMG_HELP);
+		lblStrategie.setToolTipText(sToolTipStrategie);
+		
+		lblSpeicher = new JLabel("Speicher:");
+		lblSpeicher.setIcon(IMG_HELP);
+		lblSpeicher.setToolTipText(sToolTipSpeicher);
+		
+		cbStrategie = new JComboBox(strategy);
+		cbStrategie.setEditable( false );
+        cbStrategie.setSelectedItem("");	
+		
+		tSpeicher = new JTextField();
+		tSpeicher.setColumns(10);
+		tSpeicher.setText("");
+		
+		btnExecute1 = new JButton("zurücksetzen");
+		btnExecute1.addActionListener(ActionExecute1);
+					
+		btnExecute2 = new JButton("übernehmen");
+		btnExecute2.addActionListener(ActionExecute2);
+		
+		chcxbxAuto = new JCheckBox("Automatischer Durchlauf");
+		chcxbxAuto.addActionListener(ActionAuto);
+		chcxbxAuto.setSelected(isAutomaticChecked);
+		
+		lblSpeedTip = new JLabel(" ");
+		lblSpeedTip.setIcon(IMG_HELP);
+		lblSpeedTip.setToolTipText(sToolTipSpeed);
+		
+		sSpeed = new JSlider( 0, 100, 50 );
+    	sSpeed.setPaintTicks( true );
+    	sSpeed.setMinorTickSpacing(10); //Abstände im Feinraster
+    	sSpeed.setMajorTickSpacing(20); //Abstände im Großraster
+    	sSpeed.setSnapToTicks(true);
+    	sSpeed.setPaintLabels(false);
+    	sSpeed.addChangeListener(ChangeSpeed);
+    	
+    	setSpeed();
+		
+		lblTotalSpaceLabel = new JLabel("Gesammter Speicherplatz:");
+		
+		lblTotalSpaceOutput = new JLabel("");
+		
+		lblFreeSpaceLabel = new JLabel("Freier Speicherplatz:");
+		
+		lblFreeSpaceOutput = new JLabel("");
+		
+		lblUsedSpaceLabel = new JLabel("Belegter Speicherplatz:");
+		
+		lblUsedSpaceOutput = new JLabel("");
+		
+		lblRateLabel = new JLabel("Belegter Speicherplatz in %:");
+		
+		lblRateOutput = new JLabel("");
+		
+		lblTurtle = new JLabel("");
+		lblTurtle.setIcon(IMG_TURTLE);
+		
+		lblRabbit = new JLabel("");
+		lblRabbit.setIcon(IMG_RABBIT);
+		
+		GroupLayout groupLayout = new GroupLayout(this);
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblUsedSpaceLabel)
-							.addComponent(lblUsedSpaceOutput))
-						.addPreferredGap(ComponentPlacement.RELATED)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblUsedSpaceOutput, GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+							.addGap(786))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblFreeSpaceLabel)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblFreeSpaceOutput)
+							.addContainerGap(1050, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(lblRateLabel)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(lblRateOutput))
+										.addGroup(groupLayout.createSequentialGroup()
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(lblSpeicher)
+												.addComponent(lblStrategie))
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+												.addComponent(tSpeicher)
+												.addComponent(cbStrategie, 0, 106, Short.MAX_VALUE))))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(btnExecute2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(btnExecute1, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblTotalSpaceLabel)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblTotalSpaceOutput)))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(7)
+									.addComponent(lblTurtle))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(18)
+									.addComponent(lblSpeedTip)
+									.addGap(4)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(sSpeed, GroupLayout.PREFERRED_SIZE, 570, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(lblRabbit))
+										.addComponent(chcxbxAuto))))
+							.addContainerGap(233, Short.MAX_VALUE))))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblRateLabel)
-							.addComponent(lblRateOutput))
-						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-			);
-			setLayout(groupLayout);
+							.addComponent(lblStrategie)
+							.addComponent(cbStrategie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnExecute1))
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(chcxbxAuto)
+							.addComponent(lblSpeedTip)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblTurtle)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblSpeicher)
+								.addComponent(tSpeicher, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnExecute2))
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addComponent(lblRabbit)
+								.addComponent(sSpeed, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblTotalSpaceLabel)
+						.addComponent(lblTotalSpaceOutput))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblFreeSpaceLabel)
+						.addComponent(lblFreeSpaceOutput))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblUsedSpaceLabel)
+						.addComponent(lblUsedSpaceOutput))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblRateLabel)
+						.addComponent(lblRateOutput))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		setLayout(groupLayout);
 	}	
 	
 	/**
@@ -414,29 +414,36 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		initComponents();
 	}
 	
+	private EnumMemoryStrategy getStrategy() {
+		EnumMemoryStrategy result = null;
+		int select = cbStrategie.getSelectedIndex();
+		switch (select) {
+			case 0: 
+				result = EnumMemoryStrategy.FIRST_FIT;
+				break;
+			case 1: 
+				result = EnumMemoryStrategy.NEXT_FIT;
+				break;
+			case 2: 
+				result = EnumMemoryStrategy.BEST_FIT;
+				break;
+			case 3: 
+				result = EnumMemoryStrategy.WORST_FIT;
+				break;
+			default:
+				result = null;
+				break;
+		}
+		return result;
+	}
+	
+	
 	ActionListener ActionExecute1 = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			try {
 				if (memory.getStatus() == EnumMemoryStatus.START) {
 					// Strategie festlegen
-					int select = cbStrategie.getSelectedIndex();
-					switch (select) {
-						case 0: 
-							memory.setStrategy(EnumMemoryStrategy.FIRST_FIT);
-							break;
-						case 1: 
-							memory.setStrategy(EnumMemoryStrategy.NEXT_FIT);
-							break;
-						case 2: 
-							memory.setStrategy(EnumMemoryStrategy.BEST_FIT);
-							break;
-						case 3: 
-							memory.setStrategy(EnumMemoryStrategy.WORST_FIT);
-							break;
-						default:
-							memory.setStrategy(EnumMemoryStrategy.NULL);
-							break;
-					}				
+					memory.setStrategy(getStrategy());		
 				} else {
 					// zurücksetzen
 					stopAutomatic();;

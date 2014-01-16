@@ -19,6 +19,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import Base.BasePanelMenu;
+import Base.BasePanelModel;
+
 import javax.swing.ImageIcon;
 
 public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
@@ -150,24 +152,8 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
     	lblStrategie.setEnabled(true);
     	lblSpeicher.setEnabled(true);
     	lblSpeedTip.setEnabled(true);
+    	    	
     	
-    	Integer total = 0;
-    	Integer free = 0;
-    	Integer used = 0;
-    	List<ISpace> listSpace = memory.getListSpace();
-    	for (ISpace space : listSpace) {
-    		Integer value = space.getCurrentValue();
-    		total += value;
-    		EnumSpace type = space.getType();
-    		if (type == EnumSpace.EMPTY) {
-    			free += value;
-    		}
-    		if ((type == EnumSpace.FULL) || (type == EnumSpace.USED)) {
-    			used += value;
-    		}
-    	}
-    	Double rate = (((double) used) * 100) / ((double) total); 
-    	DecimalFormat f = new DecimalFormat("#0.00"); 
     	
     	EnumMemoryStatus status = memory.getStatus();    	
     	switch (status) {
@@ -228,10 +214,11 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	    	}
     	}    	
     	chcxbxAuto.setSelected(isAutomaticChecked);
-    	lblTotalSpaceOutput.setText(total.toString());
-    	lblFreeSpaceOutput.setText(free.toString());
-    	lblUsedSpaceOutput.setText(used.toString());
-    	lblRateOutput.setText(f.format(rate));
+    	lblTotalSpaceOutput.setText(memory.getTotalSpace().toString());
+    	lblFreeSpaceOutput.setText(memory.getFreeSpace().toString());
+    	lblUsedSpaceOutput.setText(memory.getUsedSpace().toString());
+    	DecimalFormat decimalFormat = new DecimalFormat("#0.00"); 
+    	lblRateOutput.setText(decimalFormat.format(memory.getUsedRate()));
     	sSpeed.setEnabled(isAutomaticChecked);
 	}	
 	
@@ -281,25 +268,16 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
     	
     	setSpeed();
 		
-		lblTotalSpaceLabel = new JLabel("Gesammter Speicherplatz:");
-		
-		lblTotalSpaceOutput = new JLabel("");
-		
-		lblFreeSpaceLabel = new JLabel("Freier Speicherplatz:");
-		
-		lblFreeSpaceOutput = new JLabel("");
-		
-		lblUsedSpaceLabel = new JLabel("Belegter Speicherplatz:");
-		
-		lblUsedSpaceOutput = new JLabel("");
-		
-		lblRateLabel = new JLabel("Belegter Speicherplatz in %:");
-		
-		lblRateOutput = new JLabel("");
-		
+		lblTotalSpaceLabel = new JLabel("Gesammter Speicherplatz:");		
+		lblTotalSpaceOutput = new JLabel("");		
+		lblFreeSpaceLabel = new JLabel("Freier Speicherplatz:");		
+		lblFreeSpaceOutput = new JLabel("");		
+		lblUsedSpaceLabel = new JLabel("Belegter Speicherplatz:");		
+		lblUsedSpaceOutput = new JLabel("");		
+		lblRateLabel = new JLabel("Belegter Speicherplatz in %:");		
+		lblRateOutput = new JLabel("");		
 		lblTurtle = new JLabel("");
-		lblTurtle.setIcon(IMG_TURTLE);
-		
+		lblTurtle.setIcon(IMG_TURTLE);		
 		lblRabbit = new JLabel("");
 		lblRabbit.setIcon(IMG_RABBIT);
 		
@@ -406,12 +384,14 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	/**
 	 * Create the panel.
 	 */
-	public PanelBSBelegungsstrategienMenu(IMemoryManagement imemory) {
+	public PanelBSBelegungsstrategienMenu(IMemoryManagement imemory, BasePanelModel model) {
+		super(model);
 		if (imemory == null) {
 			imemory = new MemoryManagement();
 		}
 		memory = imemory;
 		initComponents();
+		updateView();
 	}
 	
 	private EnumMemoryStrategy getStrategy() {
@@ -438,7 +418,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	}
 	
 	
-	ActionListener ActionExecute1 = new ActionListener() {
+	private ActionListener ActionExecute1 = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			try {
 				if (memory.getStatus() == EnumMemoryStatus.START) {
@@ -453,6 +433,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
+			updateView();
 		}
 	};
 	
@@ -468,26 +449,29 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		} finally {
 			
 		}
+		updateView();
 	}
 	
 	private void automatic() {
 		if (isAutomaticRunning) {
 			stopAutomatic();
 		} else {
-			startAutomatic();;							
+			startAutomatic();
 		}
+		updateView();
 	}
 	
 	private void search() {
 		// Suche
 		if (isAutomaticChecked) {
-			automatic();						
+			automatic();
 		} else {
 			foundSpace(memory.execute());
 		}
+		updateView();
 	}	
 	
-	ActionListener ActionExecute2 = new ActionListener() {
+	private ActionListener ActionExecute2 = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			try {
 				EnumMemoryStatus status = memory.getStatus();
@@ -505,26 +489,29 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 					default: {
 						break;
 					}
-				}
+				}				
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
+			updateView();
 		}
 	};	
 	
-	ActionListener ActionAuto = new ActionListener() {
+	private ActionListener ActionAuto = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			isAutomaticChecked = chcxbxAuto.isSelected();
+			updateView();
 		}
 	};
 	
-	ChangeListener ChangeSpeed = new ChangeListener() {
+	private ChangeListener ChangeSpeed = new ChangeListener() {
 		public void stateChanged(ChangeEvent arg0) {
 			setSpeed();
+			updateView();
 		}
 	};
 	
-	class AutoThread extends Thread {
+	public class AutoThread extends Thread {
 	    String text;
 	  
 	    public AutoThread() {
@@ -535,6 +522,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	    	try {
 	    		while(isAutomaticRunning && isAutomaticChecked && ((memory.getStatus() == EnumMemoryStatus.SEARCH) || (memory.getStatus() == EnumMemoryStatus.CHOOSE) || (memory.getStatus() == EnumMemoryStatus.FINISHED))) {
 	                foundSpace(memory.execute());
+	                updateView();
                     Thread.sleep(speed);
 	            }
 	    		isAutomaticChecked = false;
@@ -542,6 +530,9 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
             } catch (InterruptedException e) {
             	System.out.println("Thread abgebrochen");
             }
+	    	updateView();
 	    }
 	}
+
+	
 }

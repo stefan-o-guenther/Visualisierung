@@ -36,14 +36,14 @@ generell:
     
 19.12.2013
 BS
-	- Schildkröte etwas kleiner machen
-	- Seitenersetzung zuende programmieren
+	- Schildkröte etwas kleiner machen (erledigt)
+	- Seitenersetzung zuende programmieren (bis auf Hilfetexte erledigt)
 	- Buddy Systeme
-		- Speichergröße auf 1024 bis 4096 beschränken, ggfs auf 2er Potenz aufrunden
-		- Prozessnamen auch in der farbigen Grafik anzeigen
-		- aktuelle Belegungen in einem Rollfenster anzeigen, neueste immer oben
-		- komplette Breite für die Belegungen nutzen.
-		- die Auswahlbuttons kompakter darstellen, demo oben rechts, prozess beenden neben prozess starten.
+		- Speichergröße auf 1024 bis 4096 beschränken, ggfs auf 2er Potenz aufrunden (erledigt)
+		- Prozessnamen auch in der farbigen Grafik anzeigen (erledigt)
+		- aktuelle Belegungen in einem Rollfenster anzeigen, neueste immer oben (erledigt)
+		- komplette Breite für die Belegungen nutzen. (erledigt)
+		- die Auswahlbuttons kompakter darstellen, demo oben rechts, prozess beenden neben prozess starten. (erledigt)
 RN:
 	- Dijkstra
 		- überflüssige Leerschritte entfernen.
@@ -55,3 +55,15 @@ RN:
 		- 
 		
 nächster Termin: 09.01.2014
+
+09.01.2014
+
+BS:
+	-Buddy Systeme
+		- freie Plätze von links nach rechts durchsuchen, genau passend oder mit geringstem Verschnitt bevorzugen. (erledigt)
+		- Verschnitt bei grau bitte schwarz darstellen. (erledigt)
+		- Balkenhöhe an Buttonhöhe anpassen. (erledigt)
+		- Fragezeichen von Überschrift zu groß. (erledigt)
+		- Legende direkt über die aktuelle Speicherverteilung schreiben. (erledigt)
+
+	

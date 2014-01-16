@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.BasePanelMenu;
+import Base.BasePanelModel;
 
 public class PanelBSVerklemmungenMenu extends BasePanelMenu {
 	private JTextField tfE;
@@ -153,7 +154,8 @@ public class PanelBSVerklemmungenMenu extends BasePanelMenu {
 		
 	}
 	
-	public PanelBSVerklemmungenMenu(IDeadlockManagement ideadlock) {
+	public PanelBSVerklemmungenMenu(IDeadlockManagement ideadlock, BasePanelModel panelModel) {
+		super(panelModel);
 		if (ideadlock == null) {
 			ideadlock = new DeadlockManagement();
 		}

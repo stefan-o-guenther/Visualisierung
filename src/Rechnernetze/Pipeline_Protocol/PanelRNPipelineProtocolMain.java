@@ -25,8 +25,8 @@ public class PanelRNPipelineProtocolMain extends BasePanelMain {
 	        	+ "</html>";
 		
 		panelModel = new PanelRNPipelineProtocolModel(pipeline);
-		panelMenu = new PanelRNPipelineProtocolMenu(pipeline);
-		panelTitle = new PanelTitle("Pipeline Protocol", tooltip, pipeline);		
+		panelMenu = new PanelRNPipelineProtocolMenu(pipeline, panelModel);
+		panelTitle = new PanelTitle(pipeline, panelModel, "Pipeline Protocol", tooltip);		
 		initLayout(200);
 	}
 

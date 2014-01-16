@@ -6,7 +6,7 @@ import java.util.List;
 public class BuddyOperation implements IBuddyOperation {
 
 	private String message = "";
-	private List<IProcessSpace> list = new ArrayList<IProcessSpace>();
+	private List<IBuddySpace> list = new ArrayList<IBuddySpace>();
 	
 	@Override
 	public String getMessage() {
@@ -21,12 +21,12 @@ public class BuddyOperation implements IBuddyOperation {
 	}
 
 	@Override
-	public List<IProcessSpace> getBuddyList() {
+	public List<IBuddySpace> getBuddyList() {
 		return list;
 	}
 
 	@Override
-	public void setBuddyList(List<IProcessSpace> value) {
+	public void setBuddyList(List<IBuddySpace> value) {
 		if (value != null) {
 			list = value;
 		}

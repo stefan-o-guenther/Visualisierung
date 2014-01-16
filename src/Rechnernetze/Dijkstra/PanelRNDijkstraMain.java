@@ -24,10 +24,10 @@ public class PanelRNDijkstraMain extends BasePanelMain {
 	        	+ "Standardm‰ﬂig ist die Geschwindigkeit auf 50% eingestellt.<br>"
 	        	+ "</html>";
 		
-		panelModel = new PanelRNDijkstraModel(dijkstra );
-		panelMenu = new PanelRNDijkstraMenu(dijkstra );
-		panelTitle = new PanelTitle("Dijkstra", tooltip, dijkstra );		
-		initLayout(200);
+		panelModel = new PanelRNDijkstraModel(dijkstra);
+		panelMenu = new PanelRNDijkstraMenu(dijkstra, panelModel);
+		panelTitle = new PanelTitle(dijkstra, panelModel, "Dijkstra", tooltip);		
+		initLayout(50);
 	}
 
 }

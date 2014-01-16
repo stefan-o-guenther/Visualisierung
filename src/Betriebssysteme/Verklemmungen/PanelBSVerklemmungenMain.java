@@ -28,8 +28,8 @@ public class PanelBSVerklemmungenMain extends BasePanelMain {
 	        	+ "</html>";
 		
 		panelModel = new PanelBSVerklemmungenModelScroll(deadlock);
-		panelMenu = new PanelBSVerklemmungenMenu(deadlock);
-		panelTitle = new PanelTitle("Verklemmungen", tooltip, deadlock);		
+		panelMenu = new PanelBSVerklemmungenMenu(deadlock, panelModel);
+		panelTitle = new PanelTitle(deadlock, panelModel, "Verklemmungen", tooltip);		
 		initLayout(200);
 	}
 }

@@ -1,6 +1,6 @@
 package Betriebssysteme.Buddy_Systeme;
 
-public interface ISpaceNode extends INode {
+public interface IProcessNode extends INode {
 	String getName();
 	Integer getValue();	
 }

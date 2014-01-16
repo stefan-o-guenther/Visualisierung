@@ -3,6 +3,7 @@ package Rechnernetze.Pipeline_Protocol;
 import javax.swing.JPanel;
 
 import Base.BasePanelMenu;
+import Base.BasePanelModel;
 
 public class PanelRNPipelineProtocolMenu extends BasePanelMenu {
 
@@ -11,7 +12,8 @@ public class PanelRNPipelineProtocolMenu extends BasePanelMenu {
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNPipelineProtocolMenu(IPipelineManagement ipipeline) {
+	public PanelRNPipelineProtocolMenu(IPipelineManagement ipipeline, BasePanelModel model) {
+		super(model);
 		if (ipipeline == null) {
 			ipipeline = new PipelineManagement();
 		}

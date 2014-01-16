@@ -6,6 +6,6 @@ public interface IBuddyOperation {
 	String getMessage();
 	void setMessage(String value);
 	
-	List<IProcessSpace> getBuddyList();
-	void setBuddyList(List<IProcessSpace> value);
+	List<IBuddySpace> getBuddyList();
+	void setBuddyList(List<IBuddySpace> value);
 }

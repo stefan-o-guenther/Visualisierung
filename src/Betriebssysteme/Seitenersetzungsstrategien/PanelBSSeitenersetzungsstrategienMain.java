@@ -55,8 +55,8 @@ NRU / RNU
 	        	+ "</html>";
 		
 		panelModel = new PanelBSSeitenersetzungsstrategienModel(paging);
-		panelMenu = new PanelBSSeitenersetzungsstrategienMenu(paging);
-		panelTitle = new PanelTitle("Seitenersetzungsstrategien", tooltip, paging);
+		panelMenu = new PanelBSSeitenersetzungsstrategienMenu(paging, panelModel);
+		panelTitle = new PanelTitle(paging, panelModel, "Seitenersetzungsstrategien", tooltip);
 		initLayout(70);
 	}
 }

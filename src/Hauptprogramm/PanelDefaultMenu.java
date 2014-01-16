@@ -1,6 +1,7 @@
 package Hauptprogramm;
 
 import Base.BasePanelMenu;
+import Base.BasePanelModel;
 
 public class PanelDefaultMenu extends BasePanelMenu {
 
@@ -9,7 +10,8 @@ public class PanelDefaultMenu extends BasePanelMenu {
 	/**
 	 * Create the panel.
 	 */
-	public PanelDefaultMenu(IDefaultManagement imain) {
+	public PanelDefaultMenu(IDefaultManagement imain, BasePanelModel modeldraw) {
+		super(modeldraw);
 		if (imain == null) {
 			imain = new DefaultManagement();
 		}

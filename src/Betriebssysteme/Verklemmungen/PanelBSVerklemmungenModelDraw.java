@@ -28,8 +28,14 @@ public class PanelBSVerklemmungenModelDraw extends BasePanelModelDraw {
 	}
 
 	@Override
-	protected void update() {
+	protected void updateData() {
 		EnumSurface surface = deadlock.getSurface();
+	}
+
+	@Override
+	public void updateModel() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

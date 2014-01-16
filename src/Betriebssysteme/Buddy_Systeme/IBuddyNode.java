@@ -1,5 +1,7 @@
 package Betriebssysteme.Buddy_Systeme;
 
+import java.util.List;
+
 public interface IBuddyNode extends INode {
 	Integer getValue();
 	Boolean hasChildren();
@@ -10,13 +12,14 @@ public interface IBuddyNode extends INode {
 	IBuddyNode getRightBuddyNode();
 	void setRightBuddyNode(IBuddyNode value);
 	
-	ISpaceNode getSpaceNode();
-	void setSpaceNode(ISpaceNode value);
+	IProcessNode getSpaceNode();
+	void setSpaceNode(IProcessNode value);
 	
 	IRestNode getRestNode();
 	void setRestNode(IRestNode value);
 	
-	ISpaceNode insertSpace(String name, Integer value);
+	IProcessNode insertSpace(String name, Integer value);
+	List<IBuddyNode> findPossibleBuddyNodes(Integer value);
 	
 	Boolean isEmpty();
 	Boolean clean();

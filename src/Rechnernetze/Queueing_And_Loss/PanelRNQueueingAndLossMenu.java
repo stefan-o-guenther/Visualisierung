@@ -1,6 +1,8 @@
 package Rechnernetze.Queueing_And_Loss;
 
 import Base.BasePanelMenu;
+import Base.BasePanelModel;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -16,9 +18,18 @@ public class PanelRNQueueingAndLossMenu extends BasePanelMenu {
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNQueueingAndLossMenu(IQALManagement iqal) {
-		
-		JButton btnStart = new JButton("ausf\u00FChren");
+	public PanelRNQueueingAndLossMenu(IQALManagement iqal, BasePanelModel model) {
+		super(model);		
+		if (iqal == null) {
+			iqal = new QALManagement();
+		}
+		qal = iqal;
+		initComponents();
+	}
+
+	@Override
+	protected void initComponents() {
+JButton btnStart = new JButton("ausf\u00FChren");
 		
 		JButton btnReset = new JButton("zur\u00FCcksetzen");
 		
@@ -84,16 +95,6 @@ public class PanelRNQueueingAndLossMenu extends BasePanelMenu {
 					.addGap(179))
 		);
 		setLayout(groupLayout);
-		if (iqal == null) {
-			iqal = new QALManagement();
-		}
-		qal = iqal;
-	}
-
-	@Override
-	protected void initComponents() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

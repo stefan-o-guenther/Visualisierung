@@ -1,6 +1,7 @@
 package Rechnernetze.Congestion_Avoidance;
 
 import Base.BasePanelMenu;
+import Base.BasePanelModel;
 
 public class PanelRNCongestionAvoidanceMenu extends BasePanelMenu {
 
@@ -9,7 +10,8 @@ public class PanelRNCongestionAvoidanceMenu extends BasePanelMenu {
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNCongestionAvoidanceMenu(INetworkManagement inetwork) {
+	public PanelRNCongestionAvoidanceMenu(INetworkManagement inetwork, BasePanelModel model) {
+		super(model);
 		if (inetwork == null) {
 			inetwork = new NetworkManagement();
 		}

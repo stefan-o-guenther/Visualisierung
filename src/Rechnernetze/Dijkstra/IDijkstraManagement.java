@@ -4,4 +4,7 @@ import Base.IManagement;
 
 public interface IDijkstraManagement extends IManagement {
 
+	
+	
+	
 }

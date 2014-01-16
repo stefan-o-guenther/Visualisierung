@@ -3,13 +3,13 @@ package Betriebssysteme.Buddy_Systeme;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpaceNode implements ISpaceNode {
+public class ProcessNode implements IProcessNode {
 
 	private IBuddyNode parent = null;
 	private Integer space = null;
 	private String name = "";
 	
-	public SpaceNode(String s, Integer value, IBuddyNode p) {
+	public ProcessNode(String s, Integer value, IBuddyNode p) {
 		if ((value == null) || (value < 0)) {
 			value = 0;
 		}		
@@ -47,14 +47,12 @@ public class SpaceNode implements ISpaceNode {
 	}
 
 	@Override
-	public List<IProcessSpace> getNodeList(List<IProcessSpace> list, Integer limit) {
-		if (list == null) {
-			list = new ArrayList<IProcessSpace>();
-		}
+	public List<IBuddySpace> getNodeList(Integer limit) {
+		List<IBuddySpace> list = new ArrayList<IBuddySpace>();
 		if (limit == null) {
 			limit = 0;
 		}
-		IProcessSpace ps = new ProcessSpace();
+		IBuddySpace ps = new BuddySpace();
 		ps.setName(name);
 		ps.setSize(space);
 		ps.setType(getType());

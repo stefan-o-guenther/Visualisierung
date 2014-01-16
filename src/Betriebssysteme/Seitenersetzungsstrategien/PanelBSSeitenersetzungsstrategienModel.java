@@ -12,22 +12,23 @@ import Base.EnumSurface;
 
 public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModelDraw {
 	
-	private IMemoryManager paging;
+	private final Integer LENGTH_BOX = 35;
+	private final Integer WIDTH_LABEL = 80;
+	private final Integer X_FIRST = 5;
+	private final Integer Y_FIRST = 30;	
+	private final Integer GAP = 5;
 	
-	private Graphics2D G2D; // = (Graphics2D) getGraphics();
-	//private Font FONT = G2D.getFont();
-	
-	private Integer LENGTH_BOX;
-	private Integer WIDTH_LABEL;
-	private Integer X_FIRST;
-	private Integer Y_FIRST;	
-	private Integer GAP;
-	
-	private List<ICacheBox> listCache = new ArrayList<ICacheBox>();
 	private Integer maxRam = 3;
 	private Integer maxDisk = 3;
-	private EnumSurface surface;
 	
+	private IMemoryManager paging;
+	
+	private Graphics2D g2d;	
+	
+	private List<ICacheBox> listCache = new ArrayList<ICacheBox>();
+	
+	private EnumSurface surface;
+		
 	public PanelBSSeitenersetzungsstrategienModel(IMemoryManager ipaging) {
 		if (ipaging == null) {
 			ipaging = new MemoryManager();
@@ -42,10 +43,10 @@ public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModelDraw {
 		}
         Integer y = Y_FIRST-30;        
         
-        Font font = G2D.getFont();
-        G2D.setColor(Color.BLACK);
-        G2D.setFont(new Font(font.getFontName(), Font.BOLD, 18));        
-        G2D.drawString(text, x+13, y+25);
+        Font font = g2d.getFont();
+        g2d.setColor(Color.BLACK);
+        g2d.setFont(new Font(font.getFontName(), Font.BOLD, 18));        
+        g2d.drawString(text, x+13, y+25);
 	}	
 		
 	private void labelY(String text, Integer countY, Boolean gapY) {		
@@ -56,21 +57,21 @@ public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModelDraw {
         if (gapY) {
         	y += GAP;
         }
-        Font font = G2D.getFont();
-        G2D.setColor(Color.BLACK);
-        G2D.drawRect(x, y, w, h);
+        Font font = g2d.getFont();
+        g2d.setColor(Color.BLACK);
+        g2d.drawRect(x, y, w, h);
                
-        G2D.setFont(new Font(font.getFontName(), Font.BOLD, 18));        
-        G2D.drawString(text, x+10, y+25);
+        g2d.setFont(new Font(font.getFontName(), Font.BOLD, 18));        
+        g2d.drawString(text, x+10, y+25);
         
-        G2D.setFont(new Font(font.getFontName(), Font.BOLD, 10));
-        G2D.drawString("R", x+w-15, y+12);
-        G2D.drawString("M", x+w-15, y+h-3);		
+        g2d.setFont(new Font(font.getFontName(), Font.BOLD, 10));
+        g2d.drawString("R", x+w-15, y+12);
+        g2d.drawString("M", x+w-15, y+h-3);		
 	}
 	
 	private void drawEmptyBox(Integer x, Integer y) {
-		G2D.setColor(Color.BLACK);
-		G2D.drawRect(x, y, LENGTH_BOX, LENGTH_BOX);
+		g2d.setColor(Color.BLACK);
+		g2d.drawRect(x, y, LENGTH_BOX, LENGTH_BOX);
 	}
 	
 	private Integer getGap(Boolean gap) {
@@ -117,35 +118,32 @@ public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModelDraw {
 	        	sR = r.toString();
 	        }	        
 	        
-	        Font font = G2D.getFont();			
+	        Font font = g2d.getFont();			
 			
 			// Zahl
-	        G2D.setColor(Color.BLACK);
-	        G2D.setFont(new Font(font.getFontName(), Font.BOLD, 18));
-	        G2D.drawString(sZ, x+13, y+25);
+	        g2d.setColor(Color.BLACK);
+	        g2d.setFont(new Font(font.getFontName(), Font.BOLD, 18));
+	        g2d.drawString(sZ, x+13, y+25);
 	        
 	        
 	        
-	        // r und m
-	       
-	        	
-		        
+	        // r und m	        
 	        if ((!(gapY)) && (paging.useRM())) {
-	        	G2D.setColor(Color.BLACK);
-	        	G2D.setFont(new Font(font.getFontName(), Font.BOLD, 10));
-	        	G2D.drawString(sR, x+4, y+12);
-	        	G2D.drawString(sM, x+4, y+LENGTH_BOX-3); 
+	        	g2d.setColor(Color.BLACK);
+	        	g2d.setFont(new Font(font.getFontName(), Font.BOLD, 10));
+	        	g2d.drawString(sR, x+4, y+12);
+	        	g2d.drawString(sM, x+4, y+LENGTH_BOX-3); 
 	        }
 		        
 	        
 	        	                
 	        switch (surface) {
 		        case COLORED: {
-		        	G2D.setColor(Color.RED);
+		        	g2d.setColor(Color.RED);
 		        	break;
 		        }
 		        case GRAY: {
-		        	G2D.setColor(Color.BLACK);
+		        	g2d.setColor(Color.BLACK);
 		        	break;
 		        }
 		        default: {
@@ -154,11 +152,11 @@ public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModelDraw {
 	        }	        
 	        switch (status) {
 	        	case OVERWRITE: {
-	        		G2D.drawOval(x+8, y+8, LENGTH_BOX-15, LENGTH_BOX-15);
+	        		g2d.drawOval(x+8, y+8, LENGTH_BOX-15, LENGTH_BOX-15);
 	        		break;
 	        	}
 		        case NEW: {		        	
-		        	G2D.drawRect(x+10, y+9, LENGTH_BOX-19, LENGTH_BOX-17);
+		        	g2d.drawRect(x+10, y+9, LENGTH_BOX-19, LENGTH_BOX-17);
 		        	break;
 		        }
 		        default: {
@@ -168,26 +166,16 @@ public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModelDraw {
 		}		       
 	}	
 	
-	private void initValues() {
-		LENGTH_BOX = 35;
-		WIDTH_LABEL = 80;
-		X_FIRST = 5;
-		Y_FIRST = 30;
-		GAP = 5;
-	}	
+	
 
-	protected void doDrawing(Graphics g) {
-
-		repaint();
-        G2D = (Graphics2D) g;
+	protected void doDrawing(Graphics g) {		
+        g2d = (Graphics2D) g;       
         
-        initValues();
-        update();
+        updateData();
         
-        Font font = G2D.getFont();
+        Font font = g2d.getFont();
         
-        //g2d.setFont(g2d.getFont().deriveFont(18f));
-        G2D.setFont(new Font(font.getFontName(), Font.BOLD, 18)); 
+        g2d.setFont(new Font(font.getFontName(), Font.BOLD, 18)); 
         
         Integer size = listCache.size();        
         
@@ -236,20 +224,19 @@ public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModelDraw {
     				boxEmpty(c, (d + maxRam), gapX, true);
     			}    			
     		}        	        	
-        }  
-        
-        //g2d.drawString("Java 2D", 50, 50);
-        
-        //g2d.setColor(Color.BLACK);
-    	
+        }
     }
 
-
 	@Override
-	protected void update() {
+	protected void updateData() {
 		listCache = paging.getListCache();
 		maxRam = paging.getMaxRam();
 		maxDisk = paging.getMaxDisk();
 		surface = paging.getSurface();
+	}
+
+	@Override
+	public void updateModel() {
+		repaint();
 	} 
 }

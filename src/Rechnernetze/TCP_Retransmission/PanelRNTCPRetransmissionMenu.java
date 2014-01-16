@@ -1,6 +1,7 @@
 package Rechnernetze.TCP_Retransmission;
 
 import Base.BasePanelMenu;
+import Base.BasePanelModel;
 
 public class PanelRNTCPRetransmissionMenu extends BasePanelMenu {
 
@@ -9,7 +10,8 @@ public class PanelRNTCPRetransmissionMenu extends BasePanelMenu {
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNTCPRetransmissionMenu(IRetransmissionManagement iretransmission) {
+	public PanelRNTCPRetransmissionMenu(IRetransmissionManagement iretransmission, BasePanelModel model) {
+		super(model);
 		if (iretransmission == null) {
 			iretransmission = new RetransmissionManagement();
 		}

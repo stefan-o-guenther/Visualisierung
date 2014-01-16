@@ -2,27 +2,39 @@ package Base;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.InputStream;
 
+import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class PanelTitle extends JPanel {
+public class PanelTitle extends BasePanelUseModel {
 	
 	private ButtonGroup groupColor = new ButtonGroup();
 	private JRadioButton rdbtnColored;	
 	private JRadioButton rdbtnGray;
 	
 	private JLabel lblTitle;	
-	private String title = "";
-	private String tooltip = "";
+	private String title;
+	private String tooltip;
 	
 	private IManagement management;
+	
+	private ImageIcon getHelp() {
+		ImageIcon icon = null;
+		try {
+			InputStream stream = BasePanelMenu.class.getResourceAsStream("img/32x32_help.png");
+			icon = new ImageIcon(ImageIO.read(stream));				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return icon;
+	}
 	
 	private ActionListener ActionColor = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
@@ -32,6 +44,7 @@ public class PanelTitle extends JPanel {
 			} else if (s == "gray") {
 				management.setSurface(EnumSurface.GRAY);
 			}
+			updateModel();
 		}	
 	};
 	
@@ -48,7 +61,7 @@ public class PanelTitle extends JPanel {
 				
 		lblTitle = new JLabel(title);
 		lblTitle.setFont(lblTitle.getFont().deriveFont(36f));
-		lblTitle.setIcon(new ImageIcon("img/48x48_help.png"));
+		lblTitle.setIcon(getHelp());
 		lblTitle.setToolTipText(tooltip);
 		
 		
@@ -77,17 +90,20 @@ public class PanelTitle extends JPanel {
 		setLayout(groupLayout);
 	}
 	
-	public PanelTitle(String vTitle, String vToolTip, IManagement vManagement) {
+	public PanelTitle(IManagement vManagement, BasePanelModel model, String vTitle, String vToolTip) {
+		super(model);
+		title = "";
 		if (vTitle != null) {
 			title = vTitle;			
 		}
+		tooltip = "";
 		if (vToolTip != null) {
 			tooltip = vToolTip;
 		}
 		if (vManagement != null) {
 			management = vManagement;
 			management.setSurface(EnumSurface.COLORED);
-		}
+		}		
 		initComponents();
 	}	
 }

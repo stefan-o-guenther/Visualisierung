@@ -13,8 +13,10 @@ import Base.EnumSurface;
 public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
 	
 	private final Integer MAX_WIDTH = 1000;
-	
+		
 	private IMemoryManagement memory;
+	
+	private Graphics2D g2d;
 	
 	private Integer xPoint;
 	private Integer yPoint;
@@ -51,43 +53,8 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
         return MAX_WIDTH / sum;
 	}
 	
-	private Color getBoxColor(ISpace space) {
-		Color color = Color.BLACK;
-		
-		// rectangle filled
-		switch (surface) {
-	    	case COLORED:
-	    		switch (space.getType()) {
-		        	case EMPTY:
-		        		color = Color.WHITE;
-		        		break;
-		        	case USED:
-		        		color = Color.CYAN;
-		        		break;
-		        	case FULL:
-		        		color = Color.BLACK;
-		        		break;
-		        	default:
-		        		break;        	
-	        	}
-	    		break;
-	    	case GRAY:
-	    		switch (space.getType()) {
-		        	case EMPTY:
-		        		color = Color.WHITE;
-		        		break;
-		        	case USED:
-		        		color = Color.LIGHT_GRAY;
-		        		break;
-		        	case FULL:
-		        		color = Color.BLACK;
-		        		break;
-		        	default:
-		        		break;        	
-	        	}
-	    		break;
-		}		
-		return color;
+	private Color getBoxColor(ISpace space) {		
+		return memory.getColor(space.getType());
 	}
 	
 	private void calculateValues(ISpace space) {
@@ -116,18 +83,17 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
 	}
 	
 	@Override
-	protected void update() {
+	protected void updateData() {
 		listSpace = memory.getListSpace();            
         surface = memory.getSurface();         
 	}
 		
 	protected void doDrawing(Graphics g) {
-		try {
-			repaint();         	
-    		Graphics2D g2d = (Graphics2D) g;    		
+		try {			         	
+    		g2d = (Graphics2D) g;    		
     		
     		initValues(); 
-    		update();
+    		updateData();
     		
     		g2d.setColor(Color.BLACK);
     		
@@ -182,5 +148,10 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
 			ex.printStackTrace();
 		}
     }
+
+	@Override
+	public void updateModel() {
+		repaint();
+	}
 }
 

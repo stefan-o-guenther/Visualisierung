@@ -25,8 +25,8 @@ public class PanelBSBelegungsstrategienMain extends BasePanelMain {
 	        	+ "</html>";
 		
 		panelModel = new PanelBSBelegungsstrategienModel(memory);
-		panelMenu = new PanelBSBelegungsstrategienMenu(memory);
-		panelTitle = new PanelTitle("Belegungsstrategien", tooltip, memory);		
+		panelMenu = new PanelBSBelegungsstrategienMenu(memory, panelModel);
+		panelTitle = new PanelTitle(memory, panelModel, "Belegungsstrategien", tooltip);		
 		initLayout(160);
 	}
 }

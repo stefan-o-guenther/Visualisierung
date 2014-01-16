@@ -25,8 +25,8 @@ public class PanelRNTCPFairnessMain extends BasePanelMain {
 	        	+ "</html>";
 		
 		panelModel = new PanelRNTCPFairnessModel(fairness);
-		panelMenu = new PanelRNTCPFairnessMenu(fairness);
-		panelTitle = new PanelTitle("TCP-Fairness", tooltip, fairness);		
+		panelMenu = new PanelRNTCPFairnessMenu(fairness, panelModel);
+		panelTitle = new PanelTitle(fairness, panelModel, "TCP-Fairness", tooltip);		
 		initLayout(200);
 	}
 

@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.BasePanelMenu;
+import Base.BasePanelModel;
 
 public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 	
@@ -255,12 +256,14 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 	 * Create the panel.
 	 * @param panelModel 
 	 */
-	public PanelBSSeitenersetzungsstrategienMenu(IMemoryManager ipaging) {		
+	public PanelBSSeitenersetzungsstrategienMenu(IMemoryManager ipaging, BasePanelModel model) {
+		super(model);
 		if (ipaging == null) {
 			ipaging = new MemoryManager();
 		}
 		paging = ipaging;
 		initComponents();
+		updateView();
 	}	
 	
 	@Override
@@ -473,6 +476,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 					break;
 				}
 			}
+			updateView();
 		}
 	};
 	
@@ -493,7 +497,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 						}
 						if (size > 26) {
 							ok = false;
-							printError("Die Referenzfolge ist hat mehr als 26 Stellen!");
+							printError("Die Referenzfolge hat mehr als 26 Stellen!");
 						}
 						if (ram.equals(0)) {
 							ok = false;
@@ -519,19 +523,21 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 				}
 			}
 			// Starten und Weiter
-			
+			updateView();
 		}
 	};
 	
 	ActionListener ActionResetR = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			paging.resetRBits();
+			updateView();
 		}
 	};
 
 	ActionListener ActionSetM = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			paging.setMBit();
+			updateView();
 		}
 	};
 }

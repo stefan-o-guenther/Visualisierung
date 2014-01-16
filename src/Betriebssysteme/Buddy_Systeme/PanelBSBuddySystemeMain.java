@@ -1,6 +1,10 @@
 package Betriebssysteme.Buddy_Systeme;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Base.BasePanelMain;
+import Base.BasePanelModel;
 import Base.PanelTitle;
 
 public class PanelBSBuddySystemeMain extends BasePanelMain {
@@ -34,6 +38,7 @@ Beide Vorgänge, sowohl das Suchen eines passenden freien Stücks (bzw. das dafür 
 	 * */
 	
 	
+	protected PanelBSBuddySystemeExplanationScroll panelExplanation;
 	
 	protected void initComponents() {
 		IBuddyMemoryAllocation buddy = (IBuddyMemoryAllocation) management;
@@ -53,10 +58,11 @@ Beide Vorgänge, sowohl das Suchen eines passenden freien Stücks (bzw. das dafür 
 	        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
 	        	+ "</html>";
 		
-		panelModel = new PanelBSBuddySystemeModelScroll(buddy);
-		panelMenu = new PanelBSBuddySystemeMenu(buddy);
-		panelTitle = new PanelTitle("Buddy Systeme", tooltip, buddy);
-		initLayout(100);
+		panelModel = new PanelBSBuddySystemeModel(buddy);
+		//panelModel = new PanelBSBuddySystemeModelScroll(buddy);
+		panelMenu = new PanelBSBuddySystemeMenu(buddy, panelModel);
+		panelTitle = new PanelTitle(buddy, panelModel, "Buddy Systeme", tooltip);
+		initLayout(110);
 	}
 		
 	

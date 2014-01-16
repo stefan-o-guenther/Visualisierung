@@ -25,8 +25,8 @@ public class PanelRNCongestionAvoidanceMain extends BasePanelMain {
 	        	+ "</html>";
 		
 		panelModel = new PanelRNCongestionAvoidanceModel(network);
-		panelMenu = new PanelRNCongestionAvoidanceMenu(network);
-		panelTitle = new PanelTitle("Congestion Avoidance", tooltip, network);		
+		panelMenu = new PanelRNCongestionAvoidanceMenu(network, panelModel);
+		panelTitle = new PanelTitle(network, panelModel, "Congestion Avoidance", tooltip);		
 		initLayout(200);
 	}
 }

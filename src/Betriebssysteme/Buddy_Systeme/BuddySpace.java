@@ -1,6 +1,6 @@
 package Betriebssysteme.Buddy_Systeme;
 
-public class ProcessSpace implements IProcessSpace {
+public class BuddySpace implements IBuddySpace {
 
 	private EnumNode type = null;
 	private String name = "";

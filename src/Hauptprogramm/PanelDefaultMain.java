@@ -24,8 +24,8 @@ public class PanelDefaultMain extends BasePanelMain {
 	        	+ "</html>";
 		
 		panelModel = new PanelDefaultModel(main);
-		panelMenu = new PanelDefaultMenu(main);
-		panelTitle = new PanelTitle("Bachelorarbeit - Visualisierung", tooltip, main);		
+		panelMenu = new PanelDefaultMenu(main, panelModel);
+		panelTitle = new PanelTitle(main, panelModel, "Bachelorarbeit - Visualisierung", tooltip);		
 		initLayout(200);
 	}
 }

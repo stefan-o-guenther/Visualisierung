@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +16,15 @@ import Base.EnumSurface;
 public class PanelBSBuddySystemeModelDraw extends BasePanelModelDraw {
 
 	private IBuddyMemoryAllocation buddy;
+	private List<IBuddyOperation> list = new ArrayList<IBuddyOperation>();	
+	private EnumSurface surface;
 	
-	private Dimension area; //indicates area taken up by graphics
+	private Graphics2D g2d;
 	
-	private List<IBuddyOperation> list = new ArrayList<IBuddyOperation>();
+	private final Integer WIDTH = 512;
+	private final Integer HEIGHT = 20;
+	private final Integer GAP_X = 10;
+	private final Integer GAP_Y = 10;	
 	
 	/**
 	 * Create the panel.
@@ -28,78 +34,83 @@ public class PanelBSBuddySystemeModelDraw extends BasePanelModelDraw {
 			ibuddy = new BuddyMemoryAllocation();
 		}
 		buddy = ibuddy;
-		
-		
-		
-		/*
-		String text = "hello ";
-		for (int i = 0; i < 100; i++) {
-			JLabel label = new JLabel(text);			
-			add(label);
-		}
-		*/
-		area = new Dimension(0,0);
+		updateModel();
 	}
 
 	@Override
 	protected void doDrawing(Graphics g) {
-		repaint();
-		// update();
-		Graphics2D g2d = (Graphics2D) g;
-		
-		Integer size = buddy.getTotalSpace();
+		g2d = (Graphics2D) g;
+		Integer height = 0;
+		Integer size = buddy.getTotalSpace();					
 		if (size > 0) {
-			Integer limit = size / 512;
-			buddy.limitOutput(limit);
-			list = buddy.getNodeList();
-			Integer length = list.size();
-			if (length > 0) {
-				IBuddyOperation operation = list.get(0);
-				List<IProcessSpace> listps = operation.getBuddyList();
+			Integer length = list.size();			
+			for (Integer i = 0; i < length; i++) {
+				IBuddyOperation operation = list.get(i);				
+				List<IBuddySpace> listps = operation.getBuddyList();
 				if (listps != null) {
 					Integer sum = 0;
-					for (IProcessSpace ps : listps) {
-						Integer x = ps.getSize();						
-						Integer y = (x * 512) / size;
+					for (IBuddySpace ps : listps) {
+						Integer widthNode = (ps.getSize() * WIDTH) / size;;						
 						g2d.setColor(Color.BLACK);
-						g2d.drawRect(sum+10, 10, y, 100);
+						g2d.drawRect(sum+GAP_X, i*(HEIGHT+GAP_Y)+GAP_Y, widthNode, HEIGHT);
 						EnumNode type = ps.getType();
 						if (type != null) {
+							Color color = null;
 							switch (type) {
 								case BUDDY: {
-									g2d.setColor(Color.WHITE);
+									color = buddy.getBuddyColor();
 									break;
 								}
-								case SPACE: {
-									g2d.setColor(Color.MAGENTA);
+								case SPACE: {									
+									color = buddy.getProcessNodeColor(ps.getName());
 									break;
 								}
 								case REST: {
-									g2d.setColor(Color.ORANGE);
+									color = buddy.getRestColor();
 									break;
 								}
 								case USED: {
-									g2d.setColor(Color.GRAY);
+									color = buddy.getUsedColor();
 									break;
 								}
 								default: {
+									color = Color.WHITE;
 									break;
 								}
 							}
+							g2d.setColor(color);
+							g2d.fillRect(sum+GAP_X+1, i*(HEIGHT+GAP_Y)+GAP_Y+1, widthNode-1, HEIGHT-1);
+							if (type == EnumNode.SPACE) {
+								g2d.setColor(Color.BLACK);
+								g2d.drawString(ps.getName(), sum+GAP_X+2, i*(HEIGHT+GAP_Y)+GAP_Y+15);
+							}
 							
-							g2d.fillRect(sum+11, 11, y-2, 99);
-							sum += y;	
+							
+							sum += widthNode;	
 						}					
 					}
+					g2d.setColor(Color.BLACK);
+					g2d.drawString(operation.getMessage(), WIDTH+20, i*(HEIGHT+GAP_Y)+GAP_Y+5+(HEIGHT/2));
 				}				
-			}		
+			}
+			height = (length-1)*(HEIGHT+GAP_Y)+GAP_Y+HEIGHT+GAP_Y;
 		}
-		
+		Dimension area = new Dimension(0,0);		
+		area.height = height;											                
+        setPreferredSize(area);
+        revalidate();
 	}
 
 	@Override
-	protected void update() {
-		EnumSurface surface = buddy.getSurface();		
+	protected void updateData() {
+		surface = buddy.getSurface();
+		list = buddy.getNodeList();
+	}
+
+	@Override
+	public void updateModel() {
+		updateData();
+		repaint();
 	}
 
 }

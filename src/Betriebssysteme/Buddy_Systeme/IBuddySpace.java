@@ -1,6 +1,6 @@
 package Betriebssysteme.Buddy_Systeme;
 
-public interface IProcessSpace {
+public interface IBuddySpace {
 
 	EnumNode getType();
 	void setType(EnumNode value);

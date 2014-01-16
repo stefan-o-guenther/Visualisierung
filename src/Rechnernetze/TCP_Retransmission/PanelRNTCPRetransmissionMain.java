@@ -25,8 +25,8 @@ public class PanelRNTCPRetransmissionMain extends BasePanelMain {
 	        	+ "</html>";
 		
 		panelModel = new PanelRNTCPRetransmissionModel(retransmission);
-		panelMenu = new PanelRNTCPRetransmissionMenu(retransmission);
-		panelTitle = new PanelTitle("TCP-Retransmission", tooltip, retransmission);		
+		panelMenu = new PanelRNTCPRetransmissionMenu(retransmission, panelModel);
+		panelTitle = new PanelTitle(retransmission, panelModel, "TCP-Retransmission", tooltip);		
 		initLayout(200);
 	}
 

@@ -1,5 +1,6 @@
 package Betriebssysteme.Belegungsstrategien;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,5 +112,75 @@ public class MemoryManagement extends BaseManagement implements IMemoryManagemen
 	public List<ISpace> getListSpace() {
 		return listSpace;
 		//return new ArrayList<ISpace>(listSpacePublic); 		
+	}
+
+	private Color getColorEmpty() {
+		return Color.WHITE;		
+	}
+
+	private Color getColorUsed() {
+		switch (surface) {
+			case COLORED: return new Color(135,206,250);			
+			case GRAY: return Color.LIGHT_GRAY;
+			default: return null;						
+		}
+	}
+
+	private Color getColorFull() {
+		return Color.BLACK;
+	}
+
+	@Override
+	public Color getColor(EnumSpace type) {
+		switch (type) {
+			case EMPTY: return getColorEmpty();
+			case USED: return getColorUsed();
+			case FULL: return getColorFull();
+			default: return null;
+		}
+	}
+	
+	@Override
+	public Integer getTotalSpace() {
+		Integer total = 0;
+    	for (ISpace space : listSpace) {
+    		Integer value = space.getCurrentValue();
+    		total += value;    		   		
+    	}
+		return total;
+	}
+
+	@Override
+	public Integer getFreeSpace() {		
+    	Integer free = 0;    	
+    	for (ISpace space : listSpace) {    		 		
+    		EnumSpace type = space.getType();
+    		if (type == EnumSpace.EMPTY) {
+    			Integer value = space.getCurrentValue();   
+    			free += value;
+    		}    		
+    	}
+		return free;
+	}
+
+	@Override
+	public Integer getUsedSpace() {		
+    	Integer used = 0;
+    	for (ISpace space : listSpace) {    		
+    		EnumSpace type = space.getType();
+    		if ((type == EnumSpace.FULL) || (type == EnumSpace.USED)) {
+    			Integer value = space.getCurrentValue();
+    			used += value;
+    		}
+    	}
+		return used;
+	}
+
+	@Override
+	public Double getUsedRate() {
+		Integer used = getUsedSpace();
+		Integer total = getTotalSpace();
+		Double rate = (((double) used) * 100.0) / ((double) total); 
+		return rate;
 	}
 }

@@ -25,7 +25,13 @@ public class PanelRNTCPFairnessModel extends BasePanelModelDraw {
 	}
 
 	@Override
-	public void update() {
+	public void updateData() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateModel() {
 		// TODO Auto-generated method stub
 		
 	}

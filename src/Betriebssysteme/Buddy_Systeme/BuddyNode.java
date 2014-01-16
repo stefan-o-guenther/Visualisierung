@@ -9,7 +9,7 @@ public class BuddyNode implements IBuddyNode {
 	private IBuddyNode left = null;
 	private IBuddyNode right = null;
 	private IBuddyNode parent = null;
-	private ISpaceNode space = null;
+	private IProcessNode space = null;
 	private IRestNode rest = null;
 	
 	public BuddyNode(Integer value, IBuddyNode p) {
@@ -57,12 +57,12 @@ public class BuddyNode implements IBuddyNode {
 	}
 	
 	@Override
-	public ISpaceNode getSpaceNode() {
+	public IProcessNode getSpaceNode() {
 		return space;
 	}
 
 	@Override
-	public void setSpaceNode(ISpaceNode value) {
+	public void setSpaceNode(IProcessNode value) {
 		if (value != null) {
 			space = value;
 		}
@@ -91,24 +91,24 @@ public class BuddyNode implements IBuddyNode {
 	}
 
 	@Override
-	public ISpaceNode insertSpace(String name, Integer value) {
+	public IProcessNode insertSpace(String name, Integer value) {
 		if ((name != null) && (value != null) && (value >= 0)) {
 			if (value > size) {
 				return null;
 			} else {
-				Integer x = BuddyHelper.getPotence(size);
-				Integer y = BuddyHelper.getPotence(value);
-				if (x < y) {
+				Integer ownPotence = BuddyHelper.getPotence(size);
+				Integer valuePotence = BuddyHelper.getPotence(value);
+				if (ownPotence < valuePotence) {
 					return null;
-				} else if (x.equals(y)) {
+				} else if (ownPotence.equals(valuePotence)) {
 					if (isEmpty()) {
-						space = new SpaceNode(name, value, this);
+						space = new ProcessNode(name, value, this);
 						rest = new RestNode(size-value, this);
 						return space;
 					} else {
 						return null;
 					}
-				} else if ((x > y) && (x > 0)) {
+				} else if ((ownPotence > valuePotence) && (ownPotence > 0)) {
 					if (space != null) {
 						return null;
 					}
@@ -118,7 +118,7 @@ public class BuddyNode implements IBuddyNode {
 					if (right == null) {
 						right = new BuddyNode((size/2), this);
 					}				
-					ISpaceNode node = left.insertSpace(name, value);
+					IProcessNode node = left.insertSpace(name, value);
 					if (node == null) {
 						node = right.insertSpace(name, value);					
 					}
@@ -126,36 +126,7 @@ public class BuddyNode implements IBuddyNode {
 				} else {
 					return null;
 				}
-			}
-			/*
-			} else	if (value.equals(size)) {
-				if (isEmpty()) {
-					space = new SpaceNode(name, value, this);
-					Integer y = (int) Math.pow(2,size);
-					rest = new RestNode(y-value, this);
-					return space;
-				} else {
-					return null;
-				}				
-			} else	if ((value < size) && (size > 0)) {
-				if (space != null) {
-					return null;
-				}
-				if (left == null) {
-					left = new BuddyNode((size/2), this);
-				}
-				if (right == null) {
-					right = new BuddyNode((size/2), this);
-				}				
-				ISpaceNode node = left.insertSpace(name, value);
-				if (node == null) {
-					node = right.insertSpace(name, value);					
-				}
-				return node;
-			} else {
-				return null;
-			}
-			*/			
+			}			
 		} else {
 			return null;
 		}
@@ -209,43 +180,65 @@ public class BuddyNode implements IBuddyNode {
 	}
 
 	@Override
-	public List<IProcessSpace> getNodeList(List<IProcessSpace> list, Integer limit) {
-		if (list == null) {
-			list = new ArrayList<IProcessSpace>();
-		}
+	public List<IBuddySpace> getNodeList(Integer limit) {
+		List<IBuddySpace> list = new ArrayList<IBuddySpace>();
 		if (limit == null) {
 			limit = 0;
-		}
+		}		
 		if (isEmpty()) {
-			IProcessSpace ps = new ProcessSpace();
+			IBuddySpace ps = new BuddySpace();
 			ps.setName("");
 			ps.setSize(size);
 			ps.setType(getType());
 			list.add(ps);
-			return list;
 		} else {
 			if (size > limit) {
 				if (left != null) {
-					list = left.getNodeList(list, limit);
+					list.addAll(left.getNodeList(limit));
 				}
 				if (right != null) {
-					list = right.getNodeList(list, limit);
+					list.addAll(right.getNodeList(limit));
 				}
 				if (space != null) {
-					list = space.getNodeList(list, limit);
+					list.addAll(space.getNodeList(limit));
 				}
 				if (rest != null) {
-					list = rest.getNodeList(list, limit);
+					list.addAll(rest.getNodeList(limit));
 				}
 			} else {
-				IProcessSpace ps = new ProcessSpace();
+				IBuddySpace ps = new BuddySpace();
 				ps.setName("");
 				ps.setSize(size);
 				ps.setType(EnumNode.USED);
 				list.add(ps);
-				return list;
 			}
 		}		
+		return list;
+	}
+
+	@Override
+	public List<IBuddyNode> findPossibleBuddyNodes(Integer value) {
+		List<IBuddyNode> list = new ArrayList<IBuddyNode>();
+		if ((value != null) && (value >= 0)) {
+			if (value <= size) {
+				Integer ownPotence = BuddyHelper.getPotence(size);
+				Integer valuePotence = BuddyHelper.getPotence(value);
+				if (ownPotence.equals(valuePotence) && isEmpty()) {					
+					list.add(this);									
+				} else if ((ownPotence > valuePotence) && (ownPotence > 0) && (space == null)) {
+					if ((left == null) && (right == null)) {
+						list.add(this);						
+					} else {
+						if (left != null) {							
+							list.addAll(left.findPossibleBuddyNodes(value));
+						}
+						if (right != null) {
+							list.addAll(right.findPossibleBuddyNodes(value));
+						}			
+					}					
+				}			
+			}	
+		}
 		return list;
 	}
 }

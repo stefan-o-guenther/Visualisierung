@@ -25,8 +25,8 @@ public class PanelRNQueueingAndLossMain extends BasePanelMain {
 	        	+ "</html>";
 		
 		panelModel = new PanelRNQueueingAndLossModel(qal);
-		panelMenu = new PanelRNQueueingAndLossMenu(qal);
-		panelTitle = new PanelTitle("Queueing And Loss", tooltip, qal);		
+		panelMenu = new PanelRNQueueingAndLossMenu(qal, panelModel);
+		panelTitle = new PanelTitle(qal, panelModel, "Queueing And Loss", tooltip);		
 		initLayout(130);
 	}
 

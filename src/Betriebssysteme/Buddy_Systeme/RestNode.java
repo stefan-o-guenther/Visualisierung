@@ -37,14 +37,12 @@ public class RestNode implements IRestNode {
 	}
 
 	@Override
-	public List<IProcessSpace> getNodeList(List<IProcessSpace> list, Integer limit) {
-		if (list == null) {
-			list = new ArrayList<IProcessSpace>();
-		}
+	public List<IBuddySpace> getNodeList(Integer limit) {
+		List<IBuddySpace> list = new ArrayList<IBuddySpace>();
 		if (limit == null) {
 			limit = 0;
 		}
-		IProcessSpace ps = new ProcessSpace();
+		IBuddySpace ps = new BuddySpace();
 		ps.setName("");
 		ps.setSize(space);
 		ps.setType(getType());

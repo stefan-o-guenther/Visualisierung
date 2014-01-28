@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Buddy_Systeme;
 
 import javax.swing.JPanel;
@@ -36,6 +41,7 @@ public class PanelBSBuddySystemeModel extends BasePanelModel {
 	 * Create the panel.
 	 */
 	public PanelBSBuddySystemeModel(IBuddyMemoryAllocation ibuddy) {
+		super();
 		if (ibuddy == null) {
 			ibuddy = new BuddyMemoryAllocation();
 		}

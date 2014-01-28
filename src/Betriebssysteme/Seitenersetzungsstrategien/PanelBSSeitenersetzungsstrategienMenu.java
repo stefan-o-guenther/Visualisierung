@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Seitenersetzungsstrategien;
 
 import java.awt.event.ActionEvent;
@@ -66,17 +71,20 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		lblDisk.setEnabled(true);
 		lblErrorTitle.setEnabled(true);
 		lblErrorValue.setEnabled(true);
-		lblErrorValue.setText(paging.getErrorCount().toString());
-		lblToolTipR.setEnabled(true);
-		lblToolTipM.setEnabled(true);
+		lblErrorValue.setText(paging.getErrorCount().toString());		
 		btnExecute1.setEnabled(true);
-				
+		Boolean urm = paging.useRM();
 		EnumPagingStatus status = paging.getStatus();
-		//System.out.println(status.toString());
 		switch (status) {
 			case START: {
 				btnR.setEnabled(false);
+				btnR.setVisible(false);
 				btnM.setEnabled(false);
+				btnM.setVisible(false);
+				lblToolTipR.setEnabled(false);
+				lblToolTipR.setVisible(false);
+				lblToolTipM.setEnabled(false);
+				lblToolTipM.setVisible(false);
 				btnExecute1.setText("Beispiel laden");
 				btnExecute2.setText("übernehmen");
 				btnExecute2.setEnabled(true);
@@ -90,9 +98,15 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 				break;
 			}
 			case SEARCH: {
-				Boolean urm = paging.useRM();
+				
 				btnR.setEnabled(urm);
-				btnM.setEnabled(urm);
+				btnR.setVisible(urm);
+				btnM.setEnabled(urm);				
+				btnM.setVisible(urm);
+				lblToolTipR.setEnabled(urm);
+				lblToolTipR.setVisible(urm);
+				lblToolTipM.setEnabled(urm);
+				lblToolTipM.setVisible(urm);
 				btnExecute1.setText("zurücksetzen");
 				btnExecute2.setText("weiter");
 				btnExecute2.setEnabled(true);
@@ -106,9 +120,14 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 				break;
 			}
 			case FINISHED: {
-				Boolean urm = paging.useRM();
 				btnR.setEnabled(urm);
-				btnM.setEnabled(urm);
+				btnR.setVisible(urm);
+				btnM.setEnabled(urm);				
+				btnM.setVisible(urm);
+				lblToolTipR.setEnabled(urm);
+				lblToolTipR.setVisible(urm);
+				lblToolTipM.setEnabled(urm);
+				lblToolTipM.setVisible(urm);
 				btnExecute1.setText("zurücksetzen");
 				btnExecute2.setText("weiter");
 				btnExecute2.setEnabled(false);
@@ -143,7 +162,8 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		tfReferenzfolge.setColumns(10);
 		
 		cbStrategie = new JComboBox();
-		cbStrategie.setModel(new DefaultComboBoxModel(new String[] {"Optimale Strategie", "FIFO", "FIFO - Second Chance", "LRU", "NFU / LFU", "NRU / RNU - FIFO", "NRU / RNU - FIFO Second Chance"}));
+		String[] strategies = new String[] {"Optimale Strategie", "FIFO", "FIFO - Second Chance", "NRU / RNU - FIFO", "NRU / RNU - FIFO Second Chance"};
+		cbStrategie.setModel(new DefaultComboBoxModel(strategies));
 		
 		lblRam = new JLabel("Anzahl RAM:");
 		lblRam.setIcon(IMG_HELP);
@@ -207,36 +227,34 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(btnExecute2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(btnExecute1, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblToolTipR)
-						.addComponent(lblToolTipM))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(btnM, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnR, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addGap(18)
 					.addComponent(lblErrorTitle)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblErrorValue)
-					.addContainerGap(34, Short.MAX_VALUE))
+					.addComponent(lblErrorValue, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblToolTipM)
+						.addComponent(lblToolTipR))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(btnM, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnR, GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
+					.addContainerGap(64, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblStrategie)
-							.addComponent(cbStrategie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(lblRam)
-							.addComponent(tfRam, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(btnExecute1))
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(btnR)
-							.addComponent(lblToolTipR)
-							.addComponent(lblErrorTitle)
-							.addComponent(lblErrorValue)))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblStrategie)
+						.addComponent(cbStrategie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblRam)
+						.addComponent(tfRam, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnExecute1)
+						.addComponent(lblErrorTitle)
+						.addComponent(lblErrorValue)
+						.addComponent(lblToolTipR)
+						.addComponent(btnR))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblReferenzfolge)
@@ -244,9 +262,9 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 						.addComponent(lblDisk)
 						.addComponent(tfDisk, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnExecute2)
-						.addComponent(btnM)
-						.addComponent(lblToolTipM))
-					.addContainerGap(12, Short.MAX_VALUE))
+						.addComponent(lblToolTipM)
+						.addComponent(btnM))
+					.addContainerGap(13, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 		
@@ -425,8 +443,8 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		 * "Optimale Strategie", 
 		 * "FIFO", 
 		 * "FIFO - Second Chance", 
-		 * "LRU", 
-		 * "NFU / LFU", 
+		 * "LRU", (entfernt)
+		 * "NFU / LFU", (entfernt)
 		 * "NRU / RNU - FIFO", 
 		 * "NRU / RNU - FIFO Second Chance"
 		 * } */
@@ -442,15 +460,9 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 				result = EnumPagingStrategy.FIFO_SECOND_CHANCE;
 				break;
 			case 3: 
-				result = EnumPagingStrategy.LRU;
-				break;
-			case 4: 
-				result = EnumPagingStrategy.NFU_LFU;
-				break;
-			case 5: 
 				result = EnumPagingStrategy.NRU_RNU;
 				break;
-			case 6: 
+			case 4: 
 				result = EnumPagingStrategy.NRU_RNU_SECOND_CHANCE;
 				break;
 			default:

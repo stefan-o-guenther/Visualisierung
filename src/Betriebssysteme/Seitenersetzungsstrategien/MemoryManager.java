@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Seitenersetzungsstrategien;
 
 import java.util.ArrayList;
@@ -21,6 +26,7 @@ public class MemoryManager extends BaseManagement implements IMemoryManager {
 	
 	
 	public MemoryManager() {
+		super();
 		init();
 	}
 	

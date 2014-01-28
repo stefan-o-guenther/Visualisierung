@@ -1,9 +1,13 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Belegungsstrategien;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -21,10 +25,9 @@ import javax.swing.event.ChangeListener;
 import Base.BasePanelMenu;
 import Base.BasePanelModel;
 
-import javax.swing.ImageIcon;
-
 public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 
+	private static final long serialVersionUID = 1L;
 	private String sToolTipStrategie = "";
 	private String sToolTipSpeed = "";
 	private String sToolTipSpeicher = "";
@@ -227,7 +230,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		initToolTips();
 		
 		String[] strategy = {"First Fit", "Next Fit", "Best Fit", "Worst Fit"};
-		
+				
 		lblStrategie = new JLabel("Strategie:");
 		lblStrategie.setIcon(IMG_HELP);
 		lblStrategie.setToolTipText(sToolTipStrategie);
@@ -276,9 +279,9 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		lblUsedSpaceOutput = new JLabel("");		
 		lblRateLabel = new JLabel("Belegter Speicherplatz in %:");		
 		lblRateOutput = new JLabel("");		
-		lblTurtle = new JLabel("");
+		lblTurtle = new JLabel(" ");
 		lblTurtle.setIcon(IMG_TURTLE);		
-		lblRabbit = new JLabel("");
+		lblRabbit = new JLabel(" ");
 		lblRabbit.setIcon(IMG_RABBIT);
 		
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -290,13 +293,13 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblUsedSpaceLabel)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblUsedSpaceOutput, GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+							.addComponent(lblUsedSpaceOutput, GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
 							.addGap(786))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblFreeSpaceLabel)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblFreeSpaceOutput)
-							.addContainerGap(1050, Short.MAX_VALUE))
+							.addContainerGap(874, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
@@ -330,12 +333,11 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 									.addComponent(lblSpeedTip)
 									.addGap(4)
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(sSpeed, GroupLayout.PREFERRED_SIZE, 570, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(lblRabbit))
+										.addComponent(sSpeed, GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
 										.addComponent(chcxbxAuto))))
-							.addContainerGap(233, Short.MAX_VALUE))))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblRabbit)
+							.addContainerGap())))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -358,8 +360,8 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 								.addComponent(tSpeicher, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnExecute2))
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblRabbit)
-								.addComponent(sSpeed, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+								.addComponent(sSpeed, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblRabbit))))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTotalSpaceLabel)
@@ -510,6 +512,9 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 			updateView();
 		}
 	};
+	
+	
+	
 	
 	public class AutoThread extends Thread {
 	    String text;

@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Hauptprogramm;
 
 import java.awt.event.ActionEvent;
@@ -14,6 +19,7 @@ import Betriebssysteme.Belegungsstrategien.PanelBSBelegungsstrategienMain;
 import Betriebssysteme.Buddy_Systeme.PanelBSBuddySystemeMain;
 import Betriebssysteme.Seitenersetzungsstrategien.PanelBSSeitenersetzungsstrategienMain;
 import Betriebssysteme.Verklemmungen.PanelBSVerklemmungenMain;
+import Rechnernetze.Dijkstra.PanelRNDijkstraMain;
 
 public class FrameMain extends BaseFrame {
 	
@@ -107,13 +113,13 @@ public class FrameMain extends BaseFrame {
 	
 	// Programm
 	
-	ActionListener PR_Start = new ActionListener() {
+	private ActionListener PR_Start = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			showNewPanel(new PanelDefaultMain());
 		}
 	};
 	
-	ActionListener PR_Beenden = new ActionListener() {
+	private ActionListener PR_Beenden = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			System.exit(0);
 		}
@@ -121,25 +127,25 @@ public class FrameMain extends BaseFrame {
 	
 	// Betriebssysteme
 	
-	ActionListener BS_Belegungsstrategien = new ActionListener() {
+	private ActionListener BS_Belegungsstrategien = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			showNewPanel(new PanelBSBelegungsstrategienMain());
 		}
 	};
 	
-	ActionListener BS_Buddy_Systeme = new ActionListener() {
+	private ActionListener BS_Buddy_Systeme = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			showNewPanel(new PanelBSBuddySystemeMain());
 		}
 	};
 	
-	ActionListener BS_Seitenersetzungsstrategien = new ActionListener() {
+	private ActionListener BS_Seitenersetzungsstrategien = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			showNewPanel(new PanelBSSeitenersetzungsstrategienMain());
 		}
 	};
 	
-	ActionListener BS_Verklemmungen = new ActionListener() {
+	private ActionListener BS_Verklemmungen = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			showNewPanel(new PanelBSVerklemmungenMain());			
 		}
@@ -147,37 +153,37 @@ public class FrameMain extends BaseFrame {
 	
 	// Rechnernetze
 	
-	ActionListener RN_Congestion_Avoidance = new ActionListener() {
+	private ActionListener RN_Congestion_Avoidance = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			
 		}
 	};
 	
-	ActionListener RN_Dijkstra = new ActionListener() {
+	private ActionListener RN_Dijkstra = new ActionListener() {
+		public void actionPerformed (ActionEvent e) {
+			showNewPanel(new PanelRNDijkstraMain());
+		}
+	};
+	
+	private ActionListener RN_Pipeline_Protocol = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			
 		}
 	};
 	
-	ActionListener RN_Pipeline_Protocol = new ActionListener() {
+	private ActionListener RN_Queueing_And_Loss = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			
 		}
 	};
 	
-	ActionListener RN_Queueing_And_Loss = new ActionListener() {
+	private ActionListener RN_TCP_Retransmission = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			
 		}
 	};
 	
-	ActionListener RN_TCP_Retransmission = new ActionListener() {
-		public void actionPerformed (ActionEvent e) {
-			
-		}
-	};
-	
-	ActionListener RN_TCP_Fairness = new ActionListener() {
+	private ActionListener RN_TCP_Fairness = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			
 		}

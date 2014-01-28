@@ -1,24 +1,46 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Rechnernetze.Dijkstra;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import Base.BasePanelMenu;
 import Base.BasePanelModel;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 
 public class PanelRNDijkstraMenu extends BasePanelMenu {
 
-	private IDijkstraManagement dijkstra;
+	private IDijkstraAlgorithm dijkstra;
+	
+	private JButton btnNextStep;
+	private JButton btnReset;
 	
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNDijkstraMenu(IDijkstraManagement idijkstra, BasePanelModel model) {
+	public PanelRNDijkstraMenu(IDijkstraAlgorithm idijkstra, BasePanelModel model) {
 		super(model);
-		
-		JButton btnNextStep = new JButton("n\u00E4chster Schritt");
-		
-		JButton btnReset = new JButton("zur\u00FCcksetzen");
+		if (idijkstra == null) {
+			idijkstra = new DijkstraAlgorithm();
+		}		
+		dijkstra = idijkstra;
+		initComponents();
+		updateView();
+	}
+
+	@Override
+	protected void initComponents() {
+		btnNextStep = new JButton("n\u00E4chster Schritt");
+		btnNextStep.addActionListener(ActionExecute);		
+		btnReset = new JButton("zur\u00FCcksetzen");
+		btnReset.addActionListener(ActionReset);
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -38,23 +60,14 @@ public class PanelRNDijkstraMenu extends BasePanelMenu {
 						.addComponent(btnReset))
 					.addContainerGap(266, Short.MAX_VALUE))
 		);
-		setLayout(groupLayout);
-		if (idijkstra == null) {
-			idijkstra = new DijkstraManagement();
-		}
-		dijkstra = idijkstra;
+		setLayout(groupLayout);		
 	}
 
 	@Override
-	protected void initComponents() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void updateComponents() {
-		// TODO Auto-generated method stub
-		
+	protected void updateComponents() {		
+		EnumDijkstraStatus status = dijkstra.getStatus();
+		btnNextStep.setEnabled((status != EnumDijkstraStatus.FINISHED));
+		btnReset.setEnabled(true);
 	}
 
 	@Override
@@ -62,4 +75,18 @@ public class PanelRNDijkstraMenu extends BasePanelMenu {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	ActionListener ActionExecute = new ActionListener() {
+		public void actionPerformed (ActionEvent e) {
+			dijkstra.execute();
+			updateView();
+		}
+	};
+
+	ActionListener ActionReset = new ActionListener() {
+		public void actionPerformed (ActionEvent e) {
+			dijkstra.reset();
+			updateView();
+		}
+	};
 }

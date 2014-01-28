@@ -1,10 +1,15 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Seitenersetzungsstrategien;
 
 import java.util.List;
 
 public abstract class BaseReplacementStrategyNRU_RNU extends BaseReplacementStrategy {
 
-	protected BaseReplacementStrategyNRU_RNU(List<Integer> sequence, Integer ram, Integer disk) {
+	public BaseReplacementStrategyNRU_RNU(List<Integer> sequence, Integer ram, Integer disk) {
 		super(sequence, ram, disk);
 	}	
 	
@@ -31,8 +36,7 @@ public abstract class BaseReplacementStrategyNRU_RNU extends BaseReplacementStra
 	protected void remove(List<ICache> ram, List<ICache> disk) {
 		if ((ram != null) && (disk != null)) {
 			while (ram.size() > maxRam) {
-				Integer l = null;
-				findRM(ram, 0, 0);
+				Integer l = findRM(ram, 0, 0);				
 				if (l == null) {
 					l = findRM(ram, 0, 1);
 				}

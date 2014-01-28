@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Rechnernetze.Congestion_Avoidance;
 
 import java.awt.Graphics;
@@ -12,6 +17,7 @@ public class PanelRNCongestionAvoidanceModel extends BasePanelModelDraw {
 	 * Create the panel.
 	 */
 	public PanelRNCongestionAvoidanceModel(INetworkManagement inetwork) {
+		super();
 		if (inetwork == null) {
 			inetwork = new NetworkManagement();
 		}

@@ -1,6 +1,9 @@
-package Betriebssysteme.Verklemmungen;
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
 
-import java.awt.Graphics;
+package Betriebssysteme.Verklemmungen;
 
 import Base.BasePanelModelScroll;
 

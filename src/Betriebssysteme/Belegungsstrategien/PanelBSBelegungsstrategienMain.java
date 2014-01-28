@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Belegungsstrategien;
 
 import Base.BasePanelMain;
@@ -5,6 +10,11 @@ import Base.PanelTitle;
 
 public class PanelBSBelegungsstrategienMain extends BasePanelMain {
 		
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Create the panel.
 	 */

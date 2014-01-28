@@ -1,10 +1,15 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Belegungsstrategien;
 
 import java.util.List;
 
 public abstract class BaseMemoryStrategyFirstNext extends BaseMemoryStrategy {
 
-	protected BaseMemoryStrategyFirstNext(List<ISpace> example) {
+	public BaseMemoryStrategyFirstNext(List<ISpace> example) {
 		super(example);
 	}
 

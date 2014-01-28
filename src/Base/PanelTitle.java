@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Base;
 
 import java.awt.event.ActionEvent;
@@ -15,6 +20,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class PanelTitle extends BasePanelUseModel {
 	
+	private static final long serialVersionUID = 1L;
 	private ButtonGroup groupColor = new ButtonGroup();
 	private JRadioButton rdbtnColored;	
 	private JRadioButton rdbtnGray;
@@ -23,19 +29,10 @@ public class PanelTitle extends BasePanelUseModel {
 	private String title;
 	private String tooltip;
 	
+	private ImageIcon IMG_HELP = ImageLoader.getImageIconHelp22();
+	
 	private IManagement management;
-	
-	private ImageIcon getHelp() {
-		ImageIcon icon = null;
-		try {
-			InputStream stream = BasePanelMenu.class.getResourceAsStream("img/32x32_help.png");
-			icon = new ImageIcon(ImageIO.read(stream));				
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return icon;
-	}
-	
+		
 	private ActionListener ActionColor = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			String s = e.getActionCommand();
@@ -61,7 +58,7 @@ public class PanelTitle extends BasePanelUseModel {
 				
 		lblTitle = new JLabel(title);
 		lblTitle.setFont(lblTitle.getFont().deriveFont(36f));
-		lblTitle.setIcon(getHelp());
+		lblTitle.setIcon(IMG_HELP);
 		lblTitle.setToolTipText(tooltip);
 		
 		

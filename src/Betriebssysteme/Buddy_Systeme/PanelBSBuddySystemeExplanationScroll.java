@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Buddy_Systeme;
 
 import javax.swing.JPanel;
@@ -10,7 +15,7 @@ public class PanelBSBuddySystemeExplanationScroll extends BasePanelModelScroll {
 	/**
 	 * Create the panel.
 	 */
-	protected PanelBSBuddySystemeExplanationScroll(IBuddyMemoryAllocation ibuddy) {
+	public PanelBSBuddySystemeExplanationScroll(IBuddyMemoryAllocation ibuddy) {
 		super(new PanelBSBuddySystemeExplanationDraw(ibuddy));
 		initComponents();
 	}

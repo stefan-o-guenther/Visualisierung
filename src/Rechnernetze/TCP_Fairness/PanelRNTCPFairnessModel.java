@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Rechnernetze.TCP_Fairness;
 
 import java.awt.Graphics;
@@ -12,6 +17,7 @@ public class PanelRNTCPFairnessModel extends BasePanelModelDraw {
 	 * Create the panel.
 	 */
 	public PanelRNTCPFairnessModel(IFairnessManagement ifairness) {
+		super();
 		if (ifairness == null) {
 			ifairness = new FairnessManagement();
 		}

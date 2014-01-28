@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Seitenersetzungsstrategien;
 
 import java.awt.Color;
@@ -30,6 +35,7 @@ public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModelDraw {
 	private EnumSurface surface;
 		
 	public PanelBSSeitenersetzungsstrategienModel(IMemoryManager ipaging) {
+		super();
 		if (ipaging == null) {
 			ipaging = new MemoryManager();
 		}
@@ -64,9 +70,11 @@ public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModelDraw {
         g2d.setFont(new Font(font.getFontName(), Font.BOLD, 18));        
         g2d.drawString(text, x+10, y+25);
         
-        g2d.setFont(new Font(font.getFontName(), Font.BOLD, 10));
-        g2d.drawString("R", x+w-15, y+12);
-        g2d.drawString("M", x+w-15, y+h-3);		
+        if (paging.useRM()) {
+        	g2d.setFont(new Font(font.getFontName(), Font.BOLD, 10));
+            g2d.drawString("R", x+w-15, y+12);
+            g2d.drawString("M", x+w-15, y+h-3);		
+        }        
 	}
 	
 	private void drawEmptyBox(Integer x, Integer y) {

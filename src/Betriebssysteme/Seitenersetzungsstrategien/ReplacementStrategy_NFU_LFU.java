@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Seitenersetzungsstrategien;
 
 import java.util.ArrayList;
@@ -7,7 +12,7 @@ public class ReplacementStrategy_NFU_LFU extends BaseReplacementStrategy impleme
 
 	private List<Integer> listNFU_LFU;
 	
-	protected ReplacementStrategy_NFU_LFU(List<Integer> sequence, Integer ram, Integer disk) {
+	public ReplacementStrategy_NFU_LFU(List<Integer> sequence, Integer ram, Integer disk) {
 		super(sequence, ram, disk);
 	}
 

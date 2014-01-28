@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Seitenersetzungsstrategien;
 
 import java.util.ArrayList;
@@ -38,7 +43,7 @@ public abstract class BaseReplacementStrategy implements IReplacementStrategy {
 		errorCount += 1;
 	}
 	
-	protected BaseReplacementStrategy(List<Integer> sequence, Integer ram, Integer disk) {
+	public BaseReplacementStrategy(List<Integer> sequence, Integer ram, Integer disk) {
 		init();
 		if ((sequence != null) && (disk != null) && (ram != null)) {
 			maxRam = ram;
@@ -173,6 +178,7 @@ public abstract class BaseReplacementStrategy implements IReplacementStrategy {
 	public void setMBit() {
 		if (cache != null) {
 			cache.setM(1);
+			cache.setR(1);
 			copyListCache();
 		}
 	}

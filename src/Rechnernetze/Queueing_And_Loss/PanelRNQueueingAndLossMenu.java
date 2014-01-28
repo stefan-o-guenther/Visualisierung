@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Rechnernetze.Queueing_And_Loss;
 
 import Base.BasePanelMenu;
@@ -15,6 +20,15 @@ public class PanelRNQueueingAndLossMenu extends BasePanelMenu {
 
 	private IQALManagement qal;
 	
+	private JButton btnStart;
+	private JButton btnReset;
+	private JLabel lblTransferRate;
+	private JLabel lblProcessingTime;
+	private JLabel lblArrivalRate;
+	private JSlider sliderProcessingTime;
+	private JSlider sliderTransferRate;
+	private JSlider sliderArrivalRate;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -29,28 +43,29 @@ public class PanelRNQueueingAndLossMenu extends BasePanelMenu {
 
 	@Override
 	protected void initComponents() {
-JButton btnStart = new JButton("ausf\u00FChren");
+		btnStart = new JButton("ausf\u00FChren");
 		
-		JButton btnReset = new JButton("zur\u00FCcksetzen");
+		btnReset = new JButton("zur\u00FCcksetzen");
 		
-		JLabel lblTransferRate = new JLabel("\u00DCbertragungsrate Eingang:");
+		lblTransferRate = new JLabel("\u00DCbertragungsrate Eingang:");
 		lblTransferRate.setIcon(new ImageIcon("C:\\Eclipse\\Workspace\\Visualisierung\\img\\16x16_help.png"));
 		
-		JLabel lblProcessingTime = new JLabel("Verarbeitungszeit:");
+		lblProcessingTime = new JLabel("Verarbeitungszeit:");
 		lblProcessingTime.setIcon(new ImageIcon("C:\\Eclipse\\Workspace\\Visualisierung\\img\\16x16_help.png"));
 		
-		JLabel lblArrivalRate = new JLabel("Ankunftsrate (Paketabstand):");
+		lblArrivalRate = new JLabel("Ankunftsrate (Paketabstand):");
 		lblArrivalRate.setIcon(new ImageIcon("C:\\Eclipse\\Workspace\\Visualisierung\\img\\16x16_help.png"));
 		
-		JSlider sliderProcessingTime = new JSlider();
+		sliderProcessingTime = new JSlider();
 		sliderProcessingTime.setPaintTicks(true);
 		
-		JSlider sliderTransferRate = new JSlider();
+		sliderTransferRate = new JSlider();
 		sliderTransferRate.setPaintTicks(true);
 		sliderTransferRate.setPaintLabels(true);
 		
-		JSlider sliderArrivalRate = new JSlider();
+		sliderArrivalRate = new JSlider();
 		sliderArrivalRate.setPaintTicks(true);
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)

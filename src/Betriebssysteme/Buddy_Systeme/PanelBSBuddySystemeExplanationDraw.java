@@ -1,13 +1,15 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Buddy_Systeme;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.JPanel;
 
 import Base.BasePanelModelDraw;
 
@@ -24,6 +26,7 @@ public class PanelBSBuddySystemeExplanationDraw extends BasePanelModelDraw {
 	 * Create the panel.
 	 */
 	public PanelBSBuddySystemeExplanationDraw(IBuddyMemoryAllocation ibuddy) {
+		super();
 		buddy = ibuddy;
 		updateModel();
 	}

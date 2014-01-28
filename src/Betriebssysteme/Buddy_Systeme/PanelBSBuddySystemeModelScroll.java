@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Buddy_Systeme;
 
 import Base.BasePanelModelDraw;
@@ -7,7 +12,7 @@ public class PanelBSBuddySystemeModelScroll extends BasePanelModelScroll {
 
 	protected IBuddyMemoryAllocation buddy;
 	
-	protected PanelBSBuddySystemeModelScroll(IBuddyMemoryAllocation ibuddy) {
+	public PanelBSBuddySystemeModelScroll(IBuddyMemoryAllocation ibuddy) {
 		super(new PanelBSBuddySystemeModelDraw(ibuddy));
 	    initComponents();
 	}

@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Buddy_Systeme;
 
 import java.awt.Color;
@@ -30,6 +35,7 @@ public class PanelBSBuddySystemeModelDraw extends BasePanelModelDraw {
 	 * Create the panel.
 	 */
 	public PanelBSBuddySystemeModelDraw(IBuddyMemoryAllocation ibuddy) {
+		super();
 		if (ibuddy == null) {
 			ibuddy = new BuddyMemoryAllocation();
 		}

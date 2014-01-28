@@ -1,10 +1,15 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Belegungsstrategien;
 
 import java.util.List;
 
 public class MemoryStrategyFirstFit extends BaseMemoryStrategyFirstNext implements IMemoryStrategyFirstFit {
 	
-	protected MemoryStrategyFirstFit(List<ISpace> example) {
+	public MemoryStrategyFirstFit(List<ISpace> example) {
 		super(example);
 	}
 

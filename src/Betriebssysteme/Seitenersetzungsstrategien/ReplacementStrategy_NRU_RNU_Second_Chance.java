@@ -1,10 +1,15 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Seitenersetzungsstrategien;
 
 import java.util.List;
 
 public class ReplacementStrategy_NRU_RNU_Second_Chance extends BaseReplacementStrategyNRU_RNU implements IReplacementStrategy_NRU_RNU_Second_Chance {
 
-	protected ReplacementStrategy_NRU_RNU_Second_Chance(List<Integer> sequence, Integer ram, Integer disk) {
+	public ReplacementStrategy_NRU_RNU_Second_Chance(List<Integer> sequence, Integer ram, Integer disk) {
 		super(sequence, ram, disk);
 	}
 

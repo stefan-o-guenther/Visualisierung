@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Rechnernetze.Dijkstra;
 
 import Base.BasePanelMain;
@@ -9,13 +14,13 @@ public class PanelRNDijkstraMain extends BasePanelMain {
 	 * Create the panel.
 	 */
 	public PanelRNDijkstraMain() {
-		super(new DijkstraManagement());
+		super(new DijkstraAlgorithm());
 		initComponents();
 	}
 
 	@Override
 	protected void initComponents() {
-		IDijkstraManagement dijkstra = (IDijkstraManagement) management;
+		IDijkstraAlgorithm dijkstra = (IDijkstraAlgorithm) management;
 		
 		String tooltip = 
 	        	  "<html>"

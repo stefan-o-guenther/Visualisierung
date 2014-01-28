@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Base;
 
 import javax.swing.GroupLayout;
@@ -6,6 +11,11 @@ import javax.swing.JPanel;
 
 public abstract class BasePanelMain extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	protected PanelTitle panelTitle;
 	protected BasePanelMenu panelMenu;
 	protected BasePanelModel panelModel;
@@ -13,7 +23,8 @@ public abstract class BasePanelMain extends JPanel {
 	
 	protected abstract void initComponents();
 	
-	protected BasePanelMain(IManagement bm) {
+	public BasePanelMain(IManagement bm) {
+		super();
 		if (bm != null) {
 			management = bm;
 			//initComponents();

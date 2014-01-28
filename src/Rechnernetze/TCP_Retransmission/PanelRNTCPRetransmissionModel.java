@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Rechnernetze.TCP_Retransmission;
 
 import java.awt.Graphics;
@@ -12,6 +17,7 @@ public class PanelRNTCPRetransmissionModel extends BasePanelModelDraw {
 	 * Create the panel.
 	 */
 	public PanelRNTCPRetransmissionModel(IRetransmissionManagement iretransmission) {
+		super();
 		if (iretransmission == null) {
 			iretransmission = new RetransmissionManagement();
 		}

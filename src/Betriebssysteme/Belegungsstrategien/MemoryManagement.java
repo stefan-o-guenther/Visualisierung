@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Belegungsstrategien;
 
 import java.awt.Color;
@@ -44,6 +49,7 @@ public class MemoryManagement extends BaseManagement implements IMemoryManagemen
 	}
 	
 	public MemoryManagement() {
+		super();
 		init();
 	}	
 	

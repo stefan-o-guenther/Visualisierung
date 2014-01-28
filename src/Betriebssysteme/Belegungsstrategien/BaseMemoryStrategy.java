@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Belegungsstrategien;
 
 import java.util.ArrayList;
@@ -25,8 +30,6 @@ public abstract class BaseMemoryStrategy implements IMemoryStrategy {
 	protected void copyListSpace() {
 		listSpacePublic = new ArrayList<ISpace>(listSpaceWork);
 	}
-	
-	
 	
 	protected BaseMemoryStrategy(List<ISpace> example) {
 		if (example != null) {
@@ -134,6 +137,10 @@ public abstract class BaseMemoryStrategy implements IMemoryStrategy {
 	}
 	
 	protected abstract void initStrategy();
+	
+	public BaseMemoryStrategy() {
+		
+	}
 	
 	@Override
 	public void init() {		

@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Seitenersetzungsstrategien;
 
 import java.util.ArrayList;
@@ -7,7 +12,7 @@ public class ReplacementStrategy_LRU extends BaseReplacementStrategy implements 
 
 	private List<Integer> listLRU;
 	
-	protected ReplacementStrategy_LRU(List<Integer> sequence, Integer ram, Integer disk) {
+	public ReplacementStrategy_LRU(List<Integer> sequence, Integer ram, Integer disk) {
 		super(sequence, ram, disk);
 	}
 

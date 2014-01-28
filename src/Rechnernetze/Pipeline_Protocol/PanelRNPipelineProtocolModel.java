@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Rechnernetze.Pipeline_Protocol;
 
 import java.awt.Graphics;
@@ -12,6 +17,7 @@ public class PanelRNPipelineProtocolModel extends BasePanelModelDraw {
 	 * Create the panel.
 	 */
 	public PanelRNPipelineProtocolModel(IPipelineManagement ipipeline) {
+		super();
 		if (ipipeline == null) {
 			ipipeline = new PipelineManagement();
 		}

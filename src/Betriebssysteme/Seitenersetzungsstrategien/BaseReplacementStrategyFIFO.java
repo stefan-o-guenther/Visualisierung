@@ -1,10 +1,15 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Seitenersetzungsstrategien;
 
 import java.util.List;
 
 public abstract class BaseReplacementStrategyFIFO extends BaseReplacementStrategy {
 
-	protected BaseReplacementStrategyFIFO(List<Integer> sequence, Integer ram, Integer disk) {
+	public BaseReplacementStrategyFIFO(List<Integer> sequence, Integer ram, Integer disk) {
 		super(sequence, ram, disk);
 	}
 	

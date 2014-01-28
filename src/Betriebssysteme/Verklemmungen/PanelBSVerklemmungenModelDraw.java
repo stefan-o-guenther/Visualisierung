@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Verklemmungen;
 
 import java.awt.Graphics;
@@ -14,6 +19,7 @@ public class PanelBSVerklemmungenModelDraw extends BasePanelModelDraw {
 	 * Create the panel.
 	 */
 	public PanelBSVerklemmungenModelDraw(IDeadlockManagement ideadlock) {
+		super();
 		if (ideadlock == null) {
 			ideadlock = new DeadlockManagement();
 		}

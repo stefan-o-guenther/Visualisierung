@@ -64,6 +64,23 @@ BS:
 		- Verschnitt bei grau bitte schwarz darstellen. (erledigt)
 		- Balkenhöhe an Buttonhöhe anpassen. (erledigt)
 		- Fragezeichen von Überschrift zu groß. (erledigt)
-		- Legende direkt über die aktuelle Speicherverteilung schreiben. (erledigt)
+		- Legende direkt über die aktuelle Speicherverteilung schreiben. (erledigt: nach rechts)
 
-	
+16.01.2014
+
+- Taskleiste von Programm überdecken.
+
+BS:
+	-Buddy Systeme
+		- Fragezeichen von Überschrift noch kleiner.
+		
+		
+23.01.2014
+
+BS:
+	- Seitenersetzung
+		- R und M Bit in Beschriftung wegnehmen, wo es nicht benutzt wird. (erledigt)
+		- R und M Bit Button für Setzten und Rücksetzen wegnehmen, wenn es nicht benutzt wird. (erledigt)
+		- wird M Bit gesetzt, soll auch R Bit gesetzt werden. (erledigt)
+		- NRU / RNU - FIFO Algorithmus arbeitet falsch. Richtig: Erst Prioritäten berücksichtigen, dann FIFO. (erledigt)
+		- LRU und NFU kommen raus. (erledigt)

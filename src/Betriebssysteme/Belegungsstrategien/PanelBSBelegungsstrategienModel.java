@@ -1,7 +1,13 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	27.01.2014
+ */
+
 package Betriebssysteme.Belegungsstrategien;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -12,8 +18,9 @@ import Base.EnumSurface;
 
 public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
 	
-	private final Integer MAX_WIDTH = 1000;
-		
+	private Integer widthMaximum = 1000;	
+	private Dimension dim;
+	
 	private IMemoryManagement memory;
 	
 	private Graphics2D g2d;
@@ -49,8 +56,8 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
 		Integer sum = 0;  
         for (ISpace space : listSpace) {
         	sum += space.getCurrentValue();
-        }        
-        return MAX_WIDTH / sum;
+        }
+        return widthMaximum / sum;
 	}
 	
 	private Color getBoxColor(ISpace space) {		
@@ -76,6 +83,7 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
 	
 	
 	public PanelBSBelegungsstrategienModel(IMemoryManagement imemory) {
+		super();
 		if (imemory == null) {
 			imemory = new MemoryManagement();
 		}
@@ -90,10 +98,12 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
 		
 	protected void doDrawing(Graphics g) {
 		try {			         	
-    		g2d = (Graphics2D) g;    		
+    		g2d = (Graphics2D) g;		
     		
-    		initValues(); 
-    		updateData();
+    		initValues();
+    		
+    		dim = this.getSize();    		
+    		widthMaximum = dim.width;
     		
     		g2d.setColor(Color.BLACK);
     		
@@ -150,7 +160,8 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
     }
 
 	@Override
-	public void updateModel() {
+	public void updateModel() {		
+		updateData();
 		repaint();
 	}
 }

@@ -9,12 +9,12 @@ import javax.swing.JFrame;
 
 public class RunFrame implements Runnable {
 
-	JFrame frame;
-	
 	public RunFrame(JFrame jframe) {
 		super();
 		frame = jframe;
 	}
+	
+	private JFrame frame;	
 	
 	@Override
 	public void run() {

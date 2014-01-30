@@ -14,6 +14,10 @@ import Base.BaseManagement;
 
 public class BuddyMemoryAllocation extends BaseManagement implements IBuddyMemoryAllocation {
 
+	public BuddyMemoryAllocation() {
+		init();
+	}
+	
 	private IBuddyNode root;
 	private HashMap<String, Color> mapColors = new HashMap<String,Color>();
 	private List<Color> listColor;
@@ -84,10 +88,6 @@ public class BuddyMemoryAllocation extends BaseManagement implements IBuddyMemor
 		listColor.add(new Color(205,205,0));
 		
 		mapColors.clear();
-	}
-	
-	public BuddyMemoryAllocation() {
-		init();
 	}
 	
 	private IBuddyNode getMinBuddyNode(List<IBuddyNode> list) {

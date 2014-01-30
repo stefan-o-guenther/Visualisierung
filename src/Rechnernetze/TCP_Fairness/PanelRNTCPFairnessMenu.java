@@ -6,7 +6,6 @@
 package Rechnernetze.TCP_Fairness;
 
 import Base.BasePanelMenu;
-import Base.BasePanelModel;
 
 public class PanelRNTCPFairnessMenu extends BasePanelMenu {
 
@@ -15,7 +14,7 @@ public class PanelRNTCPFairnessMenu extends BasePanelMenu {
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNTCPFairnessMenu(IFairnessManagement ifairness, BasePanelModel model) {
+	public PanelRNTCPFairnessMenu(IFairnessManagement ifairness, PanelRNTCPFairnessModel model) {
 		super(model);
 		if (ifairness == null) {
 			ifairness = new FairnessManagement();
@@ -39,6 +38,11 @@ public class PanelRNTCPFairnessMenu extends BasePanelMenu {
 	protected void initToolTips() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Integer getHeightMenu() {
+		return 200;
 	}
 
 }

@@ -18,6 +18,15 @@ import javax.swing.ImageIcon;
 
 public class PanelRNQueueingAndLossMenu extends BasePanelMenu {
 
+	public PanelRNQueueingAndLossMenu(IQALManagement iqal, PanelRNQueueingAndLossModel model) {
+		super(model);		
+		if (iqal == null) {
+			iqal = new QALManagement();
+		}
+		qal = iqal;
+		initComponents();
+	}
+
 	private IQALManagement qal;
 	
 	private JButton btnStart;
@@ -29,18 +38,6 @@ public class PanelRNQueueingAndLossMenu extends BasePanelMenu {
 	private JSlider sliderTransferRate;
 	private JSlider sliderArrivalRate;
 	
-	/**
-	 * Create the panel.
-	 */
-	public PanelRNQueueingAndLossMenu(IQALManagement iqal, BasePanelModel model) {
-		super(model);		
-		if (iqal == null) {
-			iqal = new QALManagement();
-		}
-		qal = iqal;
-		initComponents();
-	}
-
 	@Override
 	protected void initComponents() {
 		btnStart = new JButton("ausf\u00FChren");
@@ -122,5 +119,10 @@ public class PanelRNQueueingAndLossMenu extends BasePanelMenu {
 	protected void initToolTips() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Integer getHeightMenu() {
+		return 130;
 	}
 }

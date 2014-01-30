@@ -20,6 +20,15 @@ import Base.EnumSurface;
 
 public class PanelBSBuddySystemeModelDraw extends BasePanelModelDraw {
 
+	public PanelBSBuddySystemeModelDraw(IBuddyMemoryAllocation ibuddy) {
+		super();
+		if (ibuddy == null) {
+			ibuddy = new BuddyMemoryAllocation();
+		}
+		buddy = ibuddy;
+		updateModel();
+	}
+
 	private IBuddyMemoryAllocation buddy;
 	private List<IBuddyOperation> list = new ArrayList<IBuddyOperation>();	
 	private EnumSurface surface;
@@ -31,18 +40,6 @@ public class PanelBSBuddySystemeModelDraw extends BasePanelModelDraw {
 	private final Integer GAP_X = 10;
 	private final Integer GAP_Y = 10;	
 	
-	/**
-	 * Create the panel.
-	 */
-	public PanelBSBuddySystemeModelDraw(IBuddyMemoryAllocation ibuddy) {
-		super();
-		if (ibuddy == null) {
-			ibuddy = new BuddyMemoryAllocation();
-		}
-		buddy = ibuddy;
-		updateModel();
-	}
-
 	@Override
 	protected void doDrawing(Graphics g) {
 		g2d = (Graphics2D) g;

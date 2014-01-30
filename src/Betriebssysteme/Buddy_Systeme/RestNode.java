@@ -10,9 +10,6 @@ import java.util.List;
 
 public class RestNode implements IRestNode {
 
-	private Integer space = 0;
-	private IBuddyNode parent = null;
-	
 	public RestNode(Integer value, IBuddyNode p) {
 		if ((value == null) || (value < 0)) {
 			value = 0;
@@ -20,6 +17,9 @@ public class RestNode implements IRestNode {
 		parent = p;
 		space = value;
 	}
+	
+	private Integer space = 0;
+	private IBuddyNode parent = null;
 	
 	@Override
 	public EnumNode getType() {

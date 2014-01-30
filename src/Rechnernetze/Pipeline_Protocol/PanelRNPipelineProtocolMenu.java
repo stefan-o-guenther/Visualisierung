@@ -5,10 +5,7 @@
 
 package Rechnernetze.Pipeline_Protocol;
 
-import javax.swing.JPanel;
-
 import Base.BasePanelMenu;
-import Base.BasePanelModel;
 
 public class PanelRNPipelineProtocolMenu extends BasePanelMenu {
 
@@ -17,7 +14,7 @@ public class PanelRNPipelineProtocolMenu extends BasePanelMenu {
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNPipelineProtocolMenu(IPipelineManagement ipipeline, BasePanelModel model) {
+	public PanelRNPipelineProtocolMenu(IPipelineManagement ipipeline, PanelRNPipelineProtocolModel model) {
 		super(model);
 		if (ipipeline == null) {
 			ipipeline = new PipelineManagement();
@@ -41,6 +38,11 @@ public class PanelRNPipelineProtocolMenu extends BasePanelMenu {
 	protected void initToolTips() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Integer getHeightMenu() {
+		return 200;
 	}
 
 }

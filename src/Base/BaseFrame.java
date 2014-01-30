@@ -19,15 +19,6 @@ import javax.swing.UIManager;
 
 public abstract class BaseFrame extends JFrame {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	protected int width = 1024;
-	protected int height = 768;
-	protected String title = "";
-	
 	public BaseFrame(String value) {
 		super();
 		if (value == null) {
@@ -45,6 +36,12 @@ public abstract class BaseFrame extends JFrame {
 			height = maxBounds.height;
 		}		
 	}
+	
+	private static final long serialVersionUID = 1L;
+	
+	protected int width = 1024;
+	protected int height = 768;
+	protected String title = "";
 	
 	protected void showWindowCenterScreen() {
 		// Get the size of the screen

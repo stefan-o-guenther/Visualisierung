@@ -12,9 +12,6 @@ public class PanelDefaultMenu extends BasePanelMenu {
 
 	private IDefaultManagement main;
 	
-	/**
-	 * Create the panel.
-	 */
 	public PanelDefaultMenu(IDefaultManagement imain, BasePanelModel modeldraw) {
 		super(modeldraw);
 		if (imain == null) {
@@ -39,6 +36,11 @@ public class PanelDefaultMenu extends BasePanelMenu {
 	protected void initToolTips() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Integer getHeightMenu() {
+		return 200;
 	}
 
 }

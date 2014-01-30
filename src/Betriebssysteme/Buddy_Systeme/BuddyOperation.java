@@ -10,8 +10,13 @@ import java.util.List;
 
 public class BuddyOperation implements IBuddyOperation {
 
-	private String message = "";
-	private List<IBuddySpace> list = new ArrayList<IBuddySpace>();
+	public BuddyOperation() {
+		message = "";
+		list = new ArrayList<IBuddySpace>();
+	}
+	
+	private String message;
+	private List<IBuddySpace> list;
 	
 	@Override
 	public String getMessage() {

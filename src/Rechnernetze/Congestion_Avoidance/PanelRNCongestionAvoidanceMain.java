@@ -6,32 +6,42 @@
 package Rechnernetze.Congestion_Avoidance;
 
 import Base.BasePanelMain;
-import Base.PanelTitle;
+import Base.BasePanelMenu;
+import Base.BasePanelModel;
+import Base.BasePanelTitle;
 
 public class PanelRNCongestionAvoidanceMain extends BasePanelMain {
 
-	/**
-	 * Create the panel.
-	 */
 	public PanelRNCongestionAvoidanceMain() {
-		super(new NetworkManagement());
+		super();
 		initComponents();
+		initLayout();
+	}
+
+	private PanelRNCongestionAvoidanceTitle panelTitle;
+	private PanelRNCongestionAvoidanceMenu panelMenu;
+	private PanelRNCongestionAvoidanceModel panelModel;
+	
+	@Override
+	protected void initComponents() {
+		INetworkManagement network = new NetworkManagement();
+		panelModel = new PanelRNCongestionAvoidanceModel(network);
+		panelMenu = new PanelRNCongestionAvoidanceMenu(network, panelModel);
+		panelTitle = new PanelRNCongestionAvoidanceTitle(network, panelModel);		
 	}
 
 	@Override
-	protected void initComponents() {
-		INetworkManagement network = (INetworkManagement) management;
-		
-		String tooltip = 
-	        	  "<html>"
-	        	+ "Mit diesem Geschwindigkeitsregeler können Sie einstellen,<br>"
-	        	+ "wie schnell der Auto-Durchlauf ausgeführt werden soll.<br>"
-	        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
-	        	+ "</html>";
-		
-		panelModel = new PanelRNCongestionAvoidanceModel(network);
-		panelMenu = new PanelRNCongestionAvoidanceMenu(network, panelModel);
-		panelTitle = new PanelTitle(network, panelModel, "Congestion Avoidance", tooltip);		
-		initLayout(200);
+	protected BasePanelTitle getPanelTitle() {
+		return panelTitle;
+	}
+
+	@Override
+	protected BasePanelMenu getPanelMenu() {
+		return panelMenu;
+	}
+
+	@Override
+	protected BasePanelModel getPanelModel() {
+		return panelModel;
 	}
 }

@@ -13,6 +13,11 @@ import Base.BaseManagement;
 
 public class MemoryManagement extends BaseManagement implements IMemoryManagement {
 
+	public MemoryManagement() {
+		super();
+		init();
+	}	
+	
 	private IMemoryStrategy strategy = null;
 	
 	private List<ISpace> listSpace = new ArrayList<ISpace>();
@@ -47,11 +52,6 @@ public class MemoryManagement extends BaseManagement implements IMemoryManagemen
 		listSpaceExample.add(new Space(8, EnumSpace.EMPTY));
 		return listSpaceExample;
 	}
-	
-	public MemoryManagement() {
-		super();
-		init();
-	}	
 	
 	@Override
 	public EnumMemoryStrategy getStrategy() {

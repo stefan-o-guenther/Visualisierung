@@ -7,11 +7,11 @@ package Base;
 
 public abstract class BaseManagement implements IManagement {
 
-	protected EnumSurface surface = EnumSurface.COLORED;
-
 	public BaseManagement() {
 		
 	}
+	
+	protected EnumSurface surface = EnumSurface.COLORED;	
 	
 	@Override
 	public EnumSurface getSurface() {

@@ -12,6 +12,12 @@ import Base.BaseManagement;
 
 public class MemoryManager extends BaseManagement implements IMemoryManager {	
 	
+	public MemoryManager() {
+		super();
+		init();
+	}
+	
+	
 	private List<ICacheBox> listCache;		
 	private IReplacementStrategy strategy;	
 	
@@ -22,12 +28,6 @@ public class MemoryManager extends BaseManagement implements IMemoryManager {
 	
 	private void update() {
 		listCache = strategy.getListCache();
-	}
-	
-	
-	public MemoryManager() {
-		super();
-		init();
 	}
 	
 	

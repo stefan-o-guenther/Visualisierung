@@ -11,11 +11,6 @@ import Base.BasePanelModelDraw;
 
 public class PanelRNCongestionAvoidanceModel extends BasePanelModelDraw {
 
-	private INetworkManagement network;
-	
-	/**
-	 * Create the panel.
-	 */
 	public PanelRNCongestionAvoidanceModel(INetworkManagement inetwork) {
 		super();
 		if (inetwork == null) {
@@ -24,6 +19,8 @@ public class PanelRNCongestionAvoidanceModel extends BasePanelModelDraw {
 		network = inetwork;
 	}
 
+	private INetworkManagement network;
+	
 	@Override
 	protected void doDrawing(Graphics g) {
 		// TODO Auto-generated method stub
@@ -41,5 +38,4 @@ public class PanelRNCongestionAvoidanceModel extends BasePanelModelDraw {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

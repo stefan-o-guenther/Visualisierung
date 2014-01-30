@@ -10,12 +10,12 @@ import java.util.List;
 
 public class ReplacementStrategy_LRU extends BaseReplacementStrategy implements IReplacementStrategy_LRU {
 
-	private List<Integer> listLRU;
-	
 	public ReplacementStrategy_LRU(List<Integer> sequence, Integer ram, Integer disk) {
 		super(sequence, ram, disk);
 	}
 
+	private List<Integer> listLRU;
+	
 	@Override
 	public EnumPagingStrategy getStrategy() {
 		return EnumPagingStrategy.LRU;

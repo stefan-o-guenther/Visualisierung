@@ -6,33 +6,42 @@
 package Rechnernetze.TCP_Retransmission;
 
 import Base.BasePanelMain;
-import Base.PanelTitle;
+import Base.BasePanelMenu;
+import Base.BasePanelModel;
+import Base.BasePanelTitle;
 
 public class PanelRNTCPRetransmissionMain extends BasePanelMain {
 
-	/**
-	 * Create the panel.
-	 */
 	public PanelRNTCPRetransmissionMain() {
-		super(new RetransmissionManagement());
+		super();
 		initComponents();
+		initLayout();
 	}
+	
+	private PanelRNTCPRetransmissionTitle panelTitle;
+	private PanelRNTCPRetransmissionMenu panelMenu;
+	private PanelRNTCPRetransmissionModel panelModel;
 
 	@Override
 	protected void initComponents() {
-		IRetransmissionManagement retransmission = (IRetransmissionManagement) management;
-		
-		String tooltip = 
-	        	  "<html>"
-	        	+ "Mit diesem Geschwindigkeitsregeler können Sie einstellen,<br>"
-	        	+ "wie schnell der Auto-Durchlauf ausgeführt werden soll.<br>"
-	        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
-	        	+ "</html>";
-		
+		IRetransmissionManagement retransmission = new RetransmissionManagement();
 		panelModel = new PanelRNTCPRetransmissionModel(retransmission);
 		panelMenu = new PanelRNTCPRetransmissionMenu(retransmission, panelModel);
-		panelTitle = new PanelTitle(retransmission, panelModel, "TCP-Retransmission", tooltip);		
-		initLayout(200);
+		panelTitle = new PanelRNTCPRetransmissionTitle(retransmission, panelModel);		
 	}
 
+	@Override
+	protected BasePanelTitle getPanelTitle() {
+		return panelTitle;
+	}
+
+	@Override
+	protected BasePanelMenu getPanelMenu() {
+		return panelMenu;
+	}
+
+	@Override
+	protected BasePanelModel getPanelModel() {
+		return panelModel;
+	}
 }

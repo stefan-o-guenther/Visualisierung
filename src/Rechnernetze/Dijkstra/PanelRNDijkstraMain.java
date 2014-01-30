@@ -6,33 +6,43 @@
 package Rechnernetze.Dijkstra;
 
 import Base.BasePanelMain;
-import Base.PanelTitle;
+import Base.BasePanelMenu;
+import Base.BasePanelModel;
+import Base.BasePanelTitle;
 
 public class PanelRNDijkstraMain extends BasePanelMain {
 
-	/**
-	 * Create the panel.
-	 */
 	public PanelRNDijkstraMain() {
-		super(new DijkstraAlgorithm());
+		super();
 		initComponents();
+		initLayout();
+	}
+
+	private PanelRNDijkstraTitle panelTitle;
+	private PanelRNDijkstraMenu panelMenu;
+	private PanelRNDijkstraModel panelModel;
+	
+	@Override
+	protected void initComponents() {
+		IDijkstraAlgorithm dijkstra = new DijkstraAlgorithm();		
+		panelModel = new PanelRNDijkstraModel(dijkstra);
+		panelMenu = new PanelRNDijkstraMenu(dijkstra, panelModel);
+		panelTitle = new PanelRNDijkstraTitle(dijkstra, panelModel);
 	}
 
 	@Override
-	protected void initComponents() {
-		IDijkstraAlgorithm dijkstra = (IDijkstraAlgorithm) management;
-		
-		String tooltip = 
-	        	  "<html>"
-	        	+ "Mit diesem Geschwindigkeitsregeler können Sie einstellen,<br>"
-	        	+ "wie schnell der Auto-Durchlauf ausgeführt werden soll.<br>"
-	        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
-	        	+ "</html>";
-		
-		panelModel = new PanelRNDijkstraModel(dijkstra);
-		panelMenu = new PanelRNDijkstraMenu(dijkstra, panelModel);
-		panelTitle = new PanelTitle(dijkstra, panelModel, "Dijkstra", tooltip);		
-		initLayout(50);
+	protected BasePanelTitle getPanelTitle() {
+		return panelTitle;
+	}
+
+	@Override
+	protected BasePanelMenu getPanelMenu() {
+		return panelMenu;
+	}
+
+	@Override
+	protected BasePanelModel getPanelModel() {
+		return panelModel;
 	}
 
 }

@@ -12,18 +12,23 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.CubicCurve2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.imageio.ImageIO;
 
 import Base.BasePanelModelDraw;
 import Base.EnumSurface;
 import Base.ImageLoader;
 
 public class PanelRNDijkstraModel extends BasePanelModelDraw {
+
+	public PanelRNDijkstraModel(IDijkstraAlgorithm idijkstra) {
+		super();
+		if (idijkstra == null) {
+			idijkstra = new DijkstraAlgorithm();
+		}
+		dijkstra = idijkstra;
+		updateModel();
+	}
 
 	private EnumSurface surface;
 	
@@ -377,21 +382,8 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 			}
 		}
 		g2d.drawString(text, 20, 500);
-	}
+	}	
 	
-	
-	/**
-	 * Create the panel.
-	 */
-	public PanelRNDijkstraModel(IDijkstraAlgorithm idijkstra) {
-		super();
-		if (idijkstra == null) {
-			idijkstra = new DijkstraAlgorithm();
-		}
-		dijkstra = idijkstra;
-		updateModel();
-	}
-
 	@Override
 	protected void doDrawing(Graphics g) {
 		g2d = (Graphics2D) g;

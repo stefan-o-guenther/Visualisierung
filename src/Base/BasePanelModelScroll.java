@@ -14,21 +14,19 @@ import javax.swing.ScrollPaneConstants;
 
 public abstract class BasePanelModelScroll extends BasePanelModel {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	protected BasePanelModelDraw panelModelDraw;
-	protected JScrollPane scrollPane;
-	
-	public BasePanelModelScroll(BasePanelModelDraw modeldraw) {
+	public BasePanelModelScroll() {
 		super();
-		if (modeldraw != null) {
-			panelModelDraw = modeldraw;
-		}
 	}
 	
-	protected void initComponents() {                
+	private static final long serialVersionUID = 1L;
+	
+	protected JScrollPane scrollPane;	
+	protected abstract BasePanelModelDraw getPanelModelDraw();
+	protected abstract void initComponents();
+	
+	protected void initLayout() {
+		BasePanelModelDraw panelModelDraw = this.getPanelModelDraw();
+		
         //Put the drawing area in a scroll pane.
 		scrollPane = new JScrollPane(panelModelDraw);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);

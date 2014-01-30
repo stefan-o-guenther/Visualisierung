@@ -12,6 +12,15 @@ import Base.BaseManagement;
 
 public class DijkstraAlgorithm extends BaseManagement implements IDijkstraAlgorithm {
 	
+	public DijkstraAlgorithm() {
+		super();
+		nodeStart = nodeU;
+		nodeTarget = nodeZ;
+		putNodesInList();
+		putEdges();
+		initDijkstra();		
+	}
+	
 	private INode nodeU = new Node("U");
 	private INode nodeV = new Node("V");
 	private INode nodeW = new Node("W");
@@ -80,15 +89,6 @@ public class DijkstraAlgorithm extends BaseManagement implements IDijkstraAlgori
 		listMin = new ArrayList<String>();
 		listRoute = new ArrayList<String>();
 		listlistNodesOutput = new ArrayList<List<INodeOutput>>();
-	}
-	
-	public DijkstraAlgorithm() {
-		super();
-		nodeStart = nodeU;
-		nodeTarget = nodeZ;
-		putNodesInList();
-		putEdges();
-		initDijkstra();		
 	}
 	
 	private INode findNodeWithShortestPath() {

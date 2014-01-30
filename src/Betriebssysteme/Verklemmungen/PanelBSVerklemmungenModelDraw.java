@@ -13,11 +13,6 @@ import Base.EnumSurface;
 
 public class PanelBSVerklemmungenModelDraw extends BasePanelModelDraw {
 
-	private IDeadlockManagement deadlock;
-	
-	/**
-	 * Create the panel.
-	 */
 	public PanelBSVerklemmungenModelDraw(IDeadlockManagement ideadlock) {
 		super();
 		if (ideadlock == null) {
@@ -26,6 +21,8 @@ public class PanelBSVerklemmungenModelDraw extends BasePanelModelDraw {
 		deadlock = ideadlock;
 	}
 
+	private IDeadlockManagement deadlock;
+	
 	@Override
 	protected void doDrawing(Graphics g) {
 		// update();

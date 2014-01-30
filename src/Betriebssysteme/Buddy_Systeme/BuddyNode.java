@@ -10,13 +10,6 @@ import java.util.List;
 
 public class BuddyNode implements IBuddyNode {
 
-	private Integer size = 0;
-	private IBuddyNode left = null;
-	private IBuddyNode right = null;
-	private IBuddyNode parent = null;
-	private IProcessNode space = null;
-	private IRestNode rest = null;
-	
 	public BuddyNode(Integer value, IBuddyNode p) {
 		if ((value != null) && (value > 0)) {
 			Integer x = BuddyHelper.getPotence(value);
@@ -26,6 +19,13 @@ public class BuddyNode implements IBuddyNode {
 		}
 		parent = p;
 	}
+	
+	private Integer size = 0;
+	private IBuddyNode left = null;
+	private IBuddyNode right = null;
+	private IBuddyNode parent = null;
+	private IProcessNode space = null;
+	private IRestNode rest = null;
 	
 	@Override
 	public Integer getValue() {

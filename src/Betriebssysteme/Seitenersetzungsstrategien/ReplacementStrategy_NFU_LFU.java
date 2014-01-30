@@ -10,11 +10,11 @@ import java.util.List;
 
 public class ReplacementStrategy_NFU_LFU extends BaseReplacementStrategy implements IReplacementStrategy_NFU_LFU {
 
-	private List<Integer> listNFU_LFU;
-	
 	public ReplacementStrategy_NFU_LFU(List<Integer> sequence, Integer ram, Integer disk) {
 		super(sequence, ram, disk);
 	}
+	
+	private List<Integer> listNFU_LFU;	
 
 	@Override
 	public Boolean useRM() {

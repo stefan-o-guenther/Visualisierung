@@ -10,10 +10,6 @@ import java.util.List;
 
 public class ProcessNode implements IProcessNode {
 
-	private IBuddyNode parent = null;
-	private Integer space = null;
-	private String name = "";
-	
 	public ProcessNode(String s, Integer value, IBuddyNode p) {
 		if ((value == null) || (value < 0)) {
 			value = 0;
@@ -25,6 +21,10 @@ public class ProcessNode implements IProcessNode {
 		name = s;
 		parent = p;
 	}
+	
+	private IBuddyNode parent = null;
+	private Integer space = null;
+	private String name = "";
 	
 	@Override
 	public EnumNode getType() {

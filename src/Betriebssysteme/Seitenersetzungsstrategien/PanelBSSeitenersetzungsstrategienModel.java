@@ -17,6 +17,14 @@ import Base.EnumSurface;
 
 public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModelDraw {
 	
+	public PanelBSSeitenersetzungsstrategienModel(IMemoryManager ipaging) {
+		super();
+		if (ipaging == null) {
+			ipaging = new MemoryManager();
+		}
+		paging = ipaging;		
+	}	
+		
 	private final Integer LENGTH_BOX = 35;
 	private final Integer WIDTH_LABEL = 80;
 	private final Integer X_FIRST = 5;
@@ -33,14 +41,6 @@ public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModelDraw {
 	private List<ICacheBox> listCache = new ArrayList<ICacheBox>();
 	
 	private EnumSurface surface;
-		
-	public PanelBSSeitenersetzungsstrategienModel(IMemoryManager ipaging) {
-		super();
-		if (ipaging == null) {
-			ipaging = new MemoryManager();
-		}
-		paging = ipaging;		
-	}	
 		
 	private void labelX(String text, Integer countX, Boolean gapX) {
 		Integer x = X_FIRST + WIDTH_LABEL + (LENGTH_BOX*countX);

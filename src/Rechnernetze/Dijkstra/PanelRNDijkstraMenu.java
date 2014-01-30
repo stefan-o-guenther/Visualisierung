@@ -8,24 +8,15 @@ package Rechnernetze.Dijkstra;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Base.BasePanelMenu;
-import Base.BasePanelModel;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 
+import Base.BasePanelMenu;
+
 public class PanelRNDijkstraMenu extends BasePanelMenu {
 
-	private IDijkstraAlgorithm dijkstra;
-	
-	private JButton btnNextStep;
-	private JButton btnReset;
-	
-	/**
-	 * Create the panel.
-	 */
-	public PanelRNDijkstraMenu(IDijkstraAlgorithm idijkstra, BasePanelModel model) {
+	public PanelRNDijkstraMenu(IDijkstraAlgorithm idijkstra, PanelRNDijkstraModel model) {
 		super(model);
 		if (idijkstra == null) {
 			idijkstra = new DijkstraAlgorithm();
@@ -35,6 +26,11 @@ public class PanelRNDijkstraMenu extends BasePanelMenu {
 		updateView();
 	}
 
+	private IDijkstraAlgorithm dijkstra;
+	
+	private JButton btnNextStep;
+	private JButton btnReset;
+	
 	@Override
 	protected void initComponents() {
 		btnNextStep = new JButton("n\u00E4chster Schritt");
@@ -89,4 +85,9 @@ public class PanelRNDijkstraMenu extends BasePanelMenu {
 			updateView();
 		}
 	};
+
+	@Override
+	public Integer getHeightMenu() {
+		return 50;
+	}
 }

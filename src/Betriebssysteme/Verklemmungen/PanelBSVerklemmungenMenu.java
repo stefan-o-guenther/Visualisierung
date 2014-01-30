@@ -17,9 +17,18 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.BasePanelMenu;
-import Base.BasePanelModel;
 
 public class PanelBSVerklemmungenMenu extends BasePanelMenu {
+	
+	public PanelBSVerklemmungenMenu(IDeadlockManagement ideadlock, PanelBSVerklemmungenModel panelModel) {
+		super(panelModel);
+		if (ideadlock == null) {
+			ideadlock = new DeadlockManagement();
+		}
+		deadlock = ideadlock;
+		initComponents();
+	}
+	
 	private JTextField tfE;
 	private JTextField tfB;
 	private JTextField tfC;
@@ -159,18 +168,14 @@ public class PanelBSVerklemmungenMenu extends BasePanelMenu {
 		
 	}
 	
-	public PanelBSVerklemmungenMenu(IDeadlockManagement ideadlock, BasePanelModel panelModel) {
-		super(panelModel);
-		if (ideadlock == null) {
-			ideadlock = new DeadlockManagement();
-		}
-		deadlock = ideadlock;
-		initComponents();
-	}
-
 	@Override
 	protected void initToolTips() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Integer getHeightMenu() {
+		return 200;
 	}	
 }

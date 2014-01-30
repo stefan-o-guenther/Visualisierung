@@ -6,33 +6,42 @@
 package Rechnernetze.Queueing_And_Loss;
 
 import Base.BasePanelMain;
-import Base.PanelTitle;
+import Base.BasePanelMenu;
+import Base.BasePanelModel;
+import Base.BasePanelTitle;
 
 public class PanelRNQueueingAndLossMain extends BasePanelMain {
 
-	/**
-	 * Create the panel.
-	 */
 	public PanelRNQueueingAndLossMain() {
-		super(new QALManagement());
+		super();
 		initComponents();
+		initLayout();
+	}
+
+	private PanelRNQueueingAndLossTitle panelTitle;
+	private PanelRNQueueingAndLossMenu panelMenu;
+	private PanelRNQueueingAndLossModel panelModel;
+	
+	@Override
+	protected void initComponents() {
+		IQALManagement qal = new QALManagement();		
+		panelModel = new PanelRNQueueingAndLossModel(qal);
+		panelMenu = new PanelRNQueueingAndLossMenu(qal, panelModel);
+		panelTitle = new PanelRNQueueingAndLossTitle(qal, panelModel);		
 	}
 
 	@Override
-	protected void initComponents() {
-		IQALManagement qal = (IQALManagement) management;
-		
-		String tooltip = 
-	        	  "<html>"
-	        	+ "Mit diesem Geschwindigkeitsregeler können Sie einstellen,<br>"
-	        	+ "wie schnell der Auto-Durchlauf ausgeführt werden soll.<br>"
-	        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
-	        	+ "</html>";
-		
-		panelModel = new PanelRNQueueingAndLossModel(qal);
-		panelMenu = new PanelRNQueueingAndLossMenu(qal, panelModel);
-		panelTitle = new PanelTitle(qal, panelModel, "Queueing And Loss", tooltip);		
-		initLayout(130);
+	protected BasePanelTitle getPanelTitle() {
+		return panelTitle;
 	}
 
+	@Override
+	protected BasePanelMenu getPanelMenu() {
+		return panelMenu;
+	}
+
+	@Override
+	protected BasePanelModel getPanelModel() {
+		return panelModel;
+	}
 }

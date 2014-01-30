@@ -7,9 +7,15 @@ package Betriebssysteme.Buddy_Systeme;
 
 public class BuddySpace implements IBuddySpace {
 
-	private EnumNode type = null;
-	private String name = "";
-	private Integer size = 0;
+	public BuddySpace() {
+		type = null;
+		name = "";
+		size = 0;
+	}
+	
+	private EnumNode type;
+	private String name;
+	private Integer size;
 	
 	@Override
 	public EnumNode getType() {

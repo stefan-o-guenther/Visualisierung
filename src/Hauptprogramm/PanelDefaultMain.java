@@ -6,31 +6,41 @@
 package Hauptprogramm;
 
 import Base.BasePanelMain;
-import Base.PanelTitle;
+import Base.BasePanelMenu;
+import Base.BasePanelModel;
+import Base.BasePanelTitle;
 
 public class PanelDefaultMain extends BasePanelMain {
 	
-	/**
-	 * Create the panel.
-	 */
 	public PanelDefaultMain() {
-		super(new DefaultManagement());
+		super();
 		initComponents();
+		initLayout();
 	}	
 
+	private PanelDefaultTitle panelTitle;
+	private PanelDefaultMenu panelMenu;
+	private PanelDefaultModel panelModel;
+	
 	protected void initComponents() {
-		IDefaultManagement main = (IDefaultManagement) management;
-		
-		String tooltip = 
-	        	  "<html>"
-	        	+ "Mit diesem Geschwindigkeitsregeler können Sie einstellen,<br>"
-	        	+ "wie schnell der Auto-Durchlauf ausgeführt werden soll.<br>"
-	        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
-	        	+ "</html>";
-		
+		IDefaultManagement main = new DefaultManagement();
 		panelModel = new PanelDefaultModel(main);
 		panelMenu = new PanelDefaultMenu(main, panelModel);
-		panelTitle = new PanelTitle(main, panelModel, "Bachelorarbeit - Visualisierung", tooltip);		
-		initLayout(200);
+		panelTitle = new PanelDefaultTitle(main, panelModel);
+	}
+
+	@Override
+	protected BasePanelTitle getPanelTitle() {
+		return panelTitle;
+	}
+
+	@Override
+	protected BasePanelMenu getPanelMenu() {
+		return panelMenu;
+	}
+
+	@Override
+	protected BasePanelModel getPanelModel() {
+		return panelModel;
 	}
 }

@@ -11,16 +11,16 @@ import java.util.List;
 
 public class CacheBox implements ICacheBox {
 
-	private Integer number = null;
-	private List<ICache> listRam = new ArrayList<ICache>();
-	private List<ICache> listDisk = new ArrayList<ICache>();
-	private Boolean activated = false;
-	
 	public CacheBox(Integer value) {
 		number = value;
 		listRam = new ArrayList<ICache>();
 		listDisk = new ArrayList<ICache>();
 	}	
+	
+	private Integer number = null;
+	private List<ICache> listRam = new ArrayList<ICache>();
+	private List<ICache> listDisk = new ArrayList<ICache>();
+	private Boolean activated = false;
 	
 	@Override
 	public Integer getNumber() {

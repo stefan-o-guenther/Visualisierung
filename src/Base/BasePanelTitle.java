@@ -18,22 +18,33 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class PanelTitle extends BasePanelUseModel {
+public abstract class BasePanelTitle extends BasePanelUseModel {
 	
-	private static final long serialVersionUID = 1L;
-	private ButtonGroup groupColor = new ButtonGroup();
-	private JRadioButton rdbtnColored;	
-	private JRadioButton rdbtnGray;
-	
-	private JLabel lblTitle;	
-	private String title;
-	private String tooltip;
-	
-	private ImageIcon IMG_HELP = ImageLoader.getImageIconHelp22();
-	
-	private IManagement management;
+	public BasePanelTitle(IManagement vManagement, BasePanelModel model) {
+		super(model);
 		
-	private ActionListener ActionColor = new ActionListener() {
+		
+		
+		if (vManagement != null) {
+			management = vManagement;
+			management.setSurface(EnumSurface.COLORED);
+		}		
+		initComponents();
+	}	
+	
+	protected static final long serialVersionUID = 1L;
+	
+	protected ButtonGroup groupColor = new ButtonGroup();
+	protected JRadioButton rdbtnColored;	
+	protected JRadioButton rdbtnGray;	
+	protected JLabel lblTitle;	
+	
+	protected IManagement management;
+	
+	protected abstract String getToolTip();
+	protected abstract String getTitle();
+		
+	protected ActionListener ActionColor = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			String s = e.getActionCommand();
 			if (s == "colored") {
@@ -45,7 +56,11 @@ public class PanelTitle extends BasePanelUseModel {
 		}	
 	};
 	
-	private void initComponents() {
+	protected void initComponents() {
+		String title = getTitle();
+		String tooltip = getToolTip();
+		ImageIcon imgIconHelp = ImageLoader.getImageIconHelp22();
+		
 		rdbtnColored = new JRadioButton("farbig");
 		rdbtnColored.setActionCommand("colored");
 		rdbtnColored.addActionListener(ActionColor);
@@ -58,7 +73,7 @@ public class PanelTitle extends BasePanelUseModel {
 				
 		lblTitle = new JLabel(title);
 		lblTitle.setFont(lblTitle.getFont().deriveFont(36f));
-		lblTitle.setIcon(IMG_HELP);
+		lblTitle.setIcon(imgIconHelp);
 		lblTitle.setToolTipText(tooltip);
 		
 		
@@ -85,22 +100,5 @@ public class PanelTitle extends BasePanelUseModel {
 						.addComponent(lblTitle)))
 		);
 		setLayout(groupLayout);
-	}
-	
-	public PanelTitle(IManagement vManagement, BasePanelModel model, String vTitle, String vToolTip) {
-		super(model);
-		title = "";
-		if (vTitle != null) {
-			title = vTitle;			
-		}
-		tooltip = "";
-		if (vToolTip != null) {
-			tooltip = vToolTip;
-		}
-		if (vManagement != null) {
-			management = vManagement;
-			management.setSurface(EnumSurface.COLORED);
-		}		
-		initComponents();
 	}	
 }

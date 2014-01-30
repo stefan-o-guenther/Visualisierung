@@ -5,36 +5,42 @@
 
 package Betriebssysteme.Verklemmungen;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JPanel;
-
 import Base.BasePanelMain;
-import Base.PanelTitle;
+import Base.BasePanelMenu;
+import Base.BasePanelModel;
+import Base.BasePanelTitle;
 
 public class PanelBSVerklemmungenMain extends BasePanelMain {
 
-	/**
-	 * Create the panel.
-	 */
 	public PanelBSVerklemmungenMain() {
-		super(new DeadlockManagement());
+		super();
 		initComponents();
+		initLayout();
 	}	
 	
+	private PanelBSVerklemmungenTitle panelTitle;
+	private PanelBSVerklemmungenMenu panelMenu;
+	private PanelBSVerklemmungenModel panelModel;
+	
 	protected void initComponents() {
-		IDeadlockManagement deadlock = (IDeadlockManagement) management;
-		
-		String tooltip = 
-	        	  "<html>"
-	        	+ "Mit diesem Geschwindigkeitsregeler können Sie einstellen,<br>"
-	        	+ "wie schnell der Auto-Durchlauf ausgeführt werden soll.<br>"
-	        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
-	        	+ "</html>";
-		
-		panelModel = new PanelBSVerklemmungenModelScroll(deadlock);
+		IDeadlockManagement deadlock = new DeadlockManagement();		
+		panelModel = new PanelBSVerklemmungenModel(deadlock);
 		panelMenu = new PanelBSVerklemmungenMenu(deadlock, panelModel);
-		panelTitle = new PanelTitle(deadlock, panelModel, "Verklemmungen", tooltip);		
-		initLayout(200);
+		panelTitle = new PanelBSVerklemmungenTitle(deadlock, panelModel);
+	}
+
+	@Override
+	protected BasePanelTitle getPanelTitle() {
+		return panelTitle;
+	}
+
+	@Override
+	protected BasePanelMenu getPanelMenu() {
+		return panelMenu;
+	}
+
+	@Override
+	protected BasePanelModel getPanelModel() {
+		return panelModel;
 	}
 }

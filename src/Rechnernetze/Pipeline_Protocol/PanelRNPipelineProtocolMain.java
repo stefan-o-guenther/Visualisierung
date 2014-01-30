@@ -6,33 +6,42 @@
 package Rechnernetze.Pipeline_Protocol;
 
 import Base.BasePanelMain;
-import Base.PanelTitle;
+import Base.BasePanelMenu;
+import Base.BasePanelModel;
+import Base.BasePanelTitle;
 
 public class PanelRNPipelineProtocolMain extends BasePanelMain {
 
-	/**
-	 * Create the panel.
-	 */
 	public PanelRNPipelineProtocolMain() {
-		super(new PipelineManagement());
+		super();
 		initComponents();
+		initLayout();
 	}
+	
+	private PanelRNPipelineProtocolTitle panelTitle;
+	private PanelRNPipelineProtocolMenu panelMenu;
+	private PanelRNPipelineProtocolModel panelModel;
 
 	@Override
 	protected void initComponents() {
-		IPipelineManagement pipeline = (IPipelineManagement) management;
-		
-		String tooltip = 
-	        	  "<html>"
-	        	+ "Mit diesem Geschwindigkeitsregeler können Sie einstellen,<br>"
-	        	+ "wie schnell der Auto-Durchlauf ausgeführt werden soll.<br>"
-	        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
-	        	+ "</html>";
-		
+		IPipelineManagement pipeline = new PipelineManagement();		
 		panelModel = new PanelRNPipelineProtocolModel(pipeline);
 		panelMenu = new PanelRNPipelineProtocolMenu(pipeline, panelModel);
-		panelTitle = new PanelTitle(pipeline, panelModel, "Pipeline Protocol", tooltip);		
-		initLayout(200);
+		panelTitle = new PanelRNPipelineProtocolTitle(pipeline, panelModel);		
 	}
 
+	@Override
+	protected BasePanelTitle getPanelTitle() {
+		return panelTitle;
+	}
+
+	@Override
+	protected BasePanelMenu getPanelMenu() {
+		return panelMenu;
+	}
+
+	@Override
+	protected BasePanelModel getPanelModel() {
+		return panelModel;
+	}
 }

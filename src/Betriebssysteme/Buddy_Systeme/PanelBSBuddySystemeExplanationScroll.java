@@ -5,20 +5,20 @@
 
 package Betriebssysteme.Buddy_Systeme;
 
-import javax.swing.JPanel;
-
 import Base.BasePanelModelDraw;
 import Base.BasePanelModelScroll;
 
 public class PanelBSBuddySystemeExplanationScroll extends BasePanelModelScroll {
 
-	/**
-	 * Create the panel.
-	 */
 	public PanelBSBuddySystemeExplanationScroll(IBuddyMemoryAllocation ibuddy) {
-		super(new PanelBSBuddySystemeExplanationDraw(ibuddy));
+		super();
+		buddy = ibuddy;
 		initComponents();
+		initLayout();
 	}
+	
+	IBuddyMemoryAllocation buddy = null;
+	PanelBSBuddySystemeExplanationDraw panelModelDraw = null;
 	
 	@Override
 	public void updateModel() {
@@ -26,4 +26,13 @@ public class PanelBSBuddySystemeExplanationScroll extends BasePanelModelScroll {
 		scrollPane.getVerticalScrollBar().setValue(0);
 	}
 
+	@Override
+	protected BasePanelModelDraw getPanelModelDraw() {
+		return panelModelDraw;
+	}
+
+	@Override
+	protected void initComponents() {
+		panelModelDraw = new PanelBSBuddySystemeExplanationDraw(buddy);
+	}
 }

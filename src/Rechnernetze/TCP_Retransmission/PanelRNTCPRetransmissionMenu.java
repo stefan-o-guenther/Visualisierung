@@ -6,16 +6,10 @@
 package Rechnernetze.TCP_Retransmission;
 
 import Base.BasePanelMenu;
-import Base.BasePanelModel;
 
 public class PanelRNTCPRetransmissionMenu extends BasePanelMenu {
 
-	private IRetransmissionManagement retransmission;
-	
-	/**
-	 * Create the panel.
-	 */
-	public PanelRNTCPRetransmissionMenu(IRetransmissionManagement iretransmission, BasePanelModel model) {
+	public PanelRNTCPRetransmissionMenu(IRetransmissionManagement iretransmission, PanelRNTCPRetransmissionModel model) {
 		super(model);
 		if (iretransmission == null) {
 			iretransmission = new RetransmissionManagement();
@@ -23,6 +17,8 @@ public class PanelRNTCPRetransmissionMenu extends BasePanelMenu {
 		retransmission = iretransmission;
 	}
 
+	private IRetransmissionManagement retransmission;
+	
 	@Override
 	protected void initComponents() {
 		// TODO Auto-generated method stub
@@ -39,6 +35,11 @@ public class PanelRNTCPRetransmissionMenu extends BasePanelMenu {
 	protected void initToolTips() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Integer getHeightMenu() {
+		return 200;
 	}
 
 }

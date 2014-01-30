@@ -10,6 +10,14 @@ import java.util.List;
 
 public abstract class BaseMemoryStrategy implements IMemoryStrategy {
 
+	public BaseMemoryStrategy(List<ISpace> example) {
+		if (example != null) {
+			listSpaceWork = example;
+			copyListSpace();
+		}
+		init();
+	}	
+	
 	protected final Integer START = 0;
 	
 	protected List<ISpace> listSpaceWork = new ArrayList<ISpace>();
@@ -29,14 +37,6 @@ public abstract class BaseMemoryStrategy implements IMemoryStrategy {
 	
 	protected void copyListSpace() {
 		listSpacePublic = new ArrayList<ISpace>(listSpaceWork);
-	}
-	
-	protected BaseMemoryStrategy(List<ISpace> example) {
-		if (example != null) {
-			listSpaceWork = example;
-			copyListSpace();
-		}
-		init();
 	}
 	
 	protected void deleteNegativeRestValues() {
@@ -137,10 +137,6 @@ public abstract class BaseMemoryStrategy implements IMemoryStrategy {
 	}
 	
 	protected abstract void initStrategy();
-	
-	public BaseMemoryStrategy() {
-		
-	}
 	
 	@Override
 	public void init() {		

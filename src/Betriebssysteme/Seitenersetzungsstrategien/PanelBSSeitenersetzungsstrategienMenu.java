@@ -8,10 +8,8 @@ package Betriebssysteme.Seitenersetzungsstrategien;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -20,16 +18,23 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.BasePanelMenu;
-import Base.BasePanelModel;
 
 public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 	
+	public PanelBSSeitenersetzungsstrategienMenu(IMemoryManager ipaging, PanelBSSeitenersetzungsstrategienModel model) {
+		super(model);
+		if (ipaging == null) {
+			ipaging = new MemoryManager();
+		}
+		paging = ipaging;
+		initComponents();
+		updateView();
+	}	
+
 	private String sToolTipStrategie = "";
 	private String sToolTipReferenzfolge = "";
 	private String sToolTipRam = "";
@@ -149,13 +154,15 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 	//@Override
 	protected void initComponents() {		
 		initToolTips();
-				
+		
+		ImageIcon imgHelp = getImageIconHelp();
+		
 		lblStrategie = new JLabel("Strategie:");
-		lblStrategie.setIcon(IMG_HELP);
+		lblStrategie.setIcon(imgHelp);
 		lblStrategie.setToolTipText(sToolTipStrategie);
 		
 		lblReferenzfolge = new JLabel("Referenzfolge:");
-		lblReferenzfolge.setIcon(IMG_HELP);
+		lblReferenzfolge.setIcon(imgHelp);
 		lblReferenzfolge.setToolTipText(sToolTipReferenzfolge);
 		
 		tfReferenzfolge = new JTextField();
@@ -166,11 +173,11 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		cbStrategie.setModel(new DefaultComboBoxModel(strategies));
 		
 		lblRam = new JLabel("Anzahl RAM:");
-		lblRam.setIcon(IMG_HELP);
+		lblRam.setIcon(imgHelp);
 		lblRam.setToolTipText(sToolTipRam);
 		
 		lblDisk = new JLabel("Anzahl DISK:");
-		lblDisk.setIcon(IMG_HELP);
+		lblDisk.setIcon(imgHelp);
 		lblDisk.setToolTipText(sToolTipDisk);
 		
 		tfDisk = new JTextField();
@@ -192,16 +199,17 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		btnM.addActionListener(ActionSetM);
 		
 		lblToolTipR = new JLabel(" ");
-		lblToolTipR.setIcon(IMG_HELP);
+		lblToolTipR.setIcon(imgHelp);
 		lblToolTipR.setToolTipText(sToolTipR);
 		
 		lblToolTipM = new JLabel(" ");
-		lblToolTipM.setIcon(IMG_HELP);
+		lblToolTipM.setIcon(imgHelp);
 		lblToolTipM.setToolTipText(sToolTipM);
 		
 		lblErrorTitle = new JLabel("Seitenfehler:");		
-		lblErrorTitle.setIcon(IMG_HELP);
-		lblErrorValue = new JLabel(" ");
+		lblErrorTitle.setIcon(imgHelp);
+		lblErrorTitle.setToolTipText(sToolTipSeitenfehler);
+		lblErrorValue = new JLabel(" ");		
 				
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -270,86 +278,83 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		
 	}
 	
-	/**
-	 * Create the panel.
-	 * @param panelModel 
-	 */
-	public PanelBSSeitenersetzungsstrategienMenu(IMemoryManager ipaging, BasePanelModel model) {
-		super(model);
-		if (ipaging == null) {
-			ipaging = new MemoryManager();
-		}
-		paging = ipaging;
-		initComponents();
-		updateView();
-	}	
-	
 	@Override
 	protected void initToolTips() {	
-		sToolTipStrategie = 	
-	        	  "<html>"
-		    	+ "<h3>:</h3>"
-		    	+ "<br>"
-		    	+ "<br>"
-		    	+ "<br>"
-		    	+ "<h3>:</h3>"
-		    	+ "<br>"
-		    	+ "<br>"		    	
-		    	+ "<br>"
-		    	+ "<br>"
-		    	+ "</html>";	
+		sToolTipStrategie = ""
+			+ "<html>"
+	    	+ "<strong>Optimale Strategie:</strong><br/>"
+	    	+ "<p>"
+	    	+ "Das beste wäre, wenn die Seitenersetzung immer die zukünfigen<br/>"
+	    	+ "Seitenzugriffe aller Prozesse berücksichtigen könnte, weil dann<br/>"
+	    	+ "wenige Seitenfehler auftreten würden. Ein optimaler Algorithmus würde<br/>"
+	    	+ "die Seitenrahmen für eine Ersetzung auswählen, die am spätesten von allen<br/>"
+	    	+ "belegten Seitenrahmen wieder benötigt würden.<br/>"
+	    	+ "</p>"
+	    	+ "<br/>"
+	    	+ "<strong>FIFO</strong><br/>"
+	    	+ "<p>"
+	    	+ "Bei <i>FIFO</i> (First In First Out) wird der zuerst eingespeicherte Block ersetzt.<br/>"
+	    	+ "</p>"
+	    	+ "<br/>"
+	    	+ "<strong>FIFO - Second Chance</strong><br/>"
+	    	+ "<p>"
+	    	+ "Der <i>Second-Chance-Algorithmus</i> ist eine Verbesserung von <i>FIFO</i> dahingehend,<br/>"
+	    	+ "dass vor einer Verdrängungsentscheidung auch das R-Bit abgefragt wird. Es wird geprüft, ob<br/>"
+	    	+ "eine zur Verdrängung anstehende Seite in letzter Zeit benutzt wurde. Wurde die älteste Seite<br/>"
+	    	+ "schon genutzt, so wird sie nicht ausgelagert und stattdessen an das Ende der <i>FIFO</i>-Liste<br/>"
+	    	+ "gehängt. Erst wenn alle Seiten schon referenziert wurden, wird nach FIFO ausgewählt.<br/>"
+	    	+ "</p>"
+	    	+ "<br/>"
+	    	+ "<strong>NRU</strong><br/>"
+	    	+ "<p>"
+	    	+ "Seiten, die in letzter Zeit nicht genutzt wurden, sind bei <i>NRU</i> (Not Recently Used)<br/>"
+	    	+ "die Kandidaten für die Verdrängung.<br/>"
+	    	+ "</p>"
+	    	+ "<br/>"
+	    	+ "<strong>LRU</strong><br/>"
+	    	+ "<p>"
+	    	+ "Beim <i>LRU</i>-Algorithmus (Least Recently Used) wird der am längsten ungenutzte Block ersetzt.<br/>"
+	    	+ "</p>"
+	    	+ "<br/>"
+	    	+ "<strong>NFU/LFU</strong><br/>"
+	    	+ "<p>"
+	    	+ "Beim <i>LFU</i>-Algorithmus (Least Frequently Used) wird der am wenigsten benutzte Block ersetzt.<br/>"
+	    	+ "Der LFU-Algorithmus ist sehr ähnlich wie der LRU-Algorithmus.<br/>"
+	    	+ "</p>"
+	    	+ "</html>";	
 		
-		sToolTipReferenzfolge = 	
-	        	  "<html>"
-		    	+ "<h3>:</h3>"
-		    	+ "<br>"
-		    	+ "<br>"
-		    	+ "<br>"
-		    	+ "<h3>:</h3>"
-		    	+ "<br>"
-		    	+ "<br>"		    	
-		    	+ "<br>"
-		    	+ "<br>"
-		    	+ "</html>";
+		sToolTipReferenzfolge = ""
+			+ "<html>"
+	    	+ "<span>"
+	    	+ "Die Eingabelänge der Referenzfolge ist für diese Animation auf 16 Ziffern beschränkt.<br/>"
+	    	+ "Die Referenzfolge ist die Reihenfolge der Seitenzugriffe bzw. gibt an,<br/>"
+	    	+ "auf welche Seiten als nächstes zugegriffen wird.<br/>"
+	    	+ "</span>"
+	    	+ "</html>";
 		
-		sToolTipRam =
-			  	  "<html>"
-			  	+ "<h3>:</h3>"
-			  	+ "<br>"
-			  	+ "<br>"
-			  	+ "<br>"
-			  	+ "<h3>:</h3>"
-			  	+ "<br>"
-			  	+ "<br>"		    	
-			  	+ "<br>"
-			  	+ "<br>"
-			  	+ "</html>";
+		sToolTipRam = ""
+			+ "<html>"
+		  	+ "Größe des RAM"
+		  	+ "</html>";
 		
-		sToolTipDisk =
-			  	  "<html>"
-			  	+ "<h3>:</h3>"
-			  	+ "<br>"
-			  	+ "<br>"
-			  	+ "<br>"
-			  	+ "<h3>:</h3>"
-			  	+ "<br>"
-			  	+ "<br>"		    	
-			  	+ "<br>"
-			  	+ "<br>"
-			  	+ "</html>";
+		sToolTipDisk = ""
+			+ "<html>"
+		  	+ "Größe des DISK"
+		  	+ "</html>";
 		
-		sToolTipSeitenfehler =
-			  	  "<html>"
-			  	+ "<h3>:</h3>"
-			  	+ "<br>"
-			  	+ "<br>"
-			  	+ "<br>"
-			  	+ "<h3>:</h3>"
-			  	+ "<br>"
-			  	+ "<br>"		    	
-			  	+ "<br>"
-			  	+ "<br>"
-			  	+ "</html>";
+		sToolTipSeitenfehler = ""
+			+ "<html>"
+		  	+ "wie oft wurde im RAM eine Seite durch eine andere Seite ersetzt"
+		  	+ "</html>";
+		
+		sToolTipR = ""
+			+ "<html>"
+		  	+ "auf alle Seiten wurde in letzter Zeit nicht zugegriffen"
+		  	+ "</html>";
+		sToolTipM = ""
+			+ "<html>"
+		  	+ "Seite wurde geschrieben/verändert"
+		  	+ "</html>";
 	}
 	
 	private void loadExample() {
@@ -552,4 +557,9 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 			updateView();
 		}
 	};
+
+	@Override
+	public Integer getHeightMenu() {
+		return 70;
+	}
 }

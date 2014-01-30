@@ -15,6 +15,12 @@ import Base.BasePanelModelDraw;
 
 public class PanelBSBuddySystemeExplanationDraw extends BasePanelModelDraw {
 
+	public PanelBSBuddySystemeExplanationDraw(IBuddyMemoryAllocation ibuddy) {
+		super();
+		buddy = ibuddy;
+		updateModel();
+	}
+
 	private IBuddyMemoryAllocation buddy;	
 	private List<IProcessNode> listProcesses = new ArrayList<IProcessNode>();	
 	
@@ -22,15 +28,6 @@ public class PanelBSBuddySystemeExplanationDraw extends BasePanelModelDraw {
 	
 	private final Integer LENGTH = 15;
 	
-	/**
-	 * Create the panel.
-	 */
-	public PanelBSBuddySystemeExplanationDraw(IBuddyMemoryAllocation ibuddy) {
-		super();
-		buddy = ibuddy;
-		updateModel();
-	}
-
 	private void drawLine(String text, Color color, Integer line) {
 		if ((text != null) && (color != null) && (line != null) && (line >= 0)) {			
 			g2d.setColor(Color.BLACK);

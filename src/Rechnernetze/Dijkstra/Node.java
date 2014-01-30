@@ -13,6 +13,15 @@ import Base.EnumSurface;
 
 public class Node implements INode {
 
+	public Node(String value) {
+		if (value == null) {
+			value = "";
+		}
+		name = value;
+		listEdges = new ArrayList<IEdge>();
+		initialize();
+	}	
+	
 	private List<IEdge> listEdges = null;
 	private String name = null;
 	private INode previousNode = null;
@@ -41,15 +50,6 @@ public class Node implements INode {
 		}
 		return null;
 	}
-	
-	public Node(String value) {
-		if (value == null) {
-			value = "";
-		}
-		name = value;
-		listEdges = new ArrayList<IEdge>();
-		initialize();
-	}	
 	
 	@Override
 	public String getName() {

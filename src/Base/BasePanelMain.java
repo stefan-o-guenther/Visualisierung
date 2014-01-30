@@ -11,30 +11,23 @@ import javax.swing.JPanel;
 
 public abstract class BasePanelMain extends JPanel {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	protected PanelTitle panelTitle;
-	protected BasePanelMenu panelMenu;
-	protected BasePanelModel panelModel;
-	protected IManagement management;
-	
-	protected abstract void initComponents();
-	
-	public BasePanelMain(IManagement bm) {
-		super();
-		if (bm != null) {
-			management = bm;
-			//initComponents();
-		}
+	public BasePanelMain() {
+		super();		
 	}	
 	
-	protected void initLayout(Integer sizeMenu) {
-		if ((sizeMenu == null) || (sizeMenu < 0)) {
-			sizeMenu = 100;
-		}		
+	private static final long serialVersionUID = 1L;
+	
+	protected abstract void initComponents();
+	protected abstract BasePanelTitle getPanelTitle();
+	protected abstract BasePanelMenu getPanelMenu();
+	protected abstract BasePanelModel getPanelModel();	
+	
+	protected void initLayout() {
+		BasePanelTitle panelTitle = getPanelTitle();
+		BasePanelMenu panelMenu = getPanelMenu();
+		BasePanelModel panelModel = getPanelModel();
+		
+		Integer sizeMenu = panelMenu.getHeightMenu();
 		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -51,5 +44,6 @@ public abstract class BasePanelMain extends JPanel {
 					.addComponent(panelModel, GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
+				
 	}	
 }

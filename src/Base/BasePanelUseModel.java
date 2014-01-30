@@ -9,9 +9,13 @@ import javax.swing.JPanel;
 
 public abstract class BasePanelUseModel extends JPanel {
 
-	/**
-	 * 
-	 */
+	public BasePanelUseModel(BasePanelModel model) {
+		super();
+		if (model != null) {
+			panelModel = model;
+		}
+	}
+	
 	private static final long serialVersionUID = 1L;
 	protected BasePanelModel panelModel;
 	
@@ -19,15 +23,5 @@ public abstract class BasePanelUseModel extends JPanel {
 		if (panelModel != null) {
 			panelModel.updateModel();
 		}
-	}
-	
-	/**
-	 * Create the panel.
-	 */
-	public BasePanelUseModel(BasePanelModel model) {
-		super();
-		if (model != null) {
-			panelModel = model;
-		}
-	}
+	}	
 }

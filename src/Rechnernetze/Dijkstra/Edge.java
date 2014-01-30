@@ -10,11 +10,6 @@ import Base.EnumSurface;
 
 public class Edge implements IEdge {
 
-	private INode nodeA;
-	private INode nodeB;
-	private Integer weight;
-	private EnumEdgeStatus status = EnumEdgeStatus.NORMAL;
-	
 	public Edge(INode a, INode b, Integer value) {
 		nodeA = a;
 		nodeB = b;
@@ -27,6 +22,11 @@ public class Edge implements IEdge {
 			nodeB.addEdge(this);
 		}
 	}
+	
+	private INode nodeA;
+	private INode nodeB;
+	private Integer weight;
+	private EnumEdgeStatus status = EnumEdgeStatus.NORMAL;
 	
 	@Override
 	public Integer getWeight() {

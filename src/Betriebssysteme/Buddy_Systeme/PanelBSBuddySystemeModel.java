@@ -5,15 +5,23 @@
 
 package Betriebssysteme.Buddy_Systeme;
 
-import javax.swing.JPanel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JSeparator;
-import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.BasePanelModel;
 
 public class PanelBSBuddySystemeModel extends BasePanelModel {
+
+	public PanelBSBuddySystemeModel(IBuddyMemoryAllocation ibuddy) {
+		super();
+		if (ibuddy == null) {
+			ibuddy = new BuddyMemoryAllocation();
+		}
+		buddy = ibuddy;
+		panelDraw = new PanelBSBuddySystemeModelScroll(buddy);
+		panelExplanation = new PanelBSBuddySystemeExplanationScroll(buddy);
+		initComponents();
+	}
 
 	private IBuddyMemoryAllocation buddy;
 	
@@ -37,20 +45,6 @@ public class PanelBSBuddySystemeModel extends BasePanelModel {
 	}
 	
 	
-	/**
-	 * Create the panel.
-	 */
-	public PanelBSBuddySystemeModel(IBuddyMemoryAllocation ibuddy) {
-		super();
-		if (ibuddy == null) {
-			ibuddy = new BuddyMemoryAllocation();
-		}
-		buddy = ibuddy;
-		panelDraw = new PanelBSBuddySystemeModelScroll(buddy);
-		panelExplanation = new PanelBSBuddySystemeExplanationScroll(buddy);
-		initComponents();
-	}
-
 	@Override
 	public void updateModel() {
 		panelDraw.updateModel();

@@ -10,17 +10,29 @@ import Base.BasePanelModelScroll;
 
 public class PanelBSBuddySystemeModelScroll extends BasePanelModelScroll {
 
-	protected IBuddyMemoryAllocation buddy;
-	
 	public PanelBSBuddySystemeModelScroll(IBuddyMemoryAllocation ibuddy) {
-		super(new PanelBSBuddySystemeModelDraw(ibuddy));
+		super();
+	    buddy = ibuddy;
 	    initComponents();
+		initLayout();
 	}
 
+	protected IBuddyMemoryAllocation buddy = null;
+	protected PanelBSBuddySystemeModelDraw panelModelDraw = null;
+	
 	@Override
 	public void updateModel() {
 		panelModelDraw.updateModel();
 		scrollPane.getVerticalScrollBar().setValue(0);
 	}
 
+	@Override
+	protected BasePanelModelDraw getPanelModelDraw() {
+		return panelModelDraw;
+	}
+
+	@Override
+	protected void initComponents() {
+		panelModelDraw = new PanelBSBuddySystemeModelDraw(buddy);
+	}
 }

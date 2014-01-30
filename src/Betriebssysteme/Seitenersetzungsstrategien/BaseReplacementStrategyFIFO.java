@@ -14,6 +14,11 @@ public abstract class BaseReplacementStrategyFIFO extends BaseReplacementStrateg
 	}
 	
 	@Override
+	public Boolean useRM() {
+		return false;
+	}
+	
+	@Override
 	protected void remove(List<ICache> ram, List<ICache> disk) {
 		if ((ram != null) && (disk != null)) {
 			while (ram.size() > maxRam) {
@@ -27,11 +32,6 @@ public abstract class BaseReplacementStrategyFIFO extends BaseReplacementStrateg
 				disk.remove(l.intValue());
 			}
 		}
-	}
-	
-	@Override
-	public Boolean useRM() {
-		return false;
 	}
 	
 	@Override

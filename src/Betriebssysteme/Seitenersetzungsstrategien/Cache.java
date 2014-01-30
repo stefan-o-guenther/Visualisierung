@@ -7,11 +7,6 @@ package Betriebssysteme.Seitenersetzungsstrategien;
 
 public class Cache implements ICache {
 
-	private Integer number = null;
-	private Integer r = null;
-	private Integer m = null;
-	private EnumCache status;
-	
 	public Cache(Integer value) {
 		if (value != null) {
 			number = value;
@@ -22,6 +17,11 @@ public class Cache implements ICache {
 		r = 0;
 		m = 0;
 	}
+	
+	private Integer number = null;
+	private Integer r = null;
+	private Integer m = null;
+	private EnumCache status;
 	
 	@Override
 	public Integer getNumber() {

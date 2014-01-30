@@ -18,6 +18,14 @@ import Base.EnumSurface;
 
 public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
 	
+	public PanelBSBelegungsstrategienModel(IMemoryManagement imemory) {
+		super();
+		if (imemory == null) {
+			imemory = new MemoryManagement();
+		}
+		memory = imemory;
+	}
+	
 	private Integer widthMaximum = 1000;	
 	private Dimension dim;
 	
@@ -79,16 +87,7 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
 			color = Color.RED;
 		}
 		return color;
-	}
-	
-	
-	public PanelBSBelegungsstrategienModel(IMemoryManagement imemory) {
-		super();
-		if (imemory == null) {
-			imemory = new MemoryManagement();
-		}
-		memory = imemory;
-	}
+	}	
 	
 	@Override
 	protected void updateData() {

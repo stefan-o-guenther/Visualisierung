@@ -7,9 +7,15 @@ package Rechnernetze.Dijkstra;
 
 public class NodeOutput implements INodeOutput {
 
-	String name = "";
-	Integer weight = 0;
-	EnumPreviousType type = EnumPreviousType.NORMAL;
+	public NodeOutput() {
+		name = "";
+		weight = 0;
+		type = EnumPreviousType.NORMAL;
+	}
+	
+	String name;
+	Integer weight;
+	EnumPreviousType type;
 	
 	@Override
 	public String getPreviousNodeName() {

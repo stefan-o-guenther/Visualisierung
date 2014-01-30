@@ -26,7 +26,16 @@ import Base.BasePanelModel;
 
 public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 
-private IBuddyMemoryAllocation buddy;	
+	public PanelBSBuddySystemeMenu(IBuddyMemoryAllocation ibuddy, PanelBSBuddySystemeModel model) {
+		super(model);
+		if (ibuddy != null) {
+			buddy = ibuddy;
+		}
+		initComponents();
+		updateComponents();
+	}
+
+	private IBuddyMemoryAllocation buddy;	
 	
 	private JTextField tfSpace;
 	private JTextField tfProcessName;
@@ -52,32 +61,21 @@ private IBuddyMemoryAllocation buddy;
 	private JButton btnExecute2;	
 	private JButton btnExample;
 	
-	//private PanelBSBuddySystemeExplanationScroll panelExplanation;
-		
 	private ButtonGroup groupBuddy = new ButtonGroup();	
 	
-	/**
-	 * Create the panel.
-	 */
-	public PanelBSBuddySystemeMenu(IBuddyMemoryAllocation ibuddy, BasePanelModel model) {
-		super(model);
-		if (ibuddy != null) {
-			buddy = ibuddy;
-		}
-		initComponents();
-		updateComponents();
-	}
-
 	@Override
 	protected void initComponents() {
+		ImageIcon imgHelp = this.getImageIconHelp();
+		
+		
 		lblSpace = new JLabel("Speichergröße:");	
-		lblSpace.setIcon(IMG_HELP);
+		lblSpace.setIcon(imgHelp);
 		lblProcessName = new JLabel("Prozessname:");	
-		lblProcessName.setIcon(IMG_HELP);
+		lblProcessName.setIcon(imgHelp);
 		lblProcessSize = new JLabel("Prozessgröße:");
-		lblProcessSize.setIcon(IMG_HELP);
+		lblProcessSize.setIcon(imgHelp);
 		lblExampleTip = new JLabel(" ");
-		lblExampleTip.setIcon(IMG_HELP);		
+		lblExampleTip.setIcon(imgHelp);		
 		
 		rdbtnProcessStart = new JRadioButton("Prozess starten");
 		rdbtnProcessStart.setActionCommand("start");
@@ -417,4 +415,9 @@ private IBuddyMemoryAllocation buddy;
 			updateView();
 		}	
 	};
+
+	@Override
+	public Integer getHeightMenu() {
+		return 110;
+	}
 }

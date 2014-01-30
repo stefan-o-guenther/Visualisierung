@@ -11,6 +11,7 @@ import java.text.DecimalFormat;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -24,9 +25,20 @@ import javax.swing.event.ChangeListener;
 
 import Base.BasePanelMenu;
 import Base.BasePanelModel;
+import Base.ImageLoader;
 
 public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 
+	public PanelBSBelegungsstrategienMenu(IMemoryManagement imemory, PanelBSBelegungsstrategienModel model) {
+		super(model);
+		if (imemory == null) {
+			imemory = new MemoryManagement();
+		}
+		memory = imemory;
+		initComponents();
+		updateView();
+	}
+	
 	private static final long serialVersionUID = 1L;
 	private String sToolTipStrategie = "";
 	private String sToolTipSpeed = "";
@@ -111,33 +123,33 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	}
 	
 	protected void initToolTips() {
-		sToolTipStrategie = 	
-	        	  "<html>"
-		    	+ "<h3>First-Fit:</h3>"
-		    	+ "Wähle den ersten Speicherblock, der ausreichend<br>"
-		    	+ "groß ist.<br>"
-		    	+ "<br>"
-		    	+ "<h3>Next-Fit:</h3>"
-		    	+ "Dasselbe Prinzip wie bei First-Fit, nur wird hier<br>"
-		    	+ "die Suche nicht wieder von vorn begonnen,<br>"
-		    	+ "sondern beim letzten Treffer fortgesetzt.<br>"
-		    	+ "<br>"
-		    	+ "<h3>Best-Fit:</h3>"
-		    	+ "Es wird der Speicherblock gewählt, bei dem am<br>"
-		    	+ "wenigsten Rest bzw. Verschnitt übrig bleibt.<br>"
-		    	+ "<br>"
-		    	+ "<h3>Worst-Fit:</h3>"
-		    	+ "Genau das Gegenteil von Best-Fit. Es wird der<br>"
-		    	+ "Speicherblock gewählt, bei dem am meisten Rest<br>"
-		    	+ "bzw. Verschnitt übrig bleibt.<br><br>"
-		    	+ "</html>";
+		sToolTipStrategie = ""
+			+ "<html>"
+	    	+ "<h3>First-Fit:</h3>"
+	    	+ "Wähle den ersten Speicherblock, der ausreichend<br>"
+	    	+ "groß ist.<br>"
+	    	+ "<br>"
+	    	+ "<h3>Next-Fit:</h3>"
+	    	+ "Dasselbe Prinzip wie bei First-Fit, nur wird hier<br>"
+	    	+ "die Suche nicht wieder von vorn begonnen,<br>"
+	    	+ "sondern beim letzten Treffer fortgesetzt.<br>"
+	    	+ "<br>"
+	    	+ "<h3>Best-Fit:</h3>"
+	    	+ "Es wird der Speicherblock gewählt, bei dem am<br>"
+	    	+ "wenigsten Rest bzw. Verschnitt übrig bleibt.<br>"
+	    	+ "<br>"
+	    	+ "<h3>Worst-Fit:</h3>"
+	    	+ "Genau das Gegenteil von Best-Fit. Es wird der<br>"
+	    	+ "Speicherblock gewählt, bei dem am meisten Rest<br>"
+	    	+ "bzw. Verschnitt übrig bleibt.<br><br>"
+	    	+ "</html>";
 			
-		sToolTipSpeed = 
-	        	  "<html>"
-	        	+ "Mit diesem Geschwindigkeitsregeler können Sie einstellen,<br>"
-	        	+ "wie schnell der Auto-Durchlauf ausgeführt werden soll.<br>"
-	        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
-	        	+ "</html>";
+		sToolTipSpeed = ""
+			+ "<html>"
+        	+ "Mit diesem Geschwindigkeitsregeler können Sie einstellen,<br>"
+        	+ "wie schnell der Auto-Durchlauf ausgeführt werden soll.<br>"
+        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
+        	+ "</html>";
 	        
 	    sToolTipSpeicher = "ganze Zahl, die größer als Null ist, eintragen";
 	}
@@ -229,14 +241,19 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	protected void initComponents() {		
 		initToolTips();
 		
+		ImageIcon imgHelp = super.getImageIconHelp();
+		ImageIcon imgRabbit = ImageLoader.getImageIconRabbit();
+		ImageIcon imgTurtle = ImageLoader.getImageIconTurtle();
+		
+		
 		String[] strategy = {"First Fit", "Next Fit", "Best Fit", "Worst Fit"};
 				
 		lblStrategie = new JLabel("Strategie:");
-		lblStrategie.setIcon(IMG_HELP);
+		lblStrategie.setIcon(imgHelp);
 		lblStrategie.setToolTipText(sToolTipStrategie);
 		
 		lblSpeicher = new JLabel("Speicher:");
-		lblSpeicher.setIcon(IMG_HELP);
+		lblSpeicher.setIcon(imgHelp);
 		lblSpeicher.setToolTipText(sToolTipSpeicher);
 		
 		cbStrategie = new JComboBox(strategy);
@@ -258,7 +275,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		chcxbxAuto.setSelected(isAutomaticChecked);
 		
 		lblSpeedTip = new JLabel(" ");
-		lblSpeedTip.setIcon(IMG_HELP);
+		lblSpeedTip.setIcon(imgHelp);
 		lblSpeedTip.setToolTipText(sToolTipSpeed);
 		
 		sSpeed = new JSlider( 0, 100, 50 );
@@ -280,9 +297,9 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		lblRateLabel = new JLabel("Belegter Speicherplatz in %:");		
 		lblRateOutput = new JLabel("");		
 		lblTurtle = new JLabel(" ");
-		lblTurtle.setIcon(IMG_TURTLE);		
+		lblTurtle.setIcon(imgTurtle);		
 		lblRabbit = new JLabel(" ");
-		lblRabbit.setIcon(IMG_RABBIT);
+		lblRabbit.setIcon(imgRabbit);
 		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -382,20 +399,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		);
 		setLayout(groupLayout);
 	}	
-	
-	/**
-	 * Create the panel.
-	 */
-	public PanelBSBelegungsstrategienMenu(IMemoryManagement imemory, BasePanelModel model) {
-		super(model);
-		if (imemory == null) {
-			imemory = new MemoryManagement();
-		}
-		memory = imemory;
-		initComponents();
-		updateView();
-	}
-	
+		
 	private EnumMemoryStrategy getStrategy() {
 		EnumMemoryStrategy result = null;
 		int select = cbStrategie.getSelectedIndex();
@@ -537,6 +541,14 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
             }
 	    	updateView();
 	    }
+	}
+
+
+
+
+	@Override
+	public Integer getHeightMenu() {
+		return 160;
 	}
 
 	

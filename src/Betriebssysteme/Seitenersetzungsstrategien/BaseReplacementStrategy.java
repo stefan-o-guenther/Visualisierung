@@ -10,6 +10,21 @@ import java.util.List;
 
 public abstract class BaseReplacementStrategy implements IReplacementStrategy {
 
+	public BaseReplacementStrategy(List<Integer> sequence, Integer ram, Integer disk) {
+		init();
+		if ((sequence != null) && (disk != null) && (ram != null)) {
+			maxRam = ram;
+			maxDisk = disk;
+			listCacheWork = new ArrayList<ICacheBox>();
+			List<Integer> listSequence = sequence;
+			for (Integer i : listSequence) {
+				ICacheBox cb = new CacheBox(i);
+				listCacheWork.add(cb);			
+			}
+		}
+		copyListCache();
+	}
+	
 	protected EnumPagingStatus status;
 
 	protected ICache cache;
@@ -22,6 +37,9 @@ public abstract class BaseReplacementStrategy implements IReplacementStrategy {
 	protected Integer position = -1;
 	
 	protected abstract void initClass();
+	protected abstract void useNumber(Integer number);
+	protected abstract Boolean putOnOldPosition();
+	protected abstract void remove(List<ICache> ram, List<ICache> disk);	
 		
 	protected void init() {
 		listCacheWork = new ArrayList<ICacheBox>();
@@ -43,21 +61,6 @@ public abstract class BaseReplacementStrategy implements IReplacementStrategy {
 		errorCount += 1;
 	}
 	
-	public BaseReplacementStrategy(List<Integer> sequence, Integer ram, Integer disk) {
-		init();
-		if ((sequence != null) && (disk != null) && (ram != null)) {
-			maxRam = ram;
-			maxDisk = disk;
-			listCacheWork = new ArrayList<ICacheBox>();
-			List<Integer> listSequence = sequence;
-			for (Integer i : listSequence) {
-				ICacheBox cb = new CacheBox(i);
-				listCacheWork.add(cb);			
-			}
-		}
-		copyListCache();
-	}
-	
 	protected Integer isAvailable(List<ICache> list, Integer number) {
 		Integer result = null;
 		if ((number != null) && (list != null)) {
@@ -72,10 +75,6 @@ public abstract class BaseReplacementStrategy implements IReplacementStrategy {
 		}	
 		return result;
 	}
-	
-	protected abstract void useNumber(Integer number);
-	protected abstract Boolean putOnOldPosition();
-	protected abstract void remove(List<ICache> ram, List<ICache> disk);	
 	
 	protected void doPaging() {
 		if (maxRam > 0) {

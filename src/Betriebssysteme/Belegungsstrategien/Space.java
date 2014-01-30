@@ -7,20 +7,29 @@ package Betriebssysteme.Belegungsstrategien;
 
 public class Space implements ISpace {
 
-	private Boolean isActivated = false;
-	private EnumSpace spaceType = EnumSpace.FULL;
-	private Integer newValue = null;
-	private Integer currentValue = 1;
-	private Integer restValue = null;
-	
 	public Space() {
-		
+		isActivated = false;
+		spaceType = EnumSpace.FULL;
+		newValue = null;
+		currentValue = 1;
+		restValue = null;
 	}
 	
 	public Space(Integer value, EnumSpace type) {
-		currentValue = value;
-		spaceType = type;
+		this();
+		if (value != null) {
+			currentValue = value;
+		}
+		if (type != null) {
+			spaceType = type;
+		}	
 	}
+	
+	private Boolean isActivated;
+	private EnumSpace spaceType;
+	private Integer newValue;
+	private Integer currentValue;
+	private Integer restValue;		
 	
 	@Override
 	public Boolean isActivated() {

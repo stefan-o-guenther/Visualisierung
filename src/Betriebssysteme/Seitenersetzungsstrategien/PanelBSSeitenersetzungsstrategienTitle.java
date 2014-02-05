@@ -41,8 +41,8 @@ public class PanelBSSeitenersetzungsstrategienTitle extends BasePanelTitle {
 	        + "<li>Optimale Strategie</li>"
 	        + "<li>FIFO</li>"
 	        + "<li>FIFO - Second Chance</li>"
-	        + "<li>NRU / RNU mit FIFO</li>"
-	        + "<li>NRU / RNU mit FIFO - Second Chance"
+	        + "<li>NRU / RNU mit nachgeschaltetem FIFO</li>"
+	        + "<li>NRU / RNU mit nachgeschaltetem FIFO - Second Chance"
 	        + "</ul>"
 	        + "</html>";
 		return tooltipBSSeitenersetzungsstrategien;

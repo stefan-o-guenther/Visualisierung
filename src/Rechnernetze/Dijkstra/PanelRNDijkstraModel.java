@@ -372,13 +372,14 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 		BasicStroke bs3 = new BasicStroke(5, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_BEVEL);
         g2d.setStroke(bs3);
 		g2d.setColor(Color.BLACK);
+		g2d.setFont(new Font(font.getFontName(), Font.BOLD, 24));
 		Integer size = listRoute.size();
 		String text = "";
 		for (int i = 0; i < size; i++) {
 			if (i == 0) {
 				text = listRoute.get(i);
 			} else {
-				text = text + " <= " + listRoute.get(i);
+				text = text + " " + Character.toString('\u2190') + " "+ listRoute.get(i);
 			}
 		}
 		g2d.drawString(text, 20, 500);

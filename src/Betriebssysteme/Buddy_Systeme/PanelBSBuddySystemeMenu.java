@@ -63,19 +63,29 @@ public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 	
 	private ButtonGroup groupBuddy = new ButtonGroup();	
 	
+	private String sToolTipSpeichergroesse = "";
+	private String sToolTipProzessname = "";
+	private String sToolTipProzessgroesse = "";
+	private String sToolTipBeispielLaden = "";
+	
 	@Override
 	protected void initComponents() {
-		ImageIcon imgHelp = this.getImageIconHelp();
+		initToolTips();
 		
+		ImageIcon imgHelp = this.getImageIconHelp();		
 		
 		lblSpace = new JLabel("Speichergröße:");	
 		lblSpace.setIcon(imgHelp);
+		lblSpace.setToolTipText(sToolTipSpeichergroesse);
 		lblProcessName = new JLabel("Prozessname:");	
 		lblProcessName.setIcon(imgHelp);
+		lblProcessName.setToolTipText(sToolTipProzessname);
 		lblProcessSize = new JLabel("Prozessgröße:");
 		lblProcessSize.setIcon(imgHelp);
+		lblProcessSize.setToolTipText(sToolTipProzessgroesse);
 		lblExampleTip = new JLabel(" ");
-		lblExampleTip.setIcon(imgHelp);		
+		lblExampleTip.setIcon(imgHelp);
+		lblExampleTip.setToolTipText(sToolTipBeispielLaden);
 		
 		rdbtnProcessStart = new JRadioButton("Prozess starten");
 		rdbtnProcessStart.setActionCommand("start");
@@ -291,8 +301,23 @@ public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 
 	@Override
 	protected void initToolTips() {
-		// TODO Auto-generated method stub
-		
+		sToolTipSpeichergroesse = ""
+			+ "<html>"
+			+ "Da der BuddySystem-Algorithmus immer mit Blöcken der Länge 2<sup>k</sup> arbeitet,<br/>"
+			+ "wird jede Eingabe auf die nächst höherliegende 2er-Potzenzzahl gerundet.<br/>"
+			+ "</<html>";
+		sToolTipProzessname = ""
+			+ "<html>"
+			+ "Jeder Prozess hat einen inividuellen Namen."
+			+ "</<html>";
+		sToolTipProzessgroesse = ""
+			+ "<html>"
+			+ "Die Größe des Prozesses darf nicht größer sein als der größte freie Speicherbereich.<br/>"
+			+ "</<html>";
+		sToolTipBeispielLaden = ""
+			+ "<html>"
+			+ "Ein Bespielszenario, bei dem verschiedene Prozesse gestartet und gestoppt werden, wird geladen.<br/>"
+			+ "</<html>";
 	}
 	
 	private void inputTotalSpace() {

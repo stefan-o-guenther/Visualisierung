@@ -84,3 +84,20 @@ BS:
 		- wird M Bit gesetzt, soll auch R Bit gesetzt werden. (erledigt)
 		- NRU / RNU - FIFO Algorithmus arbeitet falsch. Richtig: Erst Prioritäten berücksichtigen, dann FIFO. (erledigt)
 		- LRU und NFU kommen raus. (erledigt)
+		
+30.01.2014
+
+BS:
+	- alle Hilfe-Texte überarbeiten (erledigt).
+	- Programme an Professor Werthebach senden.
+	
+RN:
+	- Dijkstra
+		- Verbindungslinien und Linien in der Tabelle schmaler.
+		- Beim Rücksetzen auch Farben im Graphen zurücksetzen.
+		- Tabelle:
+			- Vergleich zwischen altem und neuen Wert als Zwischenschritt.
+			- in Zwischenschritt bei Nichterreichten, Unendlich anzeigen.
+			- Spalte "U" weglassen.
+			- in letzte Zeile wie bei Kilic die Zahlen eintragen.
+			- Vergleich mit Farbe.

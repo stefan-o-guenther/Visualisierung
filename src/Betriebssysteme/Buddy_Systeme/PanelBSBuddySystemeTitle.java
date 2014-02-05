@@ -43,7 +43,7 @@ public class PanelBSBuddySystemeTitle extends BasePanelTitle {
 			+ "<p>"
 			+ "Beide Vorgänge, sowohl das Suchen eines passenden freien Stücks (bzw. das dafür nötigen<br/>"
 			+ "Auseinanderbrechen eines größeren) als auch das Zusammenfügen zu größeren Einheiten lässt<br/>"
-			+ "sich rekursiv über mehrere Partnerebenen (mehrere Zweierpotenzen) durchführen.<br/>"
+			+ "sich rekursiv schnell über mehrere Partnerebenen (mehrere Zweierpotenzen) durchführen.<br/>"
 			+ "</p>"
 			+ "</html>";
 		return tooltipBSBuddySysteme;

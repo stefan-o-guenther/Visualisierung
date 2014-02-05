@@ -206,7 +206,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		lblToolTipM.setIcon(imgHelp);
 		lblToolTipM.setToolTipText(sToolTipM);
 		
-		lblErrorTitle = new JLabel("Seitenfehler:");		
+		lblErrorTitle = new JLabel("Seitenverdrängungen:");		
 		lblErrorTitle.setIcon(imgHelp);
 		lblErrorTitle.setToolTipText(sToolTipSeitenfehler);
 		lblErrorValue = new JLabel(" ");		
@@ -293,40 +293,27 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 	    	+ "<br/>"
 	    	+ "<strong>FIFO</strong><br/>"
 	    	+ "<p>"
-	    	+ "Bei <i>FIFO</i> (First In First Out) wird der zuerst eingespeicherte Block ersetzt.<br/>"
+	    	+ "Bei <i>FIFO</i> (First In First Out) wird die zuerst eingespeicherte Seite ersetzt.<br/>"
 	    	+ "</p>"
 	    	+ "<br/>"
 	    	+ "<strong>FIFO - Second Chance</strong><br/>"
 	    	+ "<p>"
 	    	+ "Der <i>Second-Chance-Algorithmus</i> ist eine Verbesserung von <i>FIFO</i> dahingehend,<br/>"
-	    	+ "dass vor einer Verdrängungsentscheidung auch das R-Bit abgefragt wird. Es wird geprüft, ob<br/>"
-	    	+ "eine zur Verdrängung anstehende Seite in letzter Zeit benutzt wurde. Wurde die älteste Seite<br/>"
-	    	+ "schon genutzt, so wird sie nicht ausgelagert und stattdessen an das Ende der <i>FIFO</i>-Liste<br/>"
-	    	+ "gehängt. Erst wenn alle Seiten schon referenziert wurden, wird nach FIFO ausgewählt.<br/>"
+	    	+ "dass nochmals referenzierte Seiten im Hauptspeicher wie neu eingelagerte Seiten behandelt werden.<br/>"
 	    	+ "</p>"
 	    	+ "<br/>"
 	    	+ "<strong>NRU</strong><br/>"
 	    	+ "<p>"
-	    	+ "Seiten, die in letzter Zeit nicht genutzt wurden, sind bei <i>NRU</i> (Not Recently Used)<br/>"
-	    	+ "die Kandidaten für die Verdrängung.<br/>"
-	    	+ "</p>"
-	    	+ "<br/>"
-	    	+ "<strong>LRU</strong><br/>"
-	    	+ "<p>"
-	    	+ "Beim <i>LRU</i>-Algorithmus (Least Recently Used) wird der am längsten ungenutzte Block ersetzt.<br/>"
-	    	+ "</p>"
-	    	+ "<br/>"
-	    	+ "<strong>NFU/LFU</strong><br/>"
-	    	+ "<p>"
-	    	+ "Beim <i>LFU</i>-Algorithmus (Least Frequently Used) wird der am wenigsten benutzte Block ersetzt.<br/>"
-	    	+ "Der LFU-Algorithmus ist sehr ähnlich wie der LRU-Algorithmus.<br/>"
+	    	+ "Seiten werden über R- und M-Bits priorisiert. Seiten mit kleinster Priorität werden als erstes ersetzt.<br/>"
+	    	+ "Die Prioritätenreihenfolge von niedrig nach hoch ist: R/M = 0/0, 0/1, 1/0, 1/1.<br/>"
 	    	+ "</p>"
 	    	+ "</html>";	
 		
 		sToolTipReferenzfolge = ""
 			+ "<html>"
 	    	+ "<span>"
-	    	+ "Die Eingabelänge der Referenzfolge ist für diese Animation auf 16 Ziffern beschränkt.<br/>"
+	    	+ "Die Eingabelänge der Referenzfolge ist für diese Animation auf 26 Seiten beschränkt.<br/>"
+	    	+ "Seiten werden durch einzelne Ziffern (0-9) identifiziert.<br/>"
 	    	+ "Die Referenzfolge ist die Reihenfolge der Seitenzugriffe bzw. gibt an,<br/>"
 	    	+ "auf welche Seiten als nächstes zugegriffen wird.<br/>"
 	    	+ "</span>"
@@ -334,12 +321,12 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		
 		sToolTipRam = ""
 			+ "<html>"
-		  	+ "Größe des RAM"
+		  	+ "Anzahl RAM-Seiten"
 		  	+ "</html>";
 		
 		sToolTipDisk = ""
 			+ "<html>"
-		  	+ "Größe des DISK"
+		  	+ "Anzahl Disk-Seiten"
 		  	+ "</html>";
 		
 		sToolTipSeitenfehler = ""
@@ -349,7 +336,8 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		
 		sToolTipR = ""
 			+ "<html>"
-		  	+ "auf alle Seiten wurde in letzter Zeit nicht zugegriffen"
+		  	+ "für gewöhlich setzt der Pageout-Dämon das R-Bit in<br/>"
+		  	+ "regelmäßigen Abständen zurück.<br/>"
 		  	+ "</html>";
 		sToolTipM = ""
 			+ "<html>"

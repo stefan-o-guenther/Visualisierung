@@ -28,7 +28,10 @@ public class DijkstraAlgorithm extends BaseManagement implements IDijkstraAlgori
 	private INode nodeY = new Node("Y");
 	private INode nodeZ = new Node("Z");
 	
-	private List<INode> listNodes;
+	private List<INode> listNodes;	
+	private List<INode> listStartNodes;
+	private List<INode> listTargetNodes;
+	
 	private List<IEdge> listEdges;
 	
 	private EnumDijkstraStatus status;
@@ -46,7 +49,7 @@ public class DijkstraAlgorithm extends BaseManagement implements IDijkstraAlgori
 	private List<List<String>> listlistUsedNodes;
 	private List<String> listMin;
 	private List<String> listRoute;
-	
+		
 	private void initNodes() {
 		nodeU.initialize();
 		nodeV.initialize();
@@ -64,6 +67,18 @@ public class DijkstraAlgorithm extends BaseManagement implements IDijkstraAlgori
 		listNodes.add(nodeX);
 		listNodes.add(nodeY);
 		listNodes.add(nodeZ);
+		
+		listStartNodes = new ArrayList<INode>();
+		listTargetNodes = new ArrayList<INode>();
+		
+		for (INode node : listNodes) {
+			if (node != nodeTarget) {
+				listStartNodes.add(node);
+			}
+			if (node != nodeStart) {
+				listTargetNodes.add(node);
+			}
+		}		
 	}
 	
 	private void putEdges() {
@@ -79,8 +94,7 @@ public class DijkstraAlgorithm extends BaseManagement implements IDijkstraAlgori
 		listEdges.add(new Edge(nodeX, nodeY, 1));
 		listEdges.add(new Edge(nodeY, nodeZ, 2));
 	}
-	
-	
+		
 	private void initDijkstra() {
 		status = EnumDijkstraStatus.START;
 		initNodes();		

@@ -70,9 +70,14 @@ public class Node implements INode {
 	
 	@Override
 	public void setPreviousNode(INode node) {
-		if (node != null) {
+		if ((node != null) && (isConnected(node))) {
 			previousNode = node;
 		}
+	}
+
+	@Override
+	public void deletePreviousNode() {
+		previousNode = null;
 	}
 
 	@Override
@@ -139,24 +144,6 @@ public class Node implements INode {
 			}
 			if (this.isConnected(edge)) {
 				listEdges.add(edge);
-			}
-		}
-	}
-
-	@Override
-	public void execute(INode node) {
-		if ((node != null) && (this.isConnected(node)) && (!(node.isUsed())) && (node != this)) {
-			IEdge edge = this.getConnectedEdge(node);
-			if (node.hasPreviousNode()) {
-				Integer weightCurrent = node.getPreviousWeight();
-				Integer weightNew = this.getPreviousWeight() + edge.getWeight();
-				if (weightNew < weightCurrent) {
-					node.setPreviousNode(this);				
-				}
-			} else {
-				if (node.isConnected(edge)) {
-					node.setPreviousNode(this);			
-				}
 			}
 		}
 	}

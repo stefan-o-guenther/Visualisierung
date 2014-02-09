@@ -89,15 +89,15 @@ BS:
 
 BS:
 	- alle Hilfe-Texte überarbeiten (erledigt).
-	- Programme an Professor Werthebach senden.
+	- Programme an Professor Werthebach senden (erledight).
 	
 RN:
 	- Dijkstra
-		- Verbindungslinien und Linien in der Tabelle schmaler.
-		- Beim Rücksetzen auch Farben im Graphen zurücksetzen.
+		- Verbindungslinien und Linien in der Tabelle schmaler (erledigt).
+		- Beim Rücksetzen auch Farben im Graphen zurücksetzen (erledigt).
 		- Tabelle:
-			- Vergleich zwischen altem und neuen Wert als Zwischenschritt.
-			- in Zwischenschritt bei Nichterreichten, Unendlich anzeigen.
-			- Spalte "U" weglassen.
-			- in letzte Zeile wie bei Kilic die Zahlen eintragen.
-			- Vergleich mit Farbe.
+			- Vergleich zwischen altem und neuen Wert als Zwischenschritt (erledigt).
+			- in Zwischenschritt bei Nichterreichten, Unendlich anzeigen (erledigt).
+			- Spalte "U" weglassen (erledigt).
+			- in letzte Zeile wie bei Kilic die Zahlen eintragen (erledigt).
+			- Vergleich mit Farbe (erledigt).

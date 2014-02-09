@@ -5,11 +5,8 @@
 
 package Rechnernetze.Dijkstra;
 
-import java.awt.Color;
 
-import Base.EnumSurface;
-
-public interface IEdge {
+public interface IEdge extends IOutput {
 
 	INode getNodeA();
 	void setNodeA(INode value);
@@ -21,10 +18,5 @@ public interface IEdge {
 	void setWeight(Integer value);
 	
 	Boolean isConnected(INode node);
-	Boolean isConnected(INode node1, INode node2);
-	
-	EnumEdgeStatus getStatus();
-	void setStatus(EnumEdgeStatus value);
-	
-	Color getColor(EnumSurface surface);
+	Boolean isConnected(INode node1, INode node2);	
 }

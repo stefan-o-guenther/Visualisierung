@@ -5,7 +5,7 @@
 
 package Rechnernetze.Dijkstra;
 
-public enum EnumEdgeStatus {
+public enum EnumOutputStatus {
 	NORMAL,
 	ACTIVATED,
 	ROUTE

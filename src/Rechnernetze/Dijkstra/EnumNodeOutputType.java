@@ -5,8 +5,9 @@
 
 package Rechnernetze.Dijkstra;
 
-public enum EnumPreviousType {
+public enum EnumNodeOutputType {
 	NORMAL,
 	INFINITY,
-	MINUS
+	MINUS,
+	ROUTE
 }

@@ -29,6 +29,6 @@ public interface IDijkstraAlgorithm extends IManagement {
 	List<String> getListNodeNames();
 	List<List<String>> getListUsedNodes();
 	List<List<INodeOutput>> getListNodesOutput();
-	List<String> getListMin();
+	List<IMinOutput> getListMin();
 	List<String> getListRoute();
 }

@@ -5,12 +5,11 @@
 
 package Rechnernetze.Dijkstra;
 
-import java.awt.Color;
-import Base.EnumSurface;
 
-public class Edge implements IEdge {
+public class Edge extends BaseOutput implements IEdge {
 
 	public Edge(INode a, INode b, Integer value) {
+		super();
 		nodeA = a;
 		nodeB = b;
 		if (value == null) {
@@ -26,7 +25,7 @@ public class Edge implements IEdge {
 	private INode nodeA;
 	private INode nodeB;
 	private Integer weight;
-	private EnumEdgeStatus status = EnumEdgeStatus.NORMAL;
+	private EnumOutputStatus status = EnumOutputStatus.NORMAL;
 	
 	@Override
 	public Integer getWeight() {
@@ -80,53 +79,5 @@ public class Edge implements IEdge {
 		} else {
 			return false;
 		}
-	}
-
-	@Override
-	public EnumEdgeStatus getStatus() {
-		return status;
-	}
-
-	@Override
-	public void setStatus(EnumEdgeStatus value) {
-		if (value != null) {
-			status = value;
-		}
-	}
-
-	private Color getColoredColor() {
-		if (status == EnumEdgeStatus.ACTIVATED) {
-			return Color.BLUE;
-		} else if (status == EnumEdgeStatus.ROUTE) {
-			return new Color(50,205,50);
-		} else if (status == EnumEdgeStatus.NORMAL) {
-			return Color.BLACK;
-		} else {
-			return Color.BLACK;
-		}
-	}
-	
-	private Color getGrayColor() {
-		if (status == EnumEdgeStatus.ACTIVATED) {
-			return Color.LIGHT_GRAY;
-		} else if (status == EnumEdgeStatus.ROUTE) {
-			return Color.GRAY;
-		} else if (status == EnumEdgeStatus.NORMAL) {
-			return Color.BLACK;
-		} else {
-			return Color.BLACK;
-		}
-	}	
-	
-	@Override
-	public Color getColor(EnumSurface surface) {
-		if (surface != null) {
-			if (surface == EnumSurface.COLORED) {
-				return getColoredColor();
-			} else if (surface == EnumSurface.GRAY) {
-				return getGrayColor();
-			}
-		}
-		return Color.BLACK;
 	}
 }

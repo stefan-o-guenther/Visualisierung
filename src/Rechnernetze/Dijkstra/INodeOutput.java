@@ -5,14 +5,7 @@
 
 package Rechnernetze.Dijkstra;
 
-public interface INodeOutput {
 
-	String getPreviousNodeName();
-	void setPreviousNodeName(String value);
-	
-	Integer getWeightToAccess();
-	void setWeightToAccess(Integer value);
-	
-	EnumPreviousType getPreviousNodeType();
-	void setPreviousNodeType(EnumPreviousType value);
+public interface INodeOutput extends IOutput {	
+	EnumNodeOutputType getNodeOutputType();	
 }

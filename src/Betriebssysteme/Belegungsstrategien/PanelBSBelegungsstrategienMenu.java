@@ -492,7 +492,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	    String text;
 	  
 	    public AutoThread() {
-	      
+	    	super();
 	    }
 	  
 	    public void run() {

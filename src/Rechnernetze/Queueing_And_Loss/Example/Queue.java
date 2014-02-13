@@ -67,6 +67,6 @@ public class Queue extends TimedClass {
 	}
 	
 	public String getDropStat() {
-		return Integer.toString(droppedCounter)+" packets dropped out of "+Integer.toString(receivedCounter);
+		return (droppedCounter +" von "+ receivedCounter + " Pakete verworfen.");
 	}
 }

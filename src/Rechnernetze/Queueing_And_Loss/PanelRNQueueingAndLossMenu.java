@@ -5,6 +5,9 @@
 
 package Rechnernetze.Queueing_And_Loss;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import Base.BasePanelMenu;
 import Base.BasePanelModel;
 
@@ -15,13 +18,14 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 
 public class PanelRNQueueingAndLossMenu extends BasePanelMenu {
 
 	public PanelRNQueueingAndLossMenu(IQALManagement iqal) {
 		super();		
 		if (iqal == null) {
-			iqal = new QALManagement();
+			iqal = new QALManagement(1E-4);
 		}
 		qal = iqal;
 		initComponents();
@@ -35,14 +39,17 @@ public class PanelRNQueueingAndLossMenu extends BasePanelMenu {
 	private JLabel lblProcessingTime;
 	private JLabel lblArrivalRate;
 	private JSlider sliderProcessingTime;
-	private JSlider sliderTransferRate;
 	private JSlider sliderArrivalRate;
+	private ComboBoxTransferRate cbTransferRate;
+	private ComboBoxProcessingTime cbProcessingTime;
 	
 	@Override
 	protected void initComponents() {
 		btnStart = new JButton("ausf\u00FChren");
+		btnStart.addActionListener(actionStart);
 		
 		btnReset = new JButton("zur\u00FCcksetzen");
+		btnReset.addActionListener(actionReset);
 		
 		lblTransferRate = new JLabel("\u00DCbertragungsrate Eingang:");
 		lblTransferRate.setIcon(new ImageIcon("C:\\Eclipse\\Workspace\\Visualisierung\\img\\16x16_help.png"));
@@ -56,12 +63,12 @@ public class PanelRNQueueingAndLossMenu extends BasePanelMenu {
 		sliderProcessingTime = new JSlider();
 		sliderProcessingTime.setPaintTicks(true);
 		
-		sliderTransferRate = new JSlider();
-		sliderTransferRate.setPaintTicks(true);
-		sliderTransferRate.setPaintLabels(true);
-		
 		sliderArrivalRate = new JSlider();
 		sliderArrivalRate.setPaintTicks(true);
+		
+		cbTransferRate = new ComboBoxTransferRate();
+		
+		cbProcessingTime = new ComboBoxProcessingTime();
 		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -70,20 +77,32 @@ public class PanelRNQueueingAndLossMenu extends BasePanelMenu {
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnStart, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnReset, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE))
+							.addComponent(lblProcessingTime)
+							.addContainerGap())
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblArrivalRate, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblTransferRate, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-								.addComponent(lblProcessingTime, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(sliderArrivalRate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(sliderProcessingTime, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(sliderTransferRate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-					.addGap(796))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(btnStart, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(btnReset, GroupLayout.PREFERRED_SIZE, 107, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(lblTransferRate, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(lblArrivalRate, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addPreferredGap(ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+												.addComponent(sliderArrivalRate, 0, 0, Short.MAX_VALUE)
+												.addComponent(sliderProcessingTime, 0, 0, Short.MAX_VALUE))
+											.addGap(16))
+										.addGroup(groupLayout.createSequentialGroup()
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+												.addComponent(cbTransferRate, Alignment.LEADING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addComponent(cbProcessingTime, Alignment.LEADING, 0, 123, Short.MAX_VALUE))
+											.addGap(14)))))
+							.addGap(320))))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -93,18 +112,23 @@ public class PanelRNQueueingAndLossMenu extends BasePanelMenu {
 						.addComponent(btnStart)
 						.addComponent(btnReset))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTransferRate)
-						.addComponent(sliderTransferRate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(cbTransferRate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblProcessingTime)
-						.addComponent(sliderProcessingTime, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(23)
+							.addComponent(sliderProcessingTime, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(6)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblProcessingTime)
+								.addComponent(cbProcessingTime, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblArrivalRate)))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblArrivalRate)
-						.addComponent(sliderArrivalRate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(179))
+					.addComponent(sliderArrivalRate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(155))
 		);
 		setLayout(groupLayout);
 	}
@@ -125,4 +149,25 @@ public class PanelRNQueueingAndLossMenu extends BasePanelMenu {
 	public Integer getHeightMenu() {
 		return 130;
 	}
+	
+	private ActionListener actionStart = new ActionListener() {
+		public void actionPerformed (ActionEvent event) {
+			cbTransferRate.setEnabled(false);
+			cbProcessingTime.setEnabled(false);
+			btnStart.setEnabled(false);
+			btnReset.setEnabled(true);
+			qal.launchSim(cbTransferRate.getVal(), cbProcessingTime.getVal());
+		}
+			
+	};
+	
+	private ActionListener actionReset = new ActionListener() {
+		public void actionPerformed (ActionEvent event) {
+			cbTransferRate.setEnabled(true);
+			cbProcessingTime.setEnabled(true);
+			btnStart.setEnabled(true);
+			btnReset.setEnabled(true);
+			qal.reset();
+		}
+	};
 }

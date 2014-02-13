@@ -1,4 +1,4 @@
-package Rechnernetze.Queueing_And_Loss.Example;
+package Rechnernetze.Queueing_And_Loss;
 
 public class PacketFIFO {
 	private int length;

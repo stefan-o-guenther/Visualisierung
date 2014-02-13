@@ -11,12 +11,6 @@ import java.awt.Rectangle;
 import javax.swing.JPanel;
 
 import Base.BaseManagement;
-import Rechnernetze.Queueing_And_Loss.Example.Dropper;
-import Rechnernetze.Queueing_And_Loss.Example.Line;
-import Rechnernetze.Queueing_And_Loss.Example.Processor;
-import Rechnernetze.Queueing_And_Loss.Example.Queue;
-import Rechnernetze.Queueing_And_Loss.Example.Sender;
-import Rechnernetze.Queueing_And_Loss.Example.TimedClass;
 
 public class QALManagement extends BaseManagement implements IQALManagement {
 	private double time;

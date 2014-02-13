@@ -1,4 +1,4 @@
-package Rechnernetze.Queueing_And_Loss.Example;
+package Rechnernetze.Queueing_And_Loss;
 
 import java.awt.Color;
 import java.awt.Graphics;

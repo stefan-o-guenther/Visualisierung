@@ -5,9 +5,7 @@
 
 package Base;
 
-import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.InputStream;
 
 import javax.imageio.ImageIO;

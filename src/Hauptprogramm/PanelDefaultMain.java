@@ -25,8 +25,8 @@ public class PanelDefaultMain extends BasePanelMain {
 	protected void initComponents() {
 		IDefaultManagement main = new DefaultManagement();
 		panelModel = new PanelDefaultModel(main);
-		panelMenu = new PanelDefaultMenu(main, panelModel);
-		panelTitle = new PanelDefaultTitle(main, panelModel);
+		panelMenu = new PanelDefaultMenu(main);
+		panelTitle = new PanelDefaultTitle(main);
 	}
 
 	@Override

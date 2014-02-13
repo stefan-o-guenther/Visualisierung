@@ -26,8 +26,8 @@ public class PanelRNCongestionAvoidanceMain extends BasePanelMain {
 	protected void initComponents() {
 		INetworkManagement network = new NetworkManagement();
 		panelModel = new PanelRNCongestionAvoidanceModel(network);
-		panelMenu = new PanelRNCongestionAvoidanceMenu(network, panelModel);
-		panelTitle = new PanelRNCongestionAvoidanceTitle(network, panelModel);		
+		panelMenu = new PanelRNCongestionAvoidanceMenu(network);
+		panelTitle = new PanelRNCongestionAvoidanceTitle(network);		
 	}
 
 	@Override

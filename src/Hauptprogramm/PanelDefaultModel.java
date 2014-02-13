@@ -26,14 +26,10 @@ public class PanelDefaultModel extends BasePanelModelDraw {
 			imain = new DefaultManagement();
 		}
 		main = imain;
+		main.setPanelModel(this);
+		updateModel();
 	}
 	
-	@Override
-	public void updateData() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public void updateModel() {
 		// TODO Auto-generated method stub

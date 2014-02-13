@@ -7,34 +7,33 @@ package Base;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.InputStream;
 
-import javax.imageio.ImageIO;
-import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public abstract class BasePanelTitle extends BasePanelUseModel {
+public abstract class BasePanelTitle extends JPanel {
 	
-	public BasePanelTitle(IManagement vManagement, BasePanelModel model) {
-		super(model);
-		
-		
-		
-		if (vManagement != null) {
-			management = vManagement;
-			management.setSurface(EnumSurface.COLORED);
-		}		
+	public BasePanelTitle(IManagement vManagement) {
+		super();		
+		management = vManagement;
 		initComponents();
-	}	
+		updateColor();
+	}
+	
+	protected ActionListener actionColor = new ActionListener() {
+		public void actionPerformed (ActionEvent e) {
+			updateColor();
+		}	
+	};
 	
 	protected static final long serialVersionUID = 1L;
 	
-	protected ButtonGroup groupColor = new ButtonGroup();
+	protected ButtonGroupColor groupColor;
 	protected JRadioButton rdbtnColored;	
 	protected JRadioButton rdbtnGray;	
 	protected JLabel lblTitle;	
@@ -43,39 +42,24 @@ public abstract class BasePanelTitle extends BasePanelUseModel {
 	
 	protected abstract String getToolTip();
 	protected abstract String getTitle();
-		
-	protected ActionListener ActionColor = new ActionListener() {
-		public void actionPerformed (ActionEvent e) {
-			String s = e.getActionCommand();
-			if (s == "colored") {
-				management.setSurface(EnumSurface.COLORED);
-			} else if (s == "gray") {
-				management.setSurface(EnumSurface.GRAY);
-			}
-			updateModel();
-		}	
-	};
+	
+	protected void updateColor() {
+		management.setSurface(groupColor.getSelectedButton());
+	}
 	
 	protected void initComponents() {
 		String title = getTitle();
 		String tooltip = getToolTip();
-		ImageIcon imgIconHelp = ImageLoader.getImageIconHelp22();
+		ImageIcon imgIconHelp = ImageLoader.getImageIconHelp22();	
 		
-		rdbtnColored = new JRadioButton("farbig");
-		rdbtnColored.setActionCommand("colored");
-		rdbtnColored.addActionListener(ActionColor);
-		rdbtnGray = new JRadioButton("grau");
-		rdbtnGray.setActionCommand("gray");
-		rdbtnGray.addActionListener(ActionColor);
-		groupColor.add(rdbtnColored);
-		groupColor.add(rdbtnGray);
-		rdbtnColored.setSelected(true);	
+		groupColor = new ButtonGroupColor("farbig", "grau", actionColor);
+		rdbtnColored = groupColor.geRadioButtonColored();
+		rdbtnGray = groupColor.getRadioButtonGray();		
 				
 		lblTitle = new JLabel(title);
 		lblTitle.setFont(lblTitle.getFont().deriveFont(36f));
 		lblTitle.setIcon(imgIconHelp);
-		lblTitle.setToolTipText(tooltip);
-		
+		lblTitle.setToolTipText(tooltip);		
 		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(

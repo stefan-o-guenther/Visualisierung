@@ -9,8 +9,8 @@ import Base.BasePanelTitle;
 
 public class PanelRNTCPFairnessTitle extends BasePanelTitle {
 
-	public PanelRNTCPFairnessTitle(IFairnessManagement fairness, PanelRNTCPFairnessModel model) {
-		super(fairness, model);
+	public PanelRNTCPFairnessTitle(IFairnessManagement fairness) {
+		super(fairness);
 	}
 
 	@Override

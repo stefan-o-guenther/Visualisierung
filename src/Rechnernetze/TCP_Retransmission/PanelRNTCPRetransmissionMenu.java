@@ -9,8 +9,8 @@ import Base.BasePanelMenu;
 
 public class PanelRNTCPRetransmissionMenu extends BasePanelMenu {
 
-	public PanelRNTCPRetransmissionMenu(IRetransmissionManagement iretransmission, PanelRNTCPRetransmissionModel model) {
-		super(model);
+	public PanelRNTCPRetransmissionMenu(IRetransmissionManagement iretransmission) {
+		super();
 		if (iretransmission == null) {
 			iretransmission = new RetransmissionManagement();
 		}

@@ -3,7 +3,6 @@ package Rechnernetze.Queueing_And_Loss.Example;
 import java.awt.Choice;
 
 public class MyChoice extends Choice {
-
 	private double vals[];
 
 	public MyChoice(String items[], double values[], int defaultValue) {
@@ -13,10 +12,8 @@ public class MyChoice extends Choice {
 		vals=values;
 		super.select(defaultValue-1);
 	}
-
+	
 	public double getVal() {
 		return  vals[super.getSelectedIndex()];
 	}
 }
-
-

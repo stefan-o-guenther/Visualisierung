@@ -9,8 +9,8 @@ import Base.BasePanelTitle;
 
 public class PanelRNCongestionAvoidanceTitle extends BasePanelTitle {
 
-	public PanelRNCongestionAvoidanceTitle(INetworkManagement network, PanelRNCongestionAvoidanceModel model) {
-		super(network, model);
+	public PanelRNCongestionAvoidanceTitle(INetworkManagement network) {
+		super(network);
 	}
 
 	@Override

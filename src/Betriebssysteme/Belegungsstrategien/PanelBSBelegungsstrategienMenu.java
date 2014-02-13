@@ -14,7 +14,6 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JSlider;
@@ -24,19 +23,18 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import Base.BasePanelMenu;
-import Base.BasePanelModel;
 import Base.ImageLoader;
 
 public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 
-	public PanelBSBelegungsstrategienMenu(IMemoryManagement imemory, PanelBSBelegungsstrategienModel model) {
-		super(model);
+	public PanelBSBelegungsstrategienMenu(IMemoryManagement imemory) {
+		super();
 		if (imemory == null) {
 			imemory = new MemoryManagement();
 		}
 		memory = imemory;
 		initComponents();
-		updateView();
+		updateComponents();
 	}
 	
 	private static final long serialVersionUID = 1L;
@@ -63,7 +61,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	private JButton btnExecute1;
 	private JButton btnExecute2;
 	
-	private JComboBox cbStrategie;
+	private ComboBoxStrategy cbStrategie;
 	
 	private JTextField tSpeicher;
 	
@@ -243,11 +241,8 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		
 		ImageIcon imgHelp = super.getImageIconHelp();
 		ImageIcon imgRabbit = ImageLoader.getImageIconRabbit();
-		ImageIcon imgTurtle = ImageLoader.getImageIconTurtle();
+		ImageIcon imgTurtle = ImageLoader.getImageIconTurtle();		
 		
-		
-		String[] strategy = {"First Fit", "Next Fit", "Best Fit", "Worst Fit"};
-				
 		lblStrategie = new JLabel("Strategie:");
 		lblStrategie.setIcon(imgHelp);
 		lblStrategie.setToolTipText(sToolTipStrategie);
@@ -256,7 +251,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		lblSpeicher.setIcon(imgHelp);
 		lblSpeicher.setToolTipText(sToolTipSpeicher);
 		
-		cbStrategie = new JComboBox(strategy);
+		cbStrategie = new ComboBoxStrategy();
 		cbStrategie.setEditable( false );
         cbStrategie.setSelectedItem("");	
 		
@@ -400,36 +395,12 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		setLayout(groupLayout);
 	}	
 		
-	private EnumMemoryStrategy getStrategy() {
-		EnumMemoryStrategy result = null;
-		int select = cbStrategie.getSelectedIndex();
-		switch (select) {
-			case 0: 
-				result = EnumMemoryStrategy.FIRST_FIT;
-				break;
-			case 1: 
-				result = EnumMemoryStrategy.NEXT_FIT;
-				break;
-			case 2: 
-				result = EnumMemoryStrategy.BEST_FIT;
-				break;
-			case 3: 
-				result = EnumMemoryStrategy.WORST_FIT;
-				break;
-			default:
-				result = null;
-				break;
-		}
-		return result;
-	}
-	
-	
 	private ActionListener ActionExecute1 = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			try {
 				if (memory.getStatus() == EnumMemoryStatus.START) {
 					// Strategie festlegen
-					memory.setStrategy(getStrategy());		
+					memory.setStrategy(cbStrategie.getStrategy());		
 				} else {
 					// zurücksetzen
 					stopAutomatic();;
@@ -439,7 +410,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-			updateView();
+			updateComponents();
 		}
 	};
 	
@@ -455,7 +426,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		} finally {
 			
 		}
-		updateView();
+		updateComponents();
 	}
 	
 	private void automatic() {
@@ -464,7 +435,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		} else {
 			startAutomatic();
 		}
-		updateView();
+		updateComponents();
 	}
 	
 	private void search() {
@@ -474,7 +445,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		} else {
 			foundSpace(memory.execute());
 		}
-		updateView();
+		updateComponents();
 	}	
 	
 	private ActionListener ActionExecute2 = new ActionListener() {
@@ -499,26 +470,23 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-			updateView();
+			updateComponents();
 		}
 	};	
 	
 	private ActionListener ActionAuto = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			isAutomaticChecked = chcxbxAuto.isSelected();
-			updateView();
+			updateComponents();
 		}
 	};
 	
 	private ChangeListener ChangeSpeed = new ChangeListener() {
 		public void stateChanged(ChangeEvent arg0) {
 			setSpeed();
-			updateView();
+			updateComponents();
 		}
 	};
-	
-	
-	
 	
 	public class AutoThread extends Thread {
 	    String text;
@@ -531,7 +499,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	    	try {
 	    		while(isAutomaticRunning && isAutomaticChecked && ((memory.getStatus() == EnumMemoryStatus.SEARCH) || (memory.getStatus() == EnumMemoryStatus.CHOOSE) || (memory.getStatus() == EnumMemoryStatus.FINISHED))) {
 	                foundSpace(memory.execute());
-	                updateView();
+	                updateComponents();
                     Thread.sleep(speed);
 	            }
 	    		isAutomaticChecked = false;
@@ -539,17 +507,12 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
             } catch (InterruptedException e) {
             	System.out.println("Thread abgebrochen");
             }
-	    	updateView();
+	    	updateComponents();
 	    }
 	}
-
-
-
-
+	
 	@Override
 	public Integer getHeightMenu() {
 		return 160;
-	}
-
-	
+	}	
 }

@@ -14,8 +14,8 @@ public class PanelRNPipelineProtocolMenu extends BasePanelMenu {
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNPipelineProtocolMenu(IPipelineManagement ipipeline, PanelRNPipelineProtocolModel model) {
-		super(model);
+	public PanelRNPipelineProtocolMenu(IPipelineManagement ipipeline) {
+		super();
 		if (ipipeline == null) {
 			ipipeline = new PipelineManagement();
 		}

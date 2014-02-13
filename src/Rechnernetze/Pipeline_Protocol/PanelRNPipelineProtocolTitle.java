@@ -9,8 +9,8 @@ import Base.BasePanelTitle;
 
 public class PanelRNPipelineProtocolTitle extends BasePanelTitle {
 
-	public PanelRNPipelineProtocolTitle(IPipelineManagement pipeline, PanelRNPipelineProtocolModel model) {
-		super(pipeline, model);
+	public PanelRNPipelineProtocolTitle(IPipelineManagement pipeline) {
+		super(pipeline);
 	}
 
 	@Override

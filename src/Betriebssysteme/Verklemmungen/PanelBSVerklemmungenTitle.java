@@ -9,8 +9,8 @@ import Base.BasePanelTitle;
 
 public class PanelBSVerklemmungenTitle extends BasePanelTitle {
 
-	public PanelBSVerklemmungenTitle(IDeadlockManagement deadlock, PanelBSVerklemmungenModel model) {
-		super(deadlock, model);
+	public PanelBSVerklemmungenTitle(IDeadlockManagement deadlock) {
+		super(deadlock);
 	}
 
 	@Override

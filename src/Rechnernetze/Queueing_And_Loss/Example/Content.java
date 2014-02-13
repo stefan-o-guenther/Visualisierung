@@ -1,9 +1,4 @@
-/**
- * @author:	Stefan Otto Günther
- * @date:	27.01.2014
- */
-
-package Rechnernetze.Queueing_And_Loss;
+package Rechnernetze.Queueing_And_Loss.Example;
 
 import java.awt.Button;
 import java.awt.Color;
@@ -11,32 +6,22 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Label;
+import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Base.BasePanelModelDraw;
-import Rechnernetze.Queueing_And_Loss.Example.MyChoice;
+public class Content extends Panel {
 
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-
-public class PanelRNQueueingAndLossModel extends BasePanelModelDraw {
-
-	private IQALManagement qal;
+	private Button start = new Button("Start");
+	private Button reset = new Button("Reset");
+	private MyChoice emitRate = new MyChoice(new String[] {"500  packet/s","350 packet/s"}, new double[] {2E-3,3E-3},1);
+	private MyChoice processorRate = new MyChoice(new String[] {"1000 packet/s","500  packet/s","350 packet/s"}, new double[] {1E-3,2E-3,3E-3},3);
+	private SimTimer myTimer;
 	
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNQueueingAndLossModel(IQALManagement iqal) {
-		super();		
-		if (iqal == null) {
-			iqal = new QALManagement();
-		}
-		qal = iqal;
-		qal.setPanelModel(this);
+	public Content() {
 		try {
 			myTimer = new SimTimer(1E-4,1000,this);
 			start.addActionListener(actionStart);
@@ -51,26 +36,8 @@ public class PanelRNQueueingAndLossModel extends BasePanelModelDraw {
 		} catch(Exception e) {
 			
 		}
-	}
-	
-	private Button start = new Button("Start");
-	private Button reset = new Button("Reset");
-	private MyChoice emitRate = new MyChoice(new String[] {"500  packet/s","350 packet/s"}, new double[] {2E-3,3E-3},1);
-	private MyChoice processorRate = new MyChoice(new String[] {"1000 packet/s","500  packet/s","350 packet/s"}, new double[] {1E-3,2E-3,3E-3},3);
-	private SimTimer myTimer;
+	}	
 
-	@Override
-	protected void doDrawing(Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateModel() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	public void paint (Graphics g) {
 		update(g); // eliminate flashing : update is overriden
 	}
@@ -99,8 +66,7 @@ public class PanelRNQueueingAndLossModel extends BasePanelModelDraw {
 			emitRate.setEnabled(true);
 			processorRate.setEnabled(true);
 			start.setEnabled(true);
-			myTimer = new SimTimer(1E-4,1000,PanelRNQueueingAndLossModel.this);
+			myTimer = new SimTimer(1E-4,1000,Content.this);
 		}
 	};
-
 }

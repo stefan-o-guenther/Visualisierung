@@ -26,8 +26,8 @@ public class PanelRNTCPRetransmissionMain extends BasePanelMain {
 	protected void initComponents() {
 		IRetransmissionManagement retransmission = new RetransmissionManagement();
 		panelModel = new PanelRNTCPRetransmissionModel(retransmission);
-		panelMenu = new PanelRNTCPRetransmissionMenu(retransmission, panelModel);
-		panelTitle = new PanelRNTCPRetransmissionTitle(retransmission, panelModel);		
+		panelMenu = new PanelRNTCPRetransmissionMenu(retransmission);
+		panelTitle = new PanelRNTCPRetransmissionTitle(retransmission);		
 	}
 
 	@Override

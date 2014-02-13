@@ -8,7 +8,6 @@ package Betriebssysteme.Buddy_Systeme;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
 import java.util.List;
 
 import Base.BasePanelModelDraw;
@@ -22,8 +21,6 @@ public class PanelBSBuddySystemeExplanationDraw extends BasePanelModelDraw {
 	}
 
 	private IBuddyMemoryAllocation buddy;	
-	private List<IProcessNode> listProcesses = new ArrayList<IProcessNode>();	
-	
 	private Graphics2D g2d;
 	
 	private final Integer LENGTH = 15;
@@ -46,6 +43,7 @@ public class PanelBSBuddySystemeExplanationDraw extends BasePanelModelDraw {
 		drawLine("Frei",buddy.getBuddyColor(),line);
 		line += 1;
 		drawLine("Verschnitt",buddy.getRestColor(),line);
+		List<IProcessNode> listProcesses = buddy.getListRunningProcesses();
 		if (listProcesses != null) {
 			for (IProcessNode pn : listProcesses) {				
 				IBuddyNode parent = pn.getParent();
@@ -60,16 +58,9 @@ public class PanelBSBuddySystemeExplanationDraw extends BasePanelModelDraw {
 			}		
 		}
 	}
-
-	@Override
-	protected void updateData() {
-		listProcesses = buddy.getListRunningProcesses();
-	}
-
+	
 	@Override
 	public void updateModel() {
-		updateData();
 		repaint();
 	}
-
 }

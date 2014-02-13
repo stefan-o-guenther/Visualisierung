@@ -18,9 +18,11 @@ public class PanelBSBuddySystemeModel extends BasePanelModel {
 			ibuddy = new BuddyMemoryAllocation();
 		}
 		buddy = ibuddy;
+		buddy.setPanelModel(this);
 		panelDraw = new PanelBSBuddySystemeModelScroll(buddy);
 		panelExplanation = new PanelBSBuddySystemeExplanationScroll(buddy);
 		initComponents();
+		updateModel();
 	}
 
 	private IBuddyMemoryAllocation buddy;
@@ -42,8 +44,7 @@ public class PanelBSBuddySystemeModel extends BasePanelModel {
 				.addComponent(panelDraw, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
 		);
 		setLayout(groupLayout);
-	}
-	
+	}	
 	
 	@Override
 	public void updateModel() {

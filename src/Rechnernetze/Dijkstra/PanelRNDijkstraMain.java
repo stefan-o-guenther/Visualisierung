@@ -26,8 +26,8 @@ public class PanelRNDijkstraMain extends BasePanelMain {
 	protected void initComponents() {
 		IDijkstraAlgorithm dijkstra = new DijkstraAlgorithm();		
 		panelModel = new PanelRNDijkstraModel(dijkstra);
-		panelMenu = new PanelRNDijkstraMenu(dijkstra, panelModel);
-		panelTitle = new PanelRNDijkstraTitle(dijkstra, panelModel);
+		panelMenu = new PanelRNDijkstraMenu(dijkstra);
+		panelTitle = new PanelRNDijkstraTitle(dijkstra);
 	}
 
 	@Override

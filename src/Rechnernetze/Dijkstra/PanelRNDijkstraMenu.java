@@ -16,14 +16,14 @@ import Base.BasePanelMenu;
 
 public class PanelRNDijkstraMenu extends BasePanelMenu {
 
-	public PanelRNDijkstraMenu(IDijkstraAlgorithm idijkstra, PanelRNDijkstraModel model) {
-		super(model);
+	public PanelRNDijkstraMenu(IDijkstraAlgorithm idijkstra) {
+		super();
 		if (idijkstra == null) {
 			idijkstra = new DijkstraAlgorithm();
 		}		
 		dijkstra = idijkstra;
 		initComponents();
-		updateView();
+		updateComponents();
 	}
 
 	private IDijkstraAlgorithm dijkstra;
@@ -68,21 +68,20 @@ public class PanelRNDijkstraMenu extends BasePanelMenu {
 
 	@Override
 	protected void initToolTips() {
-		// TODO Auto-generated method stub
-		
+		// nothing
 	}
 	
 	ActionListener ActionExecute = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			dijkstra.execute();
-			updateView();
+			updateComponents();
 		}
 	};
 
 	ActionListener ActionReset = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			dijkstra.reset();
-			updateView();
+			updateComponents();
 		}
 	};
 

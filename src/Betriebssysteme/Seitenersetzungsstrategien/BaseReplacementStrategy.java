@@ -184,7 +184,7 @@ public abstract class BaseReplacementStrategy implements IReplacementStrategy {
 	
 	@Override
 	public List<ICacheBox> getListCache() {
-		return listCachePublic;
+		return new ArrayList<ICacheBox>(listCachePublic);
 	}
 	
 	@Override

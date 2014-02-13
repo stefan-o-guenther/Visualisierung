@@ -9,8 +9,8 @@ import Base.BasePanelTitle;
 
 public class PanelBSBuddySystemeTitle extends BasePanelTitle {
 	
-	public PanelBSBuddySystemeTitle(IBuddyMemoryAllocation buddy, PanelBSBuddySystemeModel model) {
-		super(buddy, model);
+	public PanelBSBuddySystemeTitle(IBuddyMemoryAllocation buddy) {
+		super(buddy);
 	}
 
 	@Override
@@ -54,5 +54,4 @@ public class PanelBSBuddySystemeTitle extends BasePanelTitle {
 	protected String getTitle() {
 		return "Buddy Systeme";
 	}
-
 }

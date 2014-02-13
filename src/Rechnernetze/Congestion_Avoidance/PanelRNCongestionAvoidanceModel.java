@@ -17,18 +17,14 @@ public class PanelRNCongestionAvoidanceModel extends BasePanelModelDraw {
 			inetwork = new NetworkManagement();
 		}
 		network = inetwork;
+		network.setPanelModel(this);
+		updateModel();
 	}
 
 	private INetworkManagement network;
 	
 	@Override
 	protected void doDrawing(Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateData() {
 		// TODO Auto-generated method stub
 		
 	}

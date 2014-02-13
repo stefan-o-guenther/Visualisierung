@@ -12,8 +12,8 @@ public class PanelDefaultMenu extends BasePanelMenu {
 
 	private IDefaultManagement main;
 	
-	public PanelDefaultMenu(IDefaultManagement imain, BasePanelModel modeldraw) {
-		super(modeldraw);
+	public PanelDefaultMenu(IDefaultManagement imain) {
+		super();
 		if (imain == null) {
 			imain = new DefaultManagement();
 		}

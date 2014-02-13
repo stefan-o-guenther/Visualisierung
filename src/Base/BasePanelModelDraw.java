@@ -17,7 +17,6 @@ public abstract class BasePanelModelDraw extends BasePanelModel {
 	private static final long serialVersionUID = 1L;
 
 	protected abstract void doDrawing(Graphics g);
-	protected abstract void updateData();	
 	
 	@Override
 	public void paintComponent(Graphics g) {        

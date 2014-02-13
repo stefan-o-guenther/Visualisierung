@@ -14,8 +14,8 @@ public class PanelRNCongestionAvoidanceMenu extends BasePanelMenu {
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNCongestionAvoidanceMenu(INetworkManagement inetwork, PanelRNCongestionAvoidanceModel model) {
-		super(model);
+	public PanelRNCongestionAvoidanceMenu(INetworkManagement inetwork) {
+		super();
 		if (inetwork == null) {
 			inetwork = new NetworkManagement();
 		}

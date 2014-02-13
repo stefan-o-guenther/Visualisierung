@@ -25,8 +25,8 @@ public class PanelBSSeitenersetzungsstrategienMain extends BasePanelMain {
 	protected void initComponents() {
 		IMemoryManager paging = new MemoryManager();		
 		panelModel = new PanelBSSeitenersetzungsstrategienModel(paging);
-		panelMenu = new PanelBSSeitenersetzungsstrategienMenu(paging, panelModel);
-		panelTitle = new PanelBSSeitenersetzungsstrategienTitle(paging, panelModel);		
+		panelMenu = new PanelBSSeitenersetzungsstrategienMenu(paging);
+		panelTitle = new PanelBSSeitenersetzungsstrategienTitle(paging);		
 	}
 
 	@Override

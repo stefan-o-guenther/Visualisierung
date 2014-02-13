@@ -5,7 +5,6 @@
 
 package Rechnernetze.Dijkstra;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -117,8 +116,7 @@ public class DijkstraAlgorithm extends BaseManagement implements IDijkstraAlgori
 			listlistNodeOutput.add(new ArrayList<INodeOutput>());
 			INode node = listNodesTarget.get(i);
 			mapIndex.put(node.getName(), i);
-		}
-		
+		}		
 	}
 	
 	private void executeStart() {
@@ -365,6 +363,7 @@ public class DijkstraAlgorithm extends BaseManagement implements IDijkstraAlgori
 				break;
 			}
 		}
+		update();
 	}	
 
 	@Override
@@ -449,7 +448,8 @@ public class DijkstraAlgorithm extends BaseManagement implements IDijkstraAlgori
 	
 	@Override
 	public void reset() {
-		this.initDijkstra();
+		initDijkstra();
+		update();
 	}
 
 	@Override

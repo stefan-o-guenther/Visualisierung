@@ -9,8 +9,8 @@ import Base.BasePanelTitle;
 
 public class PanelRNQueueingAndLossTitle extends BasePanelTitle {
 
-	public PanelRNQueueingAndLossTitle(IQALManagement vManagement, PanelRNQueueingAndLossModel model) {
-		super(vManagement, model);
+	public PanelRNQueueingAndLossTitle(IQALManagement vManagement) {
+		super(vManagement);
 	}
 
 	@Override

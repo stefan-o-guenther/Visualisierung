@@ -11,7 +11,7 @@ import java.util.List;
 import Base.IManagement;
 
 public interface IMemoryManagement extends IManagement {
-	
+
 	EnumMemoryStrategy getStrategy();
 	void setStrategy(EnumMemoryStrategy value);	
 	Integer getNumber();

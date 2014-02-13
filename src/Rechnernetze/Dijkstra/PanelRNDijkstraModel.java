@@ -26,11 +26,10 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 			idijkstra = new DijkstraAlgorithm();
 		}
 		dijkstra = idijkstra;
+		dijkstra.setPanelModel(this);
 		updateModel();
 	}
 
-	private EnumSurface surface;
-	
 	private IDijkstraAlgorithm dijkstra;
 	private Graphics2D g2d;
 	private Font font;
@@ -54,14 +53,8 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 	private final String nameY = "Y";
 	private final String nameZ = "Z";		
 	
-	private Integer linesTable;
-	private List<String> listNodeNames;
-	private List<String> listRoute;
-	private List<IMinOutput> listMin;
-	private List<List<String>> listlistUsedNodes;
-	private List<List<INodeOutput>> listlistNodeOutput;
-		
 	private void drawNodeU() {
+		EnumSurface surface = dijkstra.getSurface();
 		INode nodeU = dijkstra.getNode(nameU);
 		if (nodeU != null) {
 			g2d.drawImage(getRouterImage(), x1, y1, null);	// U
@@ -71,6 +64,7 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 	}
 	
 	private void drawNodeV() {
+		EnumSurface surface = dijkstra.getSurface();
 		INode nodeV = dijkstra.getNode(nameV);
 		if (nodeV != null) {
 			g2d.drawImage(getRouterImage(), x3, y2, null);	// V
@@ -80,6 +74,7 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 	}
 	
 	private void drawNodeW() {
+		EnumSurface surface = dijkstra.getSurface();
 		INode nodeW = dijkstra.getNode(nameW);
 		if (nodeW != null) {
 			g2d.drawImage(getRouterImage(), x4, y2, null);	// W
@@ -89,6 +84,7 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 	}
 	
 	private void drawNodeX() {
+		EnumSurface surface = dijkstra.getSurface();
 		INode nodeX = dijkstra.getNode(nameX);
 		if (nodeX != null) {
 			g2d.drawImage(getRouterImage(), x3, y3, null);	// X
@@ -98,6 +94,7 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 	}
 	
 	private void drawNodeY() {
+		EnumSurface surface = dijkstra.getSurface();
 		INode nodeY = dijkstra.getNode(nameY);
 		if (nodeY != null) {
 			g2d.drawImage(getRouterImage(), x4, y3, null);	// Y
@@ -107,6 +104,7 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 	}
 	
 	private void drawNodeZ() {
+		EnumSurface surface = dijkstra.getSurface();
 		INode nodeZ = dijkstra.getNode(nameZ);
 		if (nodeZ != null) {
 			g2d.drawImage(getRouterImage(), x2, y1, null);	// Z	
@@ -116,6 +114,7 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 	}
 	
 	private void drawEdgeLine(IEdge edge, Integer x1, Integer y1, Integer x2, Integer y2) {
+		EnumSurface surface = dijkstra.getSurface();
 		if ((edge != null) && (x1 != null) && (y1 != null) && (x2 != null) && (y2 != null)) {
 			Integer b = 2;
 			if (edge.getStatus() == EnumOutputStatus.ROUTE) {
@@ -129,6 +128,7 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 	}
 	
 	private void drawEdgeText(IEdge edge, Integer x, Integer y) {
+		EnumSurface surface = dijkstra.getSurface();
 		if ((edge != null) && (x != null) && (y != null)) {
 			g2d.setFont(new Font(font.getFontName(), Font.BOLD, 20));
 			g2d.setColor(edge.getColor(surface));
@@ -146,6 +146,7 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 	}
 	
 	private void drawEdgeUW() {
+		EnumSurface surface = dijkstra.getSurface();
 		IEdge edge = dijkstra.getEdge(nameU, nameW);
 		if (edge != null) {
 			drawEdgeText(edge, x1+difPicX+(difX/2)-6, y1+difPicY-98);
@@ -295,8 +296,10 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 	private void drawUsedNodes() {
 		Integer x = tableX + lengthStep;
 		drawBox(0, "    NODES", x, lengthNodes, Color.BLACK);
+		Integer linesTable = dijkstra.getMaxTableLines();
 		for (Integer i = 0; i < linesTable; i++) {
 			String chain = "";
+			List<List<String>> listlistUsedNodes = dijkstra.getListUsedNodes();
 			if (i < listlistUsedNodes.size()) {
 				List<String> listUsedNodes = listlistUsedNodes.get(i);
 				for (Integer j = 0; j < listUsedNodes.size(); j++) {
@@ -313,6 +316,9 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 	}	
 	
 	private void drawNodesOutput() {
+		EnumSurface surface = dijkstra.getSurface();
+		List<String> listNodeNames = dijkstra.getListNodeNames();
+		List<List<INodeOutput>> listlistNodeOutput = dijkstra.getListNodesOutput();
 		Integer sizeNodeNames = listNodeNames.size();
 		for (int i = 0; i < sizeNodeNames; i++) {
 			Integer x = tableX + lengthStep + lengthNodes + (lengthNodeOutput * i);
@@ -320,6 +326,7 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 			drawBox(0, name, x, lengthNodeOutput, Color.BLACK);			
 			List<INodeOutput> listNodeOutput = listlistNodeOutput.get(i);
 			Integer sizeList = listNodeOutput.size();
+			Integer linesTable = dijkstra.getMaxTableLines();
 			for (int j = 0; j < linesTable; j++) {				
 				if (j < sizeList) {					
 					INodeOutput nodeOutput = listNodeOutput.get(j);
@@ -333,10 +340,14 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 	}
 	
 	private void drawMin() {
+		EnumSurface surface = dijkstra.getSurface();
+		List<IMinOutput> listMin = dijkstra.getListMin();
+		List<String> listNodeNames = dijkstra.getListNodeNames();		
 		Integer linesList = listMin.size();
 		Integer sizeNodes = listNodeNames.size();
 		Integer x = tableX + lengthStep + lengthNodes + (lengthNodeOutput * sizeNodes);
 		drawBox(0, "MIN", x, lengthMin, Color.BLACK);
+		Integer linesTable = dijkstra.getMaxTableLines();
 		for (int i = 0; i < linesTable; i++) {
 			String minText = "";
 			Color color = Color.BLACK;
@@ -361,6 +372,7 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
         g2d.setStroke(bs);
 		g2d.setColor(Color.BLACK);
 		g2d.setFont(new Font(font.getFontName(), Font.BOLD, 24));
+		List<String> listRoute = dijkstra.getListRoute();
 		Integer size = listRoute.size();
 		String text = "";
 		for (int i = 0; i < size; i++) {
@@ -387,19 +399,7 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 	}
 
 	@Override
-	public void updateData() {
-		surface = dijkstra.getSurface();
-		linesTable = dijkstra.getMaxTableLines();
-		listlistNodeOutput = dijkstra.getListNodesOutput();
-		listlistUsedNodes = dijkstra.getListUsedNodes();		
-		listNodeNames = dijkstra.getListNodeNames();		
-		listMin = dijkstra.getListMin();
-		listRoute = dijkstra.getListRoute();
-	}
-
-	@Override
 	public void updateModel() {
-		updateData();
 		repaint();		
 	}
 }

@@ -15,21 +15,14 @@ public class MemoryManager extends BaseManagement implements IMemoryManager {
 	public MemoryManager() {
 		super();
 		init();
-	}
+		update();
+	}	
 	
-	
-	private List<ICacheBox> listCache;		
 	private IReplacementStrategy strategy;	
 	
-	private void init() {
-		listCache = new ArrayList<ICacheBox>();
+	private void init() {		
 		strategy = null;
-	}
-	
-	private void update() {
-		listCache = strategy.getListCache();
-	}
-	
+	}	
 	
 	@Override
 	public EnumPagingStrategy getStrategy() {
@@ -68,8 +61,11 @@ public class MemoryManager extends BaseManagement implements IMemoryManager {
 
 	@Override
 	public List<ICacheBox> getListCache() {
-		//return listCache;
-		return new ArrayList<ICacheBox>(listCache); 
+		if (strategy != null) {
+			return strategy.getListCache();
+		} else {
+			return new ArrayList<ICacheBox>();
+		}
 	}
 
 
@@ -96,6 +92,7 @@ public class MemoryManager extends BaseManagement implements IMemoryManager {
 	public void resetRBits() {
 		if ((strategy != null) && (strategy.useRM())) {
 			strategy.resetRBits();
+			update();
 		}		
 	}
 
@@ -104,6 +101,7 @@ public class MemoryManager extends BaseManagement implements IMemoryManager {
 	public void setMBit() {
 		if ((strategy != null) && (strategy.useRM())) {
 			strategy.setMBit();
+			update();
 		}		
 	}
 
@@ -111,6 +109,7 @@ public class MemoryManager extends BaseManagement implements IMemoryManager {
 	@Override
 	public void reset() {
 		init();
+		update();
 	}
 
 	@Override

@@ -25,8 +25,8 @@ public class PanelBSVerklemmungenMain extends BasePanelMain {
 	protected void initComponents() {
 		IDeadlockManagement deadlock = new DeadlockManagement();		
 		panelModel = new PanelBSVerklemmungenModel(deadlock);
-		panelMenu = new PanelBSVerklemmungenMenu(deadlock, panelModel);
-		panelTitle = new PanelBSVerklemmungenTitle(deadlock, panelModel);
+		panelMenu = new PanelBSVerklemmungenMenu(deadlock);
+		panelTitle = new PanelBSVerklemmungenTitle(deadlock);
 	}
 
 	@Override

@@ -1,10 +1,24 @@
-package Rechnernetze.Queueing_And_Loss.Example;
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	13.02.2014
+ */
+
+package Rechnernetze.Queueing_And_Loss;
 
 import java.awt.Graphics;
-import java.awt.Panel;
 import java.awt.Rectangle;
 
-public class SimTimer implements Runnable {
+import javax.swing.JPanel;
+
+import Base.BaseManagement;
+import Rechnernetze.Queueing_And_Loss.Example.Dropper;
+import Rechnernetze.Queueing_And_Loss.Example.Line;
+import Rechnernetze.Queueing_And_Loss.Example.Processor;
+import Rechnernetze.Queueing_And_Loss.Example.Queue;
+import Rechnernetze.Queueing_And_Loss.Example.Sender;
+import Rechnernetze.Queueing_And_Loss.Example.TimedClass;
+
+public class SimTimer extends BaseManagement implements ISimTimer {
 	private double time;
 	private double tic;
 	private Line line1;
@@ -13,10 +27,10 @@ public class SimTimer implements Runnable {
 	private Queue queue1;
 	private Line line2;
 	private Processor proc1;
-	private Panel target;
+	private JPanel target;
 	private Thread timerThread;
 
-	public SimTimer(double tick, double length, Panel tgt) {
+	public SimTimer(double tick, double length, JPanel tgt) {
 		line1 = new Line(1E-2, new Rectangle(10,60,200,10));
 		sender1 = new Sender(1E-3,line1);
 		dropper1 = new Dropper(.6E-2, new Rectangle(200,70,10,60));
@@ -43,6 +57,9 @@ public class SimTimer implements Runnable {
 			queue1.setTime(time);
 			proc1.setTime(time);
 			line2.setTime(time);
+			if (panelModel != null) {
+				//panelModel.repaint();
+			}
 			target.repaint();
 			time += tic;
 			try {

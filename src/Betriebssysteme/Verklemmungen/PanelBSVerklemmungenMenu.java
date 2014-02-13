@@ -20,8 +20,8 @@ import Base.BasePanelMenu;
 
 public class PanelBSVerklemmungenMenu extends BasePanelMenu {
 	
-	public PanelBSVerklemmungenMenu(IDeadlockManagement ideadlock, PanelBSVerklemmungenModel panelModel) {
-		super(panelModel);
+	public PanelBSVerklemmungenMenu(IDeadlockManagement ideadlock) {
+		super();
 		if (ideadlock == null) {
 			ideadlock = new DeadlockManagement();
 		}

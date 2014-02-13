@@ -31,7 +31,6 @@ public class PanelBSBuddySystemeModelDraw extends BasePanelModelDraw {
 
 	private IBuddyMemoryAllocation buddy;
 	private List<IBuddyOperation> list = new ArrayList<IBuddyOperation>();	
-	private EnumSurface surface;
 	
 	private Graphics2D g2d;
 	
@@ -46,6 +45,7 @@ public class PanelBSBuddySystemeModelDraw extends BasePanelModelDraw {
 		Integer height = 0;
 		Integer size = buddy.getTotalSpace();					
 		if (size > 0) {
+			list = buddy.getNodeList();
 			Integer length = list.size();			
 			for (Integer i = 0; i < length; i++) {
 				IBuddyOperation operation = list.get(i);				
@@ -103,11 +103,9 @@ public class PanelBSBuddySystemeModelDraw extends BasePanelModelDraw {
         setPreferredSize(area);
         revalidate();
 	}
-
-	@Override
+	
 	protected void updateData() {
-		surface = buddy.getSurface();
-		list = buddy.getNodeList();
+		
 	}
 
 	@Override

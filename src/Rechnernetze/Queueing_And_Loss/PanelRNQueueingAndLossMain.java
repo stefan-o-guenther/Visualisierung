@@ -26,8 +26,8 @@ public class PanelRNQueueingAndLossMain extends BasePanelMain {
 	protected void initComponents() {
 		IQALManagement qal = new QALManagement();		
 		panelModel = new PanelRNQueueingAndLossModel(qal);
-		panelMenu = new PanelRNQueueingAndLossMenu(qal, panelModel);
-		panelTitle = new PanelRNQueueingAndLossTitle(qal, panelModel);		
+		panelMenu = new PanelRNQueueingAndLossMenu(qal);
+		panelTitle = new PanelRNQueueingAndLossTitle(qal);		
 	}
 
 	@Override

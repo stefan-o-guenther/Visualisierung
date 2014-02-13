@@ -22,6 +22,8 @@ public class PanelRNPipelineProtocolModel extends BasePanelModelDraw {
 			ipipeline = new PipelineManagement();
 		}
 		pipeline = ipipeline;
+		pipeline.setPanelModel(this);
+		updateModel();
 	}
 
 	@Override
@@ -31,15 +33,8 @@ public class PanelRNPipelineProtocolModel extends BasePanelModelDraw {
 	}
 
 	@Override
-	public void updateData() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void updateModel() {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

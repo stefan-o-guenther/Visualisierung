@@ -18,8 +18,8 @@ import javax.swing.ImageIcon;
 
 public class PanelRNQueueingAndLossMenu extends BasePanelMenu {
 
-	public PanelRNQueueingAndLossMenu(IQALManagement iqal, PanelRNQueueingAndLossModel model) {
-		super(model);		
+	public PanelRNQueueingAndLossMenu(IQALManagement iqal) {
+		super();		
 		if (iqal == null) {
 			iqal = new QALManagement();
 		}

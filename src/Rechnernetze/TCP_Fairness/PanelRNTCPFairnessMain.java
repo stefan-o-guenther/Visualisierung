@@ -26,8 +26,8 @@ public class PanelRNTCPFairnessMain extends BasePanelMain {
 	protected void initComponents() {
 		IFairnessManagement fairness = new FairnessManagement();
 		panelModel = new PanelRNTCPFairnessModel(fairness);
-		panelMenu = new PanelRNTCPFairnessMenu(fairness, panelModel);
-		panelTitle = new PanelRNTCPFairnessTitle(fairness, panelModel);		
+		panelMenu = new PanelRNTCPFairnessMenu(fairness);
+		panelTitle = new PanelRNTCPFairnessTitle(fairness);		
 	}
 
 	@Override

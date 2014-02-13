@@ -24,6 +24,8 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
 			imemory = new MemoryManagement();
 		}
 		memory = imemory;
+		memory.setPanelModel(this);
+		updateModel();
 	}
 	
 	private Integer widthMaximum = 1000;	
@@ -44,9 +46,6 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
 	private Integer width;
 	private Integer height;
 	
-	private List<ISpace> listSpace;
-	private EnumSurface surface;
-	
 	private void initValues() {
 		xPoint = 0;
 		yPoint = 0;
@@ -61,7 +60,8 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
 	}
 	
 	private Integer getMultiply() {
-		Integer sum = 0;  
+		Integer sum = 0;
+		List<ISpace> listSpace = memory.getListSpace();
         for (ISpace space : listSpace) {
         	sum += space.getCurrentValue();
         }
@@ -83,18 +83,13 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
 	
 	private Color getFontColor(ISpace space) {
 		Color color = Color.BLACK;
+		EnumSurface surface = memory.getSurface();
 		if (space.isActivated() && surface == EnumSurface.COLORED) {
 			color = Color.RED;
 		}
 		return color;
 	}	
 	
-	@Override
-	protected void updateData() {
-		listSpace = memory.getListSpace();            
-        surface = memory.getSurface();         
-	}
-		
 	protected void doDrawing(Graphics g) {
 		try {			         	
     		g2d = (Graphics2D) g;		
@@ -113,46 +108,49 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
             BasicStroke bs2 = new BasicStroke(2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
             g2d.setStroke(bs2);                
             
-            for (ISpace space : listSpace) {        	
-				calculateValues(space);
-				
-				Color fontColor = getFontColor(space);
-				
-				// new number
-				Integer newValue = space.getNewValue();
-				if (newValue != null) {					
-					g2d.setColor(fontColor);
-					g2d.drawString((Integer.toString(newValue)), xValue, yNV);					
-				}
-				
-				// rectangle border
-				g2d.setColor(Color.BLACK);
-				g2d.drawRect(xRect, yRect, width, height);	// x y width height
-				
-				g2d.setColor(getBoxColor(space));
-				        	
-				g2d.fillRect(xRect+1, yRect+1, width-1, height-1);				
-				
-				if (space.getType() != EnumSpace.FULL) {
-					Integer currentValue = space.getCurrentValue();
-					g2d.setColor(fontColor);
-					g2d.drawString((Integer.toString(currentValue)), xValue, yValue);
-				}                    
-			    
-			    // rest number
-				Integer restValue = space.getRestValue();
-				if (restValue != null) {
-					g2d.setColor(fontColor);
-					String rest = "";
-					if (restValue >= 0) {
-						rest = restValue.toString();
-					} else {
-						rest = "-";
-					}
-					g2d.drawString(rest, xValue, yRV);
-				}
-				xRect += width;
-    		}    		
+            List<ISpace> listSpace = memory.getListSpace();
+            if (listSpace != null) {
+            	for (ISpace space : listSpace) {        	
+    				calculateValues(space);
+    				
+    				Color fontColor = getFontColor(space);
+    				
+    				// new number
+    				Integer newValue = space.getNewValue();
+    				if (newValue != null) {					
+    					g2d.setColor(fontColor);
+    					g2d.drawString((Integer.toString(newValue)), xValue, yNV);					
+    				}
+    				
+    				// rectangle border
+    				g2d.setColor(Color.BLACK);
+    				g2d.drawRect(xRect, yRect, width, height);	// x y width height
+    				
+    				g2d.setColor(getBoxColor(space));
+    				        	
+    				g2d.fillRect(xRect+1, yRect+1, width-1, height-1);				
+    				
+    				if (space.getType() != EnumSpace.FULL) {
+    					Integer currentValue = space.getCurrentValue();
+    					g2d.setColor(fontColor);
+    					g2d.drawString((Integer.toString(currentValue)), xValue, yValue);
+    				}                    
+    			    
+    			    // rest number
+    				Integer restValue = space.getRestValue();
+    				if (restValue != null) {
+    					g2d.setColor(fontColor);
+    					String rest = "";
+    					if (restValue >= 0) {
+    						rest = restValue.toString();
+    					} else {
+    						rest = "-";
+    					}
+    					g2d.drawString(rest, xValue, yRV);
+    				}
+    				xRect += width;
+        		}
+            }                		
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -160,7 +158,6 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
 
 	@Override
 	public void updateModel() {		
-		updateData();
 		repaint();
 	}
 }

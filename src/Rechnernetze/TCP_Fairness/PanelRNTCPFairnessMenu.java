@@ -14,8 +14,8 @@ public class PanelRNTCPFairnessMenu extends BasePanelMenu {
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNTCPFairnessMenu(IFairnessManagement ifairness, PanelRNTCPFairnessModel model) {
-		super(model);
+	public PanelRNTCPFairnessMenu(IFairnessManagement ifairness) {
+		super();
 		if (ifairness == null) {
 			ifairness = new FairnessManagement();
 		}

@@ -9,8 +9,8 @@ import Base.BasePanelTitle;
 
 public class PanelRNTCPRetransmissionTitle extends BasePanelTitle {
 
-	public PanelRNTCPRetransmissionTitle(IRetransmissionManagement retransmission, PanelRNTCPRetransmissionModel model) {
-		super(retransmission, model);
+	public PanelRNTCPRetransmissionTitle(IRetransmissionManagement retransmission) {
+		super(retransmission);
 	}
 
 	@Override

@@ -25,8 +25,8 @@ public class PanelBSBuddySystemeMain extends BasePanelMain {
 	protected void initComponents() {
 		IBuddyMemoryAllocation buddy =  new BuddyMemoryAllocation();
 		panelModel = new PanelBSBuddySystemeModel(buddy);
-		panelMenu = new PanelBSBuddySystemeMenu(buddy, panelModel);
-		panelTitle = new PanelBSBuddySystemeTitle(buddy, panelModel);
+		panelMenu = new PanelBSBuddySystemeMenu(buddy);
+		panelTitle = new PanelBSBuddySystemeTitle(buddy);
 	}
 
 	@Override

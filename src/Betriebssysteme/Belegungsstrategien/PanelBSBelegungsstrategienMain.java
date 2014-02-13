@@ -27,8 +27,8 @@ public class PanelBSBelegungsstrategienMain extends BasePanelMain {
 	protected void initComponents() {
 		IMemoryManagement memory = new MemoryManagement();
 		panelModel = new PanelBSBelegungsstrategienModel(memory);
-		panelMenu = new PanelBSBelegungsstrategienMenu(memory, panelModel);
-		panelTitle = new PanelBSBelegungsstrategienTitle(memory, panelModel);		
+		panelMenu = new PanelBSBelegungsstrategienMenu(memory);
+		panelTitle = new PanelBSBelegungsstrategienTitle(memory);		
 	}
 
 	@Override

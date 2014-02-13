@@ -10,12 +10,10 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -25,14 +23,14 @@ import Base.BasePanelMenu;
 
 public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 	
-	public PanelBSSeitenersetzungsstrategienMenu(IMemoryManager ipaging, PanelBSSeitenersetzungsstrategienModel model) {
-		super(model);
+	public PanelBSSeitenersetzungsstrategienMenu(IMemoryManager ipaging) {
+		super();
 		if (ipaging == null) {
 			ipaging = new MemoryManager();
 		}
 		paging = ipaging;
 		initComponents();
-		updateView();
+		updateComponents();
 	}	
 
 	private String sToolTipStrategie = "";
@@ -56,7 +54,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 	private JTextField tfDisk;
 	private JTextField tfRam;
 	
-	private JComboBox cbStrategie;
+	private ComboBoxStrategy cbStrategie;
 	
 	private JButton btnExecute2;
 	private JButton btnExecute1;
@@ -168,9 +166,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		tfReferenzfolge = new JTextField();
 		tfReferenzfolge.setColumns(10);
 		
-		cbStrategie = new JComboBox();
-		String[] strategies = new String[] {"Optimale Strategie", "FIFO", "FIFO - Second Chance", "NRU / RNU - FIFO", "NRU / RNU - FIFO Second Chance"};
-		cbStrategie.setModel(new DefaultComboBoxModel(strategies));
+		cbStrategie = new ComboBoxStrategy();
 		
 		lblRam = new JLabel("Anzahl RAM:");
 		lblRam.setIcon(imgHelp);
@@ -428,42 +424,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 			
 		}
 		return result;
-	}
-	
-	private EnumPagingStrategy getStrategy() {
-		EnumPagingStrategy result = null;
-		/* {
-		 * "Optimale Strategie", 
-		 * "FIFO", 
-		 * "FIFO - Second Chance", 
-		 * "LRU", (entfernt)
-		 * "NFU / LFU", (entfernt)
-		 * "NRU / RNU - FIFO", 
-		 * "NRU / RNU - FIFO Second Chance"
-		 * } */
-		int select = cbStrategie.getSelectedIndex();
-		switch (select) {
-			case 0: 
-				result = EnumPagingStrategy.OPTIMAL;
-				break;
-			case 1: 
-				result = EnumPagingStrategy.FIFO;
-				break;
-			case 2: 
-				result = EnumPagingStrategy.FIFO_SECOND_CHANCE;
-				break;
-			case 3: 
-				result = EnumPagingStrategy.NRU_RNU;
-				break;
-			case 4: 
-				result = EnumPagingStrategy.NRU_RNU_SECOND_CHANCE;
-				break;
-			default:
-				result = EnumPagingStrategy.NULL;
-				break;
-		}
-		return result;
-	}
+	}	
 	
 	ActionListener ActionExecute1 = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
@@ -481,7 +442,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 					break;
 				}
 			}
-			updateView();
+			updateComponents();
 		}
 	};
 	
@@ -509,7 +470,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 							printError("Die Anzahl des RAM muss mindestens 1 sein!");
 						}
 						if (ok) {
-							paging.setStrategy(getStrategy(), listSequence, ram, disk);
+							paging.setStrategy(cbStrategie.getStrategy(), listSequence, ram, disk);
 						}						
 					}
 					break;
@@ -528,21 +489,21 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 				}
 			}
 			// Starten und Weiter
-			updateView();
+			updateComponents();
 		}
 	};
 	
 	ActionListener ActionResetR = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			paging.resetRBits();
-			updateView();
+			updateComponents();
 		}
 	};
 
 	ActionListener ActionSetM = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			paging.setMBit();
-			updateView();
+			updateComponents();
 		}
 	};
 

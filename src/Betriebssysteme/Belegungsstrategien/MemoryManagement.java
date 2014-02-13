@@ -16,19 +16,13 @@ public class MemoryManagement extends BaseManagement implements IMemoryManagemen
 	public MemoryManagement() {
 		super();
 		init();
+		update();
 	}	
 	
 	private IMemoryStrategy strategy = null;
 	
-	private List<ISpace> listSpace = new ArrayList<ISpace>();
-	
-	private void update() {
-		listSpace = strategy.getListSpace();
-	}
-	
 	private void init() {
-		strategy = null;
-		listSpace = loadExample();
+		strategy = null;		
 	}
 	
 	private List<ISpace> loadExample() {
@@ -111,12 +105,17 @@ public class MemoryManagement extends BaseManagement implements IMemoryManagemen
 	
 	@Override
 	public void reset() {		
-		init();		
+		init();
+		update();
 	}
 
 	@Override
 	public List<ISpace> getListSpace() {
-		return listSpace;
+		if (strategy != null) {
+			return strategy.getListSpace();
+		} else {
+			return this.loadExample();
+		}
 		//return new ArrayList<ISpace>(listSpacePublic); 		
 	}
 
@@ -149,6 +148,7 @@ public class MemoryManagement extends BaseManagement implements IMemoryManagemen
 	@Override
 	public Integer getTotalSpace() {
 		Integer total = 0;
+		List<ISpace> listSpace = this.getListSpace();
     	for (ISpace space : listSpace) {
     		Integer value = space.getCurrentValue();
     		total += value;    		   		
@@ -158,7 +158,8 @@ public class MemoryManagement extends BaseManagement implements IMemoryManagemen
 
 	@Override
 	public Integer getFreeSpace() {		
-    	Integer free = 0;    	
+    	Integer free = 0;
+    	List<ISpace> listSpace = this.getListSpace();
     	for (ISpace space : listSpace) {    		 		
     		EnumSpace type = space.getType();
     		if (type == EnumSpace.EMPTY) {
@@ -172,6 +173,7 @@ public class MemoryManagement extends BaseManagement implements IMemoryManagemen
 	@Override
 	public Integer getUsedSpace() {		
     	Integer used = 0;
+    	List<ISpace> listSpace = this.getListSpace();
     	for (ISpace space : listSpace) {    		
     		EnumSpace type = space.getType();
     		if ((type == EnumSpace.FULL) || (type == EnumSpace.USED)) {

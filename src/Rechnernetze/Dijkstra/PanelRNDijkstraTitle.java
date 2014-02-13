@@ -9,8 +9,8 @@ import Base.BasePanelTitle;
 
 public class PanelRNDijkstraTitle extends BasePanelTitle {
 
-	public PanelRNDijkstraTitle(IDijkstraAlgorithm dijkstra, PanelRNDijkstraModel model) {
-		super(dijkstra, model);
+	public PanelRNDijkstraTitle(IDijkstraAlgorithm dijkstra) {
+		super(dijkstra);
 	}
 
 	@Override

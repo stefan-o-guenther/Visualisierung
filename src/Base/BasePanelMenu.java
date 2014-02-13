@@ -6,11 +6,12 @@
 package Base;
 
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 
-public abstract class BasePanelMenu extends BasePanelUseModel {
+public abstract class BasePanelMenu extends JPanel {
 
-	public BasePanelMenu(BasePanelModel model) {
-		super(model);
+	public BasePanelMenu() {
+		super();
 	}
 	
 	private static final long serialVersionUID = 1L;
@@ -18,11 +19,6 @@ public abstract class BasePanelMenu extends BasePanelUseModel {
 	protected abstract void initComponents();
 	protected abstract void updateComponents();
 	protected abstract void initToolTips();
-	
-	protected void updateView() {
-		updateComponents();
-		updateModel();
-	}
 	
 	public abstract Integer getHeightMenu();
 	

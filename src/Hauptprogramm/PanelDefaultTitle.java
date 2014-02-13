@@ -9,8 +9,8 @@ import Base.BasePanelTitle;
 
 public class PanelDefaultTitle extends BasePanelTitle {
 
-	public PanelDefaultTitle(IDefaultManagement management, PanelDefaultModel model) {
-		super(management, model);
+	public PanelDefaultTitle(IDefaultManagement management) {
+		super(management);
 	}
 
 	@Override

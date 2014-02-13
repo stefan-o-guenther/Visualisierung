@@ -22,16 +22,12 @@ public class PanelRNTCPRetransmissionModel extends BasePanelModelDraw {
 			iretransmission = new RetransmissionManagement();
 		}
 		retransmission = iretransmission;
+		retransmission.setPanelModel(this);
+		updateModel();
 	}
 
 	@Override
 	protected void doDrawing(Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateData() {
 		// TODO Auto-generated method stub
 		
 	}

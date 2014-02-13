@@ -15,6 +15,7 @@ import Base.BaseManagement;
 public class BuddyMemoryAllocation extends BaseManagement implements IBuddyMemoryAllocation {
 
 	public BuddyMemoryAllocation() {
+		super();
 		init();
 	}
 	
@@ -125,6 +126,7 @@ public class BuddyMemoryAllocation extends BaseManagement implements IBuddyMemor
 			} else {
 				updateList("Prozess " + name + " existiert schon.");
 			}
+			update();
 		}		
 	}
 
@@ -143,6 +145,7 @@ public class BuddyMemoryAllocation extends BaseManagement implements IBuddyMemor
 			while (root.clean()) {
 				updateList("Buddies verschmolzen.");
 			}
+			update();
 		}
 	}
 
@@ -152,6 +155,7 @@ public class BuddyMemoryAllocation extends BaseManagement implements IBuddyMemor
 			root = new BuddyNode(value, null);
 			status = EnumBuddyMemoryAllocation.EXECUTE;	
 			updateList("Hauptspeicher initialisiert.");
+			update();
 		}		
 	}
 
@@ -165,6 +169,7 @@ public class BuddyMemoryAllocation extends BaseManagement implements IBuddyMemor
 	@Override
 	public void reset() {
 		init();
+		update();
 	}
 
 	@Override
@@ -345,5 +350,5 @@ public class BuddyMemoryAllocation extends BaseManagement implements IBuddyMemor
 	public List<IProcessNode> getListRunningProcesses() {
 		List<IProcessNode> list = new ArrayList<IProcessNode>(listRunningProcesses);
 		return list;
-	}
+	}	
 }

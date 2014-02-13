@@ -156,7 +156,7 @@ public abstract class BaseMemoryStrategy implements IMemoryStrategy {
 	
 	@Override
 	public List<ISpace> getListSpace() {
-		return listSpacePublic;
+		return new ArrayList<ISpace>(listSpacePublic);
 	}
 		
 	@Override

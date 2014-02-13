@@ -19,6 +19,8 @@ public class PanelBSVerklemmungenModelDraw extends BasePanelModelDraw {
 			ideadlock = new DeadlockManagement();
 		}
 		deadlock = ideadlock;
+		deadlock.setPanelModel(this);
+		updateModel();
 	}
 
 	private IDeadlockManagement deadlock;
@@ -31,14 +33,8 @@ public class PanelBSVerklemmungenModelDraw extends BasePanelModelDraw {
 	}
 
 	@Override
-	protected void updateData() {
-		EnumSurface surface = deadlock.getSurface();
-	}
-
-	@Override
 	public void updateModel() {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

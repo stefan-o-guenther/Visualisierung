@@ -22,16 +22,12 @@ public class PanelRNTCPFairnessModel extends BasePanelModelDraw {
 			ifairness = new FairnessManagement();
 		}
 		fairness = ifairness;
+		fairness.setPanelModel(this);
+		updateModel();
 	}
 
 	@Override
 	protected void doDrawing(Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateData() {
 		// TODO Auto-generated method stub
 		
 	}

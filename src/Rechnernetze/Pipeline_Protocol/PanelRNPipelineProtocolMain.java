@@ -26,8 +26,8 @@ public class PanelRNPipelineProtocolMain extends BasePanelMain {
 	protected void initComponents() {
 		IPipelineManagement pipeline = new PipelineManagement();		
 		panelModel = new PanelRNPipelineProtocolModel(pipeline);
-		panelMenu = new PanelRNPipelineProtocolMenu(pipeline, panelModel);
-		panelTitle = new PanelRNPipelineProtocolTitle(pipeline, panelModel);		
+		panelMenu = new PanelRNPipelineProtocolMenu(pipeline);
+		panelTitle = new PanelRNPipelineProtocolTitle(pipeline);		
 	}
 
 	@Override

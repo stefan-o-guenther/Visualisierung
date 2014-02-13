@@ -9,8 +9,8 @@ import Base.BasePanelTitle;
 
 public class PanelBSBelegungsstrategienTitle extends BasePanelTitle {
 
-	public PanelBSBelegungsstrategienTitle(IMemoryManagement memory, PanelBSBelegungsstrategienModel model) {
-		super(memory, model);
+	public PanelBSBelegungsstrategienTitle(IMemoryManagement memory) {
+		super(memory);
 	}
 	
 	@Override

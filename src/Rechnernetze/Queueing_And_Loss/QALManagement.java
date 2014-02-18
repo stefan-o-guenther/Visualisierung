@@ -21,10 +21,7 @@ public class QALManagement extends BaseManagement implements IQALManagement {
 	private Queue queue1;
 	private Line line2;
 	private Processor proc1;
-	//private JPanel target;
-	private TimerThread timerThread;
-	
-	
+	private TimerThread timerThread;	
 
 	public QALManagement(double tick) {
 		super();

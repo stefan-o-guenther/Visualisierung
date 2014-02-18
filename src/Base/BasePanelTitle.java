@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public abstract class BasePanelTitle extends JPanel {
+public abstract class BasePanelTitle extends BasePanel {
 	
 	public BasePanelTitle(IManagement vManagement) {
 		super();		

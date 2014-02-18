@@ -8,7 +8,7 @@ package Base;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-public abstract class BasePanelMenu extends JPanel {
+public abstract class BasePanelMenu extends BasePanel {
 
 	public BasePanelMenu() {
 		super();

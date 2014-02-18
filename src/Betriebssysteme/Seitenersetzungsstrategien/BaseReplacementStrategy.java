@@ -114,7 +114,7 @@ public abstract class BaseReplacementStrategy implements IReplacementStrategy {
 						cache = disk.remove(pos.intValue());
 					} else {
 						// Number is not in DISK
-						cache = new Cache(number);						
+						cache = new Cache(number, 1, 0);
 					}
 					if (ram.size() < maxRam) {
 						cache.setStatus(EnumCache.NEW);						
@@ -123,6 +123,7 @@ public abstract class BaseReplacementStrategy implements IReplacementStrategy {
 					}
 				}
 				cache.setR(1);
+				cache.setPreviousR(1);
 				ram.add(npos.intValue(), cache);
 				remove(ram, disk);
 				for (ICache c : disk) {
@@ -168,7 +169,9 @@ public abstract class BaseReplacementStrategy implements IReplacementStrategy {
 			ICacheBox cb = listCacheWork.get(position);
 			List<ICache> ram = cb.getRam();
 			for (ICache c : ram) {
+				//c.setPreviousR(c.getR());
 				c.setR(0);
+				c.setRChanged(true);
 			}
 		}
 	}
@@ -176,8 +179,12 @@ public abstract class BaseReplacementStrategy implements IReplacementStrategy {
 	@Override
 	public void setMBit() {
 		if (cache != null) {
-			cache.setM(1);
+			//cache.setPreviousR(cache.getR());
+			//cache.setPreviousM(cache.getM());
 			cache.setR(1);
+			cache.setM(1);
+			cache.setRChanged(true);
+			cache.setMChanged(true);
 			copyListCache();
 		}
 	}

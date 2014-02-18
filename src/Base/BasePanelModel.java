@@ -7,7 +7,7 @@ package Base;
 
 import javax.swing.JPanel;
 
-public abstract class BasePanelModel extends JPanel {
+public abstract class BasePanelModel extends BasePanel {
 	
 	public BasePanelModel() {
 		super();

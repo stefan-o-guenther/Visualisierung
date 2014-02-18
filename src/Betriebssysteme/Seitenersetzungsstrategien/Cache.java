@@ -5,23 +5,45 @@
 
 package Betriebssysteme.Seitenersetzungsstrategien;
 
+import java.awt.Color;
+
+import Base.EnumSurface;
+
 public class Cache implements ICache {
 
-	public Cache(Integer value) {
-		if (value != null) {
-			number = value;
-		} else {
+	public Cache(Integer number, Integer r, Integer m) {
+		status = EnumCache.NORMAL;
+		
+		if (number == null) {
 			number = 0;
 		}
-		status = EnumCache.NORMAL;
-		r = 0;
-		m = 0;
+		this.number = number;
+		
+		if (r == null) {
+			r = 0;
+		}
+		this.r = r;
+		
+		if (m == null) {
+			m = 0;
+		}
+		this.m = m;
+		
+		previousR = r;
+		previousM = m;
+		
+		rChanged = false;
+		mChanged = false;
 	}
 	
-	private Integer number = null;
-	private Integer r = null;
-	private Integer m = null;
+	private Integer number;
+	private Integer r;
+	private Integer m;
 	private EnumCache status;
+	private Boolean rChanged;
+	private Boolean mChanged;
+	private Integer previousR;
+	private Integer previousM;
 	
 	@Override
 	public Integer getNumber() {
@@ -34,31 +56,27 @@ public class Cache implements ICache {
 	}
 
 	@Override
-	public void setR(Integer value) {
-		if (value != null) {
-			r = value;	
-		}			
+	public void setR(Integer r) {
+		if (r != null) {
+			this.r = r;
+		}
 	}
 
 	@Override
 	public Integer getM() {
 		return m;
 	}
-
+	
 	@Override
-	public void setM(Integer value) {
-		if (value != null) {
-			m = value;
-		}		
+	public void setM(Integer m) {
+		if (m != null) {
+			this.m = m;
+		}
 	}
 
 	@Override
 	public ICache getCopy() {
-		ICache cache = new Cache(number);
-		cache.setM(m);
-		cache.setR(r);
-		cache.setStatus(EnumCache.NORMAL);
-		return cache;
+		return new Cache(number, r, m);
 	}
 
 	@Override
@@ -73,4 +91,51 @@ public class Cache implements ICache {
 		}
 	}
 
+	@Override
+	public Boolean isRChanged() {
+		return rChanged;
+	}
+	
+	@Override
+	public void setRChanged(Boolean value) {
+		if (value != null) {
+			rChanged = value;
+		}		
+	}
+
+	@Override
+	public Boolean isMChanged() {
+		return mChanged;
+	}
+	
+	@Override
+	public void setMChanged(Boolean value) {
+		if (value != null) {
+			mChanged = value;
+		}	
+	}
+	
+	@Override
+	public Integer getRPrevious() {
+		return previousR;
+	}
+
+	@Override
+	public void setPreviousR(Integer r) {
+		if (r != null) {
+			previousR = r;
+		}
+	}
+
+	@Override
+	public Integer getMPreviousM() {
+		return previousM;
+	}
+
+	@Override
+	public void setPreviousM(Integer m) {
+		if (m != null) {
+			previousM = m;
+		}
+	}
 }

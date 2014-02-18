@@ -29,7 +29,7 @@ public class Sender {
 	}
 	
 	private void update() {
-		if (nextEmission<time) {
+		if (nextEmission < time) {
 			outputLine.emitPacket(time,packetsColors[nextColor]);
 			nextColor++;
 			if (nextColor >= packetsColors.length) {

@@ -5,6 +5,7 @@
 
 package Base;
 
+import java.awt.Color;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 
@@ -63,12 +64,12 @@ public abstract class BaseFrame extends JFrame {
 	}
 	
 	protected void initUI(JPanel panel) {
-		setTitle(title);        
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        initWindowSize();
-        showWindowCenterScreen();
-        add(panel);
+		setTitle(title);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		initWindowSize();
+		showWindowCenterScreen();
+		add(panel);
 	}
 	
 	/*

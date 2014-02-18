@@ -5,6 +5,7 @@
 
 package Betriebssysteme.Seitenersetzungsstrategien;
 
+import java.awt.Color;
 import java.util.List;
 
 import Base.EnumSurface;
@@ -23,5 +24,6 @@ public interface IMemoryManager extends IManagement {
 	EnumPagingStatus getStatus();	
 	List<ICacheBox> getListCache();	
 	Boolean useRM();	
-	Integer getErrorCount();
+	Integer getErrorCount();	
+	Color getColor();
 }

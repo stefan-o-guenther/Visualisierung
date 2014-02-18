@@ -461,9 +461,9 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 							ok = false;
 							printError("Die Summe aus Anzahl von RAM und DISK is größer als 16!");
 						}
-						if (size > 26) {
+						if (size > 18) {
 							ok = false;
-							printError("Die Referenzfolge hat mehr als 26 Stellen!");
+							printError("Die Referenzfolge hat mehr als 18 Stellen!");
 						}
 						if (ram.equals(0)) {
 							ok = false;

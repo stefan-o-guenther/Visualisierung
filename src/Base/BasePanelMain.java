@@ -9,7 +9,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JPanel;
 
-public abstract class BasePanelMain extends JPanel {
+public abstract class BasePanelMain extends BasePanel {
 
 	public BasePanelMain() {
 		super();		

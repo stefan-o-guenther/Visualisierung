@@ -5,10 +5,12 @@
 
 package Betriebssysteme.Seitenersetzungsstrategien;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
 import Base.BaseManagement;
+import Base.EnumSurface;
 
 public class MemoryManager extends BaseManagement implements IMemoryManager {	
 	
@@ -96,7 +98,6 @@ public class MemoryManager extends BaseManagement implements IMemoryManager {
 		}		
 	}
 
-
 	@Override
 	public void setMBit() {
 		if ((strategy != null) && (strategy.useRM())) {
@@ -104,7 +105,6 @@ public class MemoryManager extends BaseManagement implements IMemoryManager {
 			update();
 		}		
 	}
-
 
 	@Override
 	public void reset() {
@@ -127,6 +127,15 @@ public class MemoryManager extends BaseManagement implements IMemoryManager {
 			return strategy.getErrorCount();
 		} else {
 			return 0;
+		}
+	}
+
+	@Override
+	public Color getColor() {		
+		if (surface == EnumSurface.COLORED) {
+			return Color.RED;
+		} else {
+			return Color.BLACK;
 		}
 	}
 }

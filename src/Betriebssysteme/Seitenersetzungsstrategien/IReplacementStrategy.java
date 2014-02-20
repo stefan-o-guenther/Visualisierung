@@ -9,13 +9,15 @@ import java.util.List;
 
 public interface IReplacementStrategy {
 	void execute();	
-	void resetRBits();	
-	void setMBit();
+	Boolean resetRBits();	
+	Boolean setMBit();
 	EnumPagingStatus getStatus();	
-	List<ICacheBox> getListCache();
+	List<ICacheBox> getListCacheBox();
 	EnumPagingStrategy getStrategy();
 	Integer getMaxRam();
 	Integer getMaxDisk();
 	Boolean useRM();
 	Integer getErrorCount();
+	Integer getMaxRM();
+	Boolean canUseRM();
 }

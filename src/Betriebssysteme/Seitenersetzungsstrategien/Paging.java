@@ -12,18 +12,20 @@ import java.util.List;
 import Base.BaseManagement;
 import Base.EnumSurface;
 
-public class MemoryManager extends BaseManagement implements IMemoryManager {	
+public class Paging extends BaseManagement implements IPaging {	
 	
-	public MemoryManager() {
+	public Paging() {
 		super();
 		init();
 		update();
 	}	
 	
-	private IReplacementStrategy strategy;	
+	private IReplacementStrategy strategy;
+	private Boolean oldStates; 
 	
 	private void init() {		
 		strategy = null;
+		oldStates = true;
 	}	
 	
 	@Override
@@ -64,7 +66,7 @@ public class MemoryManager extends BaseManagement implements IMemoryManager {
 	@Override
 	public List<ICacheBox> getListCache() {
 		if (strategy != null) {
-			return strategy.getListCache();
+			return strategy.getListCacheBox();
 		} else {
 			return new ArrayList<ICacheBox>();
 		}
@@ -91,19 +93,25 @@ public class MemoryManager extends BaseManagement implements IMemoryManager {
 	}	
 
 	@Override
-	public void resetRBits() {
+	public Boolean resetRBits() {
 		if ((strategy != null) && (strategy.useRM())) {
-			strategy.resetRBits();
+			Boolean result = strategy.resetRBits();
 			update();
-		}		
+			return result;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
-	public void setMBit() {
+	public Boolean setMBit() {
 		if ((strategy != null) && (strategy.useRM())) {
-			strategy.setMBit();
+			Boolean result = strategy.setMBit();
 			update();
-		}		
+			return result;
+		} else {
+			return false;
+		}
 	}
 
 	@Override
@@ -136,6 +144,28 @@ public class MemoryManager extends BaseManagement implements IMemoryManager {
 			return Color.RED;
 		} else {
 			return Color.BLACK;
+		}
+	}
+
+	@Override
+	public Boolean canViewOldStates() {
+		return oldStates;
+	}
+
+	@Override
+	public void setViewOldStates(Boolean value) {
+		if (value != null) {
+			oldStates = value;
+			update();
+		}
+	}
+
+	@Override
+	public Boolean canUseRM() {
+		if (strategy != null) {
+			return strategy.canUseRM();
+		} else {
+			return false;
 		}
 	}
 }

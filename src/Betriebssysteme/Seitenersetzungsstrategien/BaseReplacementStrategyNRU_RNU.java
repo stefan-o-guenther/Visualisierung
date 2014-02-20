@@ -13,6 +13,24 @@ public abstract class BaseReplacementStrategyNRU_RNU extends BaseReplacementStra
 		super(sequence, ram, disk);
 	}	
 	
+	@Override
+	public Boolean canUseRM() {
+		if ((position > -1) && (position < listCacheBox.size())) {
+			ICacheBox cb = listCacheBox.get(position);
+			List<ICache> ram = cb.getRam();
+			for (ICache cache : ram) {
+				Integer sizeR = cache.getRPreviousSize();
+				Integer sizeM = cache.getMPreviousSize();
+				if ((sizeR >= maxRM) || (sizeM >= maxRM)) {
+					return false;
+				}
+			}
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	protected Integer findRM(List<ICache> ram, Integer r, Integer m) {
 		Integer result = null;
 		if ((ram != null) && (r != null) && (m != null) && (r.equals(0) || r.equals(1)) && (m.equals(0) || m.equals(1))) {

@@ -20,13 +20,14 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.BasePanelMenu;
+import javax.swing.JCheckBox;
 
 public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 	
-	public PanelBSSeitenersetzungsstrategienMenu(IMemoryManager ipaging) {
+	public PanelBSSeitenersetzungsstrategienMenu(IPaging ipaging) {
 		super();
 		if (ipaging == null) {
-			ipaging = new MemoryManager();
+			ipaging = new Paging();
 		}
 		paging = ipaging;
 		initComponents();
@@ -61,10 +62,9 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 	private JButton btnR;
 	private JButton btnM;
 		
+	private JCheckBox chckbxkOldStates;
 	
-	private IMemoryManager paging;
-	
-	//private JPanel panel;	
+	private IPaging paging;
 
 	//@Override
 	protected void updateComponents() {		
@@ -76,7 +76,10 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		lblErrorValue.setEnabled(true);
 		lblErrorValue.setText(paging.getErrorCount().toString());		
 		btnExecute1.setEnabled(true);
-		Boolean urm = paging.useRM();
+		Boolean useRM = paging.useRM();
+		Boolean canUseRM = paging.canUseRM();
+		Boolean oldStates = paging.canViewOldStates();
+		chckbxkOldStates.setSelected(oldStates);
 		EnumPagingStatus status = paging.getStatus();
 		switch (status) {
 			case START: {
@@ -84,6 +87,8 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 				btnR.setVisible(false);
 				btnM.setEnabled(false);
 				btnM.setVisible(false);
+				chckbxkOldStates.setEnabled(false);
+				chckbxkOldStates.setVisible(false);
 				lblToolTipR.setEnabled(false);
 				lblToolTipR.setVisible(false);
 				lblToolTipM.setEnabled(false);
@@ -100,16 +105,17 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 				tfDisk.setEditable(true);
 				break;
 			}
-			case SEARCH: {
-				
-				btnR.setEnabled(urm);
-				btnR.setVisible(urm);
-				btnM.setEnabled(urm);				
-				btnM.setVisible(urm);
-				lblToolTipR.setEnabled(urm);
-				lblToolTipR.setVisible(urm);
-				lblToolTipM.setEnabled(urm);
-				lblToolTipM.setVisible(urm);
+			case SEARCH: {				
+				btnR.setEnabled(canUseRM);
+				btnR.setVisible(useRM);
+				btnM.setEnabled(canUseRM);				
+				btnM.setVisible(useRM);
+				chckbxkOldStates.setEnabled(useRM);
+				chckbxkOldStates.setVisible(useRM);
+				lblToolTipR.setEnabled(useRM);
+				lblToolTipR.setVisible(useRM);
+				lblToolTipM.setEnabled(useRM);
+				lblToolTipM.setVisible(useRM);
 				btnExecute1.setText("zurücksetzen");
 				btnExecute2.setText("weiter");
 				btnExecute2.setEnabled(true);
@@ -123,14 +129,16 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 				break;
 			}
 			case FINISHED: {
-				btnR.setEnabled(urm);
-				btnR.setVisible(urm);
-				btnM.setEnabled(urm);				
-				btnM.setVisible(urm);
-				lblToolTipR.setEnabled(urm);
-				lblToolTipR.setVisible(urm);
-				lblToolTipM.setEnabled(urm);
-				lblToolTipM.setVisible(urm);
+				btnR.setEnabled(useRM);
+				btnR.setVisible(useRM);
+				btnM.setEnabled(useRM);				
+				btnM.setVisible(useRM);
+				chckbxkOldStates.setEnabled(useRM);
+				chckbxkOldStates.setVisible(useRM);
+				lblToolTipR.setEnabled(useRM);
+				lblToolTipR.setVisible(useRM);
+				lblToolTipM.setEnabled(useRM);
+				lblToolTipM.setVisible(useRM);
 				btnExecute1.setText("zurücksetzen");
 				btnExecute2.setText("weiter");
 				btnExecute2.setEnabled(false);
@@ -183,16 +191,16 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		tfRam.setColumns(10);
 		
 		btnExecute1 = new JButton("Beispiel laden");
-		btnExecute1.addActionListener(ActionExecute1);
+		btnExecute1.addActionListener(actionExecute1);
 		
 		btnExecute2 = new JButton("übernehmen");
-		btnExecute2.addActionListener(ActionExecute2);		
+		btnExecute2.addActionListener(actionExecute2);		
 		
 		btnR = new JButton("R-Bits zurücksetzen");
-		btnR.addActionListener(ActionResetR);
+		btnR.addActionListener(actionResetR);
 		
 		btnM = new JButton("M-Bit setzen");
-		btnM.addActionListener(ActionSetM);
+		btnM.addActionListener(actionSetM);
 		
 		lblToolTipR = new JLabel(" ");
 		lblToolTipR.setIcon(imgHelp);
@@ -206,6 +214,9 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		lblErrorTitle.setIcon(imgHelp);
 		lblErrorTitle.setToolTipText(sToolTipSeitenfehler);
 		lblErrorValue = new JLabel(" ");		
+		
+		chckbxkOldStates = new JCheckBox("alte Zust\u00E4nde anzeigen");
+		chckbxkOldStates.addActionListener(actionOldStates);
 				
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -232,9 +243,12 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 						.addComponent(btnExecute2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(btnExecute1, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
 					.addGap(18)
-					.addComponent(lblErrorTitle)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblErrorValue, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblErrorTitle)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblErrorValue, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+						.addComponent(chckbxkOldStates, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblToolTipM)
@@ -243,7 +257,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(btnM, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(btnR, GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
-					.addContainerGap(64, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -267,7 +281,8 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 						.addComponent(tfDisk, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnExecute2)
 						.addComponent(lblToolTipM)
-						.addComponent(btnM))
+						.addComponent(btnM)
+						.addComponent(chckbxkOldStates))
 					.addContainerGap(13, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
@@ -426,7 +441,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		return result;
 	}	
 	
-	ActionListener ActionExecute1 = new ActionListener() {
+	private ActionListener actionExecute1 = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			switch (paging.getStatus()) {
 				case START: {
@@ -446,7 +461,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		}
 	};
 	
-	ActionListener ActionExecute2 = new ActionListener() {
+	private ActionListener actionExecute2 = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			switch (paging.getStatus()) {
 				case START: {				
@@ -493,16 +508,23 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		}
 	};
 	
-	ActionListener ActionResetR = new ActionListener() {
+	private ActionListener actionResetR = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			paging.resetRBits();
 			updateComponents();
 		}
 	};
 
-	ActionListener ActionSetM = new ActionListener() {
+	private ActionListener actionSetM = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			paging.setMBit();
+			updateComponents();
+		}
+	};
+	
+	private ActionListener actionOldStates = new ActionListener() {
+		public void actionPerformed (ActionEvent e) {
+			paging.setViewOldStates(chckbxkOldStates.isSelected());
 			updateComponents();
 		}
 	};

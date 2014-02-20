@@ -27,12 +27,12 @@ import Base.ImageLoader;
 
 public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 
-	public PanelBSBelegungsstrategienMenu(IMemoryManagement imemory) {
+	public PanelBSBelegungsstrategienMenu(IFragmentation fragmentation) {
 		super();
-		if (imemory == null) {
-			imemory = new MemoryManagement();
+		if (fragmentation == null) {
+			fragmentation = new Fragmentation();
 		}
-		memory = imemory;
+		this.fragmentation = fragmentation;
 		initComponents();
 		updateComponents();
 	}
@@ -42,7 +42,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	private String sToolTipSpeed = "";
 	private String sToolTipSpeicher = "";
 		
-	private IMemoryManagement memory;
+	private IFragmentation fragmentation;
 		
 	private JLabel lblStrategie;
 	private JLabel lblSpeicher;
@@ -70,11 +70,8 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	private JSlider sSpeed;
 	
 	private AutoThread tAuto; //= new AutoThread();
-	private Boolean isAutomaticChecked = false;
-	private Boolean isAutomaticRunning = false;	
-	private Integer speed = 0;
 	
-	private void noInput() {
+	protected void noInput() {
 		Object[] option = {"schließen"};
 		JOptionPane.showOptionDialog(null,
 				"Keine ganze Zahl eingebeben!",
@@ -87,7 +84,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	}
 	
 	
-	private void foundSpace(Boolean value) {
+	protected void foundSpace(Boolean value) {
 		if (!(value)) {
 			Object[] option = {"schließen"};
 			JOptionPane.showOptionDialog(null,
@@ -102,21 +99,22 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	}
 	
 	private void setSpeed() {		
-		speed = 2500 - (sSpeed.getValue() * 20);
+		Integer speed = 2500 - (sSpeed.getValue() * 20);
+		fragmentation.setSpeed(speed);
 	}
 	
 	private void startAutomatic() {
-		if ((!(isAutomaticRunning)) && (isAutomaticChecked)) {
-			isAutomaticRunning = true;
-			tAuto = new AutoThread();
+		if ((!(fragmentation.isAutomaticRunning())) && (fragmentation.isAutomaticChecked())) {
+			fragmentation.setAutomaticRunning(true);
+			tAuto = new AutoThread(fragmentation, this);
 			tAuto.start();
 		}
 	}
 
 	private void stopAutomatic() {
-		if (isAutomaticRunning) {
-			isAutomaticRunning = false;
-			isAutomaticChecked = false;
+		if (fragmentation.isAutomaticRunning()) {
+			fragmentation.setAutomaticRunning(false);
+			fragmentation.setAutomaticChecked(false);
 		}
 	}
 	
@@ -164,11 +162,9 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
     	lblRateOutput.setEnabled(true);
     	lblStrategie.setEnabled(true);
     	lblSpeicher.setEnabled(true);
-    	lblSpeedTip.setEnabled(true);
-    	    	
+    	lblSpeedTip.setEnabled(true);   	
     	
-    	
-    	EnumMemoryStatus status = memory.getStatus();    	
+    	EnumMemoryStatus status = fragmentation.getStatus();    	
     	switch (status) {
 	    	case START: {
 	    		cbStrategie.setEnabled(true);
@@ -180,7 +176,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	        	btnExecute2.setEnabled(false);
 	        	btnExecute2.setText("speichern");
 	        	chcxbxAuto.setEnabled(false);
-	        	isAutomaticChecked = false;
+	        	fragmentation.setAutomaticChecked(false);
 	    		break;
 	    	}
 	    	case INPUT: {
@@ -192,7 +188,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	        	btnExecute2.setEnabled(true);
 	        	btnExecute2.setText("speichern");
 	        	chcxbxAuto.setEnabled(false);
-	        	isAutomaticChecked = false;
+	        	fragmentation.setAutomaticChecked(false);
 	    		break;
 	    	}
 	    	case SEARCH:
@@ -203,7 +199,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	        	btnExecute1.setEnabled(true);
 	        	btnExecute1.setText("zurücksetzen");
 	        	btnExecute2.setEnabled(true);
-	        	if (isAutomaticRunning) {
+	        	if (fragmentation.isAutomaticRunning()) {
 	        		btnExecute2.setText("stop");
 	        	} else {
 	        		btnExecute2.setText("weiter");
@@ -218,7 +214,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	        	tSpeicher.setText("");
 	        	btnExecute1.setEnabled(true);
 	        	btnExecute1.setText("zurücksetzen");
-	        	btnExecute2.setEnabled(!(isAutomaticChecked));
+	        	btnExecute2.setEnabled(!(fragmentation.isAutomaticChecked()));
 	        	btnExecute2.setText("weiter");
 	        	chcxbxAuto.setEnabled(false);  
 	    	}
@@ -226,13 +222,13 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	    		break;
 	    	}
     	}    	
-    	chcxbxAuto.setSelected(isAutomaticChecked);
-    	lblTotalSpaceOutput.setText(memory.getTotalSpace().toString());
-    	lblFreeSpaceOutput.setText(memory.getFreeSpace().toString());
-    	lblUsedSpaceOutput.setText(memory.getUsedSpace().toString());
+    	chcxbxAuto.setSelected(fragmentation.isAutomaticChecked());
+    	lblTotalSpaceOutput.setText(fragmentation.getTotalSpace().toString());
+    	lblFreeSpaceOutput.setText(fragmentation.getFreeSpace().toString());
+    	lblUsedSpaceOutput.setText(fragmentation.getUsedSpace().toString());
     	DecimalFormat decimalFormat = new DecimalFormat("#0.00"); 
-    	lblRateOutput.setText(decimalFormat.format(memory.getUsedRate()));
-    	sSpeed.setEnabled(isAutomaticChecked);
+    	lblRateOutput.setText(decimalFormat.format(fragmentation.getUsedRate()));
+    	sSpeed.setEnabled(fragmentation.isAutomaticChecked());
 	}	
 	
 	@Override
@@ -267,7 +263,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		
 		chcxbxAuto = new JCheckBox("Automatischer Durchlauf");
 		chcxbxAuto.addActionListener(ActionAuto);
-		chcxbxAuto.setSelected(isAutomaticChecked);
+		chcxbxAuto.setSelected(fragmentation.isAutomaticChecked());
 		
 		lblSpeedTip = new JLabel(" ");
 		lblSpeedTip.setIcon(imgHelp);
@@ -394,17 +390,22 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		);
 		setLayout(groupLayout);
 	}	
+	
+	@Override
+	public Integer getHeightMenu() {
+		return 160;
+	}
 		
 	private ActionListener ActionExecute1 = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			try {
-				if (memory.getStatus() == EnumMemoryStatus.START) {
+				if (fragmentation.getStatus() == EnumMemoryStatus.START) {
 					// Strategie festlegen
-					memory.setStrategy(cbStrategie.getStrategy());		
+					fragmentation.setStrategy(cbStrategie.getStrategy());		
 				} else {
 					// zurücksetzen
-					stopAutomatic();;
-					memory.reset();
+					stopAutomatic();
+					fragmentation.reset();
 					tSpeicher.setText("");
 				}
 			} catch (Exception ex) {
@@ -419,7 +420,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		String text = tSpeicher.getText();			
 		try {
 			Integer space = new Integer(text);
-			memory.setNumber(space);	
+			fragmentation.setNumber(space);	
 		} catch (Exception ex) {
 			tSpeicher.setText("");
 			noInput();
@@ -429,21 +430,16 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		updateComponents();
 	}
 	
-	private void automatic() {
-		if (isAutomaticRunning) {
-			stopAutomatic();
-		} else {
-			startAutomatic();
-		}
-		updateComponents();
-	}
-	
 	private void search() {
 		// Suche
-		if (isAutomaticChecked) {
-			automatic();
+		if (fragmentation.isAutomaticChecked()) {
+			if (fragmentation.isAutomaticRunning()) {
+				stopAutomatic();
+			} else {
+				startAutomatic();
+			}
 		} else {
-			foundSpace(memory.execute());
+			foundSpace(fragmentation.execute());
 		}
 		updateComponents();
 	}	
@@ -451,7 +447,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	private ActionListener ActionExecute2 = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			try {
-				EnumMemoryStatus status = memory.getStatus();
+				EnumMemoryStatus status = fragmentation.getStatus();
 				switch (status) {
 					case INPUT: {
 						input();
@@ -476,7 +472,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	
 	private ActionListener ActionAuto = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
-			isAutomaticChecked = chcxbxAuto.isSelected();
+			fragmentation.setAutomaticChecked(chcxbxAuto.isSelected());
 			updateComponents();
 		}
 	};
@@ -487,32 +483,4 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 			updateComponents();
 		}
 	};
-	
-	public class AutoThread extends Thread {
-	    String text;
-	  
-	    public AutoThread() {
-	    	super();
-	    }
-	  
-	    public void run() {
-	    	try {
-	    		while(isAutomaticRunning && isAutomaticChecked && ((memory.getStatus() == EnumMemoryStatus.SEARCH) || (memory.getStatus() == EnumMemoryStatus.CHOOSE) || (memory.getStatus() == EnumMemoryStatus.FINISHED))) {
-	                foundSpace(memory.execute());
-	                updateComponents();
-                    Thread.sleep(speed);
-	            }
-	    		isAutomaticChecked = false;
-	    		isAutomaticRunning = false;
-            } catch (InterruptedException e) {
-            	System.out.println("Thread abgebrochen");
-            }
-	    	updateComponents();
-	    }
-	}
-	
-	@Override
-	public Integer getHeightMenu() {
-		return 160;
-	}	
 }

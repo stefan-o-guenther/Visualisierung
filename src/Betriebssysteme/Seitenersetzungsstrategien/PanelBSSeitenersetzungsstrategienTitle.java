@@ -9,7 +9,7 @@ import Base.BasePanelTitle;
 
 public class PanelBSSeitenersetzungsstrategienTitle extends BasePanelTitle {
 
-	public PanelBSSeitenersetzungsstrategienTitle(IMemoryManager paging) {
+	public PanelBSSeitenersetzungsstrategienTitle(IPaging paging) {
 		super(paging);
 	}
 

@@ -23,7 +23,7 @@ public class PanelBSSeitenersetzungsstrategienMain extends BasePanelMain {
 	private PanelBSSeitenersetzungsstrategienModel panelModel;
 		
 	protected void initComponents() {
-		IMemoryManager paging = new MemoryManager();		
+		IPaging paging = new Paging();		
 		panelModel = new PanelBSSeitenersetzungsstrategienModel(paging);
 		panelMenu = new PanelBSSeitenersetzungsstrategienMenu(paging);
 		panelTitle = new PanelBSSeitenersetzungsstrategienTitle(paging);		

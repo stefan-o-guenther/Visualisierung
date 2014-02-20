@@ -8,9 +8,7 @@ package Betriebssysteme.Buddy_Systeme;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import java.util.List;
 
-import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
@@ -22,7 +20,6 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.BasePanelMenu;
-import Base.BasePanelModel;
 
 public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 
@@ -61,7 +58,9 @@ public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 	private JButton btnExecute2;	
 	private JButton btnExample;
 	
-	private ButtonGroupProcess groupProcess;	
+	private ButtonGroupProcess groupProcess;
+	
+	private JPanel panel;
 	
 	private String sToolTipSpeichergroesse = "";
 	private String sToolTipProzessname = "";
@@ -108,7 +107,8 @@ public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 		tfProcessSize.setColumns(10);
 		tfProcessSize.setText("");
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
+		panel.setBackground(getBackground());
 		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
@@ -416,15 +416,17 @@ public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 			tfSpace.setText("1024");
 			buddy.setTotalSpace(1024);				
 			buddy.startProcess("a", 400);			
-			buddy.startProcess("b", 200);			
-			buddy.startProcess("c", 100);
-			buddy.startProcess("d", 50);
-			buddy.stopProcess("b");			
-			buddy.stopProcess("c");						
-			buddy.stopProcess("a");
+			buddy.startProcess("b", 200);
+			buddy.startProcess("c", 70);
+			buddy.stopProcess("c");
+			buddy.startProcess("d", 100);
 			buddy.startProcess("e", 50);
-			buddy.stopProcess("d");
+			buddy.stopProcess("b");			
+			buddy.stopProcess("d");						
+			buddy.stopProcess("a");
+			buddy.startProcess("f", 50);
 			buddy.stopProcess("e");
+			buddy.stopProcess("f");
 			updateComponents();
 		}
 	};

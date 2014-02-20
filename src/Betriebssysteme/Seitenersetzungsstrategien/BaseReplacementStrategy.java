@@ -15,14 +15,13 @@ public abstract class BaseReplacementStrategy implements IReplacementStrategy {
 		if ((sequence != null) && (disk != null) && (ram != null)) {
 			maxRam = ram;
 			maxDisk = disk;
-			listCacheWork = new ArrayList<ICacheBox>();
+			listCacheBox = new ArrayList<ICacheBox>();
 			List<Integer> listSequence = sequence;
 			for (Integer i : listSequence) {
 				ICacheBox cb = new CacheBox(i);
-				listCacheWork.add(cb);			
+				listCacheBox.add(cb);			
 			}
 		}
-		copyListCache();
 	}
 	
 	protected EnumPagingStatus status;
@@ -32,9 +31,10 @@ public abstract class BaseReplacementStrategy implements IReplacementStrategy {
 	protected Integer errorCount = 0;
 	protected Integer maxRam = 0;
 	protected Integer maxDisk = 0;
-	protected List<ICacheBox> listCacheWork;
-	protected List<ICacheBox> listCachePublic;
+	protected List<ICacheBox> listCacheBox;
 	protected Integer position = -1;
+	
+	protected final Integer maxRM = 4;
 	
 	protected abstract void initClass();
 	protected abstract void useNumber(Integer number);
@@ -42,8 +42,7 @@ public abstract class BaseReplacementStrategy implements IReplacementStrategy {
 	protected abstract void remove(List<ICache> ram, List<ICache> disk);	
 		
 	protected void init() {
-		listCacheWork = new ArrayList<ICacheBox>();
-		copyListCache();
+		listCacheBox = new ArrayList<ICacheBox>();
 		cache = null;
 		position = -1;
 		maxRam = 0;
@@ -51,10 +50,6 @@ public abstract class BaseReplacementStrategy implements IReplacementStrategy {
 		errorCount = 0;
 		status = EnumPagingStatus.SEARCH;
 		initClass();
-	}
-	
-	protected void copyListCache() {
-		listCachePublic = new ArrayList<ICacheBox>(listCacheWork);
 	}
 	
 	protected void error() {
@@ -80,20 +75,20 @@ public abstract class BaseReplacementStrategy implements IReplacementStrategy {
 		if (maxRam > 0) {
 			cache = null;
 			position += 1;
-			if ((position != null) && (position >= 0) && (position < listCacheWork.size())) {
-				ICacheBox cb = listCacheWork.get(position);
+			if ((position != null) && (position >= 0) && (position < listCacheBox.size())) {
+				ICacheBox cb = listCacheBox.get(position);
 				Integer number = cb.getNumber();				
 				useNumber(number);				
 				List<ICache> ram;
 				List<ICache> disk;
-				if (position == 0) {
-					ram = cb.getRam();
-					disk = cb.getDisk();					
-				} else {
-					ICacheBox ocb = listCacheWork.get(position-1);
+				if (position > 0) {
+					ICacheBox ocb = listCacheBox.get(position-1);
 					ram = ocb.getRamCopy();
 					disk = ocb.getDiskCopy();
-				}
+				} else {
+					ram = cb.getRam();
+					disk = cb.getDisk();			
+				}				
 				cache = null;
 				Integer npos;					
 				Integer pos = isAvailable(ram, number);
@@ -123,17 +118,14 @@ public abstract class BaseReplacementStrategy implements IReplacementStrategy {
 					}
 				}
 				cache.setR(1);
-				cache.setPreviousR(1);
 				ram.add(npos.intValue(), cache);
 				remove(ram, disk);
-				for (ICache c : disk) {
-					c.setM(0);
-					c.setR(0);
-				}
 				
 				cb.setRam(ram);
 				cb.setDisk(disk);
-				if ((position+1) == listCacheWork.size()) {
+				cb.initializeRMDisk();
+				cb.initializeRMPrevious();
+				if ((position+1) == listCacheBox.size()) {
 					status = EnumPagingStatus.FINISHED;
 				}
 			} else {
@@ -152,46 +144,48 @@ public abstract class BaseReplacementStrategy implements IReplacementStrategy {
 				doPaging();
 				break;
 			}				
-			case FINISHED: {
-				
+			case FINISHED: {				
 				break;
 			}			
 			default: {
 				break;
 			}
 		}
-		copyListCache();
-	}
-
-	@Override
-	public void resetRBits() {
-		if ((position > -1) && (position < listCacheWork.size())) {
-			ICacheBox cb = listCacheWork.get(position);
-			List<ICache> ram = cb.getRam();
-			for (ICache c : ram) {
-				//c.setPreviousR(c.getR());
-				c.setR(0);
-				c.setRChanged(true);
-			}
-		}
-	}
-
-	@Override
-	public void setMBit() {
-		if (cache != null) {
-			//cache.setPreviousR(cache.getR());
-			//cache.setPreviousM(cache.getM());
-			cache.setR(1);
-			cache.setM(1);
-			cache.setRChanged(true);
-			cache.setMChanged(true);
-			copyListCache();
-		}
 	}
 	
 	@Override
-	public List<ICacheBox> getListCache() {
-		return new ArrayList<ICacheBox>(listCachePublic);
+	public Boolean resetRBits() {
+		if ((position > -1) && (position < listCacheBox.size()) && (canUseRM())) {			
+			ICacheBox cb = listCacheBox.get(position);
+			List<ICache> ram = cb.getRam();
+			for (ICache cache : ram) {
+				cache.addRPrevious(cache.getR());
+				cache.setR(0);
+			}
+			return canUseRM();			
+		} else {
+			return false;
+		}		
+	}
+
+	@Override
+	public Boolean setMBit() {
+		if ((position > -1) && (position < listCacheBox.size()) && (cache != null) && (canUseRM())) {			
+			if (cache != null) {
+				cache.addRPrevious(cache.getR());
+				cache.addMPrevious(cache.getM());
+				cache.setR(1);
+				cache.setM(1);
+			}
+			return canUseRM();			
+		} else {
+			return true;
+		}		
+	}
+	
+	@Override
+	public List<ICacheBox> getListCacheBox() {
+		return new ArrayList<ICacheBox>(listCacheBox);
 	}
 	
 	@Override
@@ -213,4 +207,9 @@ public abstract class BaseReplacementStrategy implements IReplacementStrategy {
 	public Integer getErrorCount() {
 		return errorCount;
 	}
+	
+	@Override
+	public Integer getMaxRM() {
+		return maxRM;
+	}	
 }

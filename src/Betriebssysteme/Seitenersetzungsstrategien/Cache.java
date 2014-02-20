@@ -5,9 +5,8 @@
 
 package Betriebssysteme.Seitenersetzungsstrategien;
 
-import java.awt.Color;
-
-import Base.EnumSurface;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Cache implements ICache {
 
@@ -27,53 +26,24 @@ public class Cache implements ICache {
 		if (m == null) {
 			m = 0;
 		}
-		this.m = m;
+		this.m = m;	
 		
-		previousR = r;
-		previousM = m;
-		
-		rChanged = false;
-		mChanged = false;
+		this.initializeRPrevious();
+		this.initializeMPrevious();
 	}
 	
 	private Integer number;
 	private Integer r;
 	private Integer m;
 	private EnumCache status;
-	private Boolean rChanged;
-	private Boolean mChanged;
-	private Integer previousR;
-	private Integer previousM;
+	private List<Integer> rPrevious;
+	private List<Integer> mPrevious;
 	
 	@Override
 	public Integer getNumber() {
 		return number;
 	}
 	
-	@Override
-	public Integer getR() {
-		return r;
-	}
-
-	@Override
-	public void setR(Integer r) {
-		if (r != null) {
-			this.r = r;
-		}
-	}
-
-	@Override
-	public Integer getM() {
-		return m;
-	}
-	
-	@Override
-	public void setM(Integer m) {
-		if (m != null) {
-			this.m = m;
-		}
-	}
-
 	@Override
 	public ICache getCopy() {
 		return new Cache(number, r, m);
@@ -92,50 +62,92 @@ public class Cache implements ICache {
 	}
 
 	@Override
-	public Boolean isRChanged() {
-		return rChanged;
-	}
-	
-	@Override
-	public void setRChanged(Boolean value) {
-		if (value != null) {
-			rChanged = value;
-		}		
+	public Integer getR() {
+		return r;
 	}
 
 	@Override
-	public Boolean isMChanged() {
-		return mChanged;
-	}
-	
-	@Override
-	public void setMChanged(Boolean value) {
-		if (value != null) {
-			mChanged = value;
-		}	
-	}
-	
-	@Override
-	public Integer getRPrevious() {
-		return previousR;
+	public void setR(Integer r) {
+		if ((r != null) && (r.equals(0) || r.equals(1))) {
+			this.r = r;
+		}
 	}
 
 	@Override
-	public void setPreviousR(Integer r) {
+	public Integer getM() {
+		return m;
+	}
+	
+	@Override
+	public void setM(Integer m) {
+		if ((m != null) && (m.equals(0) || m.equals(1))) {
+			this.m = m;
+		}
+	}
+
+	@Override
+	public List<Integer> getRPrevious() {
+		return rPrevious;
+	}
+
+	@Override
+	public void setRPrevious(List<Integer> r) {
 		if (r != null) {
-			previousR = r;
+			rPrevious = r;
 		}
 	}
 
 	@Override
-	public Integer getMPreviousM() {
-		return previousM;
+	public void addRPrevious(Integer r) {
+		if ((r != null) && (r.equals(0) || r.equals(1)) && (rPrevious != null)) {
+			rPrevious.add(r);
+		}
 	}
 
 	@Override
-	public void setPreviousM(Integer m) {
+	public Integer getRPreviousSize() {
+		if (rPrevious != null) {
+			return rPrevious.size();
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public void initializeRPrevious() {
+		rPrevious = new ArrayList<Integer>();
+	}
+
+	@Override
+	public List<Integer> getMPrevious() {
+		return mPrevious;
+	}
+
+	@Override
+	public void setMPrevious(List<Integer> m) {
 		if (m != null) {
-			previousM = m;
+			mPrevious = m;
 		}
+	}
+
+	@Override
+	public void addMPrevious(Integer m) {
+		if ((m != null) && (m.equals(0) || m.equals(1)) && (mPrevious != null)) {
+			mPrevious.add(m);
+		}
+	}
+
+	@Override
+	public Integer getMPreviousSize() {
+		if (mPrevious != null) {
+			return mPrevious.size();
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public void initializeMPrevious() {
+		mPrevious = new ArrayList<Integer>();
 	}
 }

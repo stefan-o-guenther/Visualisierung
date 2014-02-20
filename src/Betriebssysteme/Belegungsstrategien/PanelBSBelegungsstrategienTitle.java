@@ -9,7 +9,7 @@ import Base.BasePanelTitle;
 
 public class PanelBSBelegungsstrategienTitle extends BasePanelTitle {
 
-	public PanelBSBelegungsstrategienTitle(IMemoryManagement memory) {
+	public PanelBSBelegungsstrategienTitle(IFragmentation memory) {
 		super(memory);
 	}
 	

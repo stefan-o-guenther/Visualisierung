@@ -17,5 +17,4 @@ public abstract class BasePanel extends JPanel {
 	public BasePanel() {
 		setBackground(Color.WHITE);
 	}
-
 }

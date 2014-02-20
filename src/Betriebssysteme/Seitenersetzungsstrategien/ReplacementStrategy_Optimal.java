@@ -53,9 +53,9 @@ public class ReplacementStrategy_Optimal extends BaseReplacementStrategy impleme
 						Integer pos = position + 1;
 						Boolean maxNotFound = true;
 						Boolean numberNotFound = true;
-						Integer size = listCacheWork.size();
+						Integer size = listCacheBox.size();
 						while ((pos < size) && maxNotFound) {
-							ICacheBox cb = listCacheWork.get(pos);
+							ICacheBox cb = listCacheBox.get(pos);
 							Integer number2 = cb.getNumber();
 							if (number.equals(number2)) {
 								numberNotFound = false;
@@ -90,5 +90,10 @@ public class ReplacementStrategy_Optimal extends BaseReplacementStrategy impleme
 				disk.remove(l.intValue());
 			}
 		}
+	}
+
+	@Override
+	public Boolean canUseRM() {
+		return false;
 	}	
 }

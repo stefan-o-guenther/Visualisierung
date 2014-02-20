@@ -85,4 +85,9 @@ public class ReplacementStrategy_NFU_LFU extends BaseReplacementStrategy impleme
 			}
 		}
 	}
+
+	@Override
+	public Boolean canUseRM() {
+		return false;
+	}
 }

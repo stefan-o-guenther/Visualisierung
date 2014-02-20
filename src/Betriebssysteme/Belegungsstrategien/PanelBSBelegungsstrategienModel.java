@@ -18,10 +18,10 @@ import Base.EnumSurface;
 
 public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
 	
-	public PanelBSBelegungsstrategienModel(IMemoryManagement imemory) {
+	public PanelBSBelegungsstrategienModel(IFragmentation imemory) {
 		super();
 		if (imemory == null) {
-			imemory = new MemoryManagement();
+			imemory = new Fragmentation();
 		}
 		memory = imemory;
 		memory.setPanelModel(this);
@@ -31,7 +31,7 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
 	private Integer widthMaximum = 1000;	
 	private Dimension dim;
 	
-	private IMemoryManagement memory;
+	private IFragmentation memory;
 	
 	private Graphics2D g2d;
 	

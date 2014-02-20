@@ -90,4 +90,24 @@ public class CacheBox implements ICacheBox {
 			activated = value;
 		}
 	}
+
+	@Override
+	public void initializeRMPrevious() {
+		for (ICache cache : listRam) {
+			cache.initializeRPrevious();
+			cache.initializeMPrevious();
+		}
+		for (ICache cache : listDisk) {
+			cache.initializeRPrevious();
+			cache.initializeMPrevious();
+		}
+	}
+
+	@Override
+	public void initializeRMDisk() {
+		for (ICache cache : listDisk) {
+			cache.setR(0);
+			cache.setM(0);
+		}
+	}
 }

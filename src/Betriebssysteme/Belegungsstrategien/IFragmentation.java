@@ -10,7 +10,7 @@ import java.util.List;
 
 import Base.IManagement;
 
-public interface IMemoryManagement extends IManagement {
+public interface IFragmentation extends IManagement {
 
 	EnumMemoryStrategy getStrategy();
 	void setStrategy(EnumMemoryStrategy value);	
@@ -25,4 +25,10 @@ public interface IMemoryManagement extends IManagement {
 	Integer getFreeSpace();
 	Integer getUsedSpace();
 	Double getUsedRate();
+	Boolean isAutomaticChecked();
+	void setAutomaticChecked(Boolean value);
+	Boolean isAutomaticRunning();
+	void setAutomaticRunning(Boolean value);
+	Integer getSpeed();
+	void setSpeed(Integer value);
 }

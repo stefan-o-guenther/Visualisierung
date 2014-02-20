@@ -23,4 +23,7 @@ public interface ICacheBox {
 	
 	Boolean isActivate();
 	void activate(Boolean value);
+	
+	void initializeRMPrevious();
+	void initializeRMDisk();
 }

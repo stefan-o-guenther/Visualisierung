@@ -11,18 +11,24 @@ import java.util.List;
 
 import Base.BaseManagement;
 
-public class MemoryManagement extends BaseManagement implements IMemoryManagement {
+public class Fragmentation extends BaseManagement implements IFragmentation {
 
-	public MemoryManagement() {
+	public Fragmentation() {
 		super();
 		init();
 		update();
 	}	
 	
-	private IMemoryStrategy strategy = null;
+	private IMemoryStrategy strategy;
+	private Boolean isAutomaticChecked;
+	private Boolean isAutomaticRunning;
+	private Integer speed;
 	
 	private void init() {
-		strategy = null;		
+		strategy = null;
+		isAutomaticChecked = false;
+		isAutomaticRunning = false;
+		speed = 0;
 	}
 	
 	private List<ISpace> loadExample() {
@@ -190,5 +196,41 @@ public class MemoryManagement extends BaseManagement implements IMemoryManagemen
 		Integer total = getTotalSpace();
 		Double rate = (((double) used) * 100.0) / ((double) total); 
 		return rate;
+	}
+
+	@Override
+	public Boolean isAutomaticChecked() {
+		return isAutomaticChecked;
+	}
+
+	@Override
+	public void setAutomaticChecked(Boolean value) {
+		if (value != null) {
+			isAutomaticChecked = value;
+		}
+	}
+
+	@Override
+	public Boolean isAutomaticRunning() {
+		return isAutomaticRunning;
+	}
+
+	@Override
+	public void setAutomaticRunning(Boolean value) {
+		if (value != null) {
+			isAutomaticRunning = value;
+		}
+	}
+
+	@Override
+	public Integer getSpeed() {
+		return speed;
+	}
+
+	@Override
+	public void setSpeed(Integer value) {
+		if (value != null) {
+			speed = value;
+		}
 	}
 }

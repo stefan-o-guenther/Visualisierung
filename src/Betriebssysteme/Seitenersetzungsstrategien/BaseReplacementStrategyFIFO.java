@@ -19,6 +19,11 @@ public abstract class BaseReplacementStrategyFIFO extends BaseReplacementStrateg
 	}
 	
 	@Override
+	public Boolean canUseRM() {
+		return false;
+	}
+	
+	@Override
 	protected void remove(List<ICache> ram, List<ICache> disk) {
 		if ((ram != null) && (disk != null)) {
 			while (ram.size() > maxRam) {

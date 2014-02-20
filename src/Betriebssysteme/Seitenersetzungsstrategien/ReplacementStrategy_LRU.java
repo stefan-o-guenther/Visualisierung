@@ -85,4 +85,9 @@ public class ReplacementStrategy_LRU extends BaseReplacementStrategy implements 
 		}		
 	}
 
+	@Override
+	public Boolean canUseRM() {
+		return false;
+	}
+
 }

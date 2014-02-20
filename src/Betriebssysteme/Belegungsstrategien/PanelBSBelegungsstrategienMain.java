@@ -25,7 +25,7 @@ public class PanelBSBelegungsstrategienMain extends BasePanelMain {
 	private PanelBSBelegungsstrategienModel panelModel;	
 	
 	protected void initComponents() {
-		IMemoryManagement memory = new MemoryManagement();
+		IFragmentation memory = new Fragmentation();
 		panelModel = new PanelBSBelegungsstrategienModel(memory);
 		panelMenu = new PanelBSBelegungsstrategienMenu(memory);
 		panelTitle = new PanelBSBelegungsstrategienTitle(memory);		

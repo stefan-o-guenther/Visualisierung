@@ -5,9 +5,8 @@
 
 package Betriebssysteme.Seitenersetzungsstrategien;
 
-import java.awt.Color;
+import java.util.List;
 
-import Base.EnumSurface;
 
 public interface ICache {
 
@@ -21,18 +20,18 @@ public interface ICache {
 	
 	ICache getCopy();	
 		
-	Boolean isRChanged();
-	void setRChanged(Boolean value);
+	List<Integer> getRPrevious();
+	void setRPrevious(List<Integer> r);
+	void addRPrevious(Integer r);
+	Integer getRPreviousSize();
+	void initializeRPrevious();
 	
-	Boolean isMChanged();	
-	void setMChanged(Boolean value);
-	
-	Integer getRPrevious();
-	void setPreviousR(Integer r);
-	
-	Integer getMPreviousM();
-	void setPreviousM(Integer m);
+	List<Integer> getMPrevious();
+	void setMPrevious(List<Integer> m);
+	void addMPrevious(Integer m);
+	Integer getMPreviousSize();
+	void initializeMPrevious();
 	
 	EnumCache getStatus();
-	void setStatus(EnumCache value);
+	void setStatus(EnumCache value);	
 }

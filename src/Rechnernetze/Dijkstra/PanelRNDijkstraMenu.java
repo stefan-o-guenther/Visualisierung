@@ -12,9 +12,10 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 
-import Base.BasePanelMenu;
+import Base.BasePanelMenuAutomatic;
+import Base.PanelAutomatic;
 
-public class PanelRNDijkstraMenu extends BasePanelMenu {
+public class PanelRNDijkstraMenu extends BasePanelMenuAutomatic {
 
 	public PanelRNDijkstraMenu(IDijkstraAlgorithm idijkstra) {
 		super();
@@ -30,13 +31,16 @@ public class PanelRNDijkstraMenu extends BasePanelMenu {
 	
 	private JButton btnNextStep;
 	private JButton btnReset;
+	private PanelAutomatic panelAutomatic;
 	
 	@Override
 	protected void initComponents() {
-		btnNextStep = new JButton("n\u00E4chster Schritt");
+		btnNextStep = new JButton("nächster Schritt");
 		btnNextStep.addActionListener(ActionExecute);		
-		btnReset = new JButton("zur\u00FCcksetzen");
+		btnReset = new JButton("zurücksetzen");
 		btnReset.addActionListener(ActionReset);
+		
+		panelAutomatic = new PanelAutomatic(dijkstra, this, this.getBackground());
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -45,7 +49,8 @@ public class PanelRNDijkstraMenu extends BasePanelMenu {
 					.addComponent(btnNextStep, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(btnReset, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(182, Short.MAX_VALUE))
+					.addGap(5)
+					.addComponent(panelAutomatic, GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -54,16 +59,23 @@ public class PanelRNDijkstraMenu extends BasePanelMenu {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnNextStep)
 						.addComponent(btnReset))
-					.addContainerGap(266, Short.MAX_VALUE))
+					.addContainerGap(88, Short.MAX_VALUE))
+				.addComponent(panelAutomatic, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
 		);
 		setLayout(groupLayout);		
 	}
 
 	@Override
-	protected void updateComponents() {		
-		EnumDijkstraStatus status = dijkstra.getStatus();
-		btnNextStep.setEnabled((status != EnumDijkstraStatus.FINISHED));
+	protected void updateComponents() {
+		Boolean notFinished = (dijkstra.getStatus() != EnumDijkstraStatus.FINISHED);
+		panelAutomatic.setAutomaticEnabled(notFinished);				
+		btnNextStep.setEnabled(notFinished);		
 		btnReset.setEnabled(true);
+		if (dijkstra.isAutomaticRunning()) {
+			btnNextStep.setText("stop");
+    	} else {
+    		btnNextStep.setText("nächster Schritt");
+    	}
 	}
 
 	@Override
@@ -73,7 +85,11 @@ public class PanelRNDijkstraMenu extends BasePanelMenu {
 	
 	ActionListener ActionExecute = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
-			dijkstra.execute();
+			if (dijkstra.isAutomaticChecked()) {
+				panelAutomatic.switchAutomatic();
+			} else {
+				dijkstra.execute();
+			}			
 			updateComponents();
 		}
 	};
@@ -87,6 +103,16 @@ public class PanelRNDijkstraMenu extends BasePanelMenu {
 
 	@Override
 	public Integer getHeightMenu() {
-		return 50;
+		return 100;
+	}
+
+	@Override
+	public void updateMenu() {
+		updateComponents();
+	}
+
+	@Override
+	public void error() {
+		// nothing
 	}
 }

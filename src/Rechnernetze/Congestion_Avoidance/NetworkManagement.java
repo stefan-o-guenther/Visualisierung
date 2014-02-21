@@ -12,4 +12,16 @@ public class NetworkManagement extends BaseManagement implements INetworkManagem
 	public NetworkManagement() {
 		super();
 	}
+
+	@Override
+	public Boolean execute() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -350,5 +350,10 @@ public class BuddyMemoryAllocation extends BaseManagement implements IBuddyMemor
 	public List<IProcessNode> getListRunningProcesses() {
 		List<IProcessNode> list = new ArrayList<IProcessNode>(listRunningProcesses);
 		return list;
+	}
+
+	@Override
+	public Boolean execute() {
+		return true;
 	}	
 }

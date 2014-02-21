@@ -12,4 +12,16 @@ public class PipelineManagement extends BaseManagement implements IPipelineManag
 	public PipelineManagement() {
 		super();
 	}
+
+	@Override
+	public Boolean execute() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
+	}
 }

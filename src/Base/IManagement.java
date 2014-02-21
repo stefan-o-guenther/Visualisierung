@@ -9,4 +9,6 @@ public interface IManagement {
 	EnumSurface getSurface();
 	void setSurface(EnumSurface value);
 	void setPanelModel(BasePanelModel model);
+	Boolean execute();
+	void reset();
 }

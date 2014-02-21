@@ -8,27 +8,21 @@ package Betriebssysteme.Belegungsstrategien;
 import java.awt.Color;
 import java.util.List;
 
-import Base.IManagement;
+import Base.IManagementAutomatic;
 
-public interface IFragmentation extends IManagement {
+
+public interface IFragmentation extends IManagementAutomatic {
 
 	EnumMemoryStrategy getStrategy();
 	void setStrategy(EnumMemoryStrategy value);	
 	Integer getNumber();
 	void setNumber(Integer value);	
 	EnumMemoryStatus getStatus();	
-	Boolean execute();	
-	void reset();	
 	List<ISpace> getListSpace();
 	Color getColor(EnumSpace type);
 	Integer getTotalSpace();
 	Integer getFreeSpace();
 	Integer getUsedSpace();
 	Double getUsedRate();
-	Boolean isAutomaticChecked();
-	void setAutomaticChecked(Boolean value);
-	Boolean isAutomaticRunning();
-	void setAutomaticRunning(Boolean value);
-	Integer getSpeed();
-	void setSpeed(Integer value);
+	
 }

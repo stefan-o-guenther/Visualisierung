@@ -9,9 +9,9 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import Base.BaseManagement;
+import Base.BaseManagementAutomatic;
 
-public class Fragmentation extends BaseManagement implements IFragmentation {
+public class Fragmentation extends BaseManagementAutomatic implements IFragmentation {
 
 	public Fragmentation() {
 		super();
@@ -20,15 +20,10 @@ public class Fragmentation extends BaseManagement implements IFragmentation {
 	}	
 	
 	private IMemoryStrategy strategy;
-	private Boolean isAutomaticChecked;
-	private Boolean isAutomaticRunning;
-	private Integer speed;
+	
 	
 	private void init() {
-		strategy = null;
-		isAutomaticChecked = false;
-		isAutomaticRunning = false;
-		speed = 0;
+		strategy = null;		
 	}
 	
 	private List<ISpace> loadExample() {
@@ -85,6 +80,8 @@ public class Fragmentation extends BaseManagement implements IFragmentation {
 	public void setNumber(Integer value) {
 		if ((strategy != null) && (strategy.getStatus() == EnumMemoryStatus.INPUT) && (value != null) && (value > 0)) {
 			strategy.setNumber(value);
+			isAutomaticChecked = false;
+			isAutomaticRunning = false;
 			update();
 		}
 	}
@@ -122,7 +119,6 @@ public class Fragmentation extends BaseManagement implements IFragmentation {
 		} else {
 			return this.loadExample();
 		}
-		//return new ArrayList<ISpace>(listSpacePublic); 		
 	}
 
 	private Color getColorEmpty() {
@@ -196,41 +192,5 @@ public class Fragmentation extends BaseManagement implements IFragmentation {
 		Integer total = getTotalSpace();
 		Double rate = (((double) used) * 100.0) / ((double) total); 
 		return rate;
-	}
-
-	@Override
-	public Boolean isAutomaticChecked() {
-		return isAutomaticChecked;
-	}
-
-	@Override
-	public void setAutomaticChecked(Boolean value) {
-		if (value != null) {
-			isAutomaticChecked = value;
-		}
-	}
-
-	@Override
-	public Boolean isAutomaticRunning() {
-		return isAutomaticRunning;
-	}
-
-	@Override
-	public void setAutomaticRunning(Boolean value) {
-		if (value != null) {
-			isAutomaticRunning = value;
-		}
-	}
-
-	@Override
-	public Integer getSpeed() {
-		return speed;
-	}
-
-	@Override
-	public void setSpeed(Integer value) {
-		if (value != null) {
-			speed = value;
-		}
 	}
 }

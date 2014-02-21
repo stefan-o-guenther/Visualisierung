@@ -7,11 +7,10 @@ package Rechnernetze.Dijkstra;
 
 import java.util.List;
 
-import Base.IManagement;
+import Base.IManagementAutomatic;
 
-public interface IDijkstraAlgorithm extends IManagement {
+public interface IDijkstraAlgorithm extends IManagementAutomatic {
 
-	void execute();
 	List<INode> getListNodes();
 	List<IEdge> getListEdges();
 	INode getNode(String name);
@@ -24,7 +23,6 @@ public interface IDijkstraAlgorithm extends IManagement {
 	Integer getMaxTableLines();
 	
 	EnumDijkstraStatus getStatus();
-	void reset();
 	
 	List<String> getListNodeNames();
 	List<List<String>> getListUsedNodes();

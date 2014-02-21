@@ -16,8 +16,6 @@ public interface IPaging extends IManagement {
 	void setStrategy(EnumPagingStrategy enumStrategy, List<Integer> listSequence, Integer ram, Integer disk);		
 	Integer getMaxRam();	
 	Integer getMaxDisk();		
-	void execute();	
-	void reset();	
 	Boolean resetRBits();	
 	Boolean setMBit();	
 	EnumPagingStatus getStatus();	

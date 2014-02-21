@@ -93,4 +93,10 @@ public class QALManagement extends BaseManagement implements IQALManagement {
 	        }
 	    }
 	}
+
+	@Override
+	public Boolean execute() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

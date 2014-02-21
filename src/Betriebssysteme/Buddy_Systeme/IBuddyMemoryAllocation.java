@@ -16,7 +16,6 @@ public interface IBuddyMemoryAllocation extends IManagement {
 	void stopProcess(String name);
 	void setTotalSpace(Integer value);
 	void print();
-	void reset();
 	EnumBuddyMemoryAllocation getStatus();
 	List<IBuddyOperation> getNodeList();
 	void limitOutput(Integer value);	

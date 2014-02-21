@@ -47,11 +47,12 @@ public class Paging extends BaseManagement implements IPaging {
 	}	
 
 	@Override
-	public void execute() {		
+	public Boolean execute() {		
 		if ((strategy != null) && (strategy.getStatus() == EnumPagingStatus.SEARCH)) {
 			strategy.execute();
 			update();
-		}		
+		}
+		return true;
 	}	
 	
 	@Override

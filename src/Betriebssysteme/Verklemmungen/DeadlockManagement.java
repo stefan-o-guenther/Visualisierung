@@ -12,5 +12,17 @@ public class DeadlockManagement extends BaseManagement implements IDeadlockManag
 	public DeadlockManagement() {
 		super();
 	}
+
+	@Override
+	public Boolean execute() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

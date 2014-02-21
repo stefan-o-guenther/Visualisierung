@@ -13,19 +13,15 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
-import Base.BasePanelMenu;
-import Base.ImageLoader;
+import Base.BasePanelMenuAutomatic;
+import Base.PanelAutomatic;
 
-public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
+public class PanelBSBelegungsstrategienMenu extends BasePanelMenuAutomatic {
 
 	public PanelBSBelegungsstrategienMenu(IFragmentation fragmentation) {
 		super();
@@ -39,10 +35,12 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	
 	private static final long serialVersionUID = 1L;
 	private String sToolTipStrategie = "";
-	private String sToolTipSpeed = "";
+	
 	private String sToolTipSpeicher = "";
 		
 	private IFragmentation fragmentation;
+	
+	private PanelAutomatic panelAutomatic;
 		
 	private JLabel lblStrategie;
 	private JLabel lblSpeicher;
@@ -54,22 +52,13 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	private JLabel lblUsedSpaceOutput;
 	private JLabel lblRateLabel;
 	private JLabel lblRateOutput;
-	private JLabel lblRabbit;
-	private JLabel lblTurtle;
-	private JLabel lblSpeedTip;
 	
 	private JButton btnExecute1;
 	private JButton btnExecute2;
 	
 	private ComboBoxStrategy cbStrategie;
 	
-	private JTextField tSpeicher;
-	
-	private JCheckBox chcxbxAuto;
-	
-	private JSlider sSpeed;
-	
-	private AutoThread tAuto; //= new AutoThread();
+	private JTextField tSpeicher;	
 	
 	protected void noInput() {
 		Object[] option = {"schließen"};
@@ -86,35 +75,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	
 	protected void foundSpace(Boolean value) {
 		if (!(value)) {
-			Object[] option = {"schließen"};
-			JOptionPane.showOptionDialog(null,
-					"Keinen passenden freien Speicher gefunden!",
-				    "Fehler",
-				    JOptionPane.ERROR_MESSAGE,
-				    JOptionPane.ERROR_MESSAGE,
-				    null,
-				    option,
-				    option[0]);
-		}
-	}
-	
-	private void setSpeed() {		
-		Integer speed = 2500 - (sSpeed.getValue() * 20);
-		fragmentation.setSpeed(speed);
-	}
-	
-	private void startAutomatic() {
-		if ((!(fragmentation.isAutomaticRunning())) && (fragmentation.isAutomaticChecked())) {
-			fragmentation.setAutomaticRunning(true);
-			tAuto = new AutoThread(fragmentation, this);
-			tAuto.start();
-		}
-	}
-
-	private void stopAutomatic() {
-		if (fragmentation.isAutomaticRunning()) {
-			fragmentation.setAutomaticRunning(false);
-			fragmentation.setAutomaticChecked(false);
+			error();
 		}
 	}
 	
@@ -139,13 +100,6 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	    	+ "Speicherblock gewählt, bei dem am meisten Rest<br>"
 	    	+ "bzw. Verschnitt übrig bleibt.<br><br>"
 	    	+ "</html>";
-			
-		sToolTipSpeed = ""
-			+ "<html>"
-        	+ "Mit diesem Geschwindigkeitsregeler können Sie einstellen,<br>"
-        	+ "wie schnell der Auto-Durchlauf ausgeführt werden soll.<br>"
-        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
-        	+ "</html>";
 	        
 	    sToolTipSpeicher = "ganze Zahl, die größer als Null ist, eintragen";
 	}
@@ -162,7 +116,6 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
     	lblRateOutput.setEnabled(true);
     	lblStrategie.setEnabled(true);
     	lblSpeicher.setEnabled(true);
-    	lblSpeedTip.setEnabled(true);   	
     	
     	EnumMemoryStatus status = fragmentation.getStatus();    	
     	switch (status) {
@@ -175,8 +128,8 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	        	btnExecute1.setText("übernehmen");
 	        	btnExecute2.setEnabled(false);
 	        	btnExecute2.setText("speichern");
-	        	chcxbxAuto.setEnabled(false);
 	        	fragmentation.setAutomaticChecked(false);
+	        	panelAutomatic.setAutomaticEnabled(false);
 	    		break;
 	    	}
 	    	case INPUT: {
@@ -187,8 +140,8 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	        	btnExecute1.setText("zurücksetzen");
 	        	btnExecute2.setEnabled(true);
 	        	btnExecute2.setText("speichern");
-	        	chcxbxAuto.setEnabled(false);
 	        	fragmentation.setAutomaticChecked(false);
+	        	panelAutomatic.setAutomaticEnabled(false);
 	    		break;
 	    	}
 	    	case SEARCH:
@@ -203,9 +156,9 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	        		btnExecute2.setText("stop");
 	        	} else {
 	        		btnExecute2.setText("weiter");
-	        	}        	
-	        	chcxbxAuto.setEnabled(true);   
-	    		break;
+	        	}
+	        	panelAutomatic.setAutomaticEnabled(true);
+	        	break;
 	    	}
 	    	case FINISHED: {
 	    		cbStrategie.setEnabled(false);
@@ -216,19 +169,18 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	        	btnExecute1.setText("zurücksetzen");
 	        	btnExecute2.setEnabled(!(fragmentation.isAutomaticChecked()));
 	        	btnExecute2.setText("weiter");
-	        	chcxbxAuto.setEnabled(false);  
+	        	panelAutomatic.setAutomaticEnabled(false);
+	        	break;
 	    	}
 	    	default: {
 	    		break;
 	    	}
-    	}    	
-    	chcxbxAuto.setSelected(fragmentation.isAutomaticChecked());
+    	}
     	lblTotalSpaceOutput.setText(fragmentation.getTotalSpace().toString());
     	lblFreeSpaceOutput.setText(fragmentation.getFreeSpace().toString());
     	lblUsedSpaceOutput.setText(fragmentation.getUsedSpace().toString());
     	DecimalFormat decimalFormat = new DecimalFormat("#0.00"); 
     	lblRateOutput.setText(decimalFormat.format(fragmentation.getUsedRate()));
-    	sSpeed.setEnabled(fragmentation.isAutomaticChecked());
 	}	
 	
 	@Override
@@ -236,8 +188,6 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		initToolTips();
 		
 		ImageIcon imgHelp = super.getImageIconHelp();
-		ImageIcon imgRabbit = ImageLoader.getImageIconRabbit();
-		ImageIcon imgTurtle = ImageLoader.getImageIconTurtle();		
 		
 		lblStrategie = new JLabel("Strategie:");
 		lblStrategie.setIcon(imgHelp);
@@ -260,116 +210,70 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 					
 		btnExecute2 = new JButton("übernehmen");
 		btnExecute2.addActionListener(ActionExecute2);
-		
-		chcxbxAuto = new JCheckBox("Automatischer Durchlauf");
-		chcxbxAuto.addActionListener(ActionAuto);
-		chcxbxAuto.setSelected(fragmentation.isAutomaticChecked());
-		
-		lblSpeedTip = new JLabel(" ");
-		lblSpeedTip.setIcon(imgHelp);
-		lblSpeedTip.setToolTipText(sToolTipSpeed);
-		
-		sSpeed = new JSlider( 0, 100, 50 );
-    	sSpeed.setPaintTicks( true );
-    	sSpeed.setMinorTickSpacing(10); //Abstände im Feinraster
-    	sSpeed.setMajorTickSpacing(20); //Abstände im Großraster
-    	sSpeed.setSnapToTicks(true);
-    	sSpeed.setPaintLabels(false);
-    	sSpeed.addChangeListener(ChangeSpeed);
     	
-    	setSpeed();
-		
-		lblTotalSpaceLabel = new JLabel("Gesammter Speicherplatz:");		
+    	lblTotalSpaceLabel = new JLabel("Gesammter Speicherplatz:");		
 		lblTotalSpaceOutput = new JLabel("");		
 		lblFreeSpaceLabel = new JLabel("Freier Speicherplatz:");		
 		lblFreeSpaceOutput = new JLabel("");		
 		lblUsedSpaceLabel = new JLabel("Belegter Speicherplatz:");		
 		lblUsedSpaceOutput = new JLabel("");		
 		lblRateLabel = new JLabel("Belegter Speicherplatz in %:");		
-		lblRateOutput = new JLabel("");		
-		lblTurtle = new JLabel(" ");
-		lblTurtle.setIcon(imgTurtle);		
-		lblRabbit = new JLabel(" ");
-		lblRabbit.setIcon(imgRabbit);
+		lblRateOutput = new JLabel("");
+		
+		panelAutomatic = new PanelAutomatic(fragmentation, this, this.getBackground());
 		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblUsedSpaceLabel)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblUsedSpaceOutput, GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
-							.addGap(786))
+							.addComponent(lblUsedSpaceOutput))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblFreeSpaceLabel)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblFreeSpaceOutput)
-							.addContainerGap(874, Short.MAX_VALUE))
+							.addComponent(lblFreeSpaceOutput))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblRateLabel)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(lblRateOutput))
+								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(lblRateLabel)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(lblRateOutput))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblSpeicher)
-												.addComponent(lblStrategie))
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-												.addComponent(tSpeicher)
-												.addComponent(cbStrategie, 0, 106, Short.MAX_VALUE))))
+										.addComponent(lblSpeicher)
+										.addComponent(lblStrategie))
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(btnExecute2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(btnExecute1, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblTotalSpaceLabel)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(lblTotalSpaceOutput)))
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(7)
-									.addComponent(lblTurtle))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(18)
-									.addComponent(lblSpeedTip)
-									.addGap(4)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(sSpeed, GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
-										.addComponent(chcxbxAuto))))
+										.addComponent(tSpeicher)
+										.addComponent(cbStrategie, 0, 106, Short.MAX_VALUE))))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblRabbit)
-							.addContainerGap())))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(btnExecute2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnExecute1, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblTotalSpaceLabel)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblTotalSpaceOutput)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panelAutomatic, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblStrategie)
-							.addComponent(cbStrategie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(btnExecute1))
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(chcxbxAuto)
-							.addComponent(lblSpeedTip)))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblStrategie)
+						.addComponent(cbStrategie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnExecute1))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblTurtle)
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblSpeicher)
-								.addComponent(tSpeicher, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnExecute2))
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(sSpeed, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblRabbit))))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblSpeicher)
+						.addComponent(tSpeicher, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnExecute2))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTotalSpaceLabel)
@@ -386,7 +290,8 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblRateLabel)
 						.addComponent(lblRateOutput))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(12, Short.MAX_VALUE))
+				.addComponent(panelAutomatic, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
 		);
 		setLayout(groupLayout);
 	}	
@@ -404,7 +309,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 					fragmentation.setStrategy(cbStrategie.getStrategy());		
 				} else {
 					// zurücksetzen
-					stopAutomatic();
+					panelAutomatic.stopAutomatic();
 					fragmentation.reset();
 					tSpeicher.setText("");
 				}
@@ -433,11 +338,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 	private void search() {
 		// Suche
 		if (fragmentation.isAutomaticChecked()) {
-			if (fragmentation.isAutomaticRunning()) {
-				stopAutomatic();
-			} else {
-				startAutomatic();
-			}
+			panelAutomatic.switchAutomatic();
 		} else {
 			foundSpace(fragmentation.execute());
 		}
@@ -470,17 +371,21 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenu {
 		}
 	};	
 	
-	private ActionListener ActionAuto = new ActionListener() {
-		public void actionPerformed (ActionEvent e) {
-			fragmentation.setAutomaticChecked(chcxbxAuto.isSelected());
-			updateComponents();
-		}
-	};
-	
-	private ChangeListener ChangeSpeed = new ChangeListener() {
-		public void stateChanged(ChangeEvent arg0) {
-			setSpeed();
-			updateComponents();
-		}
-	};
+	@Override
+	public void updateMenu() {
+		updateComponents();
+	}
+
+	@Override
+	public void error() {
+		Object[] option = {"schließen"};
+		JOptionPane.showOptionDialog(null,
+				"Keinen passenden freien Speicher gefunden!",
+			    "Fehler",
+			    JOptionPane.ERROR_MESSAGE,
+			    JOptionPane.ERROR_MESSAGE,
+			    null,
+			    option,
+			    option[0]);
+	}
 }

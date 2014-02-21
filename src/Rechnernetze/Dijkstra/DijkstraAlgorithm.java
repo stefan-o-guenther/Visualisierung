@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import Base.BaseManagement;
+import Base.BaseManagementAutomatic;
 
-public class DijkstraAlgorithm extends BaseManagement implements IDijkstraAlgorithm {
+public class DijkstraAlgorithm extends BaseManagementAutomatic implements IDijkstraAlgorithm {
 	
 	public DijkstraAlgorithm() {
 		super();
 		nodeStart = nodeU;
-		nodeTarget = nodeZ;
+		nodeTarget = nodeZ;		
 		putNodesInList();
 		putEdges();
 		initDijkstra();		
@@ -103,6 +103,8 @@ public class DijkstraAlgorithm extends BaseManagement implements IDijkstraAlgori
 		
 	private void initDijkstra() {
 		status = EnumDijkstraStatus.START;
+		setAutomaticChecked(false);
+		setAutomaticRunning(false);
 		initEdges();
 		initNodes();		
 		indexNode = -1;		
@@ -298,6 +300,8 @@ public class DijkstraAlgorithm extends BaseManagement implements IDijkstraAlgori
 			listRoute.add(nodeTarget.getName());
 		}
 		status = EnumDijkstraStatus.FINISHED;
+		setAutomaticChecked(false);
+		setAutomaticRunning(false);
 	}
 	
 	
@@ -326,7 +330,7 @@ public class DijkstraAlgorithm extends BaseManagement implements IDijkstraAlgori
 	}
 		
 	@Override
-	public void execute() {
+	public Boolean execute() {
 		switch (status) {
 			case START: {
 				executeStart();
@@ -364,6 +368,7 @@ public class DijkstraAlgorithm extends BaseManagement implements IDijkstraAlgori
 			}
 		}
 		update();
+		return true;
 	}	
 
 	@Override

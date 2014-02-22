@@ -32,16 +32,8 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		paging = ipaging;
 		initComponents();
 		updateComponents();
-	}	
+	}
 
-	private String sToolTipStrategie = "";
-	private String sToolTipReferenzfolge = "";
-	private String sToolTipRam = "";
-	private String sToolTipDisk = "";
-	private String sToolTipR = "";
-	private String sToolTipM = "";
-	private String sToolTipSeitenfehler = "";
-	
 	private JLabel lblStrategie;
 	private JLabel lblReferenzfolge;
 	private JLabel lblRam;
@@ -94,7 +86,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 				lblToolTipM.setEnabled(false);
 				lblToolTipM.setVisible(false);
 				btnExecute1.setText("Beispiel laden");
-				btnExecute2.setText("übernehmen");
+				btnExecute2.setText("\u00fcbernehmen");
 				btnExecute2.setEnabled(true);
 				cbStrategie.setEnabled(true);
 				tfReferenzfolge.setEnabled(true);
@@ -116,7 +108,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 				lblToolTipR.setVisible(useRM);
 				lblToolTipM.setEnabled(useRM);
 				lblToolTipM.setVisible(useRM);
-				btnExecute1.setText("zurücksetzen");
+				btnExecute1.setText("zur\u00fccksetzen");
 				btnExecute2.setText("weiter");
 				btnExecute2.setEnabled(true);
 				cbStrategie.setEnabled(false);
@@ -139,7 +131,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 				lblToolTipR.setVisible(useRM);
 				lblToolTipM.setEnabled(useRM);
 				lblToolTipM.setVisible(useRM);
-				btnExecute1.setText("zurücksetzen");
+				btnExecute1.setText("zur\u00fccksetzen");
 				btnExecute2.setText("weiter");
 				btnExecute2.setEnabled(false);
 				cbStrategie.setEnabled(false);
@@ -159,17 +151,15 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 	
 	//@Override
 	protected void initComponents() {		
-		initToolTips();
-		
 		ImageIcon imgHelp = getImageIconHelp();
 		
 		lblStrategie = new JLabel("Strategie:");
 		lblStrategie.setIcon(imgHelp);
-		lblStrategie.setToolTipText(sToolTipStrategie);
+		lblStrategie.setToolTipText(ToolTipManager.getToolTipStrategy());
 		
 		lblReferenzfolge = new JLabel("Referenzfolge:");
 		lblReferenzfolge.setIcon(imgHelp);
-		lblReferenzfolge.setToolTipText(sToolTipReferenzfolge);
+		lblReferenzfolge.setToolTipText(ToolTipManager.getToolTipReference());
 		
 		tfReferenzfolge = new JTextField();
 		tfReferenzfolge.setColumns(10);
@@ -178,11 +168,11 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		
 		lblRam = new JLabel("Anzahl RAM:");
 		lblRam.setIcon(imgHelp);
-		lblRam.setToolTipText(sToolTipRam);
+		lblRam.setToolTipText(ToolTipManager.getToolTipRam());
 		
 		lblDisk = new JLabel("Anzahl DISK:");
 		lblDisk.setIcon(imgHelp);
-		lblDisk.setToolTipText(sToolTipDisk);
+		lblDisk.setToolTipText(ToolTipManager.getToolTipDisk());
 		
 		tfDisk = new JTextField();
 		tfDisk.setColumns(10);
@@ -193,10 +183,10 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		btnExecute1 = new JButton("Beispiel laden");
 		btnExecute1.addActionListener(actionExecute1);
 		
-		btnExecute2 = new JButton("übernehmen");
+		btnExecute2 = new JButton("\u00fcbernehmen");
 		btnExecute2.addActionListener(actionExecute2);		
 		
-		btnR = new JButton("R-Bits zurücksetzen");
+		btnR = new JButton("R-Bits zur\u00fccksetzen");
 		btnR.addActionListener(actionResetR);
 		
 		btnM = new JButton("M-Bit setzen");
@@ -204,15 +194,15 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		
 		lblToolTipR = new JLabel(" ");
 		lblToolTipR.setIcon(imgHelp);
-		lblToolTipR.setToolTipText(sToolTipR);
+		lblToolTipR.setToolTipText(ToolTipManager.getToolTipR());
 		
 		lblToolTipM = new JLabel(" ");
 		lblToolTipM.setIcon(imgHelp);
-		lblToolTipM.setToolTipText(sToolTipM);
+		lblToolTipM.setToolTipText(ToolTipManager.getToolTipM());
 		
-		lblErrorTitle = new JLabel("Seitenverdrängungen:");		
+		lblErrorTitle = new JLabel("Seitenverdr\u00e4ngungen:");		
 		lblErrorTitle.setIcon(imgHelp);
-		lblErrorTitle.setToolTipText(sToolTipSeitenfehler);
+		lblErrorTitle.setToolTipText(ToolTipManager.getToolTipPagingError());
 		lblErrorValue = new JLabel(" ");		
 		
 		chckbxkOldStates = new JCheckBox("alte Zust\u00E4nde anzeigen");
@@ -289,73 +279,6 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		
 	}
 	
-	@Override
-	protected void initToolTips() {	
-		sToolTipStrategie = ""
-			+ "<html>"
-	    	+ "<strong>Optimale Strategie:</strong><br/>"
-	    	+ "<p>"
-	    	+ "Das beste wäre, wenn die Seitenersetzung immer die zukünfigen<br/>"
-	    	+ "Seitenzugriffe aller Prozesse berücksichtigen könnte, weil dann<br/>"
-	    	+ "wenige Seitenfehler auftreten würden. Ein optimaler Algorithmus würde<br/>"
-	    	+ "die Seitenrahmen für eine Ersetzung auswählen, die am spätesten von allen<br/>"
-	    	+ "belegten Seitenrahmen wieder benötigt würden.<br/>"
-	    	+ "</p>"
-	    	+ "<br/>"
-	    	+ "<strong>FIFO</strong><br/>"
-	    	+ "<p>"
-	    	+ "Bei <i>FIFO</i> (First In First Out) wird die zuerst eingespeicherte Seite ersetzt.<br/>"
-	    	+ "</p>"
-	    	+ "<br/>"
-	    	+ "<strong>FIFO - Second Chance</strong><br/>"
-	    	+ "<p>"
-	    	+ "Der <i>Second-Chance-Algorithmus</i> ist eine Verbesserung von <i>FIFO</i> dahingehend,<br/>"
-	    	+ "dass nochmals referenzierte Seiten im Hauptspeicher wie neu eingelagerte Seiten behandelt werden.<br/>"
-	    	+ "</p>"
-	    	+ "<br/>"
-	    	+ "<strong>NRU</strong><br/>"
-	    	+ "<p>"
-	    	+ "Seiten werden über R- und M-Bits priorisiert. Seiten mit kleinster Priorität werden als erstes ersetzt.<br/>"
-	    	+ "Die Prioritätenreihenfolge von niedrig nach hoch ist: R/M = 0/0, 0/1, 1/0, 1/1.<br/>"
-	    	+ "</p>"
-	    	+ "</html>";	
-		
-		sToolTipReferenzfolge = ""
-			+ "<html>"
-	    	+ "<span>"
-	    	+ "Die Eingabelänge der Referenzfolge ist für diese Animation auf 26 Seiten beschränkt.<br/>"
-	    	+ "Seiten werden durch einzelne Ziffern (0-9) identifiziert.<br/>"
-	    	+ "Die Referenzfolge ist die Reihenfolge der Seitenzugriffe bzw. gibt an,<br/>"
-	    	+ "auf welche Seiten als nächstes zugegriffen wird.<br/>"
-	    	+ "</span>"
-	    	+ "</html>";
-		
-		sToolTipRam = ""
-			+ "<html>"
-		  	+ "Anzahl RAM-Seiten"
-		  	+ "</html>";
-		
-		sToolTipDisk = ""
-			+ "<html>"
-		  	+ "Anzahl Disk-Seiten"
-		  	+ "</html>";
-		
-		sToolTipSeitenfehler = ""
-			+ "<html>"
-		  	+ "wie oft wurde im RAM eine Seite durch eine andere Seite ersetzt"
-		  	+ "</html>";
-		
-		sToolTipR = ""
-			+ "<html>"
-		  	+ "für gewöhlich setzt der Pageout-Dämon das R-Bit in<br/>"
-		  	+ "regelmäßigen Abständen zurück.<br/>"
-		  	+ "</html>";
-		sToolTipM = ""
-			+ "<html>"
-		  	+ "Seite wurde geschrieben/verändert"
-		  	+ "</html>";
-	}
-	
 	private void loadExample() {
 		// 012340156012356
 		// paging.reset();
@@ -368,7 +291,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 	
 	private void printError(String error) {
 		if (error != null) {
-			Object[] option = {"schließen"};
+			Object[] option = {"schlie\u00dfen"};
 			JOptionPane.showOptionDialog(null,
 					error,
 				    "Fehler",
@@ -396,7 +319,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 				//Integer x = Character.digit(c,10); 				
 			}
 		} catch (Exception ex) {
-			tfReferenzfolge.setText("Keine gültige Referenzfolge eingegeben!");
+			tfReferenzfolge.setText("Keine g\u00fcltige Referenzfolge eingegeben!");
 			printError("");
 			result = null;
 		} finally {
@@ -415,7 +338,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 			}
 		} catch (Exception ex) {
 			tfRam.setText("");
-			printError("Keine gültige RAM-Anzahl eingegeben!");
+			printError("Keine g\u00fcltige RAM-Anzahl eingegeben!");
 			result = null;
 		} finally {
 			
@@ -433,7 +356,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 			}
 		} catch (Exception ex) {
 			tfDisk.setText("");
-			printError("Keine gültige DISK-Anzahl eingebeben!");
+			printError("Keine g\u00fcltige DISK-Anzahl eingebeben!");
 			result = null;
 		} finally {
 			
@@ -474,7 +397,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 						Boolean ok = true;
 						if (sum > 16) {
 							ok = false;
-							printError("Die Summe aus Anzahl von RAM und DISK is größer als 16!");
+							printError("Die Summe aus Anzahl von RAM und DISK is gr\u00f6\u00dfer als 16!");
 						}
 						if (size > 18) {
 							ok = false;

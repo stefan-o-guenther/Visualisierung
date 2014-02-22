@@ -48,18 +48,16 @@ public abstract class BasePanelTitle extends BasePanel {
 	}
 	
 	protected void initComponents() {
-		String title = getTitle();
-		String tooltip = getToolTip();
 		ImageIcon imgIconHelp = ImageLoader.getImageIconHelp22();	
 		
 		groupColor = new ButtonGroupColor("farbig", "grau", actionColor);
 		rdbtnColored = groupColor.geRadioButtonColored();
 		rdbtnGray = groupColor.getRadioButtonGray();		
 				
-		lblTitle = new JLabel(title);
+		lblTitle = new JLabel(getTitle());
 		lblTitle.setFont(lblTitle.getFont().deriveFont(36f));
 		lblTitle.setIcon(imgIconHelp);
-		lblTitle.setToolTipText(tooltip);		
+		lblTitle.setToolTipText(getToolTip());		
 		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(

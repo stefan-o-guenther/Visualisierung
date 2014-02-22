@@ -169,12 +169,6 @@ public class PanelBSVerklemmungenMenu extends BasePanelMenu {
 	}
 	
 	@Override
-	protected void initToolTips() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Integer getHeightMenu() {
 		return 200;
 	}	

@@ -62,35 +62,28 @@ public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 	
 	private JPanel panel;
 	
-	private String sToolTipSpeichergroesse = "";
-	private String sToolTipProzessname = "";
-	private String sToolTipProzessgroesse = "";
-	private String sToolTipBeispielLaden = "";
-	
 	@Override
 	protected void initComponents() {
-		initToolTips();
-		
 		ImageIcon imgHelp = this.getImageIconHelp();		
 		
-		lblSpace = new JLabel("Speichergröße:");	
+		lblSpace = new JLabel("Speichergr\u00F6\u00DFe:");	
 		lblSpace.setIcon(imgHelp);
-		lblSpace.setToolTipText(sToolTipSpeichergroesse);
+		lblSpace.setToolTipText(ToolTipManager.getToolTipSpaceSize());
 		lblProcessName = new JLabel("Prozessname:");	
 		lblProcessName.setIcon(imgHelp);
-		lblProcessName.setToolTipText(sToolTipProzessname);
-		lblProcessSize = new JLabel("Prozessgröße:");
+		lblProcessName.setToolTipText(ToolTipManager.getToolTipProcessName());
+		lblProcessSize = new JLabel("Prozessgr\u00F6\u00DFe:");
 		lblProcessSize.setIcon(imgHelp);
-		lblProcessSize.setToolTipText(sToolTipProzessgroesse);
+		lblProcessSize.setToolTipText(ToolTipManager.getToolTipProcessSize());
 		lblExampleTip = new JLabel(" ");
 		lblExampleTip.setIcon(imgHelp);
-		lblExampleTip.setToolTipText(sToolTipBeispielLaden);
+		lblExampleTip.setToolTipText(ToolTipManager.getToolTipLoadExample());
 		
 		groupProcess = new ButtonGroupProcess("Prozess starten", "Prozess beenden", actionProcess);	
 		rdbtnProcessStart = groupProcess.geRadioButtonStart();
 		rdbtnProcessStop = groupProcess.getRadioButtonStop();
 				
-		btnExecute1 = new JButton("zurücksetzen");
+		btnExecute1 = new JButton("zur\u00FCcksetzen");
 		btnExecute1.addActionListener(actionExecute1);
 		btnExecute2 = new JButton("Prozess beenden");
 		btnExecute2.addActionListener(actionExecute2);
@@ -115,19 +108,15 @@ public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(lblProcessName, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblSpace, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(tfProcessName, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tfSpace, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)))
-						.addComponent(rdbtnProcessStart, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(lblProcessName, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(lblSpace, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(tfProcessName, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+						.addComponent(tfSpace, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(rdbtnProcessStop, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblProcessSize)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -135,22 +124,21 @@ public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 						.addComponent(btnExecute1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnExample, GroupLayout.PREFERRED_SIZE, 109, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblExampleTip))
-						.addComponent(btnExecute2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addGap(18)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 217, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(98, Short.MAX_VALUE))
+						.addComponent(btnExecute2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnExample, GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblExampleTip)
+					.addPreferredGap(ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 213, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(14)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(panel, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblSpace)
 								.addComponent(btnExecute1)
@@ -163,12 +151,8 @@ public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 								.addComponent(lblProcessSize)
 								.addComponent(tfProcessName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(tfProcessSize, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnExecute2))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(rdbtnProcessStart)
-								.addComponent(rdbtnProcessStop))))
-					.addContainerGap(394, Short.MAX_VALUE))
+								.addComponent(btnExecute2))))
+					.addContainerGap())
 		);
 		
 		lblProcessCountLabel = new JLabel("Anzahl der Prozesse:");
@@ -248,7 +232,7 @@ public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 					tfProcessSize.setEditable(false);
 					rdbtnProcessStart.setEnabled(false);	
 					rdbtnProcessStop.setEnabled(false);
-					btnExecute1.setText("übernehmen");
+					btnExecute1.setText("\u00fcbernehmen");
 					btnExecute2.setEnabled(false);
 					btnExample.setEnabled(true);		
 					break;					
@@ -262,7 +246,7 @@ public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 					tfProcessSize.setEditable(rdbtnProcessStart.isSelected());
 					rdbtnProcessStart.setEnabled(true);	
 					rdbtnProcessStop.setEnabled(true);
-					btnExecute1.setText("zurücksetzen");
+					btnExecute1.setText("zur\u00fccksetzen");
 					btnExecute2.setEnabled(true);	
 					btnExample.setEnabled(false);					
 					break;
@@ -289,28 +273,7 @@ public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 		Double restRate = buddy.getRestRate();
 		lblRestSpaceOutput.setText(restSpace + " (" + decimalFormat.format(restRate) + "%)");
 	}
-
-	@Override
-	protected void initToolTips() {
-		sToolTipSpeichergroesse = ""
-			+ "<html>"
-			+ "Da der BuddySystem-Algorithmus immer mit Blöcken der Länge 2<sup>k</sup> arbeitet,<br/>"
-			+ "wird jede Eingabe auf die nächst höherliegende 2er-Potzenzzahl gerundet.<br/>"
-			+ "</<html>";
-		sToolTipProzessname = ""
-			+ "<html>"
-			+ "Jeder Prozess hat einen inividuellen Namen."
-			+ "</<html>";
-		sToolTipProzessgroesse = ""
-			+ "<html>"
-			+ "Die Größe des Prozesses darf nicht größer sein als der größte freie Speicherbereich.<br/>"
-			+ "</<html>";
-		sToolTipBeispielLaden = ""
-			+ "<html>"
-			+ "Ein Bespielszenario, bei dem verschiedene Prozesse gestartet und gestoppt werden, wird geladen.<br/>"
-			+ "</<html>";
-	}
-	
+		
 	private void inputTotalSpace() {
 		// Eingabe
 		String text = tfSpace.getText();			

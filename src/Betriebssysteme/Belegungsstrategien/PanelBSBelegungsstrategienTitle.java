@@ -15,22 +15,7 @@ public class PanelBSBelegungsstrategienTitle extends BasePanelTitle {
 	
 	@Override
 	protected String getToolTip() {
-		String tooltipBSBelegungsstrategie = ""
-			+ "<html>"
-			+ "<p>"
-			+ "Es gibt verschiedene Strategien, um aus der Menge der unbelegten Speicherbereiche<br/>"
-			+ "den geeignetsten auszusuchen. Ziel der Strategien ist es, die noch freien Speicherbereiche<br/>"
-			+ "möglichst geschickt mit Prozessanforderungen abzugleichen.<br/>"
-			+ "</p>"
-			+ "Die wichtigsten Strategien ohne internen Verschnitt sind:"
-			+ "<ul>"
-			+ "<li>First-Fit</li>"
-			+ "<li>Next-Fit</li>"
-			+ "<li>Best-Fit</li>"
-			+ "<li>Worst-Fit</li>"
-			+ "</ul>"
-			+ "</html>";		
-		return tooltipBSBelegungsstrategie;
+		return ToolTipManager.getToolTipTitle();
 	}
 
 	@Override

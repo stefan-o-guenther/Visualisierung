@@ -47,17 +47,15 @@ public class PanelAutomatic extends JPanel {
 	private BasePanelMenuAutomatic panelMenu;
 	private IManagementAutomatic management;
 	private AutomaticThread tAuto; //= new AutoThread();
-	private String sToolTipSpeed = "";
 	
 	private Boolean enabled;
 	
 	private void initComponents() {
-		initToolTips();
 		enabled = true;
 		
 		lblToolTip = new JLabel(" ");
 		lblToolTip.setIcon(ImageLoader.getImageIconHelp16());
-		lblToolTip.setToolTipText(sToolTipSpeed);
+		lblToolTip.setToolTipText(ToolTipManager.getToolTipSpeed());
 		
 		lblTurtle = new JLabel(" ");
 		lblTurtle.setIcon(ImageLoader.getImageIconTurtle());
@@ -115,15 +113,6 @@ public class PanelAutomatic extends JPanel {
 					.addContainerGap(231, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
-	}
-	
-	private void initToolTips() {
-		sToolTipSpeed = ""
-				+ "<html>"
-	        	+ "Mit diesem Geschwindigkeitsregeler können Sie einstellen,<br>"
-	        	+ "wie schnell der Auto-Durchlauf ausgeführt werden soll.<br>"
-	        	+ "Standardmäßig ist die Geschwindigkeit auf 50% eingestellt.<br>"
-	        	+ "</html>";
 	}
 	
 	private void updateComponents() {

@@ -6,7 +6,6 @@
 package Base;
 
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 
 public abstract class BasePanelMenu extends BasePanel {
 
@@ -18,7 +17,7 @@ public abstract class BasePanelMenu extends BasePanel {
 	
 	protected abstract void initComponents();
 	protected abstract void updateComponents();
-	protected abstract void initToolTips();
+	//protected abstract void initToolTips();
 	
 	public abstract Integer getHeightMenu();
 	

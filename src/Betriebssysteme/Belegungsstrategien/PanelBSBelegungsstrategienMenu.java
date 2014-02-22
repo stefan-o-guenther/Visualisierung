@@ -34,10 +34,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenuAutomatic {
 	}
 	
 	private static final long serialVersionUID = 1L;
-	private String sToolTipStrategie = "";
 	
-	private String sToolTipSpeicher = "";
-		
 	private IFragmentation fragmentation;
 	
 	private PanelAutomatic panelAutomatic;
@@ -61,7 +58,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenuAutomatic {
 	private JTextField tSpeicher;	
 	
 	protected void noInput() {
-		Object[] option = {"schließen"};
+		Object[] option = {"schlie\u00dfen"};
 		JOptionPane.showOptionDialog(null,
 				"Keine ganze Zahl eingebeben!",
 			    "Fehler",
@@ -77,31 +74,6 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenuAutomatic {
 		if (!(value)) {
 			error();
 		}
-	}
-	
-	protected void initToolTips() {
-		sToolTipStrategie = ""
-			+ "<html>"
-	    	+ "<h3>First-Fit:</h3>"
-	    	+ "Wähle den ersten Speicherblock, der ausreichend<br>"
-	    	+ "groß ist.<br>"
-	    	+ "<br>"
-	    	+ "<h3>Next-Fit:</h3>"
-	    	+ "Dasselbe Prinzip wie bei First-Fit, nur wird hier<br>"
-	    	+ "die Suche nicht wieder von vorn begonnen,<br>"
-	    	+ "sondern beim letzten Treffer fortgesetzt.<br>"
-	    	+ "<br>"
-	    	+ "<h3>Best-Fit:</h3>"
-	    	+ "Es wird der Speicherblock gewählt, bei dem am<br>"
-	    	+ "wenigsten Rest bzw. Verschnitt übrig bleibt.<br>"
-	    	+ "<br>"
-	    	+ "<h3>Worst-Fit:</h3>"
-	    	+ "Genau das Gegenteil von Best-Fit. Es wird der<br>"
-	    	+ "Speicherblock gewählt, bei dem am meisten Rest<br>"
-	    	+ "bzw. Verschnitt übrig bleibt.<br><br>"
-	    	+ "</html>";
-	        
-	    sToolTipSpeicher = "ganze Zahl, die größer als Null ist, eintragen";
 	}
 	
 	@Override
@@ -125,7 +97,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenuAutomatic {
 	        	tSpeicher.setEditable(false);
 	        	tSpeicher.setText("");
 	        	btnExecute1.setEnabled(true);
-	        	btnExecute1.setText("übernehmen");
+	        	btnExecute1.setText("\u00fcbernehmen");
 	        	btnExecute2.setEnabled(false);
 	        	btnExecute2.setText("speichern");
 	        	fragmentation.setAutomaticChecked(false);
@@ -137,7 +109,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenuAutomatic {
 	        	tSpeicher.setEnabled(true);
 	        	tSpeicher.setEditable(true);
 	        	btnExecute1.setEnabled(true);
-	        	btnExecute1.setText("zurücksetzen");
+	        	btnExecute1.setText("zur\u00fccksetzen");
 	        	btnExecute2.setEnabled(true);
 	        	btnExecute2.setText("speichern");
 	        	fragmentation.setAutomaticChecked(false);
@@ -150,7 +122,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenuAutomatic {
 	        	tSpeicher.setEnabled(false);
 	        	tSpeicher.setEditable(false);
 	        	btnExecute1.setEnabled(true);
-	        	btnExecute1.setText("zurücksetzen");
+	        	btnExecute1.setText("zur\u00fccksetzen");
 	        	btnExecute2.setEnabled(true);
 	        	if (fragmentation.isAutomaticRunning()) {
 	        		btnExecute2.setText("stop");
@@ -166,7 +138,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenuAutomatic {
 	        	tSpeicher.setEditable(false);
 	        	tSpeicher.setText("");
 	        	btnExecute1.setEnabled(true);
-	        	btnExecute1.setText("zurücksetzen");
+	        	btnExecute1.setText("zur\u00fccksetzen");
 	        	btnExecute2.setEnabled(!(fragmentation.isAutomaticChecked()));
 	        	btnExecute2.setText("weiter");
 	        	panelAutomatic.setAutomaticEnabled(false);
@@ -185,17 +157,15 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenuAutomatic {
 	
 	@Override
 	protected void initComponents() {		
-		initToolTips();
-		
 		ImageIcon imgHelp = super.getImageIconHelp();
 		
 		lblStrategie = new JLabel("Strategie:");
 		lblStrategie.setIcon(imgHelp);
-		lblStrategie.setToolTipText(sToolTipStrategie);
+		lblStrategie.setToolTipText(ToolTipManager.getToolTipStratgy());
 		
 		lblSpeicher = new JLabel("Speicher:");
 		lblSpeicher.setIcon(imgHelp);
-		lblSpeicher.setToolTipText(sToolTipSpeicher);
+		lblSpeicher.setToolTipText(ToolTipManager.getToolTipSpeicher());
 		
 		cbStrategie = new ComboBoxStrategy();
 		cbStrategie.setEditable( false );
@@ -205,10 +175,10 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenuAutomatic {
 		tSpeicher.setColumns(10);
 		tSpeicher.setText("");
 		
-		btnExecute1 = new JButton("zurücksetzen");
+		btnExecute1 = new JButton("zur\u00fccksetzen");
 		btnExecute1.addActionListener(ActionExecute1);
 					
-		btnExecute2 = new JButton("übernehmen");
+		btnExecute2 = new JButton("\u00fcbernehmen");
 		btnExecute2.addActionListener(ActionExecute2);
     	
     	lblTotalSpaceLabel = new JLabel("Gesammter Speicherplatz:");		
@@ -378,7 +348,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenuAutomatic {
 
 	@Override
 	public void error() {
-		Object[] option = {"schließen"};
+		Object[] option = {"schlie\u00dfen"};
 		JOptionPane.showOptionDialog(null,
 				"Keinen passenden freien Speicher gefunden!",
 			    "Fehler",

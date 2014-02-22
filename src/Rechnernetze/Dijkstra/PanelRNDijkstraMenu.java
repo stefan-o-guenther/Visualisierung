@@ -35,9 +35,9 @@ public class PanelRNDijkstraMenu extends BasePanelMenuAutomatic {
 	
 	@Override
 	protected void initComponents() {
-		btnNextStep = new JButton("nächster Schritt");
+		btnNextStep = new JButton("n\u00e4chster Schritt");
 		btnNextStep.addActionListener(ActionExecute);		
-		btnReset = new JButton("zurücksetzen");
+		btnReset = new JButton("zur\u00fccksetzen");
 		btnReset.addActionListener(ActionReset);
 		
 		panelAutomatic = new PanelAutomatic(dijkstra, this, this.getBackground());
@@ -74,15 +74,10 @@ public class PanelRNDijkstraMenu extends BasePanelMenuAutomatic {
 		if (dijkstra.isAutomaticRunning()) {
 			btnNextStep.setText("stop");
     	} else {
-    		btnNextStep.setText("nächster Schritt");
+    		btnNextStep.setText("n\u00e4chster Schritt");
     	}
 	}
 
-	@Override
-	protected void initToolTips() {
-		// nothing
-	}
-	
 	ActionListener ActionExecute = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			if (dijkstra.isAutomaticChecked()) {

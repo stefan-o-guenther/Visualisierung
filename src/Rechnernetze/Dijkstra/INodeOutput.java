@@ -5,7 +5,6 @@
 
 package Rechnernetze.Dijkstra;
 
-
 public interface INodeOutput extends IOutput {	
-	EnumNodeOutputType getNodeOutputType();	
+	public EnumNodeOutputType getNodeOutputType();	
 }

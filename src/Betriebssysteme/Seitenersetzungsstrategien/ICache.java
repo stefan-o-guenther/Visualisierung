@@ -10,28 +10,28 @@ import java.util.List;
 
 public interface ICache {
 
-	Integer getNumber();	
+	public Integer getNumber();	
 	
-	Integer getR();
-	void setR(Integer r);
+	public Integer getR();
+	public void setR(Integer r);
 	
-	Integer getM();	
-	void setM(Integer m);
+	public Integer getM();	
+	public void setM(Integer m);
 	
-	ICache getCopy();	
+	public ICache getCopy();	
 		
-	List<Integer> getRPrevious();
-	void setRPrevious(List<Integer> r);
-	void addRPrevious(Integer r);
-	Integer getRPreviousSize();
-	void initializeRPrevious();
+	public List<Integer> getRPrevious();
+	public void setRPrevious(List<Integer> r);
+	public void addRPrevious(Integer r);
+	public Integer getRPreviousSize();
+	public void initializeRPrevious();
 	
-	List<Integer> getMPrevious();
-	void setMPrevious(List<Integer> m);
-	void addMPrevious(Integer m);
-	Integer getMPreviousSize();
-	void initializeMPrevious();
+	public List<Integer> getMPrevious();
+	public void setMPrevious(List<Integer> m);
+	public void addMPrevious(Integer m);
+	public Integer getMPreviousSize();
+	public void initializeMPrevious();
 	
-	EnumCache getStatus();
-	void setStatus(EnumCache value);	
+	public EnumCache getStatus();
+	public void setStatus(EnumCache value);	
 }

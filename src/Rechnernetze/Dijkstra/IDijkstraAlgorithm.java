@@ -11,22 +11,22 @@ import Base.IManagementAutomatic;
 
 public interface IDijkstraAlgorithm extends IManagementAutomatic {
 
-	List<INode> getListNodes();
-	List<IEdge> getListEdges();
-	INode getNode(String name);
-	IEdge getEdge(String nameA, String nameB);
-	IEdge getEdge(INode nodeA, INode nodeB);
+	public List<INode> getListNodes();
+	public List<IEdge> getListEdges();
+	public INode getNode(String name);
+	public IEdge getEdge(String nameA, String nameB);
+	public IEdge getEdge(INode nodeA, INode nodeB);
 	
-	Boolean isConnected(String nameA, String nameB);
-	Boolean isConnected(INode nodeA, INode nodeB);
+	public Boolean isConnected(String nameA, String nameB);
+	public Boolean isConnected(INode nodeA, INode nodeB);
 	
-	Integer getMaxTableLines();
+	public Integer getMaxTableLines();
 	
-	EnumDijkstraStatus getStatus();
+	public EnumDijkstraStatus getStatus();
 	
-	List<String> getListNodeNames();
-	List<List<String>> getListUsedNodes();
-	List<List<INodeOutput>> getListNodesOutput();
-	List<IMinOutput> getListMin();
-	List<String> getListRoute();
+	public List<String> getListNodeNames();
+	public List<List<String>> getListUsedNodes();
+	public List<List<INodeOutput>> getListNodesOutput();
+	public List<IMinOutput> getListMin();
+	public List<String> getListRoute();
 }

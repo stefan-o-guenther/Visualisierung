@@ -6,6 +6,6 @@
 package Rechnernetze.Dijkstra;
 
 public interface INodeOutputWeight extends INodeOutput {
-	Integer getWeightToAccess();
-	void setWeightToAccess(Integer value);
+	public Integer getWeightToAccess();
+	public void setWeightToAccess(Integer value);
 }

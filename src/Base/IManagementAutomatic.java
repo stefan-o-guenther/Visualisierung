@@ -6,10 +6,10 @@
 package Base;
 
 public interface IManagementAutomatic extends IManagement {
-	Boolean isAutomaticChecked();
-	void setAutomaticChecked(Boolean value);
-	Boolean isAutomaticRunning();
-	void setAutomaticRunning(Boolean value);
-	Integer getSpeed();
-	void setSpeed(Integer value);
+	public Boolean isAutomaticChecked();
+	public void setAutomaticChecked(Boolean value);
+	public Boolean isAutomaticRunning();
+	public void setAutomaticRunning(Boolean value);
+	public Integer getSpeed();
+	public void setSpeed(Integer value);
 }

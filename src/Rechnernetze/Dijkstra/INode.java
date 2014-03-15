@@ -9,29 +9,29 @@ import java.util.List;
 
 public interface INode extends IColorGetter {
 
-	String getName();
-	void setName(String value);
+	public String getName();
+	public void setName(String value);
 	
-	INode getPreviousNode();
-	void setPreviousNode(INode node);
+	public INode getPreviousNode();
+	public void setPreviousNode(INode node);
 	
-	void deletePreviousNode();
+	public void deletePreviousNode();
 	
-	Integer getPreviousWeight();
+	public Integer getPreviousWeight();
 	
-	Boolean isUsed();
-	void setUsed(Boolean value);
+	public Boolean isUsed();
+	public void setUsed(Boolean value);
 	
-	IEdge getPreviousEdge();
+	public IEdge getPreviousEdge();
 	
-	List<INode> getRoute();
+	public List<INode> getRoute();
 	
-	void addEdge(IEdge edge);
+	public void addEdge(IEdge edge);
 	
-	Boolean hasPreviousNode();
+	public Boolean hasPreviousNode();
 		
-	Boolean isConnected(IEdge edge);
-	Boolean isConnected(INode node);
+	public Boolean isConnected(IEdge edge);
+	public Boolean isConnected(INode node);
 	
-	void initialize();
+	public void initialize();
 }

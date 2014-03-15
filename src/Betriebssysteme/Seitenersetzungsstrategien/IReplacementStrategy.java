@@ -8,16 +8,16 @@ package Betriebssysteme.Seitenersetzungsstrategien;
 import java.util.List;
 
 public interface IReplacementStrategy {
-	void execute();	
-	Boolean resetRBits();	
-	Boolean setMBit();
-	EnumPagingStatus getStatus();	
-	List<ICacheBox> getListCacheBox();
-	EnumPagingStrategy getStrategy();
-	Integer getMaxRam();
-	Integer getMaxDisk();
-	Boolean useRM();
-	Integer getErrorCount();
-	Integer getMaxRM();
-	Boolean canUseRM();
+	public void execute();	
+	public Boolean resetRBits();	
+	public Boolean setMBit();
+	public EnumPagingStatus getStatus();	
+	public List<ICacheBox> getListCacheBox();
+	public EnumPagingStrategy getStrategy();
+	public Integer getMaxRam();
+	public Integer getMaxDisk();
+	public Boolean useRM();
+	public Integer getErrorCount();
+	public Integer getMaxRM();
+	public Boolean canUseRM();
 }

@@ -6,6 +6,6 @@
 package Rechnernetze.Dijkstra;
 
 public interface IMinOutputRoute extends IMinOutput {
-	Integer getWeight();
-	void setWeight(Integer value);
+	public Integer getWeight();
+	public void setWeight(Integer value);
 }

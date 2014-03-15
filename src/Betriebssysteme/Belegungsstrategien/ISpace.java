@@ -7,18 +7,18 @@ package Betriebssysteme.Belegungsstrategien;
 
 public interface ISpace {
 	
-	Boolean isActivated();
-	void activate(Boolean value);
+	public Boolean isActivated();
+	public void activate(Boolean value);
 	
-	EnumSpace getType();
-	void setType(EnumSpace value);
+	public EnumSpace getType();
+	public void setType(EnumSpace value);
 	
-	Integer getNewValue();
-	void setNewValue(Integer value);
+	public Integer getNewValue();
+	public void setNewValue(Integer value);
 	
-	Integer getCurrentValue();
-	void setCurrentValue(Integer value);
+	public Integer getCurrentValue();
+	public void setCurrentValue(Integer value);
 	
-	Integer getRestValue();
-	void setRestValue(Integer value);
+	public Integer getRestValue();
+	public void setRestValue(Integer value);
 }

@@ -50,7 +50,7 @@ public abstract class BasePanelTitle extends BasePanel {
 	protected void initComponents() {
 		ImageIcon imgIconHelp = ImageLoader.getImageIconHelp22();	
 		
-		groupColor = new ButtonGroupColor("farbig", "grau", actionColor);
+		groupColor = new ButtonGroupColor(actionColor);
 		rdbtnColored = groupColor.geRadioButtonColored();
 		rdbtnGray = groupColor.getRadioButtonGray();		
 				

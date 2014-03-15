@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface IMemoryStrategy {
 
-	EnumMemoryStrategy getStrategy();
-	EnumMemoryStatus getStatus();
-	List<ISpace> getListSpace();
-	void setNumber(Integer value);
-	Integer getNumber();
-	void init();
+	public EnumMemoryStrategy getStrategy();
+	public EnumMemoryStatus getStatus();
+	public List<ISpace> getListSpace();
+	public void setNumber(Integer value);
+	public Integer getNumber();
+	public void init();
 	public Boolean execute();
 }

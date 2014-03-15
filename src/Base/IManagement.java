@@ -6,9 +6,9 @@
 package Base;
 
 public interface IManagement {
-	EnumSurface getSurface();
-	void setSurface(EnumSurface value);
-	void setPanelModel(BasePanelModel model);
-	Boolean execute();
-	void reset();
+	public EnumSurface getSurface();
+	public void setSurface(EnumSurface value);
+	public void setPanelModel(BasePanelModel model);
+	public Boolean execute();
+	public void reset();
 }

@@ -15,16 +15,7 @@ public class PanelRNCongestionAvoidanceTitle extends BasePanelTitle {
 
 	@Override
 	protected String getToolTip() {
-		String tooltipRNCongestionAvoidance = ""
-			+ "<html>"
-			+ "<p>"
-			+ "Congestion Avoidance (CA) ist ein Verfahren zur Vermeidung von Stausituationen in Routern.<br/>"
-			+ "Wenn bei Routern die Warteschlangen gefüllt sind, verwerfen sie normalerweise anstehende Datenpakete.<br/>"
-			+ "Dieser Paketverlust führt beim TCP-Protokoll zur Reduzierung der Senderate und zur anschließenden<br/>"
-			+ "Erhöhung, sobald keine Datenverluste mehr gemeldet werden.<br/>"
-			+ "</p>"
-			+ "</html>";
-		return tooltipRNCongestionAvoidance;
+		return ToolTipManager.getToolTipTitle();
 	}
 
 	@Override

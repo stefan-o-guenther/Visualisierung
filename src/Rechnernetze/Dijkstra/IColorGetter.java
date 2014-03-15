@@ -10,5 +10,5 @@ import java.awt.Color;
 import Base.EnumSurface;
 
 public interface IColorGetter {
-	Color getColor(EnumSurface surface);
+	public Color getColor(EnumSurface surface);
 }

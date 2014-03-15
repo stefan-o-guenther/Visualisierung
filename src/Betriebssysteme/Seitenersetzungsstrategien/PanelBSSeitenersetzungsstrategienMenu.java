@@ -1,5 +1,5 @@
 /**
- * @author:	Stefan Otto Günther
+ * @author:	Stefan Otto Gï¿½nther
  * @date:	27.01.2014
  */
 
@@ -21,6 +21,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.BasePanelMenu;
 import javax.swing.JCheckBox;
+import javax.swing.JPanel;
+import java.awt.Color;
 
 public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 	
@@ -186,68 +188,73 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		btnExecute2 = new JButton("\u00fcbernehmen");
 		btnExecute2.addActionListener(actionExecute2);		
 		
-		btnR = new JButton("R-Bits zur\u00fccksetzen");
-		btnR.addActionListener(actionResetR);
-		
-		btnM = new JButton("M-Bit setzen");
-		btnM.addActionListener(actionSetM);
-		
-		lblToolTipR = new JLabel(" ");
-		lblToolTipR.setIcon(imgHelp);
-		lblToolTipR.setToolTipText(ToolTipManager.getToolTipR());
-		
-		lblToolTipM = new JLabel(" ");
-		lblToolTipM.setIcon(imgHelp);
-		lblToolTipM.setToolTipText(ToolTipManager.getToolTipM());
-		
 		lblErrorTitle = new JLabel("Seitenverdr\u00e4ngungen:");		
 		lblErrorTitle.setIcon(imgHelp);
 		lblErrorTitle.setToolTipText(ToolTipManager.getToolTipPagingError());
 		lblErrorValue = new JLabel(" ");		
 		
 		chckbxkOldStates = new JCheckBox("alte Zust\u00E4nde anzeigen");
+		chckbxkOldStates.setBackground(Color.WHITE);
 		chckbxkOldStates.addActionListener(actionOldStates);
+		
+		lblToolTipR = new JLabel(" ");
+		lblToolTipR.setIcon(imgHelp);
+		lblToolTipR.setToolTipText(ToolTipManager.getToolTipR());
+		
+		btnR = new JButton("R-Bits zur\u00fccksetzen");
+		btnR.addActionListener(actionResetR);
+		
+		btnM = new JButton("M-Bit setzen");
+		btnM.addActionListener(actionSetM);
+		
+		lblToolTipM = new JLabel(" ");
+		lblToolTipM.setIcon(imgHelp);
+		lblToolTipM.setToolTipText(ToolTipManager.getToolTipM());
 				
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblReferenzfolge)
-						.addComponent(lblStrategie))
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addComponent(lblToolTipR)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnR, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblReferenzfolge)
+								.addComponent(lblStrategie))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(tfReferenzfolge, Alignment.LEADING)
+								.addComponent(cbStrategie, Alignment.LEADING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(lblDisk, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lblRam, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(tfDisk, 0, 0, Short.MAX_VALUE)
+								.addComponent(tfRam, GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(btnExecute2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnExecute1, GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblToolTipM)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnM, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(tfReferenzfolge)
-						.addComponent(cbStrategie, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(lblDisk, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(lblRam, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(tfDisk, 0, 0, Short.MAX_VALUE)
-						.addComponent(tfRam, GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(btnExecute2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnExecute1, GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE))
-					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblErrorTitle)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblErrorValue, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-						.addComponent(chckbxkOldStates, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblToolTipM)
-						.addComponent(lblToolTipR))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(btnM, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnR, GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(chckbxkOldStates, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(228, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -260,9 +267,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 						.addComponent(tfRam, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnExecute1)
 						.addComponent(lblErrorTitle)
-						.addComponent(lblErrorValue)
-						.addComponent(lblToolTipR)
-						.addComponent(btnR))
+						.addComponent(lblErrorValue))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblReferenzfolge)
@@ -270,10 +275,14 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 						.addComponent(lblDisk)
 						.addComponent(tfDisk, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnExecute2)
-						.addComponent(lblToolTipM)
-						.addComponent(btnM)
 						.addComponent(chckbxkOldStates))
-					.addContainerGap(13, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblToolTipR)
+						.addComponent(btnR)
+						.addComponent(lblToolTipM)
+						.addComponent(btnM))
+					.addContainerGap(271, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 		
@@ -315,8 +324,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 					result.add(x);
 				} else {
 					throw new Exception();
-				}				
-				//Integer x = Character.digit(c,10); 				
+				}
 			}
 		} catch (Exception ex) {
 			tfReferenzfolge.setText("Keine g\u00fcltige Referenzfolge eingegeben!");
@@ -384,6 +392,9 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 		}
 	};
 	
+	private final Integer maxSumRamDisk = 14;
+	private final Integer maxLengthReference = 24;
+	
 	private ActionListener actionExecute2 = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			switch (paging.getStatus()) {
@@ -395,13 +406,13 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 						Integer sum = ram + disk;
 						Integer size = listSequence.size();
 						Boolean ok = true;
-						if (sum > 16) {
+						if (sum > 14) {
 							ok = false;
-							printError("Die Summe aus Anzahl von RAM und DISK is gr\u00f6\u00dfer als 16!");
+							printError("Die Summe aus Anzahl von RAM und DISK is gr\u00f6\u00dfer als " + maxSumRamDisk +"!");
 						}
-						if (size > 18) {
+						if (size > maxLengthReference) {
 							ok = false;
-							printError("Die Referenzfolge hat mehr als 18 Stellen!");
+							printError("Die Referenzfolge hat mehr als " + maxLengthReference + " Stellen!");
 						}
 						if (ram.equals(0)) {
 							ok = false;
@@ -454,6 +465,6 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 
 	@Override
 	public Integer getHeightMenu() {
-		return 70;
+		return 100;
 	}
 }

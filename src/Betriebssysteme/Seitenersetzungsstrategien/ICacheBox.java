@@ -9,21 +9,21 @@ import java.util.List;
 
 public interface ICacheBox {
 	
-	Integer getNumber();
-	void setNumber(Integer value);
+	public Integer getNumber();
+	public void setNumber(Integer value);
 	
-	List<ICache> getRam();
-	void setRam(List<ICache> value);
+	public List<ICache> getRam();
+	public void setRam(List<ICache> value);
 	
-	List<ICache> getDisk();
-	void setDisk(List<ICache> value);
+	public List<ICache> getDisk();
+	public void setDisk(List<ICache> value);
 	
-	List<ICache> getRamCopy();
-	List<ICache> getDiskCopy();
+	public List<ICache> getRamCopy();
+	public List<ICache> getDiskCopy();
 	
-	Boolean isActivate();
-	void activate(Boolean value);
+	public Boolean isActivate();
+	public void activate(Boolean value);
 	
-	void initializeRMPrevious();
-	void initializeRMDisk();
+	public void initializeRMPrevious();
+	public void initializeRMDisk();
 }

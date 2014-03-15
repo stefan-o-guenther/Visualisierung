@@ -12,49 +12,35 @@ import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
 import javax.swing.JRadioButton;
 
-public class ButtonGroupColor extends ButtonGroup {
+public class ButtonGroupColor extends BaseButtonGroup {
 
-	public ButtonGroupColor(String nameColored, String nameGray, ActionListener actionColor) {
+	public ButtonGroupColor(ActionListener actionColor) {
 		super();
-		if ((nameColored == null) || nameColored == "") {
-			nameColored = "colored";
-		}
-		if ((nameGray == null) || (nameGray == "")) {
-			nameColored = "gray";
-		}
-		rdbtnColored = new JRadioButton(nameColored);
-		rdbtnColored.setActionCommand(nameColored);
-		rdbtnColored.addActionListener(actionColor);		
-		
-		rdbtnGray = new JRadioButton(nameGray);
-		rdbtnGray.setActionCommand(nameGray);		
-		rdbtnGray.addActionListener(actionColor);
-		
-		mapColors = new HashMap<String, EnumSurface>();
-		mapColors.put(nameColored, EnumSurface.COLORED);
-		mapColors.put(nameGray, EnumSurface.GRAY);		
-		
-		add(rdbtnColored);
-		add(rdbtnGray);
-		rdbtnColored.setSelected(true);
+		this.setActionListener(actionColor);
+		this.setRadioButtons(arrayNames);
+		this.initMapColors();
 	}
 	
-	private JRadioButton rdbtnColored;	
-	private JRadioButton rdbtnGray;
+	private String[] arrayNames = {"farbig", "grau"};
 	
 	private HashMap<String, EnumSurface> mapColors;
 	
+	private void initMapColors() {
+		mapColors = new HashMap<String, EnumSurface>();
+		mapColors.put(arrayNames[0], EnumSurface.COLORED);
+		mapColors.put(arrayNames[1], EnumSurface.GRAY);		
+	}
+	
 	public JRadioButton geRadioButtonColored() {
-		return rdbtnColored;
+		return this.getRadioButton(arrayNames[0]);
 	}
 	
 	public JRadioButton getRadioButtonGray() {
-		return rdbtnGray;
+		return this.getRadioButton(arrayNames[1]);
 	}
 	
-	public EnumSurface getSelectedButton() {
-		ButtonModel model = getSelection();
-		String actionCommand = (model == null) ? "" : model.getActionCommand();
+	public EnumSurface getSelectedButton() {		
+		String actionCommand = this.getSelectedButtonString();
 		return mapColors.get(actionCommand);
 	}	
 }

@@ -8,59 +8,39 @@ package Betriebssysteme.Buddy_Systeme;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 
-import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
 import javax.swing.JRadioButton;
 
-public class ButtonGroupProcess extends ButtonGroup {
+import Base.BaseButtonGroup;
 
-	public ButtonGroupProcess(String nameStart, String nameStop, ActionListener actionProcess) {
-		super();
-		if ((nameStart == null) || nameStart == "") {
-			nameStart = "start";
-		}
-		if ((nameStop == null) || (nameStop == "")) {
-			nameStart = "stop";
-		}
-		rdbtnStart = new JRadioButton(nameStart);
-		rdbtnStart.setActionCommand(nameStart);
-		rdbtnStart.addActionListener(actionProcess);		
-		
-		rdbtnStop = new JRadioButton(nameStop);
-		rdbtnStop.setActionCommand(nameStop);		
-		rdbtnStop.addActionListener(actionProcess);
-		
-		mapProcess = new HashMap<String, EnumProcess>();
-		mapProcess.put(nameStart, EnumProcess.PROCESS_START);
-		mapProcess.put(nameStop, EnumProcess.PROCESS_STOP);		
-		
-		add(rdbtnStart);
-		add(rdbtnStop);
-		rdbtnStart.setSelected(true);
+public class ButtonGroupProcess extends BaseButtonGroup {
+
+	public ButtonGroupProcess(ActionListener actionProcess) {
+		super();		
+		this.setActionListener(actionProcess);
+		this.setRadioButtons(arrayNames);
+		this.initMapProcess();
 	}
 	
-	private JRadioButton rdbtnStart;	
-	private JRadioButton rdbtnStop;
+	private String[] arrayNames = {"Prozess starten", "Prozess beenden"};
 	
 	private HashMap<String, EnumProcess> mapProcess;
 	
-	public JRadioButton geRadioButtonStart() {
-		return rdbtnStart;
+	private void initMapProcess() {
+		mapProcess = new HashMap<String, EnumProcess>();
+		mapProcess.put(arrayNames[0], EnumProcess.PROCESS_START);
+		mapProcess.put(arrayNames[1], EnumProcess.PROCESS_STOP);		
+	}
+	
+	public JRadioButton getRadioButtonStart() {
+		return this.getRadioButton(arrayNames[0]);
 	}
 	
 	public JRadioButton getRadioButtonStop() {
-		return rdbtnStop;
+		return this.getRadioButton(arrayNames[1]);
 	}
 	
-	public EnumProcess getSelectedButtonEnum() {
-		ButtonModel model = getSelection();
-		String actionCommand = (model == null) ? "" : model.getActionCommand();
+	public EnumProcess getSelectedButtonEnum() {		
+		String actionCommand = this.getSelectedButtonString();
 		return mapProcess.get(actionCommand);
-	}
-	
-	public String getSelectedButtonString() {
-		ButtonModel model = getSelection();
-		String actionCommand = (model == null) ? "" : model.getActionCommand();
-		return actionCommand;
 	}
 }

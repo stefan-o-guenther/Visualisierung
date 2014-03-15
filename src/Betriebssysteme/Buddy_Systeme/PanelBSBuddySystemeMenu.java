@@ -1,5 +1,5 @@
 /**
- * @author:	Stefan Otto Günther
+ * @author:	Stefan Otto Gï¿½nther
  * @date:	27.01.2014
  */
 
@@ -79,8 +79,8 @@ public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 		lblExampleTip.setIcon(imgHelp);
 		lblExampleTip.setToolTipText(ToolTipManager.getToolTipLoadExample());
 		
-		groupProcess = new ButtonGroupProcess("Prozess starten", "Prozess beenden", actionProcess);	
-		rdbtnProcessStart = groupProcess.geRadioButtonStart();
+		groupProcess = new ButtonGroupProcess(actionProcess);	
+		rdbtnProcessStart = groupProcess.getRadioButtonStart();
 		rdbtnProcessStop = groupProcess.getRadioButtonStop();
 				
 		btnExecute1 = new JButton("zur\u00FCcksetzen");
@@ -108,15 +108,19 @@ public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(lblProcessName, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(lblSpace, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(tfProcessName, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
-						.addComponent(tfSpace, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(lblProcessName, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lblSpace, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(tfProcessName, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
+								.addComponent(tfSpace, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(rdbtnProcessStart, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(rdbtnProcessStop, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblProcessSize)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -129,7 +133,7 @@ public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblExampleTip)
 					.addPreferredGap(ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 213, GroupLayout.PREFERRED_SIZE)
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -151,7 +155,11 @@ public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 								.addComponent(lblProcessSize)
 								.addComponent(tfProcessName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(tfProcessSize, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnExecute2))))
+								.addComponent(btnExecute2))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(rdbtnProcessStart)
+								.addComponent(rdbtnProcessStop))))
 					.addContainerGap())
 		);
 		
@@ -314,7 +322,7 @@ public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 		return process;
 	}
 
-	ActionListener actionExecute1 = new ActionListener() {
+	private ActionListener actionExecute1 = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			EnumBuddyMemoryAllocation status = buddy.getStatus();
 			switch (status) {
@@ -334,7 +342,7 @@ public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 		}
 	};
 	
-	ActionListener actionExecute2 = new ActionListener() {
+	private ActionListener actionExecute2 = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			EnumBuddyMemoryAllocation status = buddy.getStatus();
 			switch (status) {
@@ -374,7 +382,7 @@ public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 		}
 	};
 	
-	ActionListener actionDemo = new ActionListener() {
+	private ActionListener actionDemo = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {			
 			tfSpace.setText("1024");
 			buddy.setTotalSpace(1024);				

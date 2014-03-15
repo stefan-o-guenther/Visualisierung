@@ -7,12 +7,12 @@ package Betriebssysteme.Buddy_Systeme;
 
 public interface IBuddySpace {
 
-	EnumNode getType();
-	void setType(EnumNode value);
+	public EnumNode getType();
+	public void setType(EnumNode value);
 	
-	String getName();
-	void setName(String value);
+	public String getName();
+	public void setName(String value);
 	
-	Integer getSize();
-	void setSize(Integer value);
+	public Integer getSize();
+	public void setSize(Integer value);
 }

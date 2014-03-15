@@ -13,16 +13,15 @@ import Base.IManagementAutomatic;
 
 public interface IFragmentation extends IManagementAutomatic {
 
-	EnumMemoryStrategy getStrategy();
-	void setStrategy(EnumMemoryStrategy value);	
-	Integer getNumber();
-	void setNumber(Integer value);	
-	EnumMemoryStatus getStatus();	
-	List<ISpace> getListSpace();
-	Color getColor(EnumSpace type);
-	Integer getTotalSpace();
-	Integer getFreeSpace();
-	Integer getUsedSpace();
-	Double getUsedRate();
-	
+	public EnumMemoryStrategy getStrategy();
+	public void setStrategy(EnumMemoryStrategy value);	
+	public Integer getNumber();
+	public void setNumber(Integer value);	
+	public EnumMemoryStatus getStatus();	
+	public List<ISpace> getListSpace();
+	public Color getColor(EnumSpace type);
+	public Integer getTotalSpace();
+	public Integer getFreeSpace();
+	public Integer getUsedSpace();
+	public Double getUsedRate();	
 }

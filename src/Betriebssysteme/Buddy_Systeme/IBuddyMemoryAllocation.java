@@ -12,26 +12,26 @@ import Base.IManagement;
 
 public interface IBuddyMemoryAllocation extends IManagement {
 
-	void startProcess(String name, Integer value);
-	void stopProcess(String name);
-	void setTotalSpace(Integer value);
-	void print();
-	EnumBuddyMemoryAllocation getStatus();
-	List<IBuddyOperation> getNodeList();
-	void limitOutput(Integer value);	
-	Color getProcessNodeColor(String name);
-	Color getRestColor();
-	Color getUsedColor();
-	Color getBuddyColor();
-	List<String> getListProcessNames();
-	List<Color> getListUsedColors();	
-	Integer getTotalSpace();	
-	Integer getProcessCount();	
-	Integer getProcessSpace();
-	Double getProcessRate();	
-	Integer getFreeSpace();
-	Double getFreeRate();	
-	Integer getRestSpace();
-	Double getRestRate();
-	List<IProcessNode> getListRunningProcesses();
+	public void startProcess(String name, Integer value);
+	public void stopProcess(String name);
+	public void setTotalSpace(Integer value);
+	public void print();
+	public EnumBuddyMemoryAllocation getStatus();
+	public List<IBuddyOperation> getNodeList();
+	public void limitOutput(Integer value);	
+	public Color getProcessNodeColor(String name);
+	public Color getRestColor();
+	public Color getUsedColor();
+	public Color getBuddyColor();
+	public List<String> getListProcessNames();
+	public List<Color> getListUsedColors();	
+	public Integer getTotalSpace();	
+	public Integer getProcessCount();	
+	public Integer getProcessSpace();
+	public Double getProcessRate();	
+	public Integer getFreeSpace();
+	public Double getFreeRate();	
+	public Integer getRestSpace();
+	public Double getRestRate();
+	public List<IProcessNode> getListRunningProcesses();
 }

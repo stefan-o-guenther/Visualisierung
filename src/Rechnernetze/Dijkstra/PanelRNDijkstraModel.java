@@ -1,5 +1,5 @@
 /**
- * @author:	Stefan Otto Günther
+ * @author:	Stefan Otto Gï¿½nther
  * @date:	27.01.2014
  */
 
@@ -38,7 +38,7 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 	private Integer difPicY = 26;
 	private Integer difX = 200;
 	private Integer difY = 70;		
-	private Integer x1 = 30;
+	private Integer x1 = 10;
 	private Integer x2 = x1 + 850;
 	private Integer x3 = x1 + difX;
 	private Integer x4 = x2 - difX;		
@@ -60,6 +60,8 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 			g2d.drawImage(getRouterImage(), x1, y1, null);	// U
 			g2d.setColor(nodeU.getColor(surface));
 			g2d.drawString(nameU, x1+difPicX-7, y1+difPicY+15);
+			g2d.setColor(Color.BLACK);
+			g2d.drawString("Start", x1+difPicX-25, y1+difPicY+40);
 		}
 	}
 	
@@ -110,6 +112,8 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 			g2d.drawImage(getRouterImage(), x2, y1, null);	// Z	
 			g2d.setColor(nodeZ.getColor(surface));
 			g2d.drawString(nameZ, x2+difPicX-7, y1+difPicY+15);
+			g2d.setColor(Color.BLACK);
+			g2d.drawString("Ziel", x2+difPicX-15, y1+difPicY+40);
 		}
 	}
 	
@@ -253,12 +257,12 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 		drawEdgeYZ();
 	}
 	
-	private Integer tableX = 20;
-	private Integer tableY = 250;
+	private Integer tableX = 180;
+	private Integer tableY = 240;
 	private Integer lineHeight = 30;
 	
-	private Integer lengthStep = 70;
-	private Integer lengthNodes = 135;
+	private Integer lengthStep = 80;
+	private Integer lengthNodes = 150;
 	private Integer lengthNodeOutput = 60;
 	private Integer lengthMin = 70;
 	

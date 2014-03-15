@@ -12,18 +12,18 @@ import Base.IManagement;
 
 
 public interface IPaging extends IManagement {
-	EnumPagingStrategy getStrategy();	
-	void setStrategy(EnumPagingStrategy enumStrategy, List<Integer> listSequence, Integer ram, Integer disk);		
-	Integer getMaxRam();	
-	Integer getMaxDisk();		
-	Boolean resetRBits();	
-	Boolean setMBit();	
-	EnumPagingStatus getStatus();	
-	List<ICacheBox> getListCache();	
-	Boolean useRM();	
-	Integer getErrorCount();	
-	Color getColor();
-	Boolean canViewOldStates();
-	void setViewOldStates(Boolean value);
-	Boolean canUseRM();
+	public EnumPagingStrategy getStrategy();	
+	public void setStrategy(EnumPagingStrategy enumStrategy, List<Integer> listSequence, Integer ram, Integer disk);		
+	public Integer getMaxRam();	
+	public Integer getMaxDisk();		
+	public Boolean resetRBits();	
+	public Boolean setMBit();	
+	public EnumPagingStatus getStatus();	
+	public List<ICacheBox> getListCache();	
+	public Boolean useRM();	
+	public Integer getErrorCount();	
+	public Color getColor();
+	public Boolean canViewOldStates();
+	public void setViewOldStates(Boolean value);
+	public Boolean canUseRM();
 }

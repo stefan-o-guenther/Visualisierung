@@ -8,25 +8,25 @@ package Betriebssysteme.Buddy_Systeme;
 import java.util.List;
 
 public interface IBuddyNode extends INode {
-	Integer getValue();
-	Boolean hasChildren();
+	public Integer getValue();
+	public Boolean hasChildren();
 	
-	IBuddyNode getLeftBuddyNode();
-	void setLeftBuddyNode(IBuddyNode value);
+	public IBuddyNode getLeftBuddyNode();
+	public void setLeftBuddyNode(IBuddyNode value);
 	
-	IBuddyNode getRightBuddyNode();
-	void setRightBuddyNode(IBuddyNode value);
+	public IBuddyNode getRightBuddyNode();
+	public void setRightBuddyNode(IBuddyNode value);
 	
-	IProcessNode getSpaceNode();
-	void setSpaceNode(IProcessNode value);
+	public IProcessNode getSpaceNode();
+	public void setSpaceNode(IProcessNode value);
 	
-	IRestNode getRestNode();
-	void setRestNode(IRestNode value);
+	public IRestNode getRestNode();
+	public void setRestNode(IRestNode value);
 	
-	IProcessNode insertSpace(String name, Integer value);
-	List<IBuddyNode> findPossibleBuddyNodes(Integer value);
+	public IProcessNode insertSpace(String name, Integer value);
+	public List<IBuddyNode> findPossibleBuddyNodes(Integer value);
 	
-	Boolean isEmpty();
-	Boolean clean();
-	void removeSpace();
+	public Boolean isEmpty();
+	public Boolean clean();
+	public void removeSpace();
 }

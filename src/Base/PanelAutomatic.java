@@ -25,6 +25,7 @@ public class PanelAutomatic extends JPanel {
 		super();
 		this.management = management;
 		this.panelMenu = panelMenu;
+		this.background = background;
 		this.setBackground(background);
 		initComponents();
 		updateComponents();
@@ -38,6 +39,7 @@ public class PanelAutomatic extends JPanel {
 		this.panelMenu = panelMenu;
 	}
 	
+	private Color background;
 	private JLabel lblToolTip;
 	private JLabel lblTurtle;
 	private JLabel lblRabbit;
@@ -64,9 +66,11 @@ public class PanelAutomatic extends JPanel {
 		lblRabbit.setIcon(ImageLoader.getImageIconRabbit());
 		
 		chckbxAutomatic = new JCheckBox("automatischer Durchlauf");
+		chckbxAutomatic.setBackground(background);
 		chckbxAutomatic.addActionListener(actionAuto);
 		
 		sliderSpeed = new JSlider(0, 100, 50);
+		sliderSpeed.setBackground(background);
 		sliderSpeed.setPaintTicks(true);
 		sliderSpeed.setSnapToTicks(true);
 		sliderSpeed.setPaintLabels(false);

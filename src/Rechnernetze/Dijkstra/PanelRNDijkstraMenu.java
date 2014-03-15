@@ -14,6 +14,7 @@ import javax.swing.JButton;
 
 import Base.BasePanelMenuAutomatic;
 import Base.PanelAutomatic;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class PanelRNDijkstraMenu extends BasePanelMenuAutomatic {
 
@@ -46,20 +47,20 @@ public class PanelRNDijkstraMenu extends BasePanelMenuAutomatic {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(btnNextStep, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(btnReset, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
-					.addGap(5)
-					.addComponent(panelAutomatic, GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(btnReset, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnNextStep, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(panelAutomatic, GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnNextStep)
-						.addComponent(btnReset))
-					.addContainerGap(88, Short.MAX_VALUE))
+					.addComponent(btnNextStep)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnReset)
+					.addContainerGap(59, Short.MAX_VALUE))
 				.addComponent(panelAutomatic, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
 		);
 		setLayout(groupLayout);		
@@ -98,7 +99,7 @@ public class PanelRNDijkstraMenu extends BasePanelMenuAutomatic {
 
 	@Override
 	public Integer getHeightMenu() {
-		return 100;
+		return 70;
 	}
 
 	@Override

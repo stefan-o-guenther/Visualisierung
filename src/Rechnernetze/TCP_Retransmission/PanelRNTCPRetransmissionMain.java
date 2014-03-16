@@ -23,7 +23,7 @@ public class PanelRNTCPRetransmissionMain extends BasePanelMain {
 	private PanelRNTCPRetransmissionModel panelModel;
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		IRetransmissionManagement retransmission = new RetransmissionManagement();
 		panelModel = new PanelRNTCPRetransmissionModel(retransmission);
 		panelMenu = new PanelRNTCPRetransmissionMenu(retransmission);
@@ -31,17 +31,17 @@ public class PanelRNTCPRetransmissionMain extends BasePanelMain {
 	}
 
 	@Override
-	protected BasePanelTitle getPanelTitle() {
+	public BasePanelTitle getPanelTitle() {
 		return panelTitle;
 	}
 
 	@Override
-	protected BasePanelMenu getPanelMenu() {
+	public BasePanelMenu getPanelMenu() {
 		return panelMenu;
 	}
 
 	@Override
-	protected BasePanelModel getPanelModel() {
+	public BasePanelModel getPanelModel() {
 		return panelModel;
 	}
 }

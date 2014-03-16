@@ -5,6 +5,7 @@
 
 package Betriebssysteme.Seitenersetzungsstrategien;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -14,24 +15,19 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.BasePanelMenu;
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
-import java.awt.Color;
 
 public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 	
-	public PanelBSSeitenersetzungsstrategienMenu(IPaging ipaging) {
-		super();
-		if (ipaging == null) {
-			ipaging = new Paging();
-		}
-		paging = ipaging;
+	public PanelBSSeitenersetzungsstrategienMenu(IPaging paging) {
+		super(paging);
+		this.paging = paging;
 		initComponents();
 		updateComponents();
 	}
@@ -61,7 +57,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 	private IPaging paging;
 
 	//@Override
-	protected void updateComponents() {		
+	public void updateComponents() {		
 		lblStrategie.setEnabled(true);
 		lblReferenzfolge.setEnabled(true);
 		lblRam.setEnabled(true);
@@ -152,7 +148,7 @@ public class PanelBSSeitenersetzungsstrategienMenu extends BasePanelMenu {;
 	}
 	
 	//@Override
-	protected void initComponents() {		
+	public void initComponents() {		
 		ImageIcon imgHelp = getImageIconHelp();
 		
 		lblStrategie = new JLabel("Strategie:");

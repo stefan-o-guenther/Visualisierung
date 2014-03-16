@@ -24,10 +24,7 @@ import Base.PanelAutomatic;
 public class PanelBSBelegungsstrategienMenu extends BasePanelMenuAutomatic {
 
 	public PanelBSBelegungsstrategienMenu(IFragmentation fragmentation) {
-		super();
-		if (fragmentation == null) {
-			fragmentation = new Fragmentation();
-		}
+		super(fragmentation);
 		this.fragmentation = fragmentation;
 		initComponents();
 		updateComponents();
@@ -77,7 +74,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenuAutomatic {
 	}
 	
 	@Override
-	protected void updateComponents() {
+	public void updateComponents() {
     	lblTotalSpaceLabel.setEnabled(true);
     	lblTotalSpaceOutput.setEnabled(true);
     	lblFreeSpaceLabel.setEnabled(true);
@@ -156,7 +153,7 @@ public class PanelBSBelegungsstrategienMenu extends BasePanelMenuAutomatic {
 	}	
 	
 	@Override
-	protected void initComponents() {		
+	public void initComponents() {		
 		ImageIcon imgHelp = super.getImageIconHelp();
 		
 		lblStrategie = new JLabel("Strategie:");

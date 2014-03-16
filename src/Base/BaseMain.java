@@ -13,13 +13,13 @@ import javax.swing.UIManager;
 public abstract class BaseMain {
 
 	public BaseMain() {
-		
+		super();
 	}
 	
 	protected static void initToolTipManager() {
 		ToolTipManager.sharedInstance().setDismissDelay(2147483647);
 		ToolTipManager.sharedInstance().setInitialDelay(0);
-	}
+	}	
 	
 	protected static void initLookAndFeel() {		
 		try {

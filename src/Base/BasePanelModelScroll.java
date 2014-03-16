@@ -12,19 +12,15 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-public abstract class BasePanelModelScroll extends BasePanelModel {
+public abstract class BasePanelModelScroll extends BasePanelModel implements IPanelModelScroll {
 
-	public BasePanelModelScroll() {
-		super();
+	public BasePanelModelScroll(IManagement management) {
+		super(management);
 	}
 	
-	private static final long serialVersionUID = 1L;
-	
 	protected JScrollPane scrollPane;	
-	protected abstract BasePanelModelDraw getPanelModelDraw();
-	protected abstract void initComponents();
 	
-	protected void initLayout() {
+	public void initLayout() {
 		BasePanelModelDraw panelModelDraw = this.getPanelModelDraw();
 		
         //Put the drawing area in a scroll pane.

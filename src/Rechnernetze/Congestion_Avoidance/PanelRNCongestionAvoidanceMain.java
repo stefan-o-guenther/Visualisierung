@@ -23,7 +23,7 @@ public class PanelRNCongestionAvoidanceMain extends BasePanelMain {
 	private PanelRNCongestionAvoidanceModel panelModel;
 	
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		INetworkManagement network = new NetworkManagement();
 		panelModel = new PanelRNCongestionAvoidanceModel(network);
 		panelMenu = new PanelRNCongestionAvoidanceMenu(network);
@@ -31,17 +31,17 @@ public class PanelRNCongestionAvoidanceMain extends BasePanelMain {
 	}
 
 	@Override
-	protected BasePanelTitle getPanelTitle() {
+	public BasePanelTitle getPanelTitle() {
 		return panelTitle;
 	}
 
 	@Override
-	protected BasePanelMenu getPanelMenu() {
+	public BasePanelMenu getPanelMenu() {
 		return panelMenu;
 	}
 
 	@Override
-	protected BasePanelModel getPanelModel() {
+	public BasePanelModel getPanelModel() {
 		return panelModel;
 	}
 }

@@ -11,20 +11,20 @@ import Base.BasePanelModelDraw;
 
 public class PanelRNCongestionAvoidanceModel extends BasePanelModelDraw {
 
-	public PanelRNCongestionAvoidanceModel(INetworkManagement inetwork) {
-		super();
-		if (inetwork == null) {
-			inetwork = new NetworkManagement();
+	public PanelRNCongestionAvoidanceModel(INetworkManagement network) {
+		super(network);
+		if (network == null) {
+			network = new NetworkManagement();
 		}
-		network = inetwork;
-		network.setPanelModel(this);
+		this.network = network;
+		putModelToManagement();
 		updateModel();
 	}
 
 	private INetworkManagement network;
 	
 	@Override
-	protected void doDrawing(Graphics g) {
+	public void doDrawing(Graphics g) {
 		// TODO Auto-generated method stub
 		
 	}

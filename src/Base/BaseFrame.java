@@ -72,37 +72,6 @@ public abstract class BaseFrame extends JFrame {
 		add(panel);
 	}
 	
-	/*
-	
-	    // Bildschirmgröße ein guter Ausgangswert
-        Dimension _screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
-     
-        // Hier kommt im Netz selten gefundene Zeile: Das sichtbare Rechteck!
-        Rectangle _maxBounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
-       
-        // Jetzt kann man die Ränder berechnen...
-        Insets _screenInsets =
-          new Insets((int)_maxBounds.getY(), (int)_maxBounds.getX(), (int)(_screenDimension.getHeight() -
-                                                                           _maxBounds.getY() - _maxBounds.getHeight()),
-                     (int)(_screenDimension.getWidth() - _maxBounds.getWidth() - _maxBounds.getX()));
-     
-        // ... und die Dimensionen der sichtbaren Bildschirmoberfläche.
-        Dimension _screenDimensionView =
-          new Dimension((int)(_screenDimension.getWidth() - _screenInsets.right - _screenInsets.left),
-                        (int)(_screenDimension.getHeight() - _screenInsets.top - _screenInsets.bottom));
-       
-        // nun ist ein Fenster mit exakter 75%iger Breite und Höhe und richtig zentiert in greifbarer Nähe:
-        new JFrame("Test"){
-          {
-              this.setSize( (int) (_screenDimensionView.getWidth() *.75 ),  (int) (_screenDimensionView.getHeight() *.75 )  );
-              this.setLocation((int)((_screenDimensionView.getWidth() - _widthPixels) / 2) + _screenInsets.left,
-                               (int)((_screenDimensionView.getHeight() - _heightPixels) / 2) + _screenInsets.top);
-              this.setVisible(true);
-          }
-        }
-	
-	*/
-	
 	protected void initWindowSize() {	
 		setSize(width, height);
 	}	

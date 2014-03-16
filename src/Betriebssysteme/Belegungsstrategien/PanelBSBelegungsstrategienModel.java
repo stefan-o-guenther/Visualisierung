@@ -18,20 +18,17 @@ import Base.EnumSurface;
 
 public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
 	
-	public PanelBSBelegungsstrategienModel(IFragmentation imemory) {
-		super();
-		if (imemory == null) {
-			imemory = new Fragmentation();
-		}
-		memory = imemory;
-		memory.setPanelModel(this);
+	public PanelBSBelegungsstrategienModel(IFragmentation fragmentation) {
+		super(fragmentation);
+		this.fragmentation = fragmentation;
+		putModelToManagement();
 		updateModel();
 	}
 	
 	private Integer widthMaximum = 1000;	
 	private Dimension dim;
 	
-	private IFragmentation memory;
+	private IFragmentation fragmentation;
 	
 	private Graphics2D g2d;
 	
@@ -61,7 +58,7 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
 	
 	private Integer getMultiply() {
 		Integer sum = 0;
-		List<ISpace> listSpace = memory.getListSpace();
+		List<ISpace> listSpace = fragmentation.getListSpace();
         for (ISpace space : listSpace) {
         	sum += space.getCurrentValue();
         }
@@ -69,7 +66,7 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
 	}
 	
 	private Color getBoxColor(ISpace space) {		
-		return memory.getColor(space.getType());
+		return fragmentation.getColor(space.getType());
 	}
 	
 	private void calculateValues(ISpace space) {
@@ -83,14 +80,14 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
 	
 	private Color getFontColor(ISpace space) {
 		Color color = Color.BLACK;
-		EnumSurface surface = memory.getSurface();
+		EnumSurface surface = fragmentation.getSurface();
 		if (space.isActivated() && surface == EnumSurface.COLORED) {
 			color = Color.RED;
 		}
 		return color;
 	}	
 	
-	protected void doDrawing(Graphics g) {
+	public void doDrawing(Graphics g) {
 		try {			         	
     		g2d = (Graphics2D) g;		
     		
@@ -108,7 +105,7 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
             BasicStroke bs2 = new BasicStroke(2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
             g2d.setStroke(bs2);                
             
-            List<ISpace> listSpace = memory.getListSpace();
+            List<ISpace> listSpace = fragmentation.getListSpace();
             if (listSpace != null) {
             	for (ISpace space : listSpace) {        	
     				calculateValues(space);
@@ -161,4 +158,3 @@ public class PanelBSBelegungsstrategienModel extends BasePanelModelDraw {
 		repaint();
 	}
 }
-

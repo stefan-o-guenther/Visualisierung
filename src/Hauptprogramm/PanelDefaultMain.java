@@ -22,7 +22,7 @@ public class PanelDefaultMain extends BasePanelMain {
 	private PanelDefaultMenu panelMenu;
 	private PanelDefaultModel panelModel;
 	
-	protected void initComponents() {
+	public void initComponents() {
 		IDefaultManagement main = new DefaultManagement();
 		panelModel = new PanelDefaultModel(main);
 		panelMenu = new PanelDefaultMenu(main);
@@ -30,17 +30,17 @@ public class PanelDefaultMain extends BasePanelMain {
 	}
 
 	@Override
-	protected BasePanelTitle getPanelTitle() {
+	public BasePanelTitle getPanelTitle() {
 		return panelTitle;
 	}
 
 	@Override
-	protected BasePanelMenu getPanelMenu() {
+	public BasePanelMenu getPanelMenu() {
 		return panelMenu;
 	}
 
 	@Override
-	protected BasePanelModel getPanelModel() {
+	public BasePanelModel getPanelModel() {
 		return panelModel;
 	}
 }

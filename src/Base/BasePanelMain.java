@@ -7,9 +7,8 @@ package Base;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JPanel;
 
-public abstract class BasePanelMain extends BasePanel {
+public abstract class BasePanelMain extends BasePanel implements IPanelMain {
 
 	public BasePanelMain() {
 		super();		
@@ -17,12 +16,7 @@ public abstract class BasePanelMain extends BasePanel {
 	
 	private static final long serialVersionUID = 1L;
 	
-	protected abstract void initComponents();
-	protected abstract BasePanelTitle getPanelTitle();
-	protected abstract BasePanelMenu getPanelMenu();
-	protected abstract BasePanelModel getPanelModel();	
-	
-	protected void initLayout() {
+	public void initLayout() {
 		BasePanelTitle panelTitle = getPanelTitle();
 		BasePanelMenu panelMenu = getPanelMenu();
 		BasePanelModel panelModel = getPanelModel();
@@ -43,7 +37,6 @@ public abstract class BasePanelMain extends BasePanel {
 					.addComponent(panelMenu, GroupLayout.PREFERRED_SIZE, sizeMenu, GroupLayout.PREFERRED_SIZE)					
 					.addComponent(panelModel, GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
 		);
-		setLayout(groupLayout);
-				
+		setLayout(groupLayout);				
 	}	
 }

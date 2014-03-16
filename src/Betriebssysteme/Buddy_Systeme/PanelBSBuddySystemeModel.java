@@ -12,17 +12,18 @@ import Base.BasePanelModel;
 
 public class PanelBSBuddySystemeModel extends BasePanelModel {
 
-	public PanelBSBuddySystemeModel(IBuddyMemoryAllocation ibuddy) {
-		super();
-		if (ibuddy == null) {
-			ibuddy = new BuddyMemoryAllocation();
-		}
-		buddy = ibuddy;
-		buddy.setPanelModel(this);
-		panelDraw = new PanelBSBuddySystemeModelScroll(buddy);
-		panelExplanation = new PanelBSBuddySystemeExplanationScroll(buddy);
+	public PanelBSBuddySystemeModel(IBuddyMemoryAllocation buddy) {
+		super(buddy);
+		this.buddy = buddy;
+		putModelToManagement();
+		createPanels();
 		initComponents();
 		updateModel();
+	}
+	
+	private void createPanels() {
+		panelDraw = new PanelBSBuddySystemeModelScroll(buddy);
+		panelExplanation = new PanelBSBuddySystemeExplanationScroll(buddy);
 	}
 
 	private IBuddyMemoryAllocation buddy;

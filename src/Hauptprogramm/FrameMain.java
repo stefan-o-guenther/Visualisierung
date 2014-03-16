@@ -18,7 +18,6 @@ import Base.BaseFrame;
 import Betriebssysteme.Belegungsstrategien.PanelBSBelegungsstrategienMain;
 import Betriebssysteme.Buddy_Systeme.PanelBSBuddySystemeMain;
 import Betriebssysteme.Seitenersetzungsstrategien.PanelBSSeitenersetzungsstrategienMain;
-import Betriebssysteme.Verklemmungen.PanelBSVerklemmungenMain;
 import Rechnernetze.Dijkstra.PanelRNDijkstraMain;
 
 public class FrameMain extends BaseFrame {
@@ -147,7 +146,7 @@ public class FrameMain extends BaseFrame {
 	
 	private ActionListener BS_Verklemmungen = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
-			showNewPanel(new PanelBSVerklemmungenMain());			
+						
 		}
 	};	
 	

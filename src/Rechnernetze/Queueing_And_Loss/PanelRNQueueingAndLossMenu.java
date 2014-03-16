@@ -8,26 +8,21 @@ package Rechnernetze.Queueing_And_Loss;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import Base.BasePanelMenu;
-import Base.BasePanelModel;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JLabel;
 import javax.swing.JSlider;
-import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+import Base.BasePanelMenu;
 
 public class PanelRNQueueingAndLossMenu extends BasePanelMenu {
 
-	public PanelRNQueueingAndLossMenu(IQALManagement iqal) {
-		super();		
-		if (iqal == null) {
-			iqal = new QALManagement(1E-4);
-		}
-		qal = iqal;
+	public PanelRNQueueingAndLossMenu(IQALManagement qal) {
+		super(qal);		
+		this.qal = qal;
 		initComponents();
 	}
 
@@ -44,7 +39,7 @@ public class PanelRNQueueingAndLossMenu extends BasePanelMenu {
 	private ComboBoxProcessingTime cbProcessingTime;
 	
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		btnStart = new JButton("ausf\u00FChren");
 		btnStart.addActionListener(actionStart);
 		
@@ -134,7 +129,7 @@ public class PanelRNQueueingAndLossMenu extends BasePanelMenu {
 	}
 
 	@Override
-	protected void updateComponents() {
+	public void updateComponents() {
 		// TODO Auto-generated method stub
 		
 	}

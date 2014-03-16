@@ -7,21 +7,20 @@ package Base;
 
 import javax.swing.ImageIcon;
 
-public abstract class BasePanelMenu extends BasePanel {
+public abstract class BasePanelMenu extends BasePanel implements IPanelMenu {
 
-	public BasePanelMenu() {
+	public BasePanelMenu(IManagement management) {
 		super();
+		this.management = management;
 	}
 	
-	private static final long serialVersionUID = 1L;
-	
-	protected abstract void initComponents();
-	protected abstract void updateComponents();
-	//protected abstract void initToolTips();
-	
-	public abstract Integer getHeightMenu();
+	protected IManagement management = null;
 	
 	public ImageIcon getImageIconHelp() {
 		return ImageLoader.getImageIconHelp16();
-	}	
+	}
+	
+	public void setManagement(IManagement management) {
+		this.management = management;
+	}
 }

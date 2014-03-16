@@ -13,22 +13,19 @@ import Base.BasePanelModelDraw;
 
 public class PanelDefaultModel extends BasePanelModelDraw {
 
+	public PanelDefaultModel(IDefaultManagement main) {
+		super(main);
+		this.main = main;
+		putModelToManagement();
+		updateModel();
+	}
+	
 	private IDefaultManagement main;
 	
-	protected void doDrawing(Graphics g) {
+	public void doDrawing(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawString("Stefan Günther", 100, 100);
     }
-
-	public PanelDefaultModel(IDefaultManagement imain) {
-		super();
-		if (imain == null) {
-			imain = new DefaultManagement();
-		}
-		main = imain;
-		main.setPanelModel(this);
-		updateModel();
-	}
 	
 	@Override
 	public void updateModel() {

@@ -22,7 +22,7 @@ public class PanelBSSeitenersetzungsstrategienMain extends BasePanelMain {
 	private PanelBSSeitenersetzungsstrategienMenu panelMenu;
 	private PanelBSSeitenersetzungsstrategienModel panelModel;
 		
-	protected void initComponents() {
+	public void initComponents() {
 		IPaging paging = new Paging();		
 		panelModel = new PanelBSSeitenersetzungsstrategienModel(paging);
 		panelMenu = new PanelBSSeitenersetzungsstrategienMenu(paging);
@@ -30,17 +30,17 @@ public class PanelBSSeitenersetzungsstrategienMain extends BasePanelMain {
 	}
 
 	@Override
-	protected BasePanelTitle getPanelTitle() {
+	public BasePanelTitle getPanelTitle() {
 		return panelTitle;
 	}
 
 	@Override
-	protected BasePanelMenu getPanelMenu() {
+	public BasePanelMenu getPanelMenu() {
 		return panelMenu;
 	}
 
 	@Override
-	protected BasePanelModel getPanelModel() {
+	public BasePanelModel getPanelModel() {
 		return panelModel;
 	}
 }

@@ -18,17 +18,14 @@ public class PanelRNQueueingAndLossModel extends BasePanelModelDraw {
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNQueueingAndLossModel(IQALManagement iqal) {
-		super();		
-		if (iqal == null) {
-			iqal = new QALManagement(1E-4);
-		}
-		qal = iqal;
-		qal.setPanelModel(this);
+	public PanelRNQueueingAndLossModel(IQALManagement qal) {
+		super(qal);		
+		this.qal = qal;
+		putModelToManagement();
 	}
 	
 	@Override
-	protected void doDrawing(Graphics g) {
+	public void doDrawing(Graphics g) {
 		// TODO Auto-generated method stub
 		
 	}

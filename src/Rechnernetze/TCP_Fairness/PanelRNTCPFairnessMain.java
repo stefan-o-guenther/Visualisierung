@@ -23,7 +23,7 @@ public class PanelRNTCPFairnessMain extends BasePanelMain {
 	private PanelRNTCPFairnessModel panelModel;
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		IFairnessManagement fairness = new FairnessManagement();
 		panelModel = new PanelRNTCPFairnessModel(fairness);
 		panelMenu = new PanelRNTCPFairnessMenu(fairness);
@@ -31,17 +31,17 @@ public class PanelRNTCPFairnessMain extends BasePanelMain {
 	}
 
 	@Override
-	protected BasePanelTitle getPanelTitle() {
+	public BasePanelTitle getPanelTitle() {
 		return panelTitle;
 	}
 
 	@Override
-	protected BasePanelMenu getPanelMenu() {
+	public BasePanelMenu getPanelMenu() {
 		return panelMenu;
 	}
 
 	@Override
-	protected BasePanelModel getPanelModel() {
+	public BasePanelModel getPanelModel() {
 		return panelModel;
 	}
 }

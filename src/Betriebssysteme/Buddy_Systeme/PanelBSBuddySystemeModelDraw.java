@@ -9,23 +9,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JLabel;
-
 import Base.BasePanelModelDraw;
-import Base.EnumSurface;
 
 public class PanelBSBuddySystemeModelDraw extends BasePanelModelDraw {
 
-	public PanelBSBuddySystemeModelDraw(IBuddyMemoryAllocation ibuddy) {
-		super();
-		if (ibuddy == null) {
-			ibuddy = new BuddyMemoryAllocation();
-		}
-		buddy = ibuddy;
+	public PanelBSBuddySystemeModelDraw(IBuddyMemoryAllocation buddy) {
+		super(buddy);
+		this.buddy = buddy;
 		updateModel();
 	}
 
@@ -40,7 +33,7 @@ public class PanelBSBuddySystemeModelDraw extends BasePanelModelDraw {
 	private final Integer GAP_Y = 10;	
 	
 	@Override
-	protected void doDrawing(Graphics g) {
+	public void doDrawing(Graphics g) {
 		g2d = (Graphics2D) g;
 		Integer height = 0;
 		Integer size = buddy.getTotalSpace();					

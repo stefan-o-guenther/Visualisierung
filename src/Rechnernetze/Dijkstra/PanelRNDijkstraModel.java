@@ -21,15 +21,12 @@ import Base.ImageLoader;
 public class PanelRNDijkstraModel extends BasePanelModelDraw {
 
 	public PanelRNDijkstraModel(IDijkstraAlgorithm idijkstra) {
-		super();
-		if (idijkstra == null) {
-			idijkstra = new DijkstraAlgorithm();
-		}
+		super(idijkstra);
 		dijkstra = idijkstra;
-		dijkstra.setPanelModel(this);
+		putModelToManagement();
 		updateModel();
 	}
-
+	
 	private IDijkstraAlgorithm dijkstra;
 	private Graphics2D g2d;
 	private Font font;
@@ -390,7 +387,7 @@ public class PanelRNDijkstraModel extends BasePanelModelDraw {
 	}	
 	
 	@Override
-	protected void doDrawing(Graphics g) {
+	public void doDrawing(Graphics g) {
 		g2d = (Graphics2D) g;
 		font = g2d.getFont();		
 				

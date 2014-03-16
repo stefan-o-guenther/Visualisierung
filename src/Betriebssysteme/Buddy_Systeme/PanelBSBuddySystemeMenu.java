@@ -23,11 +23,9 @@ import Base.BasePanelMenu;
 
 public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 
-	public PanelBSBuddySystemeMenu(IBuddyMemoryAllocation ibuddy) {
-		super();
-		if (ibuddy != null) {
-			buddy = ibuddy;
-		}
+	public PanelBSBuddySystemeMenu(IBuddyMemoryAllocation buddy) {
+		super(buddy);
+		this.buddy = buddy;
 		initComponents();
 		updateComponents();
 	}
@@ -63,7 +61,7 @@ public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 	private JPanel panel;
 	
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		ImageIcon imgHelp = this.getImageIconHelp();		
 		
 		lblSpace = new JLabel("Speichergr\u00F6\u00DFe:");	
@@ -219,7 +217,7 @@ public class PanelBSBuddySystemeMenu extends BasePanelMenu {
 	}
 
 	@Override
-	protected void updateComponents() {
+	public void updateComponents() {
 		lblSpace.setEnabled(true);
 		lblProcessName.setEnabled(true);
 		lblProcessSize.setEnabled(true);

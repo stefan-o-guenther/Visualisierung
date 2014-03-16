@@ -14,22 +14,19 @@ public class PanelRNTCPFairnessMenu extends BasePanelMenu {
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNTCPFairnessMenu(IFairnessManagement ifairness) {
-		super();
-		if (ifairness == null) {
-			ifairness = new FairnessManagement();
-		}
-		fairness = ifairness;
+	public PanelRNTCPFairnessMenu(IFairnessManagement fairness) {
+		super(fairness);
+		this.fairness = fairness;
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	protected void updateComponents() {
+	public void updateComponents() {
 		// TODO Auto-generated method stub
 		
 	}

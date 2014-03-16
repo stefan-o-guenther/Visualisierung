@@ -19,7 +19,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class PanelAutomatic extends JPanel {	
+public class PanelAutomatic extends JPanel implements IPanelAutomatic {	
 	
 	public PanelAutomatic(IManagementAutomatic management, BasePanelMenuAutomatic panelMenu, Color background) {
 		super();

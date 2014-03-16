@@ -23,7 +23,7 @@ public class PanelRNQueueingAndLossMain extends BasePanelMain {
 	private PanelRNQueueingAndLossModel panelModel;
 	
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		IQALManagement qal = new QALManagement(1E-4);		
 		panelModel = new PanelRNQueueingAndLossModel(qal);
 		panelMenu = new PanelRNQueueingAndLossMenu(qal);
@@ -31,17 +31,17 @@ public class PanelRNQueueingAndLossMain extends BasePanelMain {
 	}
 
 	@Override
-	protected BasePanelTitle getPanelTitle() {
+	public BasePanelTitle getPanelTitle() {
 		return panelTitle;
 	}
 
 	@Override
-	protected BasePanelMenu getPanelMenu() {
+	public BasePanelMenu getPanelMenu() {
 		return panelMenu;
 	}
 
 	@Override
-	protected BasePanelModel getPanelModel() {
+	public BasePanelModel getPanelModel() {
 		return panelModel;
 	}
 }

@@ -12,17 +12,20 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public abstract class BasePanelTitle extends BasePanel {
+public abstract class BasePanelTitle extends BasePanel implements IPanelTitle {
 	
-	public BasePanelTitle(IManagement vManagement) {
+	public BasePanelTitle(IManagement management) {
 		super();		
-		management = vManagement;
+		this.management = management;
 		initComponents();
 		updateColor();
+	}
+	
+	public void setManagement(IManagement management) {
+		this.management = management;
 	}
 	
 	protected ActionListener actionColor = new ActionListener() {
@@ -31,8 +34,6 @@ public abstract class BasePanelTitle extends BasePanel {
 		}	
 	};
 	
-	protected static final long serialVersionUID = 1L;
-	
 	protected ButtonGroupColor groupColor;
 	protected JRadioButton rdbtnColored;	
 	protected JRadioButton rdbtnGray;	
@@ -40,14 +41,11 @@ public abstract class BasePanelTitle extends BasePanel {
 	
 	protected IManagement management;
 	
-	protected abstract String getToolTip();
-	protected abstract String getTitle();
-	
-	protected void updateColor() {
+	public void updateColor() {
 		management.setSurface(groupColor.getSelectedButton());
 	}
 	
-	protected void initComponents() {
+	public void initComponents() {
 		ImageIcon imgIconHelp = ImageLoader.getImageIconHelp22();	
 		
 		groupColor = new ButtonGroupColor(actionColor);

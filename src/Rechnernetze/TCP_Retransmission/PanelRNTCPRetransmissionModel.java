@@ -16,18 +16,15 @@ public class PanelRNTCPRetransmissionModel extends BasePanelModelDraw {
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNTCPRetransmissionModel(IRetransmissionManagement iretransmission) {
-		super();
-		if (iretransmission == null) {
-			iretransmission = new RetransmissionManagement();
-		}
-		retransmission = iretransmission;
-		retransmission.setPanelModel(this);
+	public PanelRNTCPRetransmissionModel(IRetransmissionManagement retransmission) {
+		super(retransmission);
+		this.retransmission = retransmission;
+		putModelToManagement();
 		updateModel();
 	}
 
 	@Override
-	protected void doDrawing(Graphics g) {
+	public void doDrawing(Graphics g) {
 		// TODO Auto-generated method stub
 		
 	}

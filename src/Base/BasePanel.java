@@ -11,9 +11,6 @@ import javax.swing.JPanel;
 
 public abstract class BasePanel extends JPanel {
 
-	/**
-	 * Create the panel.
-	 */
 	public BasePanel() {
 		setBackground(Color.WHITE);
 	}

@@ -10,10 +10,11 @@ public abstract class BaseManagement implements IManagement {
 
 	public BaseManagement() {
 		super();
+		surface = EnumSurface.COLORED;
 	}
 	
 	protected BasePanelModel panelModel;
-	protected EnumSurface surface = EnumSurface.COLORED;
+	protected EnumSurface surface;
 	
 	protected void update() {
 		if (panelModel != null) {

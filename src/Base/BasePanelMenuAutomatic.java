@@ -5,12 +5,9 @@
 
 package Base;
 
-public abstract class BasePanelMenuAutomatic extends BasePanelMenu {
+public abstract class BasePanelMenuAutomatic extends BasePanelMenu implements IPanelMenuAutomatic {
 
-	public BasePanelMenuAutomatic() {
-		super();
+	public BasePanelMenuAutomatic(IManagement management) {
+		super(management);
 	}
-
-	public abstract void updateMenu();
-	public abstract void error();
 }

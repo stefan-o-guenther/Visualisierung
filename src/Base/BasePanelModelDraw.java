@@ -8,15 +8,11 @@ package Base;
 import java.awt.Graphics;
 
 
-public abstract class BasePanelModelDraw extends BasePanelModel {	
+public abstract class BasePanelModelDraw extends BasePanelModel implements IPanelModelDraw {	
 	
-	public BasePanelModelDraw() {
-		super();
+	public BasePanelModelDraw(IManagement management) {
+		super(management);
 	}
-	
-	private static final long serialVersionUID = 1L;
-
-	protected abstract void doDrawing(Graphics g);
 	
 	@Override
 	public void paintComponent(Graphics g) {        

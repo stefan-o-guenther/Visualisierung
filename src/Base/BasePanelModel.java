@@ -5,15 +5,21 @@
 
 package Base;
 
-import javax.swing.JPanel;
 
-public abstract class BasePanelModel extends BasePanel {
+public abstract class BasePanelModel extends BasePanel implements IPanelModel {
 	
-	public BasePanelModel() {
+	public BasePanelModel(IManagement management) {
 		super();
+		this.management = management;
 	}
 	
-	private static final long serialVersionUID = 7806968315363363035L;
+	protected IManagement management = null;
 	
-	public abstract void updateModel();	
+	public void putModelToManagement() {
+		management.setPanelModel(this);
+	}
+	
+	public void setManagement(IManagement management) {
+		this.management = management;
+	}
 }

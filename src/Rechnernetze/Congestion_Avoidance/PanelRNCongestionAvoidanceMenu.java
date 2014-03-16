@@ -14,22 +14,19 @@ public class PanelRNCongestionAvoidanceMenu extends BasePanelMenu {
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNCongestionAvoidanceMenu(INetworkManagement inetwork) {
-		super();
-		if (inetwork == null) {
-			inetwork = new NetworkManagement();
-		}
-		network = inetwork;
+	public PanelRNCongestionAvoidanceMenu(INetworkManagement network) {
+		super(network);
+		this.network = network;
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	protected void updateComponents() {
+	public void updateComponents() {
 		// TODO Auto-generated method stub
 		
 	}

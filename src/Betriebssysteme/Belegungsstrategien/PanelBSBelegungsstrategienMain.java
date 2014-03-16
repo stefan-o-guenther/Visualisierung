@@ -24,7 +24,7 @@ public class PanelBSBelegungsstrategienMain extends BasePanelMain {
 	private PanelBSBelegungsstrategienMenu panelMenu;
 	private PanelBSBelegungsstrategienModel panelModel;	
 	
-	protected void initComponents() {
+	public void initComponents() {
 		IFragmentation memory = new Fragmentation();
 		panelModel = new PanelBSBelegungsstrategienModel(memory);
 		panelMenu = new PanelBSBelegungsstrategienMenu(memory);
@@ -32,17 +32,17 @@ public class PanelBSBelegungsstrategienMain extends BasePanelMain {
 	}
 
 	@Override
-	protected BasePanelTitle getPanelTitle() {
+	public BasePanelTitle getPanelTitle() {
 		return panelTitle;
 	}
 
 	@Override
-	protected BasePanelMenu getPanelMenu() {
+	public BasePanelMenu getPanelMenu() {
 		return panelMenu;
 	}
 
 	@Override
-	protected BasePanelModel getPanelModel() {
+	public BasePanelModel getPanelModel() {
 		return panelModel;
 	}
 }

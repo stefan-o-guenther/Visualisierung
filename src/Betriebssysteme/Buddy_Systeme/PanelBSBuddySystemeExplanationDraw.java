@@ -14,9 +14,9 @@ import Base.BasePanelModelDraw;
 
 public class PanelBSBuddySystemeExplanationDraw extends BasePanelModelDraw {
 
-	public PanelBSBuddySystemeExplanationDraw(IBuddyMemoryAllocation ibuddy) {
-		super();
-		buddy = ibuddy;
+	public PanelBSBuddySystemeExplanationDraw(IBuddyMemoryAllocation buddy) {
+		super(buddy);
+		this.buddy = buddy;
 		updateModel();
 	}
 
@@ -36,7 +36,7 @@ public class PanelBSBuddySystemeExplanationDraw extends BasePanelModelDraw {
 	}
 	
 	@Override
-	protected void doDrawing(Graphics g) {
+	public void doDrawing(Graphics g) {
 		g2d = (Graphics2D) g;
 		setBackground(Color.WHITE);
 		Integer line = 0;

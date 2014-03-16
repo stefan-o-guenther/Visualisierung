@@ -23,7 +23,7 @@ public class PanelRNPipelineProtocolMain extends BasePanelMain {
 	private PanelRNPipelineProtocolModel panelModel;
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		IPipelineManagement pipeline = new PipelineManagement();		
 		panelModel = new PanelRNPipelineProtocolModel(pipeline);
 		panelMenu = new PanelRNPipelineProtocolMenu(pipeline);
@@ -31,17 +31,17 @@ public class PanelRNPipelineProtocolMain extends BasePanelMain {
 	}
 
 	@Override
-	protected BasePanelTitle getPanelTitle() {
+	public BasePanelTitle getPanelTitle() {
 		return panelTitle;
 	}
 
 	@Override
-	protected BasePanelMenu getPanelMenu() {
+	public BasePanelMenu getPanelMenu() {
 		return panelMenu;
 	}
 
 	@Override
-	protected BasePanelModel getPanelModel() {
+	public BasePanelModel getPanelModel() {
 		return panelModel;
 	}
 }

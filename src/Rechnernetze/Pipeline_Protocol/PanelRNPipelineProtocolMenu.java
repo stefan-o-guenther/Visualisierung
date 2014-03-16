@@ -14,22 +14,19 @@ public class PanelRNPipelineProtocolMenu extends BasePanelMenu {
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNPipelineProtocolMenu(IPipelineManagement ipipeline) {
-		super();
-		if (ipipeline == null) {
-			ipipeline = new PipelineManagement();
-		}
-		pipeline = ipipeline;
+	public PanelRNPipelineProtocolMenu(IPipelineManagement pipeline) {
+		super(pipeline);
+		this.pipeline = pipeline;
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	protected void updateComponents() {
+	public void updateComponents() {
 		// TODO Auto-generated method stub
 		
 	}

@@ -18,12 +18,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class PanelRNDijkstraMenu extends BasePanelMenuAutomatic {
 
-	public PanelRNDijkstraMenu(IDijkstraAlgorithm idijkstra) {
-		super();
-		if (idijkstra == null) {
-			idijkstra = new DijkstraAlgorithm();
-		}		
-		dijkstra = idijkstra;
+	public PanelRNDijkstraMenu(IDijkstraAlgorithm dijkstra) {
+		super(dijkstra);
+		this.dijkstra = dijkstra;
 		initComponents();
 		updateComponents();
 	}
@@ -35,7 +32,7 @@ public class PanelRNDijkstraMenu extends BasePanelMenuAutomatic {
 	private PanelAutomatic panelAutomatic;
 	
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		btnNextStep = new JButton("n\u00e4chster Schritt");
 		btnNextStep.addActionListener(ActionExecute);		
 		btnReset = new JButton("zur\u00fccksetzen");
@@ -67,7 +64,7 @@ public class PanelRNDijkstraMenu extends BasePanelMenuAutomatic {
 	}
 
 	@Override
-	protected void updateComponents() {
+	public void updateComponents() {
 		Boolean notFinished = (dijkstra.getStatus() != EnumDijkstraStatus.FINISHED);
 		panelAutomatic.setAutomaticEnabled(notFinished);				
 		btnNextStep.setEnabled(notFinished);		

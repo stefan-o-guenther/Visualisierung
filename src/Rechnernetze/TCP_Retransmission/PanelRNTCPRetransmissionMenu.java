@@ -9,24 +9,21 @@ import Base.BasePanelMenu;
 
 public class PanelRNTCPRetransmissionMenu extends BasePanelMenu {
 
-	public PanelRNTCPRetransmissionMenu(IRetransmissionManagement iretransmission) {
-		super();
-		if (iretransmission == null) {
-			iretransmission = new RetransmissionManagement();
-		}
-		retransmission = iretransmission;
+	public PanelRNTCPRetransmissionMenu(IRetransmissionManagement retransmission) {
+		super(retransmission);
+		this.retransmission = retransmission;
 	}
 
 	private IRetransmissionManagement retransmission;
 	
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	protected void updateComponents() {
+	public void updateComponents() {
 		// TODO Auto-generated method stub
 		
 	}

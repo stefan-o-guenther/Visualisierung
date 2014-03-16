@@ -14,12 +14,12 @@ public class PanelDefaultTitle extends BasePanelTitle {
 	}
 
 	@Override
-	protected String getToolTip() {
+	public String getToolTip() {
 		return "";
 	}
 
 	@Override
-	protected String getTitle() {
+	public String getTitle() {
 		return "Bachelorarbeit - Visualisierung";
 	}
 

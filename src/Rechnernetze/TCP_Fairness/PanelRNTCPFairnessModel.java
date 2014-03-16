@@ -16,18 +16,15 @@ public class PanelRNTCPFairnessModel extends BasePanelModelDraw {
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNTCPFairnessModel(IFairnessManagement ifairness) {
-		super();
-		if (ifairness == null) {
-			ifairness = new FairnessManagement();
-		}
-		fairness = ifairness;
-		fairness.setPanelModel(this);
+	public PanelRNTCPFairnessModel(IFairnessManagement fairness) {
+		super(fairness);
+		this.fairness = fairness;
+		putModelToManagement();
 		updateModel();
 	}
 
 	@Override
-	protected void doDrawing(Graphics g) {
+	public void doDrawing(Graphics g) {
 		// TODO Auto-generated method stub
 		
 	}

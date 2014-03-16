@@ -23,7 +23,7 @@ public class PanelRNDijkstraMain extends BasePanelMain {
 	private PanelRNDijkstraModel panelModel;
 	
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		IDijkstraAlgorithm dijkstra = new DijkstraAlgorithm();		
 		panelModel = new PanelRNDijkstraModel(dijkstra);
 		panelMenu = new PanelRNDijkstraMenu(dijkstra);
@@ -31,17 +31,17 @@ public class PanelRNDijkstraMain extends BasePanelMain {
 	}
 
 	@Override
-	protected BasePanelTitle getPanelTitle() {
+	public BasePanelTitle getPanelTitle() {
 		return panelTitle;
 	}
 
 	@Override
-	protected BasePanelMenu getPanelMenu() {
+	public BasePanelMenu getPanelMenu() {
 		return panelMenu;
 	}
 
 	@Override
-	protected BasePanelModel getPanelModel() {
+	public BasePanelModel getPanelModel() {
 		return panelModel;
 	}
 

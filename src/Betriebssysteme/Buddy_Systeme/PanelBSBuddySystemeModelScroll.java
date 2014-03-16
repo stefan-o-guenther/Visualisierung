@@ -10,9 +10,9 @@ import Base.BasePanelModelScroll;
 
 public class PanelBSBuddySystemeModelScroll extends BasePanelModelScroll {
 
-	public PanelBSBuddySystemeModelScroll(IBuddyMemoryAllocation ibuddy) {
-		super();
-	    buddy = ibuddy;
+	public PanelBSBuddySystemeModelScroll(IBuddyMemoryAllocation buddy) {
+		super(buddy);
+	    this.buddy = buddy;
 	    initComponents();
 		initLayout();
 	}
@@ -27,12 +27,12 @@ public class PanelBSBuddySystemeModelScroll extends BasePanelModelScroll {
 	}
 
 	@Override
-	protected BasePanelModelDraw getPanelModelDraw() {
+	public BasePanelModelDraw getPanelModelDraw() {
 		return panelModelDraw;
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		panelModelDraw = new PanelBSBuddySystemeModelDraw(buddy);
 	}
 }

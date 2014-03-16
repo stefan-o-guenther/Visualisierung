@@ -22,7 +22,7 @@ public class PanelBSBuddySystemeMain extends BasePanelMain {
 	private PanelBSBuddySystemeMenu panelMenu;
 	private PanelBSBuddySystemeModel panelModel;
 	
-	protected void initComponents() {
+	public void initComponents() {
 		IBuddyMemoryAllocation buddy =  new BuddyMemoryAllocation();
 		panelModel = new PanelBSBuddySystemeModel(buddy);
 		panelMenu = new PanelBSBuddySystemeMenu(buddy);
@@ -30,17 +30,17 @@ public class PanelBSBuddySystemeMain extends BasePanelMain {
 	}
 
 	@Override
-	protected BasePanelTitle getPanelTitle() {
+	public BasePanelTitle getPanelTitle() {
 		return panelTitle;
 	}
 
 	@Override
-	protected BasePanelMenu getPanelMenu() {
+	public BasePanelMenu getPanelMenu() {
 		return panelMenu;
 	}
 
 	@Override
-	protected BasePanelModel getPanelModel() {
+	public BasePanelModel getPanelModel() {
 		return panelModel;
 	}	
 }

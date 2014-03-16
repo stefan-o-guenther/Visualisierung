@@ -14,12 +14,12 @@ public class PanelBSSeitenersetzungsstrategienTitle extends BasePanelTitle {
 	}
 
 	@Override
-	protected String getToolTip() {
+	public String getToolTip() {
 		return ToolTipManager.getToolTipTitle();
 	}
 
 	@Override
-	protected String getTitle() {
+	public String getTitle() {
 		return "Seitenersetzungsstrategien";
 	}
 

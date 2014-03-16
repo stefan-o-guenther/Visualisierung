@@ -16,18 +16,15 @@ public class PanelRNPipelineProtocolModel extends BasePanelModelDraw {
 	/**
 	 * Create the panel.
 	 */
-	public PanelRNPipelineProtocolModel(IPipelineManagement ipipeline) {
-		super();
-		if (ipipeline == null) {
-			ipipeline = new PipelineManagement();
-		}
-		pipeline = ipipeline;
-		pipeline.setPanelModel(this);
+	public PanelRNPipelineProtocolModel(IPipelineManagement pipeline) {
+		super(pipeline);
+		this.pipeline = pipeline;
+		putModelToManagement();
 		updateModel();
 	}
-
+	
 	@Override
-	protected void doDrawing(Graphics g) {
+	public void doDrawing(Graphics g) {
 		// TODO Auto-generated method stub
 		
 	}

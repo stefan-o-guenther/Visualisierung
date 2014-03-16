@@ -15,16 +15,13 @@ import Base.BasePanelModelDraw;
 
 public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModelDraw {
 	
-	public PanelBSSeitenersetzungsstrategienModel(IPaging ipaging) {
-		super();
-		if (ipaging == null) {
-			ipaging = new Paging();
-		}
-		paging = ipaging;
-		paging.setPanelModel(this);
+	public PanelBSSeitenersetzungsstrategienModel(IPaging paging) {
+		super(paging);
+		this.paging = paging;
+		putModelToManagement();
 		updateModel();
 	}	
-			
+	
 	private final Integer HEIGHT_BOX = 35;
 	private final Integer WIDTH_BOX = 35;
 	private final Integer WIDTH_LABEL = 80;
@@ -158,7 +155,7 @@ public class PanelBSSeitenersetzungsstrategienModel extends BasePanelModelDraw {
 		}
 	}
 	
-	protected void doDrawing(Graphics g) {		
+	public void doDrawing(Graphics g) {		
 		g2d = (Graphics2D) g;		
 		g2d.setFont(new Font(g2d.getFont().getFontName(), Font.BOLD, 18)); 
 		

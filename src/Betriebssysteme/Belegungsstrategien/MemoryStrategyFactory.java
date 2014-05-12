@@ -9,24 +9,24 @@ import java.util.List;
 
 public class MemoryStrategyFactory {
 
-	public static IMemoryStrategy getStrategy(EnumMemoryStrategy value, List<ISpace> example) {
-		IMemoryStrategy strategy = null;
+	public static MemoryStrategy getStrategy(EnumMemoryStrategy value, List<Space> example) {
+		MemoryStrategy strategy = null;
 		if ((value != null) && (example != null)) {
 			switch (value) {
 				case FIRST_FIT: {
-					strategy = new MemoryStrategyFirstFit(example);
+					strategy = new MemoryStrategyFirstFitImpl(example);
 					break;
 				}
 				case NEXT_FIT: {
-					strategy = new MemoryStrategyNextFit(example);
+					strategy = new MemoryStrategyNextFitImpl(example);
 					break;
 				}
 				case BEST_FIT: {
-					strategy = new MemoryStrategyBestFit(example);
+					strategy = new MemoryStrategyBestFitImpl(example);
 					break;
 				}
 				case WORST_FIT: {
-					strategy = new MemoryStrategyWorstFit(example);	
+					strategy = new MemoryStrategyWorstFitImpl(example);	
 					break;
 				}
 				case NULL: {

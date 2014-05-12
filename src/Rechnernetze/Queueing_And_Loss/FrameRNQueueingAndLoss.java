@@ -5,13 +5,13 @@
 
 package Rechnernetze.Queueing_And_Loss;
 
-import Base.BaseFrame;
+import Base.FrameAbstract;
 
-public class FrameRNQueueingAndLoss extends BaseFrame {
+public class FrameRNQueueingAndLoss extends FrameAbstract {
 
 	public FrameRNQueueingAndLoss() {
 		super("Queueing And Loss");
-        initUI(new PanelRNQueueingAndLossMain());
+        initUI(new PanelRNQueueingAndLossMainImpl());
     }
 
     public static void main(String[] args) {

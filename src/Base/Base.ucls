@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.5" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
-  <interface id="1" language="java" name="Base.IManagement" project="Visualisierung" 
-    file="/Visualisierung/src/Base/IManagement.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="1" language="java" name="Base.Management" project="Visualisierung" 
+    file="/Visualisierung/src/Base/Management.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="314" y="71"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
@@ -10,8 +10,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="2" language="java" name="Base.IManagementAutomatic" project="Visualisierung" 
-    file="/Visualisierung/src/Base/IManagementAutomatic.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="2" language="java" name="Base.ManagementAutomatic" project="Visualisierung" 
+    file="/Visualisierung/src/Base/ManagementAutomatic.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="100" y="263"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
@@ -19,8 +19,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="3" language="java" name="Base.IPanelAutomatic" project="Visualisierung" 
-    file="/Visualisierung/src/Base/IPanelAutomatic.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="3" language="java" name="Base.PanelAutomatic" project="Visualisierung" 
+    file="/Visualisierung/src/Base/PanelAutomatic.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="120" y="613"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
@@ -28,8 +28,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="4" language="java" name="Base.IPanelMain" project="Visualisierung" 
-    file="/Visualisierung/src/Base/IPanelMain.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="4" language="java" name="Base.PanelMain" project="Visualisierung" 
+    file="/Visualisierung/src/Base/PanelMain.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="355" y="633"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
@@ -37,8 +37,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="5" language="java" name="Base.IPanelModel" project="Visualisierung" 
-    file="/Visualisierung/src/Base/IPanelModel.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="5" language="java" name="Base.PanelModel" project="Visualisierung" 
+    file="/Visualisierung/src/Base/PanelModel.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="529" y="261"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
@@ -46,8 +46,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="6" language="java" name="Base.IPanelModelDraw" project="Visualisierung" 
-    file="/Visualisierung/src/Base/IPanelModelDraw.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="6" language="java" name="Base.PanelModelDraw" project="Visualisierung" 
+    file="/Visualisierung/src/Base/PanelModelDraw.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="522" y="79"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
@@ -55,8 +55,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="7" language="java" name="Base.IPanelModelScroll" project="Visualisierung" 
-    file="/Visualisierung/src/Base/IPanelModelScroll.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="7" language="java" name="Base.PanelModelScroll" project="Visualisierung" 
+    file="/Visualisierung/src/Base/PanelModelScroll.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="416" y="436"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
@@ -64,8 +64,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="8" language="java" name="Base.IPanelMenu" project="Visualisierung" 
-    file="/Visualisierung/src/Base/IPanelMenu.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="8" language="java" name="Base.PanelMenu" project="Visualisierung" 
+    file="/Visualisierung/src/Base/PanelMenu.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="318" y="251"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
@@ -73,8 +73,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="9" language="java" name="Base.IPanelMenuAutomatic" project="Visualisierung" 
-    file="/Visualisierung/src/Base/IPanelMenuAutomatic.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="9" language="java" name="Base.PanelMenuAutomatic" project="Visualisierung" 
+    file="/Visualisierung/src/Base/PanelMenuAutomatic.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="162" y="443"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
@@ -82,8 +82,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="10" language="java" name="Base.IPanelTitle" project="Visualisierung" 
-    file="/Visualisierung/src/Base/IPanelTitle.java" binary="false" corner="BOTTOM_RIGHT">    
+  <interface id="10" language="java" name="Base.PanelTitle" project="Visualisierung" 
+    file="/Visualisierung/src/Base/PanelTitle.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="98" y="74"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
@@ -92,41 +92,32 @@
     </display>  
   </interface>  
   <generalization id="11">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <generalization id="12">    
     <bendpoint x="207" y="381"/>    
     <end type="SOURCE" refId="9"/>    
     <end type="TARGET" refId="8"/>  
   </generalization>  
-  <generalization id="12">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="5"/>  
-  </generalization>  
   <dependency id="13">    
-    <bendpoint x="454" y="149"/>    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
-  <generalization id="14">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <dependency id="15">    
     <bendpoint x="8" y="479"/>    
     <bendpoint x="10" y="382"/>    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="2"/>  
   </dependency>  
-  <dependency id="16">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
-  <dependency id="17">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="1"/>  
-  </dependency>  
-  <generalization id="18">    
+  <generalization id="14">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="5"/>  
   </generalization>  
+  <generalization id="15">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <dependency id="16">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

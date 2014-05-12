@@ -5,13 +5,13 @@
 
 package Betriebssysteme.Seitenersetzungsstrategien;
 
-import Base.BaseFrame;
+import Base.FrameAbstract;
 
-public class FrameBSSeitenersetzungsstrategien extends BaseFrame {
+public class FrameBSSeitenersetzungsstrategien extends FrameAbstract {
 
 	public FrameBSSeitenersetzungsstrategien() {
 		super("Seitenersetzungsstrategien");
-		initUI(new PanelBSSeitenersetzungsstrategienMain());
+		initUI(new PanelBSSeitenersetzungsstrategienMainImpl());
     }
 
     public static void main(String[] args) {

@@ -5,79 +5,20 @@
 
 package Betriebssysteme.Belegungsstrategien;
 
-public class Space implements ISpace {
-
-	public Space() {
-		isActivated = false;
-		spaceType = EnumSpace.FULL;
-		newValue = null;
-		currentValue = 1;
-		restValue = null;
-	}
+public interface Space {
 	
-	public Space(Integer value, EnumSpace type) {
-		this();
-		if (value != null) {
-			currentValue = value;
-		}
-		if (type != null) {
-			spaceType = type;
-		}	
-	}
+	public Boolean isActivated();
+	public void activate(Boolean value);
 	
-	private Boolean isActivated;
-	private EnumSpace spaceType;
-	private Integer newValue;
-	private Integer currentValue;
-	private Integer restValue;		
+	public EnumSpace getType();
+	public void setType(EnumSpace value);
 	
-	@Override
-	public Boolean isActivated() {
-		return isActivated;
-	}
-
-	@Override
-	public void activate(Boolean value) {
-		isActivated = value;
-	}
+	public Integer getNewValue();
+	public void setNewValue(Integer value);
 	
-	@Override
-	public Integer getNewValue() {
-		return newValue;
-	}
-
-	@Override
-	public void setNewValue(Integer value) {
-		newValue = value;
-	}
-
-	@Override
-	public Integer getCurrentValue() {
-		return currentValue;
-	}
-
-	@Override
-	public void setCurrentValue(Integer value) {
-		currentValue = value;
-	}
-
-	@Override
-	public Integer getRestValue() {
-		return restValue;
-	}
-
-	@Override
-	public void setRestValue(Integer value) {
-		restValue = value;
-	}
-
-	@Override
-	public EnumSpace getType() {
-		return spaceType;
-	}
-
-	@Override
-	public void setType(EnumSpace value) {
-		spaceType = value;
-	}
+	public Integer getCurrentValue();
+	public void setCurrentValue(Integer value);
+	
+	public Integer getRestValue();
+	public void setRestValue(Integer value);
 }

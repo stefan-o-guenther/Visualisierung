@@ -5,9 +5,9 @@
 
 package Rechnernetze.Dijkstra;
 
-import Base.BaseMain;
+import Base.MainAbstract;
 
-public class Dijkstra extends BaseMain {
+public class Dijkstra extends MainAbstract {
 
 	public Dijkstra() {
 		super();

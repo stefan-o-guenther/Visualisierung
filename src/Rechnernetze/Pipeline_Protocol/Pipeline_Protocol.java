@@ -5,9 +5,9 @@
 
 package Rechnernetze.Pipeline_Protocol;
 
-import Base.BaseMain;
+import Base.MainAbstract;
 
-public class Pipeline_Protocol extends BaseMain {
+public class Pipeline_Protocol extends MainAbstract {
 
 	public Pipeline_Protocol() {
 		super();

@@ -5,13 +5,13 @@
 
 package Rechnernetze.TCP_Fairness;
 
-import Base.BaseFrame;
+import Base.FrameAbstract;
 
-public class FrameRNTCPFairness extends BaseFrame {
+public class FrameRNTCPFairness extends FrameAbstract {
 
 	public FrameRNTCPFairness() {
 		super("TCP-Fairness");
-        initUI(new PanelRNTCPFairnessMain());
+        initUI(new PanelRNTCPFairnessMainImpl());
     }
 
     public static void main(String[] args) {

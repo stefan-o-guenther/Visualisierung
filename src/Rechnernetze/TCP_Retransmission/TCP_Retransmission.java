@@ -5,9 +5,9 @@
 
 package Rechnernetze.TCP_Retransmission;
 
-import Base.BaseMain;
+import Base.MainAbstract;
 
-public class TCP_Retransmission extends BaseMain {
+public class TCP_Retransmission extends MainAbstract {
 
 	public TCP_Retransmission() {
 		super();

@@ -5,13 +5,13 @@
 
 package Rechnernetze.Dijkstra;
 
-import Base.BaseFrame;
+import Base.FrameAbstract;
 
-public class FrameRNDijkstra extends BaseFrame {
+public class FrameRNDijkstra extends FrameAbstract {
 
 	public FrameRNDijkstra() {
 		super("Dijkstra");
-        initUI(new PanelRNDijkstraMain());
+        initUI(new PanelRNDijkstraAlgorithmMainImpl());
     }
 
     public static void main(String[] args) {

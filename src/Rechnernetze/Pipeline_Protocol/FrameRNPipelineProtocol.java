@@ -5,13 +5,13 @@
 
 package Rechnernetze.Pipeline_Protocol;
 
-import Base.BaseFrame;
+import Base.FrameAbstract;
 
-public class FrameRNPipelineProtocol extends BaseFrame {
+public class FrameRNPipelineProtocol extends FrameAbstract {
 
 	public FrameRNPipelineProtocol() {
 		super("Pipeline Protocol");
-        initUI(new PanelRNPipelineProtocolMain());
+        initUI(new PanelRNPipelineProtocolMainImpl());
     }
 
     public static void main(String[] args) {

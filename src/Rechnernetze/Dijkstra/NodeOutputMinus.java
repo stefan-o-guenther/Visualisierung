@@ -5,20 +5,6 @@
 
 package Rechnernetze.Dijkstra;
 
+public interface NodeOutputMinus extends NodeOutput {
 
-public class NodeOutputMinus extends BaseOutput implements INodeOutputMinus {
-
-	public NodeOutputMinus() {
-		super();
-	}
-	
-	@Override
-	public EnumNodeOutputType getNodeOutputType() {
-		return EnumNodeOutputType.MINUS;
-	}
-
-	@Override
-	public String toString() {
-		return "-";
-	}
 }

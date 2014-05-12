@@ -5,13 +5,13 @@
 
 package Rechnernetze.TCP_Retransmission;
 
-import Base.BaseFrame;
+import Base.FrameAbstract;
 
-public class FrameRNTCPRetransmission extends BaseFrame {
+public class FrameRNTCPRetransmission extends FrameAbstract {
 
 	public FrameRNTCPRetransmission() {
 		super("TCP-Retransmission");
-        initUI(new PanelRNTCPRetransmissionMain());
+        initUI(new PanelRNTCPRetransmissionMainImpl());
     }
 
     public static void main(String[] args) {

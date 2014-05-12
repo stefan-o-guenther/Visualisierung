@@ -5,9 +5,9 @@
 
 package Betriebssysteme.Belegungsstrategien;
 
-import Base.BaseMain;
+import Base.MainAbstract;
 
-public class Belegungsstrategien extends BaseMain {
+public class Belegungsstrategien extends MainAbstract {
 	
 	public Belegungsstrategien() {
 		super();
@@ -16,6 +16,6 @@ public class Belegungsstrategien extends BaseMain {
 	public static void main(String[] args) {
     	initToolTipManager();
     	initLookAndFeel();
-    	baseMain(new FrameBSBelegungsstrategien());
+    	baseMain(new FrameBSBelegungsstrategienImpl());
     }
 }

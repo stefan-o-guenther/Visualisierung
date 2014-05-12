@@ -9,36 +9,36 @@ import java.util.List;
 
 public class ReplacementStrategyFactory {
 
-	public static IReplacementStrategy getStrategy(EnumPagingStrategy enumStrategy, List<Integer> listSequence, Integer ram, Integer disk) {
-		IReplacementStrategy strategy = null;
+	public static ReplacementStrategy getStrategy(EnumPagingStrategy enumStrategy, List<Integer> listSequence, Integer ram, Integer disk) {
+		ReplacementStrategy strategy = null;
 		if ((enumStrategy != null) && (listSequence != null) && (ram != null) && (disk != null)) {			
 			switch (enumStrategy) {
 				case OPTIMAL: {
-					strategy = new ReplacementStrategy_Optimal(listSequence, ram, disk);
+					strategy = new ReplacementStrategyOptimalImpl(listSequence, ram, disk);
 					break;
 				}
 				case FIFO: {
-					strategy = new ReplacementStrategy_FIFO(listSequence, ram, disk);
+					strategy = new ReplacementStrategyFifoImpl(listSequence, ram, disk);
 					break;
 				}
 				case FIFO_SECOND_CHANCE: {
-					strategy = new ReplacementStrategy_FIFO_Second_Chance(listSequence, ram, disk);
+					strategy = new ReplacementStrategyFifoSecondChanceImpl(listSequence, ram, disk);
 					break;
 				}
 				case NRU_RNU: {
-					strategy = new ReplacementStrategy_NRU_RNU(listSequence, ram, disk);
+					strategy = new ReplacementStrategyNruRnuImpl(listSequence, ram, disk);
 					break;
 				}
 				case NRU_RNU_SECOND_CHANCE: {
-					strategy = new ReplacementStrategy_NRU_RNU_Second_Chance(listSequence, ram, disk);
+					strategy = new ReplacementStrategyNruRnuSecondChanceImpl(listSequence, ram, disk);
 					break;
 				}
 				case LRU: {
-					strategy = new ReplacementStrategy_LRU(listSequence, ram, disk);
+					strategy = new ReplacementStrategyLruImpl(listSequence, ram, disk);
 					break;
 				}
 				case NFU_LFU: {
-					strategy = new ReplacementStrategy_NFU_LFU(listSequence, ram, disk);
+					strategy = new ReplacementStrategyNfuLfuImpl(listSequence, ram, disk);
 					break;
 				}
 				case NULL: {

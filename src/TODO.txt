@@ -101,3 +101,17 @@ RN:
 			- Spalte "U" weglassen (erledigt).
 			- in letzte Zeile wie bei Kilic die Zahlen eintragen (erledigt).
 			- Vergleich mit Farbe (erledigt).
+			
+-------------------------------------------------------------------
+
+16.04.2014
+
+RN:
+	- Queueing And Loss
+		- Paketbreite ist auch die Pakethöhe in der Warteschlange
+		- Paketabstände am Eingang immer gleich und zwar ist Ankunftsrate = Bandbreite vom Eingang -> kein Abstand zwischen den Paketen
+			Ist Ankunftsrate = Bandbreite / 2 -> eine Paketbreite Leerraum
+		- E/A Übertragungsrate in Paketen pro Sekunde
+		- Menü umordnen: E/A Übertragungsrate, Ankunftsrate, Verarbeitungszeit
+		- Ausgangspufferkästchen so groß wie Paket
+		

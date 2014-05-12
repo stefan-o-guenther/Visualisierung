@@ -5,9 +5,9 @@
 
 package Betriebssysteme.Seitenersetzungsstrategien;
 
-import Base.BaseMain;
+import Base.MainAbstract;
 
-public class Seitenersetzungsstrategien extends BaseMain {
+public class Seitenersetzungsstrategien extends MainAbstract {
 
 	public Seitenersetzungsstrategien() {
 		super();

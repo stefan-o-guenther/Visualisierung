@@ -5,9 +5,9 @@
 
 package Rechnernetze.Congestion_Avoidance;
 
-import Base.BaseMain;
+import Base.MainAbstract;
 
-public class Congestion_Avoidance extends BaseMain {
+public class Congestion_Avoidance extends MainAbstract {
 
 	public Congestion_Avoidance() {
 		super();
@@ -16,6 +16,6 @@ public class Congestion_Avoidance extends BaseMain {
 	public static void main(String[] args) {
     	initToolTipManager();
     	initLookAndFeel();
-    	baseMain(new FrameRNCongestionAvoidance());	
+    	baseMain(new FrameRNCongestionAvoidanceImpl());	
     }
 }

@@ -7,10 +7,10 @@ package Base;
 
 public class AutomaticThread extends Thread {
    
-	private PanelAutomatic panelAutomatic;
-	private IManagementAutomatic management;
+	private PanelAutomaticImpl panelAutomatic;
+	private ManagementAutomatic management;
   
-	public AutomaticThread(IManagementAutomatic management, PanelAutomatic panelMenu) {
+	public AutomaticThread(ManagementAutomatic management, PanelAutomaticImpl panelMenu) {
     	super();
     	this.panelAutomatic = panelMenu;
     	this.management = management;

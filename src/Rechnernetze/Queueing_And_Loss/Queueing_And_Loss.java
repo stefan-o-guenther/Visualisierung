@@ -5,9 +5,9 @@
 
 package Rechnernetze.Queueing_And_Loss;
 
-import Base.BaseMain;
+import Base.MainAbstract;
 
-public class Queueing_And_Loss extends BaseMain {
+public class Queueing_And_Loss extends MainAbstract {
 
 	public Queueing_And_Loss() {
 		super();

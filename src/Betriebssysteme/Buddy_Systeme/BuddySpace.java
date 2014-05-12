@@ -5,51 +5,14 @@
 
 package Betriebssysteme.Buddy_Systeme;
 
-public class BuddySpace implements IBuddySpace {
+public interface BuddySpace {
 
-	public BuddySpace() {
-		type = null;
-		name = "";
-		size = 0;
-	}
+	public EnumNode getType();
+	public void setType(EnumNode value);
 	
-	private EnumNode type;
-	private String name;
-	private Integer size;
+	public String getName();
+	public void setName(String value);
 	
-	@Override
-	public EnumNode getType() {
-		return type;
-	}
-
-	@Override
-	public void setType(EnumNode value) {
-		if (value != null) {
-			type = value;
-		}
-	}
-
-	@Override
-	public String getName() {
-		return name;
-	}
-
-	@Override
-	public void setName(String value) {
-		if (value != null) {
-			name = value;
-		}
-	}
-
-	@Override
-	public Integer getSize() {
-		return size;
-	}
-
-	@Override
-	public void setSize(Integer value) {
-		if ((value != null) && (value >= 0)) {
-			size = value;
-		}
-	}
+	public Integer getSize();
+	public void setSize(Integer value);
 }

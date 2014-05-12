@@ -5,9 +5,9 @@
 
 package Rechnernetze.TCP_Fairness;
 
-import Base.BaseMain;
+import Base.MainAbstract;
 
-public class TCP_Fairness extends BaseMain {
+public class TCP_Fairness extends MainAbstract {
 
 	public TCP_Fairness() {
 		super();

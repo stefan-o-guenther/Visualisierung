@@ -5,9 +5,9 @@
 
 package Betriebssysteme.Buddy_Systeme;
 
-import Base.BaseMain;
+import Base.MainAbstract;
 
-public class Buddy_Systeme extends BaseMain {
+public class Buddy_Systeme extends MainAbstract {
 
 	public Buddy_Systeme() {
 		super();
@@ -16,6 +16,6 @@ public class Buddy_Systeme extends BaseMain {
 	public static void main(String[] args) {
     	initToolTipManager();
     	initLookAndFeel();
-    	baseMain(new FrameBSBuddySysteme());	
+    	baseMain(new FrameBSBuddySystemeImpl());	
     }
 }

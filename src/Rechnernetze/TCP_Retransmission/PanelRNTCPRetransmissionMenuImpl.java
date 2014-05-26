@@ -11,19 +11,24 @@ public class PanelRNTCPRetransmissionMenuImpl extends PanelMenuAbstract {
 
 	public PanelRNTCPRetransmissionMenuImpl(ManagementRetransmission retransmission, ToolTipManagerRetransmission tooltip) {
 		super(retransmission, tooltip);
-		this.retransmission = retransmission;
+		this.initPanel();
 	}
 
 	private ManagementRetransmission retransmission;
 	
 	@Override
-	public void initComponents() {
+	protected void initComponents() {
+		this.retransmission = (ManagementRetransmission) this.getManagement();
+	}
+	
+	@Override
+	protected void initLayout() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void updateComponents() {
+	public void updatePanel() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -32,11 +37,4 @@ public class PanelRNTCPRetransmissionMenuImpl extends PanelMenuAbstract {
 	public Integer getHeightMenu() {
 		return 200;
 	}
-
-	@Override
-	protected void initLayout() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

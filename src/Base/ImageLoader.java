@@ -22,64 +22,99 @@ public class ImageLoader {
 	
 	private static BufferedImage imgRouter = null;
 	
-	private static BufferedImage loadImage(String path) {
-		BufferedImage image = null;
-		if (path != null) {
-			try {
-				InputStream stream = ImageLoader.class.getResourceAsStream(path);
-				image = ImageIO.read(stream);
-			} catch (Exception e) {
-				e.printStackTrace();
+	private static BufferedImage loadImage(String path) throws Exception {
+		try {
+			if (path == null) {
+				throw new NullPointerException();
 			}
+			if (path == "") {
+				throw new IllegalArgumentException();
+			}			
+			InputStream stream = ImageLoader.class.getResourceAsStream(path);
+			BufferedImage image = ImageIO.read(stream);	
+			return image;
+		} catch (Exception ex) {
+			throw ex;
 		}
-		return image;
 	}	
+	
+	private static ImageIcon loadImageIconAsStream(String path) throws Exception {
+		try {
+			if (path == null) {
+				throw new NullPointerException();
+			}
+			if (path == "") {
+				throw new IllegalArgumentException();
+			}
+			InputStream stream = ImageLoader.class.getResourceAsStream(path);
+			BufferedImage image = ImageIO.read(stream);
+			ImageIcon icon = new ImageIcon(image);
+			return icon;
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+	private static ImageIcon loadImageIconDirectly(String path) {
+		try {
+			if (path == null) {
+				throw new NullPointerException();
+			}
+			if (path == "") {
+				throw new IllegalArgumentException();
+			}
+			ImageIcon icon = new ImageIcon(ImageLoader.class.getResource(path));
+			return icon;
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
 	
 	public static ImageIcon getImageIconHelp16() {
 		if (imgIconHelp16 == null) {
-			imgIconHelp16 = new ImageIcon(loadImage("img/16x16_help.png"));
+			imgIconHelp16 = loadImageIconDirectly("/Base/img/16x16_help.png");
 		}
-		return imgIconHelp16;		
+		return imgIconHelp16;
 	}
 	
 	public static ImageIcon getImageIconHelp22() {
 		if (imgIconHelp22 == null) {
-			imgIconHelp22 = new ImageIcon(loadImage("img/22x22_help.png"));
+			imgIconHelp22 = loadImageIconDirectly("/Base/img/22x22_help.png");
 		}
 		return imgIconHelp22;	
 	}
 	
 	public static ImageIcon getImageIconHelp32() {
 		if (imgIconHelp32 == null) {
-			imgIconHelp32 = new ImageIcon(loadImage("img/32x32_help.png"));
+			imgIconHelp32 = loadImageIconDirectly("/Base/img/32x32_help.png");
 		}
 		return imgIconHelp32;
 	}
 	
 	public static ImageIcon getImageIconHelp48() {
 		if (imgIconHelp48 == null) {
-			imgIconHelp48 = new ImageIcon(loadImage("img/48x48_help.png"));
+			imgIconHelp48 = loadImageIconDirectly("/Base/img/48x48_help.png");
 		}
 		return imgIconHelp48;
 	}
 	
 	public static ImageIcon getImageIconRabbit() {
 		if (imgIconRabbit == null) {
-			imgIconRabbit = new ImageIcon(loadImage("img/rabbit.png"));
+			imgIconRabbit = loadImageIconDirectly("/Base/img/rabbit.png");
 		}
 		return imgIconRabbit;
 	}
 	
 	public static ImageIcon getImageIconTurtle() {
 		if (imgIconTurtle == null) {
-			imgIconTurtle = new ImageIcon(loadImage("img/turtle.png"));
+			imgIconTurtle = loadImageIconDirectly("/Base/img/turtle.png");
 		}
 		return imgIconTurtle;
 	}
 	
-	public static BufferedImage getBufferedImageRouter() {
+	public static BufferedImage getBufferedImageRouter() throws Exception {
 		if (imgRouter == null) {
-			imgRouter = loadImage("img/70px-Router.png");
+			imgRouter = loadImage("/Base/img/70px-Router.png");
 		}
 		return imgRouter;
 	}

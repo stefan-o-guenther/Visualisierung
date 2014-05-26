@@ -17,21 +17,18 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import Base.Labeling;
+import Base.MessageBox;
 import Base.PanelMenuAbstract;
 
 public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuAbstract {;
 	
 	public PanelBSSeitenersetzungsstrategienMenuImpl(ManagementPaging paging, ToolTipManagerPaging tooltip) {
 		super(paging, tooltip);
-		this.paging = paging;
-		this.tooltip = tooltip;
-		initComponents();
-		initLayout();
-		updateComponents();
+		this.initPanel();
 	}
 
 	private JLabel lblStrategie;
@@ -60,7 +57,7 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuAbstract
 	private ToolTipManagerPaging tooltip;
 
 	//@Override
-	public void updateComponents() {		
+	public void updatePanel() {		
 		lblStrategie.setEnabled(true);
 		lblReferenzfolge.setEnabled(true);
 		lblRam.setEnabled(true);
@@ -86,8 +83,8 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuAbstract
 				lblToolTipR.setVisible(false);
 				lblToolTipM.setEnabled(false);
 				lblToolTipM.setVisible(false);
-				btnExecute1.setText("Beispiel laden");
-				btnExecute2.setText("\u00fcbernehmen");
+				btnExecute1.setText(Labeling.LOAD_EXAMPLE);
+				btnExecute2.setText(Labeling.ASSUME);
 				btnExecute2.setEnabled(true);
 				cbStrategie.setEnabled(true);
 				tfReferenzfolge.setEnabled(true);
@@ -109,8 +106,8 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuAbstract
 				lblToolTipR.setVisible(useRM);
 				lblToolTipM.setEnabled(useRM);
 				lblToolTipM.setVisible(useRM);
-				btnExecute1.setText("zur\u00fccksetzen");
-				btnExecute2.setText("weiter");
+				btnExecute1.setText(Labeling.RESET);
+				btnExecute2.setText(Labeling.CONTINUE);
 				btnExecute2.setEnabled(true);
 				cbStrategie.setEnabled(false);
 				tfReferenzfolge.setEnabled(false);
@@ -132,8 +129,8 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuAbstract
 				lblToolTipR.setVisible(useRM);
 				lblToolTipM.setEnabled(useRM);
 				lblToolTipM.setVisible(useRM);
-				btnExecute1.setText("zur\u00fccksetzen");
-				btnExecute2.setText("weiter");
+				btnExecute1.setText(Labeling.RESET);
+				btnExecute2.setText(Labeling.CONTINUE);
 				btnExecute2.setEnabled(false);
 				cbStrategie.setEnabled(false);
 				tfReferenzfolge.setEnabled(false);
@@ -151,14 +148,17 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuAbstract
 	}
 	
 	//@Override
-	public void initComponents() {		
-		ImageIcon imgHelp = getImageIconHelp();
+	protected void initComponents() {		
+		this.paging = (ManagementPaging) this.getManagement();
+		this.tooltip = (ToolTipManagerPaging) this.getToolTipManager();
 		
-		lblStrategie = new JLabel("Strategie:");
+		ImageIcon imgHelp = super.getImageIconHelp();
+		
+		lblStrategie = new JLabel(Labeling.STRATEGY+":");
 		lblStrategie.setIcon(imgHelp);
 		lblStrategie.setToolTipText(tooltip.getToolTipStrategy());
 		
-		lblReferenzfolge = new JLabel("Referenzfolge:");
+		lblReferenzfolge = new JLabel(Labeling.REFERENCE+":");
 		lblReferenzfolge.setIcon(imgHelp);
 		lblReferenzfolge.setToolTipText(tooltip.getToolTipReference());
 		
@@ -167,11 +167,11 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuAbstract
 		
 		cbStrategie = new ComboBoxStrategyImpl();
 		
-		lblRam = new JLabel("Anzahl RAM:");
+		lblRam = new JLabel(Labeling.COUNT_RAM+":");
 		lblRam.setIcon(imgHelp);
 		lblRam.setToolTipText(tooltip.getToolTipRam());
 		
-		lblDisk = new JLabel("Anzahl DISK:");
+		lblDisk = new JLabel(Labeling.COUNT_DISK+":");
 		lblDisk.setIcon(imgHelp);
 		lblDisk.setToolTipText(tooltip.getToolTipDisk());
 		
@@ -181,18 +181,18 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuAbstract
 		tfRam = new JTextField();
 		tfRam.setColumns(10);
 		
-		btnExecute1 = new JButton("Beispiel laden");
+		btnExecute1 = new JButton(Labeling.LOAD_EXAMPLE);
 		btnExecute1.addActionListener(actionExecute1);
 		
-		btnExecute2 = new JButton("\u00fcbernehmen");
+		btnExecute2 = new JButton(Labeling.ASSUME);
 		btnExecute2.addActionListener(actionExecute2);		
 		
-		lblErrorTitle = new JLabel("Seitenverdr\u00e4ngungen:");		
+		lblErrorTitle = new JLabel(Labeling.COUNT_PAGING+":");		
 		lblErrorTitle.setIcon(imgHelp);
 		lblErrorTitle.setToolTipText(tooltip.getToolTipPagingError());
 		lblErrorValue = new JLabel(" ");		
 		
-		chckbxkOldStates = new JCheckBox("alte Zust\u00E4nde anzeigen");
+		chckbxkOldStates = new JCheckBox(Labeling.OLD_STATES);
 		chckbxkOldStates.setBackground(Color.WHITE);
 		chckbxkOldStates.addActionListener(actionOldStates);
 		
@@ -200,10 +200,10 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuAbstract
 		lblToolTipR.setIcon(imgHelp);
 		lblToolTipR.setToolTipText(tooltip.getToolTipR());
 		
-		btnR = new JButton("R-Bits zur\u00fccksetzen");
+		btnR = new JButton(Labeling.RESET_R_BITS);
 		btnR.addActionListener(actionResetR);
 		
-		btnM = new JButton("M-Bit setzen");
+		btnM = new JButton(Labeling.SET_M_BIT);
 		btnM.addActionListener(actionSetM);
 		
 		lblToolTipM = new JLabel(" ");
@@ -212,7 +212,7 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuAbstract
 	}
 
 	@Override
-	public void initLayout() {
+	protected void initLayout() {
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -290,29 +290,11 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuAbstract
 	}
 	
 	private void loadExample() {
-		// 012340156012356
-		// paging.reset();
-		// List<Integer> listSequence = Arrays.asList(0,1,2,3,4,0,1,5,6,0,1,2,3,5,6);
-		// paging.setStrategy(EnumPagingStrategy.FIFO_SECOND_CHANCE, listSequence, 3, 4);
 		tfReferenzfolge.setText("012340156012356");
 		tfRam.setText("3");
 		tfDisk.setText("4");
 	}
 	
-	private void printError(String error) {
-		if (error != null) {
-			Object[] option = {"schlie\u00dfen"};
-			JOptionPane.showOptionDialog(null,
-					error,
-				    "Fehler",
-				    JOptionPane.ERROR_MESSAGE,
-				    JOptionPane.ERROR_MESSAGE,
-				    null,
-				    option,
-				    option[0]);
-		}		
-	}
-			
 	private List<Integer> inputReference() {
 		String text = tfReferenzfolge.getText();
 		List<Integer> result = null;
@@ -329,7 +311,7 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuAbstract
 			}
 		} catch (Exception ex) {
 			tfReferenzfolge.setText("Keine g\u00fcltige Referenzfolge eingegeben!");
-			printError("");
+			MessageBox.showErrorMessage("");
 			result = null;
 		} finally {
 			
@@ -347,7 +329,7 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuAbstract
 			}
 		} catch (Exception ex) {
 			tfRam.setText("");
-			printError("Keine g\u00fcltige RAM-Anzahl eingegeben!");
+			MessageBox.showErrorMessage(Labeling.WRONG_COUNT_RAM);
 			result = null;
 		} finally {
 			
@@ -365,7 +347,7 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuAbstract
 			}
 		} catch (Exception ex) {
 			tfDisk.setText("");
-			printError("Keine g\u00fcltige DISK-Anzahl eingebeben!");
+			MessageBox.showErrorMessage(Labeling.WRONG_COUNT_DISK);
 			result = null;
 		} finally {
 			
@@ -389,7 +371,7 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuAbstract
 					break;
 				}
 			}
-			updateComponents();
+			updatePanel();
 		}
 	};
 	
@@ -409,15 +391,15 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuAbstract
 						Boolean ok = true;
 						if (sum > 14) {
 							ok = false;
-							printError("Die Summe aus Anzahl von RAM und DISK is gr\u00f6\u00dfer als " + maxSumRamDisk +"!");
+							MessageBox.showErrorMessage("Die Summe aus Anzahl von RAM und DISK is gr\u00f6\u00dfer als " + maxSumRamDisk +"!");
 						}
 						if (size > maxLengthReference) {
 							ok = false;
-							printError("Die Referenzfolge hat mehr als " + maxLengthReference + " Stellen!");
+							MessageBox.showErrorMessage("Die Referenzfolge hat mehr als " + maxLengthReference + " Stellen!");
 						}
 						if (ram.equals(0)) {
 							ok = false;
-							printError("Die Anzahl des RAM muss mindestens 1 sein!");
+							MessageBox.showErrorMessage("Die Anzahl des RAM muss mindestens 1 sein!");
 						}
 						if (ok) {
 							paging.setStrategy(cbStrategie.getStrategy(), listSequence, ram, disk);
@@ -439,28 +421,28 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuAbstract
 				}
 			}
 			// Starten und Weiter
-			updateComponents();
+			updatePanel();
 		}
 	};
 	
 	private ActionListener actionResetR = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			paging.resetRBits();
-			updateComponents();
+			updatePanel();
 		}
 	};
 
 	private ActionListener actionSetM = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			paging.setMBit();
-			updateComponents();
+			updatePanel();
 		}
 	};
 	
 	private ActionListener actionOldStates = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			paging.setViewOldStates(chckbxkOldStates.isSelected());
-			updateComponents();
+			updatePanel();
 		}
 	};
 

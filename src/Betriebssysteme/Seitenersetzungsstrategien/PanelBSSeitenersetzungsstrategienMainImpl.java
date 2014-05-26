@@ -13,6 +13,7 @@ public class PanelBSSeitenersetzungsstrategienMainImpl extends PanelMainAbstract
 	
 	public PanelBSSeitenersetzungsstrategienMainImpl() {
 		super(new ManagementPagingImpl(), new ToolTipManagerPagingImpl());
+		this.initPanel();
 	}
 	
 	@Override

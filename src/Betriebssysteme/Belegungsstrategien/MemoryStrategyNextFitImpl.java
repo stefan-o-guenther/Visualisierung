@@ -20,7 +20,7 @@ public class MemoryStrategyNextFitImpl extends MemoryStrategyFirstNextAbstract i
 	
 	protected void inputOK() {
 		position = start;
-		first = true;
+		isFirst = true;
 	}
 	
 	protected void finishChoose() {		

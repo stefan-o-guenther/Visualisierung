@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import Base.EnumSurface;
 import Base.ManagementAbstract;
 
 public class ManagerBuddyMemoryAllocationImpl extends ManagementAbstract implements ManagerBuddyMemoryAllocation {
@@ -37,20 +38,27 @@ public class ManagerBuddyMemoryAllocationImpl extends ManagementAbstract impleme
 	}
 	
 	private void updateList(String text) {
-		if (text == null) {
-			text = "";
-		}
-		List<BuddySpace> list = new ArrayList<BuddySpace>();
-		list = root.getNodeList(limit);
-		BuddyOperation operation = new BuddyOperationImpl();
-		operation.setMessage(text);
-		operation.setBuddyList(list);
-		listBuddyOperations.add(0, operation);
+		try {
+			if (text == null) {
+				throw new NullPointerException();
+			}
+			List<BuddySpace> list = new ArrayList<BuddySpace>();
+			list = root.getNodeList(limit);
+			BuddyOperation operation = new BuddyOperationImpl();
+			operation.setMessage(text);
+			operation.setBuddyList(list);
+			listBuddyOperations.add(0, operation);
+		} catch (Exception ex) {
+			throw ex;
+		}		
 	}
 	
 	private ProcessNode getSpaceNode(String name) {
-		ProcessNode result = null;
-		if (name != null) {
+		try {
+			if (name == null) {
+				throw new NullPointerException();
+			}
+			ProcessNode result = null;
 			for (ProcessNode space : listRunningProcesses) {
 				String n = space.getName();
 				if (name.equals(n)) {
@@ -58,8 +66,10 @@ public class ManagerBuddyMemoryAllocationImpl extends ManagementAbstract impleme
 					break;
 				}
 			}
+			return result;
+		} catch (Exception ex) {
+			throw ex;
 		}
-		return result;
 	}
 	
 	private void initColors() {
@@ -92,47 +102,68 @@ public class ManagerBuddyMemoryAllocationImpl extends ManagementAbstract impleme
 	}
 	
 	private BuddyNode getMinBuddyNode(List<BuddyNode> list) {
-		BuddyNode buddy = null;
-		if (list != null) {
-			Integer min = null;
+		try {
+			if (list == null) {
+				throw new NullPointerException();
+			}
+			BuddyNode minBuddyNode = null;
+			Integer minValue = null;
 			for (BuddyNode node : list) {
-				Integer valueNode = node.getValue();
-				if ((min == null) || (min > valueNode)) {
-					buddy = node;
-					min = valueNode;
+				Integer value = node.getValue();
+				if ((minValue == null) || (minValue > value)) {
+					minBuddyNode = node;
+					minValue = value;
 				}				
 			}
+			return minBuddyNode;		
+		} catch (Exception ex) {
+			throw ex;
 		}
-		return buddy;
 	}	
 	
 	@Override
 	public void startProcess(String name, Integer value) {
-		if ((name != null) && (value != null) && (root != null)) {	
-			if (getSpaceNode(name) == null) {
-				List<BuddyNode> list = root.findPossibleBuddyNodes(value);				
-				BuddyNode buddy = getMinBuddyNode(list);
-				if (buddy != null) {
-					ProcessNode node = buddy.insertSpace(name, value);
-					if (node != null) {
-						listRunningProcesses.add(node);
-						updateList("Prozess " + name + " gestartet.");
+		try {
+			if ((name == null) || (value == null)) {
+				throw new NullPointerException();
+			}
+			if ((name == "") || (value <= 0)) {
+				throw new IllegalArgumentException();
+			}
+			if (root != null) {
+				if (getSpaceNode(name) == null) {
+					List<BuddyNode> list = root.findPossibleBuddyNodes(value);				
+					BuddyNode buddy = getMinBuddyNode(list);
+					if (buddy != null) {
+						ProcessNode node = buddy.insertSpace(name, value);
+						if (node != null) {
+							listRunningProcesses.add(node);
+							updateList("Prozess " + name + " gestartet.");
+						} else {
+							updateList("Prozess " + name + " ist zu groß.");
+						}						
 					} else {
 						updateList("Prozess " + name + " ist zu groß.");
-					}						
+					}														
 				} else {
-					updateList("Prozess " + name + " ist zu groß.");
-				}														
-			} else {
-				updateList("Prozess " + name + " existiert schon.");
-			}
-			update();
-		}		
+					updateList("Prozess " + name + " existiert schon.");
+				}
+				update();
+			}			
+		} catch (Exception ex) {
+			throw ex;
+		}
 	}
 
 	@Override
 	public void stopProcess(String name) {
-		if (name != null) {
+		try {
+			if (name == null) {
+				throw new NullPointerException();
+			}
+			if (name == "") {
+				throw new IllegalArgumentException();
+			}
 			ProcessNode space = getSpaceNode(name);
 			if (space != null) {
 				BuddyNode parent = space.getParent();
@@ -146,17 +177,27 @@ public class ManagerBuddyMemoryAllocationImpl extends ManagementAbstract impleme
 				updateList("Buddies verschmolzen.");
 			}
 			update();
+		} catch (Exception ex) {
+			throw ex;
 		}
 	}
 
 	@Override
 	public void setTotalSpace(Integer value) {
-		if ((value != null) && (value > 0)) {
-			root = new BuddyNodeImpl(value, null);
+		try {
+			if (value == null) {
+				throw new NullPointerException();
+			}
+			if (value <= 0) {
+				throw new IllegalArgumentException();
+			}
+			root = new BuddyNodeImpl(value);
 			status = EnumBuddyMemoryAllocation.EXECUTE;	
 			updateList("Hauptspeicher initialisiert.");
 			update();
-		}		
+		} catch (Exception ex) {
+			throw ex;
+		}	
 	}
 
 	@Override
@@ -183,67 +224,61 @@ public class ManagerBuddyMemoryAllocationImpl extends ManagementAbstract impleme
 	}
 
 	@Override
-	public void limitOutput(Integer value) {
-		if ((value != null) && (value >= 0)) {
-			limit = value;
+	public void limitOutput(Integer limit) {
+		try {
+			if (limit == null) {
+				throw new NullPointerException();
+			}
+			if (limit < 0) {
+				throw new IllegalArgumentException();
+			}
+			this.limit = limit;
+		} catch (Exception ex) {
+			throw ex;
 		}
 	}
 
 	@Override
 	public Integer getTotalSpace() {
-		Integer total = 0;
 		if (root != null) {
-			total = root.getValue();
+			return root.getValue();
+		} else {
+			return 0;
 		}
-		return total;
 	}	
 
 	@Override
 	public Color getProcessNodeColor(String name) {
-		Color color = Color.BLACK;
-		if (name != null) {
+		try {
+			if (name == null) {
+				throw new NullPointerException();
+			}
+			if (name == "") {
+				throw new IllegalArgumentException();
+			}
 			if (!(mapColors.containsKey(name))) {
 				Integer newCount = mapColors.size();
 				Integer size = listColor.size();
 				Integer index = newCount % size;
 				mapColors.put(name, listColor.get(index));
 			}
-			switch (surface) {
-				case COLORED: {
-					color = mapColors.get(name);
-					break;
-				}
-				case GRAY: {
-					color = Color.GRAY;
-					break;
-				}
-				default: {
-					color = Color.BLACK;
-					break;
-				}
-			}	
-		}	
-		return color;
+			if (surface == EnumSurface.COLORED) {
+				return mapColors.get(name);
+			} else {
+				return Color.BLACK;
+			}			
+		} catch (Exception ex) {
+			throw ex;
+		}
 	}
 
 	@Override
 	public Color getRestColor() {
-		Color color = Color.BLACK;
-		switch (surface) {
-			case COLORED: {
-				color = new Color(128,0,0);
-				break;
-			}
-			case GRAY: {
-				color = Color.BLACK;
-				break;
-			}
-			default: {
-				color = Color.BLACK;
-				break;
-			}
+		if (surface == EnumSurface.COLORED) {
+			return  new Color(128,0,0);
+		} else {
+			return Color.BLACK;
 		}
-		return color;
 	}
 
 	@Override

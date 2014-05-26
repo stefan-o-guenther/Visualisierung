@@ -7,8 +7,6 @@ package Betriebssysteme.Seitenersetzungsstrategien;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.util.List;
 
 import Base.PanelModelDrawAbstract;
@@ -17,11 +15,7 @@ public class PanelBSSeitenersetzungsstrategienModelImpl extends PanelModelDrawAb
 	
 	public PanelBSSeitenersetzungsstrategienModelImpl(ManagementPaging paging, ToolTipManagerPaging tooltip) {
 		super(paging, tooltip);
-		this.paging = paging;
-		initComponents();
-		initLayout();
-		putModelToManagement();
-		updateModel();
+		this.initPanel();
 	}
 	
 	private Integer HEIGHT_BOX = 35;
@@ -35,10 +29,10 @@ public class PanelBSSeitenersetzungsstrategienModelImpl extends PanelModelDrawAb
 		
 	private ManagementPaging paging;
 	
-	private Graphics2D g2d;		
-	
 	@Override
 	public void initComponents() {
+		this.paging = (ManagementPaging) getManagement();
+		
 		HEIGHT_BOX = 35;
 		WIDTH_BOX = 35;
 		WIDTH_LABEL = 80;
@@ -169,8 +163,8 @@ public class PanelBSSeitenersetzungsstrategienModelImpl extends PanelModelDrawAb
 		}
 	}
 	
-	public void doDrawing(Graphics g) {		
-		g2d = (Graphics2D) g;		
+	@Override
+	protected void doDrawing() {		
 		g2d.setFont(new Font(g2d.getFont().getFontName(), Font.BOLD, 18)); 
 		
 		List<CacheBox> listCacheBox = paging.getListCache();		 

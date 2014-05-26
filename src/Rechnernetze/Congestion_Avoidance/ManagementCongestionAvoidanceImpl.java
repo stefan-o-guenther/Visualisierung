@@ -5,31 +5,49 @@
 
 package Rechnernetze.Congestion_Avoidance;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import Base.ManagementAbstract;
+import Base.CoordinateSystem;
+import Base.CoordinateSystemImpl;
+import Base.ManagementAutomaticAbstract;
 
-public class ManagementCongestionAvoidanceImpl extends ManagementAbstract implements ManagementCongestionAvoidance {
+public class ManagementCongestionAvoidanceImpl extends ManagementAutomaticAbstract implements ManagementCongestionAvoidance {
 
 	public ManagementCongestionAvoidanceImpl() {
-		super();
+		super();		
 		init();
+		initCoordinateSystem();
 	}
 
-	private Boolean isAutomaticChecked;
+	private CoordinateSystem cs;
+	
+	private Boolean reno;
+	private Boolean tahoe;
 	private EnumNetworkStrategy strategy = EnumNetworkStrategy.TIMEOUT;
-	private EnumNetworkType type = EnumNetworkType.NONE;
-	private EnumNetworkStatus status = EnumNetworkStatus.START;
+	private Boolean start;
 	
 	private Integer maxTimeout;
 	private Integer maxTrippleDuplACK;
 	private Integer ssTreshTcpReno;
 	private Integer ssTreshTcpTahoe;
-	private Integer maxX = 200;
-	private List<Point> listPoints;
+	
+	private List<Point> listPoints;	
+	
+	private void initCoordinateSystem() {
+		cs = new CoordinateSystemImpl(this);
+		cs.setGapLeft(30);
+		cs.setGapRight(10);
+		cs.setGapTop(20);
+		cs.setGapBottom(50);
+		cs.setInterval(20);
+		cs.setArrowLength(10);
+	}
+	
 	
 	private void init() {
+		this.start = true;
 		this.isAutomaticChecked = false;
 		this.listPoints = new ArrayList<Point>();
 	}
@@ -94,21 +112,18 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAbstract implem
 	@Override
 	public Boolean execute() {
 		try {
-			if ((type != EnumNetworkType.NONE) && (status != EnumNetworkStatus.FINISHED)) {
-				if (status == EnumNetworkStatus.START) {					
-					Point firstPoint = new PointImpl(1,1,1);
+			if (((reno == true) || (tahoe == true)) && (this.getNetworkStatus() != EnumNetworkStatus.FINISHED)) {
+				if (start) {				
+					Point firstPoint = new PointImpl(1,1, this.ssTreshTcpReno, this.ssTreshTcpTahoe);
 					this.listPoints.add(firstPoint);
-					this.status = EnumNetworkStatus.RUN;
+					start = false;
 				} else {
 					Integer size = this.listPoints.size();
 					if (size > 0) {
 						Point lastPoint = this.listPoints.get(size-1);
 											
-						Integer lastTR = lastPoint.getTransmissionRound();
 						Integer lastCwndR = lastPoint.getCwndTcpReno();
 						Integer lastCwndT = lastPoint.getCwndTcpTahoe();
-						
-						Integer newTR = lastTR + 1;
 						
 						Integer newCwndR = this.increaseCwnd(lastCwndR, ssTreshTcpReno);
 						Integer newCwndT = this.increaseCwnd(lastCwndT, ssTreshTcpTahoe);
@@ -128,17 +143,15 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAbstract implem
 								break;
 							}
 						}						
-						Point newPoint = new PointImpl(newTR, newCwndR,newCwndT);
+						Point newPoint = new PointImpl(newCwndR, newCwndT, this.ssTreshTcpReno, this.ssTreshTcpTahoe);
 						listPoints.add(newPoint);
-						
-						if (newTR >= maxX) {
-							this.status = EnumNetworkStatus.FINISHED;
-						}
 					}					
 				}
 				update();
 				return true;
 			} else {
+				setAutomaticChecked(false);
+				setAutomaticRunning(false);
 				return false;
 			}
 		} catch (Exception ex) {
@@ -150,52 +163,9 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAbstract implem
 	@Override
 	public void reset() {
 		init();
-	}
-
-	@Override
-	public Boolean isAutomaticChecked() {
-		return false;
-	}
-
-	@Override
-	public void setAutomaticChecked(Boolean value) {
-		if (value != null) {
-			this.isAutomaticChecked = value;
-		}
-	}
-
-	@Override
-	public Boolean isAutomaticRunning() {
-		return this.isAutomaticChecked;
-	}
-
-	@Override
-	public void setAutomaticRunning(Boolean value) {
+		update();
 		
 	}
-
-	@Override
-	public Integer getSpeed() {
-		return 0;
-	}
-
-	@Override
-	public void setSpeed(Integer value) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public EnumNetworkType getNetworkType() {
-		return type;
-	}
-
-	@Override
-	public void setNetworkType(EnumNetworkType type) {
-		if (type != null) {
-			this.type = type;
-		}
-	}	
 
 	@Override
 	public EnumNetworkStrategy getNetworkStrategy() {
@@ -211,35 +181,38 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAbstract implem
 
 	@Override
 	public EnumNetworkStatus getNetworkStatus() {
-		return status;
-	}
-
-	@Override
-	public void setNetworkStatus(EnumNetworkStatus status) {
-		if (status != null) {
-			this.status = status;
+		if (start) {
+			return EnumNetworkStatus.START;
+		} else {
+			Integer max = this.getMaxTransmissionRound();
+			Integer tr = this.getCurrentTransmissionRound();
+			if (tr < max) {
+				return EnumNetworkStatus.RUN;
+			} else {
+				return EnumNetworkStatus.FINISHED;
+			}
 		}
 	}
 
 	@Override
-	public Integer getMaxTimeout() {
+	public Integer getTimeout() {
 		return maxTimeout;
 	}
 
 	@Override
-	public void setMaxTimeout(Integer max) {
+	public void setTimeout(Integer max) {
 		if (max != null) {
 			this.maxTimeout = max;
 		}
 	}
 
 	@Override
-	public Integer getMaxTrippleDuplACK() {
+	public Integer getTrippleDuplACK() {
 		return maxTrippleDuplACK;
 	}
 
 	@Override
-	public void setMaxTrippleDuplACK(Integer max) {
+	public void setTrippleDuplACK(Integer max) {
 		if (max != null) {
 			this.maxTrippleDuplACK = max;
 		}
@@ -253,7 +226,6 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAbstract implem
 	@Override
 	public void setSsTresh(Integer value) {
 		if (value != null) {
-			System.out.println("ssTresh");
 			this.ssTreshTcpReno = value;
 			this.ssTreshTcpTahoe = value;
 		}
@@ -261,30 +233,104 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAbstract implem
 
 	@Override
 	public Integer getMaxTransmissionRound() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setMaxTransmissionRound(Integer tr) {
-		// TODO Auto-generated method stub
-		
+		return cs.getXMax();
 	}
 
 	@Override
 	public Integer getMaxCwnd() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setMaxCwnd(Integer cwnd) {
-		// TODO Auto-generated method stub
-		
+		return cs.getYMax();
 	}
 
 	@Override
 	public String getTitle() {
 		return "Congestion Avoidance";
+	}
+
+	@Override
+	public Boolean isTcpReno() {
+		return this.reno;
+	}
+
+	@Override
+	public void setTcpReno(Boolean reno) {
+		if (reno != null) {
+			this.reno = reno;
+		}
+	}
+
+	@Override
+	public Boolean isTcpTahoe() {
+		return this.tahoe;
+	}
+
+	@Override
+	public void setTcpTahoe(Boolean tahoe) {
+		if (tahoe != null) {
+			this.tahoe = tahoe;
+		}
+	}
+
+	@Override
+	public Integer getCurrentTransmissionRound() {
+		return this.listPoints.size();
+	}
+
+	@Override
+	public Color getColorTcpTahoe() {
+		Color color = null;
+		switch (surface) {
+			case COLORED: {
+				color = Color.BLUE;
+				break;
+			}
+			case GRAY: {
+				color = Color.DARK_GRAY;
+				break;
+			}
+		}
+		return color;
+		
+	}
+
+	@Override
+	public Color getColorTcpReno() {
+		return Color.BLACK;
+	}
+
+	@Override
+	public Color getColorSsTreshTcpTahoe() {
+		Color color = null;
+		switch (surface) {
+			case COLORED: {
+				color = Color.RED;
+				break;
+			}
+			case GRAY: {
+				color = Color.LIGHT_GRAY;
+				break;
+			}
+		}
+		return color;
+	}
+
+	@Override
+	public Color getColorSsTreshTcpReno() {
+		Color color = null;
+		switch (surface) {
+			case COLORED: {
+				color = Color.GREEN;
+				break;
+			}
+			case GRAY: {
+				color = Color.GRAY;
+				break;
+			}
+		}
+		return color;
+	}
+
+	@Override
+	public CoordinateSystem getCoordinateSystem() {
+		return this.cs;
 	}	
 }

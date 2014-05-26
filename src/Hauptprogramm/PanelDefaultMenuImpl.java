@@ -10,7 +10,8 @@ import Base.PanelMenuAbstract;
 public class PanelDefaultMenuImpl extends PanelMenuAbstract {
 	
 	public PanelDefaultMenuImpl(ManagementDefault main, ToolTipManagerDefault tooltip) {
-		super(main, tooltip);		
+		super(main, tooltip);	
+		this.initPanel();
 	}
 	
 	@Override
@@ -24,7 +25,7 @@ public class PanelDefaultMenuImpl extends PanelMenuAbstract {
 	}
 
 	@Override
-	public void updateComponents() {
+	public void updatePanel() {
 		
 	}
 

@@ -12,12 +12,10 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-public abstract class PanelModelScrollAbstract extends PanelModelAbstract implements PanelModelScroll {
+public abstract class PanelModelScrollAbstract extends PanelModelAbstract {
 
 	public PanelModelScrollAbstract(Management management, ToolTipManager tooltip) {
 		super(management, tooltip);
-		initComponents();
-		initLayout();
 	}
 	
 	protected JScrollPane scrollPane;
@@ -28,7 +26,7 @@ public abstract class PanelModelScrollAbstract extends PanelModelAbstract implem
 	protected abstract EnumScrollbar getScrollbarVertical();
 	
 	@Override
-	public void initComponents() {
+	protected void initComponents() {
 		panelModelDraw = this.getNewPanelModelDraw();
 		
 		//Put the drawing area in a scroll pane.
@@ -38,7 +36,7 @@ public abstract class PanelModelScrollAbstract extends PanelModelAbstract implem
 		scrollPane.setPreferredSize(new Dimension(200,200));
 	}	
 	
-	public void initLayout() {		
+	protected void initLayout() {		
 		GroupLayout groupLayout = new GroupLayout(this);
         groupLayout.setHorizontalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
@@ -53,8 +51,8 @@ public abstract class PanelModelScrollAbstract extends PanelModelAbstract implem
 	}
 	
 	@Override
-	public void updateModel() {
-		panelModelDraw.updateModel();
+	public void updatePanel() {
+		panelModelDraw.updatePanel();
 		scrollPane.getVerticalScrollBar().setValue(0);		
 	}
 }

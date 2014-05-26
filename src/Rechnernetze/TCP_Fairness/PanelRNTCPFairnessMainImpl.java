@@ -13,8 +13,7 @@ public class PanelRNTCPFairnessMainImpl extends PanelMainAbstract {
 
 	public PanelRNTCPFairnessMainImpl() {
 		super(new ManagementFairnessImpl(), new ToolTipManagerFairnessImpl());
-		initComponents();
-		initLayout();
+		this.initPanel();
 	}
 	
 	@Override

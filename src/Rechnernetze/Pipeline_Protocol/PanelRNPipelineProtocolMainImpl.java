@@ -13,8 +13,7 @@ public class PanelRNPipelineProtocolMainImpl extends PanelMainAbstract {
 
 	public PanelRNPipelineProtocolMainImpl() {
 		super(new ManagementPipelineProtocolImpl(), new ToolTipManagerPipelineProtocolImpl());
-		initComponents();
-		initLayout();
+		this.initPanel();
 	}
 	
 	@Override

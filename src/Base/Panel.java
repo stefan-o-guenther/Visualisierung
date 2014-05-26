@@ -1,9 +1,13 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	12.05.2014
+ */
+
 package Base;
 
 public interface Panel {
 
 	public Management getManagement();
-	public void setManagement(Management management);
-	
-	public ToolTipManager getToolTipManager();
+	public ToolTipManager getToolTipManager();	
+	public void updatePanel();
 }

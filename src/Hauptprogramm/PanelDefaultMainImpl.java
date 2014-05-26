@@ -13,8 +13,7 @@ public class PanelDefaultMainImpl extends PanelMainAbstract {
 	
 	public PanelDefaultMainImpl() {
 		super(new ManagementDefaultImpl(), new ToolTipManagerDefaultImpl());
-		initComponents();
-		initLayout();
+		this.initPanel();
 	}	
 
 	@Override

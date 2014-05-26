@@ -7,13 +7,20 @@ package Base;
 
 public class AutomaticThread extends Thread {
    
-	private PanelAutomaticImpl panelAutomatic;
+	private PanelAutomaticAbstract panelAutomatic;
 	private ManagementAutomatic management;
   
-	public AutomaticThread(ManagementAutomatic management, PanelAutomaticImpl panelMenu) {
+	public AutomaticThread(ManagementAutomatic management, PanelAutomaticAbstract panelMenu) {
     	super();
-    	this.panelAutomatic = panelMenu;
-    	this.management = management;
+    	try {
+    		if ((management == null) || (panelMenu == null)) {
+    			throw new NullPointerException();
+    		}
+    		this.panelAutomatic = panelMenu;
+        	this.management = management;
+    	} catch (Exception ex) {
+    		throw ex;
+    	}
     }
   
     public void run() {
@@ -22,7 +29,7 @@ public class AutomaticThread extends Thread {
                 if (!(management.execute())) {
                 	panelAutomatic.error();
                 }
-    			panelAutomatic.updateAutomatic();
+    			panelAutomatic.updatePanel();
                 sleep(management.getSpeed());
             }
     		management.setAutomaticChecked(false);
@@ -30,6 +37,6 @@ public class AutomaticThread extends Thread {
         } catch (InterruptedException e) {
         	System.out.println("Thread abgebrochen");
         }
-    	panelAutomatic.updateAutomatic();
+    	panelAutomatic.updatePanel();
     }
 }

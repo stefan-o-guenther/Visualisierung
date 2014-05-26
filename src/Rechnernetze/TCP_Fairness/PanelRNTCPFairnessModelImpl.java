@@ -5,31 +5,31 @@
 
 package Rechnernetze.TCP_Fairness;
 
-import java.awt.Graphics;
+import Base.PanelModelDrawCoordinateSystemAbstract;
 
-import Base.PanelModelDrawAbstract;
-
-public class PanelRNTCPFairnessModelImpl extends PanelModelDrawAbstract {
+public class PanelRNTCPFairnessModelImpl extends PanelModelDrawCoordinateSystemAbstract {
 	
 	public PanelRNTCPFairnessModelImpl(ManagementFairness fairness, ToolTipManagerFairness tooltip) {
 		super(fairness, tooltip);
-		this.fairness = fairness;
-		putModelToManagement();
-		updateModel();
+		this.initPanel();
 	}
 	
 	private ManagementFairness fairness;
-
+	
 	@Override
-	public void doDrawing(Graphics g) {
-		// TODO Auto-generated method stub
+	protected void doDrawing() {
+		if (fairness != null) {
+			fairness.setSize(this.getHeight(), this.getWidth());
+			
+			printCoordinateSystem("Verbindung 1", "Verbindung 2");	
+			
+			
+		}
 		
 	}
 
 	@Override
 	protected void initComponents() {
-		// TODO Auto-generated method stub
-		
-	}
-
+		this.fairness = (ManagementFairness) this.getManagement();
+	}		
 }

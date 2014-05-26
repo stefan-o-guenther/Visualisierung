@@ -12,34 +12,35 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 
+import Base.Labeling;
 import Base.PanelMenuAutomaticAbstract;
-import Base.PanelAutomaticImpl;
+import Base.PanelAutomaticAbstract;
+
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuAutomaticAbstract {
 
 	public PanelRNDijkstraAlgorithmMenuImpl(ManagementDijkstraAlgorithm dijkstra, ToolTipManagerDijkstraAlgorithm tooltip) {
 		super(dijkstra, tooltip);
-		this.dijkstra = dijkstra;
-		initComponents();
-		initLayout();
-		updateComponents();
+		this.initPanel();
 	}
 
 	private ManagementDijkstraAlgorithm dijkstra;
 	
 	private JButton btnNextStep;
 	private JButton btnReset;
-	private PanelAutomaticImpl panelAutomatic;
+	private PanelAutomaticAbstract panelAutomatic;
 	
 	@Override
 	protected void initComponents() {
-		btnNextStep = new JButton("n\u00e4chster Schritt");
+		this.dijkstra = (ManagementDijkstraAlgorithm) this.getManagement();
+		
+		btnNextStep = new JButton(Labeling.NEXT_STEP);
 		btnNextStep.addActionListener(ActionExecute);		
-		btnReset = new JButton("zur\u00fccksetzen");
+		btnReset = new JButton(Labeling.RESET);
 		btnReset.addActionListener(ActionReset);
 		
-		panelAutomatic = new PanelAutomaticImpl(dijkstra, this, this.getBackground());		
+		panelAutomatic = new PanelRNDijkstraAlgorithmAutomaticImpl(dijkstra);		
 	}
 
 	@Override
@@ -69,48 +70,30 @@ public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuAutomaticAbstract
 	}
 
 	@Override
-	public void updateComponents() {
+	public void updatePanel() {
 		Boolean notFinished = (dijkstra.getStatus() != EnumDijkstraStatus.FINISHED);
 		panelAutomatic.setAutomaticEnabled(notFinished);				
 		btnNextStep.setEnabled(notFinished);		
 		btnReset.setEnabled(true);
-		if (dijkstra.isAutomaticRunning()) {
-			btnNextStep.setText("stop");
-    	} else {
-    		btnNextStep.setText("n\u00e4chster Schritt");
-    	}
+		btnNextStep.setText(dijkstra.getButtonAutomaticText());
 	}
 
 	ActionListener ActionExecute = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
-			if (dijkstra.isAutomaticChecked()) {
-				panelAutomatic.switchAutomatic();
-			} else {
-				dijkstra.execute();
-			}			
-			updateComponents();
+			executeManualAutomatic();
+			//updatePanel();
 		}
 	};
 
 	ActionListener ActionReset = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			dijkstra.reset();
-			updateComponents();
+			updatePanel();
 		}
 	};
 
 	@Override
 	public Integer getHeightMenu() {
 		return 70;
-	}
-
-	@Override
-	public void updateMenu() {
-		updateComponents();
-	}
-
-	@Override
-	public void error() {
-		// nothing
 	}
 }

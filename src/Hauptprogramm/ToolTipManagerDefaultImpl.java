@@ -1,8 +1,11 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	12.05.2014
+ */
+
 package Hauptprogramm;
 
-import Base.ToolTipManagerAbstract;
-
-public class ToolTipManagerDefaultImpl extends ToolTipManagerAbstract implements ToolTipManagerDefault {
+public class ToolTipManagerDefaultImpl implements ToolTipManagerDefault {
 
 	@Override
 	public String getToolTipTitle() {

@@ -14,23 +14,18 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import Base.Labeling;
+import Base.MessageBox;
 import Base.PanelMenuAutomaticAbstract;
-import Base.PanelAutomaticImpl;
 
 public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstract {
 
 	public PanelBSBelegungsstrategienMenuImpl(ManagementFragmentation fragmentation, ToolTipManagerFragmentation tooltip) {
 		super(fragmentation, tooltip);
-		this.fragmentation = fragmentation;
-		this.tooltip = tooltip;
-		
-		initComponents();
-		initLayout();
-		updateComponents();
+		this.initPanel();
 	}
 	
 	private static final long serialVersionUID = 1L;
@@ -38,8 +33,6 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 	private ManagementFragmentation fragmentation;
 	private ToolTipManagerFragmentation tooltip;
 	
-	private PanelAutomaticImpl panelAutomatic;
-		
 	private JLabel lblStrategie;
 	private JLabel lblSpeicher;
 	private JLabel lblTotalSpaceLabel;
@@ -58,28 +51,9 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 	
 	private JTextField tSpeicher;	
 	
-	protected void noInput() {
-		Object[] option = {"schlie\u00dfen"};
-		JOptionPane.showOptionDialog(null,
-				"Keine ganze Zahl eingebeben!",
-			    "Fehler",
-			    JOptionPane.ERROR_MESSAGE,
-			    JOptionPane.ERROR_MESSAGE,
-			    null,
-			    option,
-			    option[0]);
-	}
-	
-	
-	protected void foundSpace(Boolean value) {
-		if (!(value)) {
-			error();
-		}
-	}
-	
 	@Override
-	public void updateComponents() {
-    	lblTotalSpaceLabel.setEnabled(true);
+	public void updatePanel() {
+		lblTotalSpaceLabel.setEnabled(true);
     	lblTotalSpaceOutput.setEnabled(true);
     	lblFreeSpaceLabel.setEnabled(true);
     	lblFreeSpaceOutput.setEnabled(true);
@@ -98,9 +72,9 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 	        	tSpeicher.setEditable(false);
 	        	tSpeicher.setText("");
 	        	btnExecute1.setEnabled(true);
-	        	btnExecute1.setText("\u00fcbernehmen");
+	        	btnExecute1.setText(Labeling.ASSUME);
 	        	btnExecute2.setEnabled(false);
-	        	btnExecute2.setText("speichern");
+	        	btnExecute2.setText(Labeling.SAVE);
 	        	fragmentation.setAutomaticChecked(false);
 	        	panelAutomatic.setAutomaticEnabled(false);
 	    		break;
@@ -110,9 +84,9 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 	        	tSpeicher.setEnabled(true);
 	        	tSpeicher.setEditable(true);
 	        	btnExecute1.setEnabled(true);
-	        	btnExecute1.setText("zur\u00fccksetzen");
+	        	btnExecute1.setText(Labeling.RESET);
 	        	btnExecute2.setEnabled(true);
-	        	btnExecute2.setText("speichern");
+	        	btnExecute2.setText(Labeling.SAVE);
 	        	fragmentation.setAutomaticChecked(false);
 	        	panelAutomatic.setAutomaticEnabled(false);
 	    		break;
@@ -123,13 +97,9 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 	        	tSpeicher.setEnabled(false);
 	        	tSpeicher.setEditable(false);
 	        	btnExecute1.setEnabled(true);
-	        	btnExecute1.setText("zur\u00fccksetzen");
+	        	btnExecute1.setText(Labeling.RESET);
 	        	btnExecute2.setEnabled(true);
-	        	if (fragmentation.isAutomaticRunning()) {
-	        		btnExecute2.setText("stop");
-	        	} else {
-	        		btnExecute2.setText("weiter");
-	        	}
+	        	btnExecute2.setText(fragmentation.getButtonAutomaticText());
 	        	panelAutomatic.setAutomaticEnabled(true);
 	        	break;
 	    	}
@@ -139,9 +109,9 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 	        	tSpeicher.setEditable(false);
 	        	tSpeicher.setText("");
 	        	btnExecute1.setEnabled(true);
-	        	btnExecute1.setText("zur\u00fccksetzen");
+	        	btnExecute1.setText(Labeling.RESET);
 	        	btnExecute2.setEnabled(!(fragmentation.isAutomaticChecked()));
-	        	btnExecute2.setText("weiter");
+	        	btnExecute2.setText(Labeling.NEXT_STEP);
 	        	panelAutomatic.setAutomaticEnabled(false);
 	        	break;
 	    	}
@@ -157,14 +127,17 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 	}	
 	
 	@Override
-	protected void initComponents() {		
+	protected void initComponents() {
+		this.fragmentation = (ManagementFragmentation) getManagement();
+		this.tooltip = (ToolTipManagerFragmentation) getToolTipManager();
+		
 		ImageIcon imgHelp = super.getImageIconHelp();
 		
-		lblStrategie = new JLabel("Strategie:");
+		lblStrategie = new JLabel(Labeling.STRATEGY+":");
 		lblStrategie.setIcon(imgHelp);
 		lblStrategie.setToolTipText(tooltip.getToolTipStratgy());
 		
-		lblSpeicher = new JLabel("Speicher:");
+		lblSpeicher = new JLabel(Labeling.SPACE+":");
 		lblSpeicher.setIcon(imgHelp);
 		lblSpeicher.setToolTipText(tooltip.getToolTipSpeicher());
 		
@@ -176,24 +149,22 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 		tSpeicher.setColumns(10);
 		tSpeicher.setText("");
 		
-		btnExecute1 = new JButton("zur\u00fccksetzen");
+		btnExecute1 = new JButton(Labeling.RESET);
 		btnExecute1.addActionListener(ActionExecute1);
 					
-		btnExecute2 = new JButton("\u00fcbernehmen");
+		btnExecute2 = new JButton(Labeling.ASSUME);
 		btnExecute2.addActionListener(ActionExecute2);
     	
-    	lblTotalSpaceLabel = new JLabel("Gesammter Speicherplatz:");		
+    	lblTotalSpaceLabel = new JLabel(Labeling.WHOLE_SPACE+":");		
 		lblTotalSpaceOutput = new JLabel("");		
-		lblFreeSpaceLabel = new JLabel("Freier Speicherplatz:");		
+		lblFreeSpaceLabel = new JLabel(Labeling.FREE_SPACE+":");		
 		lblFreeSpaceOutput = new JLabel("");		
-		lblUsedSpaceLabel = new JLabel("Belegter Speicherplatz:");		
+		lblUsedSpaceLabel = new JLabel(Labeling.USED_SPACE+":");		
 		lblUsedSpaceOutput = new JLabel("");		
-		lblRateLabel = new JLabel("Belegter Speicherplatz in %:");		
+		lblRateLabel = new JLabel(Labeling.RATE+":");		
 		lblRateOutput = new JLabel("");
 		
-		panelAutomatic = new PanelAutomaticImpl(fragmentation, this, this.getBackground());
-		
-		
+		panelAutomatic = new PanelBSBelegungsstrategienAutomaticImpl(fragmentation);		
 	}	
 	
 	@Override
@@ -229,7 +200,7 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 								.addComponent(btnExecute2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(btnExecute1, GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)))
+								.addComponent(btnExecute1, GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblTotalSpaceLabel)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -292,34 +263,25 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-			updateComponents();
 		}
 	};
 	
-	private void input() {
-		// Eingabe
-		String text = tSpeicher.getText();			
+	private void inputNumber() {
 		try {
+			String text = tSpeicher.getText();
 			Integer space = new Integer(text);
-			fragmentation.setNumber(space);	
+			fragmentation.inputNumber(space);	
 		} catch (Exception ex) {
 			tSpeicher.setText("");
-			noInput();
-		} finally {
-			
+			MessageBox.showErrorMessage("Keine ganze Zahl eingebeben!");
 		}
-		updateComponents();
 	}
 	
-	private void search() {
-		// Suche
-		if (fragmentation.isAutomaticChecked()) {
-			panelAutomatic.switchAutomatic();
-		} else {
-			foundSpace(fragmentation.execute());
+	private void executeFragmentation() {
+		if (!(executeManualAutomatic())) {
+			MessageBox.showErrorMessage("Keinen passenden freien Speicher gefunden!");
 		}
-		updateComponents();
-	}	
+	}
 	
 	private ActionListener ActionExecute2 = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
@@ -327,13 +289,13 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 				EnumMemoryStatus status = fragmentation.getStatus();
 				switch (status) {
 					case INPUT: {
-						input();
+						inputNumber();
 						break;
 					}
 					case SEARCH:
 					case CHOOSE:
 					case FINISHED: {
-						search();
+						executeFragmentation();
 						break;
 					}
 					default: {
@@ -343,25 +305,6 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}
-			updateComponents();
 		}
-	};	
-	
-	@Override
-	public void updateMenu() {
-		updateComponents();
-	}
-
-	@Override
-	public void error() {
-		Object[] option = {"schlie\u00dfen"};
-		JOptionPane.showOptionDialog(null,
-				"Keinen passenden freien Speicher gefunden!",
-			    "Fehler",
-			    JOptionPane.ERROR_MESSAGE,
-			    JOptionPane.ERROR_MESSAGE,
-			    null,
-			    option,
-			    option[0]);
-	}
+	};
 }

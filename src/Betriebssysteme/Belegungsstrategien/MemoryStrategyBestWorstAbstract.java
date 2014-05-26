@@ -19,7 +19,7 @@ public abstract class MemoryStrategyBestWorstAbstract extends MemoryStrategyAbst
 	protected void inputOK() {
 		start = START;		
 		position = start;
-		first = true;
+		isFirst = true;
 	}
 	
 	protected Integer getPos() {

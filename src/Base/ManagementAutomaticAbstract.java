@@ -25,8 +25,13 @@ public abstract class ManagementAutomaticAbstract extends ManagementAbstract imp
 
 	@Override
 	public void setAutomaticChecked(Boolean value) {
-		if (value != null) {
+		try {
+			if (value == null) {
+				throw new NullPointerException();
+			}
 			isAutomaticChecked = value;
+		} catch (Exception ex) {
+			throw ex;
 		}
 	}
 
@@ -37,8 +42,13 @@ public abstract class ManagementAutomaticAbstract extends ManagementAbstract imp
 
 	@Override
 	public void setAutomaticRunning(Boolean value) {
-		if (value != null) {
+		try {
+			if (value == null) {
+				throw new NullPointerException();
+			}
 			isAutomaticRunning = value;
+		} catch (Exception ex) {
+			throw ex;
 		}
 	}
 
@@ -49,8 +59,33 @@ public abstract class ManagementAutomaticAbstract extends ManagementAbstract imp
 
 	@Override
 	public void setSpeed(Integer value) {
-		if (value != null) {
+		try {
+			if (value == null) {
+				throw new NullPointerException();
+			}
 			speed = value;
+		} catch (Exception ex) {
+			throw ex;
 		}
+	}
+	
+	@Override
+	public String getButtonAutomaticText() {
+		String text = "";
+		if (isAutomaticChecked()) {
+    		if (isAutomaticRunning()) {
+        		text = Labeling.STOP;
+        	} else {
+        		text = Labeling.START;
+        	}
+    	} else {
+    		text = Labeling.NEXT_STEP;
+    	}
+		return text;
+	}
+	
+	@Override
+	public void resetAutomatic() {
+		
 	}
 }

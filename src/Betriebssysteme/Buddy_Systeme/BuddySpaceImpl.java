@@ -24,8 +24,13 @@ public class BuddySpaceImpl implements BuddySpace {
 
 	@Override
 	public void setType(EnumNode value) {
-		if (value != null) {
+		try {
+			if (value == null) {
+				throw new NullPointerException();
+			}
 			type = value;
+		} catch (Exception ex) {
+			throw ex;
 		}
 	}
 
@@ -36,8 +41,13 @@ public class BuddySpaceImpl implements BuddySpace {
 
 	@Override
 	public void setName(String value) {
-		if (value != null) {
+		try {
+			if (value == null) {
+				throw new NullPointerException();
+			}
 			name = value;
+		} catch (Exception ex) {
+			throw ex;
 		}
 	}
 
@@ -48,8 +58,13 @@ public class BuddySpaceImpl implements BuddySpace {
 
 	@Override
 	public void setSize(Integer value) {
-		if ((value != null) && (value >= 0)) {
+		try {
+			if (value == null) {
+				throw new NullPointerException();
+			}
 			size = value;
+		} catch (Exception ex) {
+			throw ex;
 		}
 	}
 }

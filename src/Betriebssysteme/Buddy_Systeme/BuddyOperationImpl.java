@@ -24,9 +24,14 @@ public class BuddyOperationImpl implements BuddyOperation {
 	}
 
 	@Override
-	public void setMessage(String value) {
-		if (value != null) {
-			message = value;
+	public void setMessage(String message) {
+		try {
+			if (message == null) {
+				throw new NullPointerException();
+			}
+			this.message = message;
+		} catch (Exception ex) {
+			throw ex;
 		}
 	}
 
@@ -36,9 +41,14 @@ public class BuddyOperationImpl implements BuddyOperation {
 	}
 
 	@Override
-	public void setBuddyList(List<BuddySpace> value) {
-		if (value != null) {
-			list = value;
+	public void setBuddyList(List<BuddySpace> list) {
+		try {
+			if (list == null) {
+				throw new NullPointerException();
+			}
+			this.list = list;
+		} catch (Exception ex) {
+			throw ex;
 		}
 	}
 }

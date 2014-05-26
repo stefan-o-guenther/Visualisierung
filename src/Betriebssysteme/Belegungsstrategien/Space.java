@@ -5,20 +5,17 @@
 
 package Betriebssysteme.Belegungsstrategien;
 
+import java.awt.Color;
+
+import Base.EnumSurface;
+
 public interface Space {
 	
-	public Boolean isActivated();
-	public void activate(Boolean value);
-	
 	public EnumSpace getType();
-	public void setType(EnumSpace value);
-	
-	public Integer getNewValue();
-	public void setNewValue(Integer value);
 	
 	public Integer getCurrentValue();
 	public void setCurrentValue(Integer value);
 	
-	public Integer getRestValue();
-	public void setRestValue(Integer value);
+	public Color getColorFont(EnumSurface surface);
+	public Color getColorBox(EnumSurface surface);
 }

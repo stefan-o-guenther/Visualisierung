@@ -11,11 +11,16 @@ import java.util.List;
 public abstract class MemoryStrategyAbstract implements MemoryStrategy {
 
 	public MemoryStrategyAbstract(List<Space> example) {
-		if (example != null) {
+		try {
+			if (example == null) {
+				throw new NullPointerException();
+			}
 			listSpaceWork = example;
 			copyListSpace();
-		}
-		init();
+			init();
+		} catch (Exception ex) {
+			throw ex;
+		}		
 	}	
 	
 	protected final Integer START = 0;
@@ -26,7 +31,7 @@ public abstract class MemoryStrategyAbstract implements MemoryStrategy {
 		
 	protected Integer start = START;
 	protected Integer position = start;
-	protected Boolean first = true;
+	protected Boolean isFirst = true;
 	
 	protected Boolean executionOK = true;
 	
@@ -34,30 +39,90 @@ public abstract class MemoryStrategyAbstract implements MemoryStrategy {
 	protected Boolean suitable = false;
 	
 	protected abstract void inputOK();
+	protected abstract Boolean isSuitableSpace(Integer number, Integer value);
+	protected abstract void finishNotFit();
+	protected abstract Integer getPos();	
+	protected abstract void finishChoose();
+	protected abstract void initStrategy();
 	
 	protected void copyListSpace() {
 		listSpacePublic = new ArrayList<Space>(listSpaceWork);
 	}
 	
-	protected void deleteNegativeRestValues() {
+	private void hideNegativeRestValues() {
 		if (listSpaceWork != null) {
-			for (Space sp : listSpaceWork) {
-				Integer value = sp.getRestValue();
-				if ((value != null) && (value < 0)) {
-					sp.setRestValue(null);
+			for (Space space : listSpaceWork) {
+				if (space.getType() == EnumSpace.EMPTY) {
+					SpaceEmpty spaceE = (SpaceEmpty) space;
+					if (spaceE.getRestValue() < 0) {
+						spaceE.showRestValue(false);
+					}
 				}
 			}
 		}
 	}
 	
-	protected Space findNextFreeSpace() {
+	private void deactivateValues() {
+		if (listSpaceWork != null) {
+			for (Space space : listSpaceWork) {
+				if (space.getType() == EnumSpace.EMPTY) {
+					SpaceEmpty spaceE = (SpaceEmpty) space;
+					spaceE.activate(false);
+				}
+			}
+		}
+	}
+	
+	private void hideNewValues() {
+		if (listSpaceWork != null) {
+			for (Space space : listSpaceWork) {
+				if (space.getType() == EnumSpace.EMPTY) {
+					SpaceEmpty spaceE = (SpaceEmpty) space;
+					spaceE.showNewValue(false);
+				}				
+			}
+		}
+	}
+	
+	private void hideRestValues() {
+		if (listSpaceWork != null) {
+			for (Space space : listSpaceWork) {	
+				if (space.getType() == EnumSpace.EMPTY) {
+					SpaceEmpty spaceE = (SpaceEmpty) space;
+					spaceE.showRestValue(false);
+				}				
+			}
+		}
+	}
+	
+	private void setNewValue(Integer newValue) {
+		try {
+			if (newValue == null) {
+				throw new NullPointerException();
+			}
+			if (listSpaceWork != null) {
+				for (Space space : listSpaceWork) {
+					if (space.getType() == EnumSpace.EMPTY) {
+						SpaceEmpty spaceE = (SpaceEmpty) space;
+						spaceE.setNewValue(newValue);
+						spaceE.showNewValue(false);
+						spaceE.showRestValue(false);
+					}		
+				}
+			}
+		} catch (Exception ex) {
+			throw ex;
+		}		
+	}
+	
+	protected SpaceEmpty findNextFreeSpace() {
 		Space space = null;		
 		if (listSpaceWork != null) {
 			Integer size = listSpaceWork.size();
 			Boolean notFinished = true;		
 			while (notFinished) {
-				if (first) {
-					first = false;
+				if (isFirst) {
+					isFirst = false;
 				} else {
 					position = (position + 1) % size;
 					if (position.equals(start)) {
@@ -74,31 +139,29 @@ public abstract class MemoryStrategyAbstract implements MemoryStrategy {
 				}				
 			}
 		}		
-		return space;
+		return (SpaceEmpty) space;
 	}
-	
-	protected abstract Boolean isSuitableSpace(Integer number, Integer value);
-	protected abstract void finishNotFit();
 		
 	protected void finishFit() {
 		status = EnumMemoryStatus.CHOOSE;
-		deleteNegativeRestValues();
+		hideNegativeRestValues();
 	}
 	
-	protected void search() {
+	protected void search() {		
 		executionOK = false;
+		this.hideNewValues();
 		if ((number != null) && (number > 0)) {
 			if (suitable) {
 				executionOK = true;
 				suitable = false;
 				finishFit();
 			} else {
-				Space space = this.findNextFreeSpace();
-				if (space != null) {
-					space.activate(true);
-					space.setNewValue(number);
-					Integer value = space.getCurrentValue();
-					space.setRestValue(value - number);
+				SpaceEmpty spaceE = this.findNextFreeSpace();
+				if (spaceE != null) {
+					spaceE.activate(true);
+					spaceE.showNewValue(true);
+					Integer value = spaceE.getCurrentValue();
+					spaceE.showRestValue(true);
 					suitable = isSuitableSpace(number, value);
 					executionOK = true;				
 				} else {					
@@ -109,42 +172,37 @@ public abstract class MemoryStrategyAbstract implements MemoryStrategy {
 			executionOK = true;
 		}
 	}
-
-	protected abstract Integer getPos();	
-	protected abstract void finishChoose();
 	
 	protected void choose() {		
-		if ((position != null) && (position >= 0) && (listSpaceWork != null)) {			
-			for (Space sp : listSpaceWork) {		
-				sp.setRestValue(null);
-			}
+		this.hideRestValues();
+		if ((position != null) && (position >= 0) && (listSpaceWork != null)) {				
 			Integer pos = getPos();
-			Space space = listSpaceWork.get(pos);
-			Integer value = space.getCurrentValue();		
-			if (space.getType() == EnumSpace.EMPTY) {
-				if (value > number) {
-					Space newSpace = new SpaceImpl(number, EnumSpace.USED);
-					space.setCurrentValue(value - number);
+			Integer size = listSpaceWork.size();
+			if (pos < size) {
+				Space space = listSpaceWork.get(pos);
+				Integer value = space.getCurrentValue();		
+				if (space.getType() == EnumSpace.EMPTY) {
+					Space newSpace = new SpaceUsedImpl(number);
 					listSpaceWork.add(pos, newSpace);
-				} else if (value.equals(number)) {
-					space.setType(EnumSpace.USED);
-				}
-			}			
-			finishChoose();
-			executionOK = true;
-			status = EnumMemoryStatus.FINISHED;			
+					if (value > number) {					
+						space.setCurrentValue(value - number);						
+					} else if (value.equals(number)) {
+						listSpaceWork.remove(space);
+					}
+				}			
+				finishChoose();
+				executionOK = true;
+				status = EnumMemoryStatus.FINISHED;	
+			}					
 		}
-	}
+	}	
 	
-	protected abstract void initStrategy();
-	
-	@Override
-	public void init() {		
+	protected void init() {		
 		status = EnumMemoryStatus.INPUT;		
 		number = 0;
 		start = START;
 		position = start;
-		first = true;
+		isFirst = true;
 		initStrategy();		
 		copyListSpace();
 	}
@@ -160,33 +218,38 @@ public abstract class MemoryStrategyAbstract implements MemoryStrategy {
 	}
 		
 	@Override
-	public void setNumber(Integer value) {
-		if ((value != null) && (value > 0) && (status == EnumMemoryStatus.INPUT)) {
-			number = value;
-			inputOK();
-			status = EnumMemoryStatus.SEARCH;
-		} else {
-			status = EnumMemoryStatus.INPUT;
+	public void inputNumber(Integer value) {
+		try {
+			if (value == null) {
+				throw new NullPointerException();
+			}
+			if (value <= 0) {
+				throw new IllegalArgumentException();
+			}
+			if (status == EnumMemoryStatus.INPUT) {
+				number = value;
+				inputOK();
+				this.setNewValue(value);
+				status = EnumMemoryStatus.SEARCH;
+			} else {
+				//status = EnumMemoryStatus.INPUT;
+			}
+		} catch (Exception ex) {
+			throw ex;
 		}
 	}
 	
-	@Override
-	public Integer getNumber() {
-		return number;
-	}
-		
+	
+	
 	@Override
 	public Boolean execute() {
 		if (listSpaceWork != null) {
-			for (Space sp : listSpaceWork) {
-				sp.activate(false);
-				sp.setNewValue(null);				
-			}
-			if (status == EnumMemoryStatus.SEARCH) {
+			this.deactivateValues();
+			if (status == EnumMemoryStatus.SEARCH) {				
 				search();
 			} else if (status == EnumMemoryStatus.CHOOSE) {
 				choose();				
-			} else if (status == EnumMemoryStatus.FINISHED) {
+			} else if (status == EnumMemoryStatus.FINISHED) {				
 				status = EnumMemoryStatus.INPUT;
 				executionOK = true;
 			}

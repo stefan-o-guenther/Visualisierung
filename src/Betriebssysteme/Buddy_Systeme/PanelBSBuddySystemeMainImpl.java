@@ -13,6 +13,7 @@ public class PanelBSBuddySystemeMainImpl extends PanelMainAbstract {
 
 	public PanelBSBuddySystemeMainImpl() {
 		super(new ManagerBuddyMemoryAllocationImpl(), new ToolTipManagerBuddyMemoryAllocationImpl());
+		this.initPanel();
 	}
 	
 	@Override

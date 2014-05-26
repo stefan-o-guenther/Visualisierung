@@ -13,27 +13,22 @@ import Base.PanelModelDrawAbstract;
 
 public class PanelRNQueueingAndLossModelImpl extends PanelModelDrawAbstract {
 
-	private ManagementQueueingAndLoss qal;
-	
-	/**
-	 * Create the panel.
-	 */
 	public PanelRNQueueingAndLossModelImpl(ManagementQueueingAndLoss qal, ToolTipManagerQueueingAndLoss tooltip) {
 		super(qal, tooltip);		
-		this.qal = qal;
-		putModelToManagement();
+		this.initPanel();	
 	}
 	
+	private ManagementQueueingAndLoss qal;
+	
 	@Override
-	public void doDrawing(Graphics g) {
+	protected void doDrawing() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	protected void initComponents() {
-		// TODO Auto-generated method stub
-		
+		this.qal = (ManagementQueueingAndLoss) this.getManagement();
 	}
 	
 	public void paint (Graphics g) {

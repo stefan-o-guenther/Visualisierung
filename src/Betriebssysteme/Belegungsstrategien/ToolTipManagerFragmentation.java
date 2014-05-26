@@ -1,9 +1,14 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	12.05.2014
+ */
+
 package Betriebssysteme.Belegungsstrategien;
 
 import Base.ToolTipManager;
 
 public interface ToolTipManagerFragmentation extends ToolTipManager {
 
-	String getToolTipStratgy();
-	String getToolTipSpeicher();
+	public String getToolTipStratgy();
+	public String getToolTipSpeicher();
 }

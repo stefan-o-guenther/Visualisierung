@@ -5,34 +5,41 @@
 
 package Rechnernetze.Congestion_Avoidance;
 
+import java.awt.Color;
 import java.util.List;
 
 import Base.ManagementAutomatic;
+import Base.ManagementCoordinateSystem;
 
-public interface ManagementCongestionAvoidance extends ManagementAutomatic {
+public interface ManagementCongestionAvoidance extends ManagementAutomatic, ManagementCoordinateSystem {
 
-	EnumNetworkType getNetworkType();
-	void setNetworkType(EnumNetworkType type);
+	public Boolean isTcpReno();
+	public void setTcpReno(Boolean reno);
 	
-	EnumNetworkStrategy getNetworkStrategy();
-	void setNetworkStrategy(EnumNetworkStrategy strategy);
+	public Boolean isTcpTahoe();
+	public void setTcpTahoe(Boolean tahoe);
 	
-	EnumNetworkStatus getNetworkStatus();
-	void setNetworkStatus(EnumNetworkStatus status);
+	public EnumNetworkStrategy getNetworkStrategy();
+	public void setNetworkStrategy(EnumNetworkStrategy strategy);
 	
-	Integer getMaxTimeout();
-	void setMaxTimeout(Integer max);
+	public EnumNetworkStatus getNetworkStatus();
 	
-	Integer getMaxTrippleDuplACK();
-	void setMaxTrippleDuplACK(Integer max);
+	public Integer getTimeout();
+	public void setTimeout(Integer max);
 	
-	List<Point> getListPoints();
+	public Integer getTrippleDuplACK();
+	public void setTrippleDuplACK(Integer max);
 	
-	void setSsTresh(Integer value);
+	public List<Point> getListPoints();
 	
-	Integer getMaxTransmissionRound();
-	void setMaxTransmissionRound(Integer tr);
+	public void setSsTresh(Integer value);
+		
+	public Integer getCurrentTransmissionRound();
+	public Integer getMaxTransmissionRound();		
+	public Integer getMaxCwnd();		
 	
-	Integer getMaxCwnd();
-	void setMaxCwnd(Integer cwnd);
+	public Color getColorTcpTahoe();
+	public Color getColorTcpReno();
+	public Color getColorSsTreshTcpTahoe();
+	public Color getColorSsTreshTcpReno();
 }

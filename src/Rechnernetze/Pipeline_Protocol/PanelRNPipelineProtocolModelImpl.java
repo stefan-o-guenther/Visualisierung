@@ -5,33 +5,25 @@
 
 package Rechnernetze.Pipeline_Protocol;
 
-import java.awt.Graphics;
-
 import Base.PanelModelDrawAbstract;
 
 public class PanelRNPipelineProtocolModelImpl extends PanelModelDrawAbstract {
 
-	ManagementPipelineProtocol pipeline;
-	
-	/**
-	 * Create the panel.
-	 */
 	public PanelRNPipelineProtocolModelImpl(ManagementPipelineProtocol pipeline, ToolTipManagerPipelineProtocol tooltip) {
 		super(pipeline, tooltip);
-		this.pipeline = pipeline;
-		putModelToManagement();
-		updateModel();
+		this.initPanel();
 	}
 	
+	private ManagementPipelineProtocol pipeline;
+	
 	@Override
-	public void doDrawing(Graphics g) {
+	protected void doDrawing() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	protected void initComponents() {
-		// TODO Auto-generated method stub
-		
+		this.pipeline = (ManagementPipelineProtocol) this.getManagement();
 	}
 }

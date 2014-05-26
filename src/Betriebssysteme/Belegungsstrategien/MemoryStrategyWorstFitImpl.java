@@ -19,20 +19,36 @@ public class MemoryStrategyWorstFitImpl extends MemoryStrategyBestWorstAbstract 
 	}
 	
 	private void setWorst(Integer value) {
-		if ((value != null) && (value >= 0)) {
+		try {
+			if (value == null) {
+				throw new NullPointerException();
+			}
+			if (value < 0) {
+				throw new IllegalArgumentException();
+			}
 			if ((zBestWorst == null) || (value > zBestWorst)) {									
 				zBestWorst = value;
 				pBestWorst = position;
 			}
+		} catch (Exception ex) {
+			throw ex;
 		}
 	}
 
 	protected Boolean isSuitableSpace(Integer number, Integer value) {
-		if (value >= number) {			
-			setWorst(value);
-			return false;		
-		} else {
+		try {
+			if ((number == null) || (value == null)) {
+				throw new NullPointerException();
+			}
+			if ((number < 0) || (value < 0)) {
+				throw new IllegalArgumentException();
+			}
+			if (value >= number) {			
+				setWorst(value);
+			}
 			return false;
-		}
+		} catch (Exception ex) {
+			throw ex;
+		}		
 	}
 }

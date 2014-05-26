@@ -8,43 +8,21 @@ package Betriebssysteme.Belegungsstrategien;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.util.List;
 
 import Base.PanelModelDrawAbstract;
-import Base.EnumSurface;
 
 public class PanelBSBelegungsstrategienModelImpl extends PanelModelDrawAbstract {
 	
 	public PanelBSBelegungsstrategienModelImpl(ManagementFragmentation fragmentation, ToolTipManagerFragmentation tooltip) {
 		super(fragmentation, tooltip);
-		this.fragmentation = fragmentation;
-		putModelToManagement();
-		updateModel();
+		this.initPanel();		
 	}
 	
-	private Integer widthMaximum = 1000;	
-	private Dimension dim;
-	
-	private ManagementFragmentation fragmentation;
-	
-	private Graphics2D g2d;
-	
-	private Integer xPoint;
-	private Integer yPoint;
-	private Integer xRect;
-	private Integer yRect;
-	private Integer xValue;
-	private Integer yValue;
-	private Integer yNV;
-	private Integer yRV;
-	private Integer width;
-	private Integer height;
-	
 	@Override
-	public void initComponents() {
+	protected void initComponents() {
+		this.fragmentation = (ManagementFragmentation) this.getManagement();
 		xPoint = 0;
 		yPoint = 0;
 		xRect = xPoint + 5;
@@ -57,6 +35,22 @@ public class PanelBSBelegungsstrategienModelImpl extends PanelModelDrawAbstract 
 		height = 100;		       
 	}
 	
+	private Integer widthMaximum = 1000;	
+	private Dimension dim;
+	
+	private ManagementFragmentation fragmentation;
+	
+	private Integer xPoint;
+	private Integer yPoint;
+	private Integer xRect;
+	private Integer yRect;
+	private Integer xValue;
+	private Integer yValue;
+	private Integer yNV;
+	private Integer yRV;
+	private Integer width;
+	private Integer height;
+		
 	private Integer getMultiply() {
 		Integer sum = 0;
 		List<Space> listSpace = fragmentation.getListSpace();
@@ -66,32 +60,25 @@ public class PanelBSBelegungsstrategienModelImpl extends PanelModelDrawAbstract 
         return widthMaximum / sum;
 	}
 	
-	private Color getBoxColor(Space space) {		
-		return fragmentation.getColor(space.getType());
-	}
-	
 	private void calculateValues(Space space) {
-		Integer currentValue = space.getCurrentValue();
-		width = currentValue * getMultiply();
-		xValue = xRect + (width / 2) - 3;
-		yValue = yRect + 50;
-		yNV = yRect - 5;
-		yRV = yRect + height + 15;
+		try {
+			if (space == null) {
+				throw new NullPointerException();
+			}
+			Integer currentValue = space.getCurrentValue();
+			width = currentValue * getMultiply();
+			xValue = xRect + (width / 2) - 3;
+			yValue = yRect + 50;
+			yNV = yRect - 5;
+			yRV = yRect + height + 15;
+		} catch (Exception ex) {
+			throw ex;
+		}		
 	}
 	
-	private Color getFontColor(Space space) {
-		Color color = Color.BLACK;
-		EnumSurface surface = fragmentation.getSurface();
-		if (space.isActivated() && surface == EnumSurface.COLORED) {
-			color = Color.RED;
-		}
-		return color;
-	}	
-	
-	public void doDrawing(Graphics g) {
+	@Override
+	protected void doDrawing() {
 		try {			         	
-    		g2d = (Graphics2D) g;		
-    		
     		initComponents();
     		
     		dim = this.getSize();    		
@@ -111,20 +98,35 @@ public class PanelBSBelegungsstrategienModelImpl extends PanelModelDrawAbstract 
             	for (Space space : listSpace) {        	
     				calculateValues(space);
     				
-    				Color fontColor = getFontColor(space);
-    				
-    				// new number
-    				Integer newValue = space.getNewValue();
-    				if (newValue != null) {					
-    					g2d.setColor(fontColor);
-    					g2d.drawString((Integer.toString(newValue)), xValue, yNV);					
-    				}
+    				Color fontColor = space.getColorFont(fragmentation.getSurface());
+    				    				
+    				if (space.getType() == EnumSpace.EMPTY) {
+    					SpaceEmpty spaceE = (SpaceEmpty) space;
+    					// new number
+    					if (spaceE.isNewValue()) {
+        					Integer newValue = spaceE.getNewValue();
+        					g2d.setColor(fontColor);
+        					g2d.drawString((Integer.toString(newValue)), xValue, yNV);
+        				}
+    					// rest number
+    					String rest = "";
+    					if (spaceE.isRestValue()) {
+    						Integer restValue = spaceE.getRestValue();
+    						if (restValue >= 0) {
+    							rest = restValue.toString();
+    						} else {
+    							rest = "-";
+    						}
+    					}    				   				
+    					g2d.setColor(fontColor);				
+    					g2d.drawString(rest, xValue, yRV);   					
+    				}   				
     				
     				// rectangle border
     				g2d.setColor(Color.BLACK);
     				g2d.drawRect(xRect, yRect, width, height);	// x y width height
     				
-    				g2d.setColor(getBoxColor(space));
+    				g2d.setColor(space.getColorBox(fragmentation.getSurface()));
     				        	
     				g2d.fillRect(xRect+1, yRect+1, width-1, height-1);				
     				
@@ -132,19 +134,6 @@ public class PanelBSBelegungsstrategienModelImpl extends PanelModelDrawAbstract 
     					Integer currentValue = space.getCurrentValue();
     					g2d.setColor(fontColor);
     					g2d.drawString((Integer.toString(currentValue)), xValue, yValue);
-    				}                    
-    			    
-    			    // rest number
-    				Integer restValue = space.getRestValue();
-    				if (restValue != null) {
-    					g2d.setColor(fontColor);
-    					String rest = "";
-    					if (restValue >= 0) {
-    						rest = restValue.toString();
-    					} else {
-    						rest = "-";
-    					}
-    					g2d.drawString(rest, xValue, yRV);
     				}
     				xRect += width;
         		}

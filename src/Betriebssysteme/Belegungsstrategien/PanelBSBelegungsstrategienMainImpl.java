@@ -13,6 +13,7 @@ public class PanelBSBelegungsstrategienMainImpl extends PanelMainAbstract {
 		
 	public PanelBSBelegungsstrategienMainImpl() {
 		super(new ManagementFragmentationImpl(), new ToolTipManagerFragmentationImpl());
+		this.initPanel();
 	}
 	
 	private static final long serialVersionUID = 1L;
@@ -29,5 +30,5 @@ public class PanelBSBelegungsstrategienMainImpl extends PanelMainAbstract {
 		ManagementFragmentation memory = (ManagementFragmentation) this.getManagement();
 		ToolTipManagerFragmentation tooltip = (ToolTipManagerFragmentation) this.getToolTipManager();
 		return new PanelBSBelegungsstrategienModelImpl(memory, tooltip);
-	}	
+	}
 }

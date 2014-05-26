@@ -16,13 +16,16 @@ import javax.swing.UIManager;
 
 public abstract class FrameAbstract extends JFrame {
 	
-	public FrameAbstract(String value) {
+	public FrameAbstract(String title) {
 		super();
-		if (value == null) {
-			value = "";
-		}
-		title = value;
-		
+		try {		
+			if (title == null) {
+				throw new NullPointerException();
+			}
+			this.title = title;
+		} catch (Exception ex) {
+			throw ex;
+		}		
 		Rectangle maxBounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
 		
 		if (width > maxBounds.width) {

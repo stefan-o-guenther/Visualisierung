@@ -19,17 +19,14 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import Base.Labeling;
 import Base.PanelMenuAbstract;
 
 public class PanelBSBuddySystemeMenuImpl extends PanelMenuAbstract {
 
 	public PanelBSBuddySystemeMenuImpl(ManagerBuddyMemoryAllocation buddy, ToolTipManagerBuddyMemoryAllocation tooltip) {
 		super(buddy, tooltip);
-		this.buddy = buddy;
-		this.tooltip = tooltip;
-		initComponents();
-		initLayout();
-		updateComponents();
+		this.initPanel();
 	}
 
 	private ManagerBuddyMemoryAllocation buddy;
@@ -64,7 +61,10 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuAbstract {
 	private JPanel panel;
 	
 	@Override
-	public void initComponents() {
+	protected void initComponents() {
+		buddy = (ManagerBuddyMemoryAllocation) this.getManagement();
+		tooltip = (ToolTipManagerBuddyMemoryAllocation) this.getToolTipManager();
+		
 		ImageIcon imgHelp = this.getImageIconHelp();		
 		
 		lblSpace = new JLabel("Speichergr\u00F6\u00DFe:");	
@@ -106,7 +106,7 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuAbstract {
 	}
 	
 	@Override
-	public void initLayout() {
+	protected void initLayout() {
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -223,7 +223,7 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuAbstract {
 	}
 
 	@Override
-	public void updateComponents() {
+	public void updatePanel() {
 		lblSpace.setEnabled(true);
 		lblProcessName.setEnabled(true);
 		lblProcessSize.setEnabled(true);
@@ -244,7 +244,7 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuAbstract {
 					tfProcessSize.setEditable(false);
 					rdbtnProcessStart.setEnabled(false);	
 					rdbtnProcessStop.setEnabled(false);
-					btnExecute1.setText("\u00fcbernehmen");
+					btnExecute1.setText(Labeling.ASSUME);
 					btnExecute2.setEnabled(false);
 					btnExample.setEnabled(true);		
 					break;					
@@ -258,7 +258,7 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuAbstract {
 					tfProcessSize.setEditable(rdbtnProcessStart.isSelected());
 					rdbtnProcessStart.setEnabled(true);	
 					rdbtnProcessStop.setEnabled(true);
-					btnExecute1.setText("zur\u00fccksetzen");
+					btnExecute1.setText(Labeling.RESET);
 					btnExecute2.setEnabled(true);	
 					btnExample.setEnabled(false);					
 					break;
@@ -342,7 +342,7 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuAbstract {
 					break;
 				}
 			}
-			updateComponents();
+			updatePanel();
 		}
 	};
 	
@@ -382,7 +382,7 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuAbstract {
 					break;
 				}
 			}
-			updateComponents();
+			updatePanel();
 		}
 	};
 	
@@ -402,13 +402,13 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuAbstract {
 			buddy.startProcess("f", 50);
 			buddy.stopProcess("e");
 			buddy.stopProcess("f");
-			updateComponents();
+			updatePanel();
 		}
 	};
 	
 	private ActionListener actionProcess = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
-			updateComponents();
+			updatePanel();
 		}	
 	};
 

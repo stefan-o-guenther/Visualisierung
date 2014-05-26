@@ -1,5 +1,5 @@
 package Base;
 
-public interface PanelModelScroll extends PanelModel {	
-	
+public interface PanelModelScroll extends PanelModel {
+
 }

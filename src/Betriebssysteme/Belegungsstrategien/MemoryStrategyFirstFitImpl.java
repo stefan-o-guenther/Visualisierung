@@ -21,12 +21,11 @@ public class MemoryStrategyFirstFitImpl extends MemoryStrategyFirstNextAbstract 
 	protected void inputOK() {		
 		start = START;		
 		position = start;
-		first = true;
+		isFirst = true;
 	}
 	
 	protected void finishChoose() {		
 		start = START;
 		position = start;		
 	}
-
 }

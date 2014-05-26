@@ -5,14 +5,9 @@
 
 package Base;
 
-
-public abstract class PanelModelAbstract extends PanelAbstract implements PanelModel {
+public abstract class PanelModelAbstract extends PanelAbstract {
 	
 	public PanelModelAbstract(Management management, ToolTipManager tooltip) {
 		super(management, tooltip);
-	}
-	
-	protected void putModelToManagement() {
-		management.setPanelModel(this);
 	}
 }

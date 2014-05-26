@@ -12,8 +12,6 @@ public interface MemoryStrategy {
 	public EnumMemoryStrategy getStrategy();
 	public EnumMemoryStatus getStatus();
 	public List<Space> getListSpace();
-	public void setNumber(Integer value);
-	public Integer getNumber();
-	public void init();
+	public void inputNumber(Integer value);
 	public Boolean execute();
 }

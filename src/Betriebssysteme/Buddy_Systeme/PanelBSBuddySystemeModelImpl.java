@@ -14,21 +14,15 @@ public class PanelBSBuddySystemeModelImpl extends PanelModelAbstract {
 
 	public PanelBSBuddySystemeModelImpl(ManagerBuddyMemoryAllocation buddy, ToolTipManagerBuddyMemoryAllocation tooltip) {
 		super(buddy, tooltip);
-		this.buddy = buddy;
-		this.tooltip = tooltip;		
-		initComponents();
-		initLayout();
-		updateModel();
+		this.initPanel();
 	}
-	
-	private ManagerBuddyMemoryAllocation buddy;
-	private ToolTipManagerBuddyMemoryAllocation tooltip;
 	
 	private PanelModelAbstract panelDraw;
 	private PanelModelAbstract panelExplanation;
 	
 	public void initComponents() {
-		putModelToManagement();
+		ManagerBuddyMemoryAllocation buddy = (ManagerBuddyMemoryAllocation) this.getManagement();
+		ToolTipManagerBuddyMemoryAllocation tooltip = (ToolTipManagerBuddyMemoryAllocation) this.getToolTipManager();		
 		panelDraw = new PanelBSBuddySystemeModelScrollImpl(buddy, tooltip);
 		panelExplanation = new PanelBSBuddySystemeExplanationScrollImpl(buddy, tooltip);
 	}
@@ -51,8 +45,8 @@ public class PanelBSBuddySystemeModelImpl extends PanelModelAbstract {
 	}	
 	
 	@Override
-	public void updateModel() {
-		panelDraw.updateModel();
-		panelExplanation.updateModel();
+	public void updatePanel() {
+		panelDraw.updatePanel();
+		panelExplanation.updatePanel();
 	}
 }

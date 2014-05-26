@@ -18,11 +18,21 @@ public abstract class MemoryStrategyFirstNextAbstract extends MemoryStrategyAbst
 	}
 	
 	protected Boolean isSuitableSpace(Integer number, Integer value) {
-		if (value >= number) {		
-			return true;
-		} else {
-			return false;
-		}
+		try {
+			if ((number == null) || (value == null)) {
+				throw new NullPointerException();
+			}
+			if ((number < 0) || (value < 0)) {
+				throw new IllegalArgumentException();
+			}
+			if (value >= number) {		
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception ex) {
+			throw ex;
+		}		
 	}
 		
 	protected void finishNotFit() {

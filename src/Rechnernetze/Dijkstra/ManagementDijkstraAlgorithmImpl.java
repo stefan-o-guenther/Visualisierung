@@ -440,8 +440,6 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 		return null;
 	}
 
-	
-
 	@Override
 	public Boolean isConnected(String nameA, String nameB) {
 		if ((nameA != null) && (nameB != null)) {

@@ -19,8 +19,7 @@ public class ManagementFragmentationImpl extends ManagementAutomaticAbstract imp
 		update();
 	}	
 	
-	private MemoryStrategy strategy;
-	
+	private MemoryStrategy strategy;	
 	
 	private void init() {
 		strategy = null;		
@@ -28,23 +27,23 @@ public class ManagementFragmentationImpl extends ManagementAutomaticAbstract imp
 	
 	private List<Space> loadExample() {
 		List<Space> listSpaceExample = new ArrayList<Space>();
-		listSpaceExample.add(new SpaceImpl(10, EnumSpace.EMPTY));
-		listSpaceExample.add(new SpaceImpl(1, EnumSpace.FULL));
-		listSpaceExample.add(new SpaceImpl(4, EnumSpace.EMPTY));
-		listSpaceExample.add(new SpaceImpl(1, EnumSpace.FULL));
-		listSpaceExample.add(new SpaceImpl(20, EnumSpace.EMPTY));
-		listSpaceExample.add(new SpaceImpl(1, EnumSpace.FULL));
-		listSpaceExample.add(new SpaceImpl(18, EnumSpace.EMPTY));
-		listSpaceExample.add(new SpaceImpl(1, EnumSpace.FULL));
-		listSpaceExample.add(new SpaceImpl(7, EnumSpace.EMPTY));
-		listSpaceExample.add(new SpaceImpl(1, EnumSpace.FULL));
-		listSpaceExample.add(new SpaceImpl(9, EnumSpace.EMPTY));
-		listSpaceExample.add(new SpaceImpl(1, EnumSpace.FULL));
-		listSpaceExample.add(new SpaceImpl(12, EnumSpace.EMPTY));
-		listSpaceExample.add(new SpaceImpl(1, EnumSpace.FULL));
-		listSpaceExample.add(new SpaceImpl(15, EnumSpace.EMPTY));
-		listSpaceExample.add(new SpaceImpl(1, EnumSpace.FULL));
-		listSpaceExample.add(new SpaceImpl(8, EnumSpace.EMPTY));
+		listSpaceExample.add(new SpaceEmptyImpl(10));
+		listSpaceExample.add(new SpaceFullImpl(1));
+		listSpaceExample.add(new SpaceEmptyImpl(4));
+		listSpaceExample.add(new SpaceFullImpl(1));
+		listSpaceExample.add(new SpaceEmptyImpl(20));
+		listSpaceExample.add(new SpaceFullImpl(1));
+		listSpaceExample.add(new SpaceEmptyImpl(18));
+		listSpaceExample.add(new SpaceFullImpl(1));
+		listSpaceExample.add(new SpaceEmptyImpl(7));
+		listSpaceExample.add(new SpaceFullImpl(1));
+		listSpaceExample.add(new SpaceEmptyImpl(9));
+		listSpaceExample.add(new SpaceFullImpl(1));
+		listSpaceExample.add(new SpaceEmptyImpl(12));
+		listSpaceExample.add(new SpaceFullImpl(1));
+		listSpaceExample.add(new SpaceEmptyImpl(15));
+		listSpaceExample.add(new SpaceFullImpl(1));
+		listSpaceExample.add(new SpaceEmptyImpl(8));
 		return listSpaceExample;
 	}
 	
@@ -58,31 +57,42 @@ public class ManagementFragmentationImpl extends ManagementAutomaticAbstract imp
 	}
 
 	@Override
-	public void setStrategy(EnumMemoryStrategy value) {		
-		if (value != null) {
+	public void setStrategy(EnumMemoryStrategy value) {	
+		try {
+			if (value == null) {
+				throw new NullPointerException();
+			}
+			if (value == EnumMemoryStrategy.NULL) {
+				throw new IllegalArgumentException();
+			}
 			List<Space> example = loadExample();
 			strategy = MemoryStrategyFactory.getStrategy(value, example);
-			strategy.init();
-			update();			
-		}		
+			update();		
+		} catch (Exception ex) {
+			throw ex;
+		}
 	}
-
+	
 	@Override
-	public Integer getNumber() {
-		if (strategy != null) {
-			return strategy.getNumber();
-		} else {
-			return null;
-		}		
-	}
-
-	@Override
-	public void setNumber(Integer value) {
-		if ((strategy != null) && (strategy.getStatus() == EnumMemoryStatus.INPUT) && (value != null) && (value > 0)) {
-			strategy.setNumber(value);
-			isAutomaticChecked = false;
-			isAutomaticRunning = false;
-			update();
+	public void inputNumber(Integer value) {
+		try {
+			if (value == null) {
+				throw new NullPointerException();
+			}
+			if (value <= 0) {
+				throw new IllegalArgumentException();
+			}
+			if ((strategy != null) && (strategy.getStatus() == EnumMemoryStatus.INPUT)) {
+				strategy.inputNumber(value);
+				this.setAutomaticChecked(false);
+				this.setAutomaticRunning(false);
+				isAutomaticChecked = false;
+				isAutomaticRunning = false;
+				update();
+			}
+			
+		} catch (Exception ex) {
+			throw ex;
 		}
 	}
 
@@ -118,32 +128,6 @@ public class ManagementFragmentationImpl extends ManagementAutomaticAbstract imp
 			return strategy.getListSpace();
 		} else {
 			return this.loadExample();
-		}
-	}
-
-	private Color getColorEmpty() {
-		return Color.WHITE;		
-	}
-
-	private Color getColorUsed() {
-		switch (surface) {
-			case COLORED: return new Color(135,206,250);			
-			case GRAY: return Color.LIGHT_GRAY;
-			default: return null;						
-		}
-	}
-
-	private Color getColorFull() {
-		return Color.BLACK;
-	}
-
-	@Override
-	public Color getColor(EnumSpace type) {
-		switch (type) {
-			case EMPTY: return getColorEmpty();
-			case USED: return getColorUsed();
-			case FULL: return getColorFull();
-			default: return null;
 		}
 	}
 	

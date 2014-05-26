@@ -10,35 +10,22 @@ import java.util.List;
 public class MemoryStrategyFactory {
 
 	public static MemoryStrategy getStrategy(EnumMemoryStrategy value, List<Space> example) {
-		MemoryStrategy strategy = null;
-		if ((value != null) && (example != null)) {
-			switch (value) {
-				case FIRST_FIT: {
-					strategy = new MemoryStrategyFirstFitImpl(example);
-					break;
-				}
-				case NEXT_FIT: {
-					strategy = new MemoryStrategyNextFitImpl(example);
-					break;
-				}
-				case BEST_FIT: {
-					strategy = new MemoryStrategyBestFitImpl(example);
-					break;
-				}
-				case WORST_FIT: {
-					strategy = new MemoryStrategyWorstFitImpl(example);	
-					break;
-				}
-				case NULL: {
-					strategy = null;
-					break;
-				}
-				default: {
-					strategy = null;
-					break;
-				}					
+		try {
+			if ((value == null) || (example == null)) {
+				throw new NullPointerException();
+			} else if (value == EnumMemoryStrategy.FIRST_FIT) {
+				return new MemoryStrategyFirstFitImpl(example);
+			} else if (value == EnumMemoryStrategy.NEXT_FIT) {
+				return new MemoryStrategyNextFitImpl(example);
+			} else if (value == EnumMemoryStrategy.BEST_FIT) {
+				return new MemoryStrategyBestFitImpl(example);
+			} else if (value == EnumMemoryStrategy.WORST_FIT) {
+				return new MemoryStrategyWorstFitImpl(example);
+			} else {
+				throw new IllegalArgumentException();
 			}
+		} catch (Exception ex) {
+			throw ex;
 		}
-		return strategy;
 	}
 }

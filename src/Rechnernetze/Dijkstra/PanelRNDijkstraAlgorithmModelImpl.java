@@ -22,14 +22,10 @@ public class PanelRNDijkstraAlgorithmModelImpl extends PanelModelDrawAbstract {
 
 	public PanelRNDijkstraAlgorithmModelImpl(ManagementDijkstraAlgorithm dijkstra, ToolTipManagerDijkstraAlgorithm tooltip) {
 		super(dijkstra, tooltip);
-		this.dijkstra = dijkstra;
-		initComponents();
-		putModelToManagement();
-		updateModel();
+		this.initPanel();
 	}
 	
 	private ManagementDijkstraAlgorithm dijkstra;
-	private Graphics2D g2d;
 	private Font font;
 	
 	private Integer difPicX;
@@ -53,6 +49,8 @@ public class PanelRNDijkstraAlgorithmModelImpl extends PanelModelDrawAbstract {
 
 	@Override
 	protected void initComponents() {
+		this.dijkstra = (ManagementDijkstraAlgorithm) this.getManagement();
+		
 		difPicX = 35;
 		difPicY = 26;
 		difX = 200;
@@ -185,45 +183,38 @@ public class PanelRNDijkstraAlgorithmModelImpl extends PanelModelDrawAbstract {
 		}
 	}
 	
-	private BufferedImage getRouterImage() {
+	private BufferedImage getRouterImage() throws Exception {
 		return ImageLoader.getBufferedImageRouter();
 	}
 	
 	private void drawNodes() {
-		font = g2d.getFont();
-		g2d.setFont(new Font(font.getFontName(), Font.BOLD, 20));
-		
-		EnumSurface surface = dijkstra.getSurface();
-		
-		List<Node> listNodes = dijkstra.getListNodes();
-		for (Node node : listNodes) {
-			String name = node.getName();
-			Integer x = node.getX();
-			Integer y = node.getY();			
-			g2d.drawImage(getRouterImage(), x, y, null);
-			g2d.setColor(node.getColor(surface));
-			g2d.drawString(name, x+difPicX-7, y+difPicY+15);		
+		try {
+			font = g2d.getFont();
+			g2d.setFont(new Font(font.getFontName(), Font.BOLD, 20));
+			
+			EnumSurface surface = dijkstra.getSurface();
+			
+			List<Node> listNodes = dijkstra.getListNodes();
+			for (Node node : listNodes) {
+				String name = node.getName();
+				Integer x = node.getX();
+				Integer y = node.getY();			
+				g2d.drawImage(getRouterImage(), x, y, null);
+				g2d.setColor(node.getColor(surface));
+				g2d.drawString(name, x+difPicX-7, y+difPicY+15);		
+			}
+			
+			Node nodeStart = listNodes.get(0);
+			Node nodeTarget = listNodes.get(listNodes.size()-1);
+			
+			g2d.setColor(Color.BLACK);
+			g2d.drawString("Start", nodeStart.getX()+difPicX-25, nodeStart.getY()+difPicY+40);
+			
+			g2d.setColor(Color.BLACK);
+			g2d.drawString("Ziel", nodeTarget.getX()+difPicX-15, nodeTarget.getY()+difPicY+40);
+		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
-		
-		Node nodeStart = listNodes.get(0);
-		Node nodeTarget = listNodes.get(listNodes.size()-1);
-		
-		g2d.setColor(Color.BLACK);
-		g2d.drawString("Start", nodeStart.getX()+difPicX-25, nodeStart.getY()+difPicY+40);
-		
-		g2d.setColor(Color.BLACK);
-		g2d.drawString("Ziel", nodeTarget.getX()+difPicX-15, nodeTarget.getY()+difPicY+40);
-		
-		
-		
-		/*
-		drawNodeU();
-		drawNodeV();
-		drawNodeW();
-		drawNodeX();
-		drawNodeY();
-		drawNodeZ();
-		*/
 	}
 	
 	private void drawEdges() {
@@ -372,8 +363,7 @@ public class PanelRNDijkstraAlgorithmModelImpl extends PanelModelDrawAbstract {
 	}	
 	
 	@Override
-	public void doDrawing(Graphics g) {
-		g2d = (Graphics2D) g;
+	protected void doDrawing() {
 		font = g2d.getFont();		
 				
 		g2d.setColor(Color.BLACK);

@@ -11,15 +11,14 @@ public class PanelRNPipelineProtocolMenuImpl extends PanelMenuAbstract {
 	
 	public PanelRNPipelineProtocolMenuImpl(ManagementPipelineProtocol pipeline, ToolTipManagerPipelineProtocol tooltip) {
 		super(pipeline, tooltip);
-		this.pipeline = pipeline;
+		this.initPanel();
 	}
 	
 	private ManagementPipelineProtocol pipeline;
 
 	@Override
 	protected void initComponents() {
-		// TODO Auto-generated method stub
-		
+		this.pipeline = (ManagementPipelineProtocol) this.getManagement();
 	}
 
 	@Override
@@ -29,7 +28,7 @@ public class PanelRNPipelineProtocolMenuImpl extends PanelMenuAbstract {
 	}
 
 	@Override
-	public void updateComponents() {
+	public void updatePanel() {
 		// TODO Auto-generated method stub
 		
 	}

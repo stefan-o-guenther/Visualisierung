@@ -7,8 +7,6 @@ package Betriebssysteme.Buddy_Systeme;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,14 +16,11 @@ public class PanelBSBuddySystemeModelDrawImpl extends PanelModelDrawAbstract {
 
 	public PanelBSBuddySystemeModelDrawImpl(ManagerBuddyMemoryAllocation buddy, ToolTipManagerBuddyMemoryAllocation tooltip) {
 		super(buddy, tooltip);
-		this.buddy = buddy;
-		updateModel();
+		this.initPanel();
 	}
 
 	private ManagerBuddyMemoryAllocation buddy;
 	private List<BuddyOperation> list = new ArrayList<BuddyOperation>();	
-	
-	private Graphics2D g2d;
 	
 	private final Integer WIDTH = 512;
 	private final Integer HEIGHT = 20;
@@ -33,8 +28,7 @@ public class PanelBSBuddySystemeModelDrawImpl extends PanelModelDrawAbstract {
 	private final Integer GAP_Y = 10;	
 	
 	@Override
-	public void doDrawing(Graphics g) {
-		g2d = (Graphics2D) g;
+	protected void doDrawing() {
 		Integer height = 0;
 		Integer size = buddy.getTotalSpace();					
 		if (size > 0) {
@@ -98,7 +92,7 @@ public class PanelBSBuddySystemeModelDrawImpl extends PanelModelDrawAbstract {
 	}
 	
 	@Override
-	public void initComponents() {
-		// nothing
+	protected void initComponents() {
+		this.buddy = (ManagerBuddyMemoryAllocation) this.getManagement();
 	}
 }

@@ -8,14 +8,12 @@ package Rechnernetze.TCP_Retransmission;
 import Base.PanelMainAbstract;
 import Base.PanelMenuAbstract;
 import Base.PanelModelAbstract;
-import Base.PanelTitleImpl;
 
 public class PanelRNTCPRetransmissionMainImpl extends PanelMainAbstract {
 
 	public PanelRNTCPRetransmissionMainImpl() {
 		super(new ManagementRetransmissionImpl(), new ToolTipManagerRetransmissionImpl());
-		initComponents();
-		initLayout();
+		this.initPanel();
 	}
 	
 	@Override

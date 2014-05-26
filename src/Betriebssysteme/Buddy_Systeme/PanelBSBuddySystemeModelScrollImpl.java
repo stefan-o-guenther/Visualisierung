@@ -13,6 +13,7 @@ public class PanelBSBuddySystemeModelScrollImpl extends PanelModelScrollAbstract
 
 	public PanelBSBuddySystemeModelScrollImpl(ManagerBuddyMemoryAllocation buddy, ToolTipManagerBuddyMemoryAllocation tooltip) {
 		super(buddy, tooltip);
+		this.initPanel();
 	}
 
 	@Override

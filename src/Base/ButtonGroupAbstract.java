@@ -19,6 +19,9 @@ public abstract class ButtonGroupAbstract extends ButtonGroup {
 		mapRadioButtons = new HashMap<String, JRadioButton>();
 	}
 	
+	private HashMap<String, JRadioButton> mapRadioButtons;
+	private ActionListener actionListener;	
+	
 	public String getSelectedButtonString() {
 		ButtonModel model = getSelection();
 		String actionCommand = "";
@@ -29,7 +32,10 @@ public abstract class ButtonGroupAbstract extends ButtonGroup {
 	}
 	
 	protected void setRadioButtons(String[] arrayNames) {
-		if (arrayNames != null) {
+		try {
+			if (arrayNames == null) {
+				throw new NullPointerException();
+			}
 			Integer length = arrayNames.length;
 			for (Integer i = 0; i < length; i++) {
 				Boolean selected = (i.equals(0));
@@ -42,17 +48,30 @@ public abstract class ButtonGroupAbstract extends ButtonGroup {
 				mapRadioButtons.put(name, rdbtn);				
 				add(rdbtn);
 			}
+		} catch (Exception ex) {
+			throw ex;
 		}
 	}
 	
 	protected void setActionListener(ActionListener action) {
-		actionListener = action;
+		try {
+			if (action == null) {
+				throw new NullPointerException();
+			}
+			actionListener = action;
+		} catch (Exception ex) {
+			throw ex;
+		}		
 	}
 	
 	protected JRadioButton getRadioButton(String name) {
-		return mapRadioButtons.get(name);
-	}
-	
-	private HashMap<String, JRadioButton> mapRadioButtons;
-	private ActionListener actionListener;	
+		try {
+			if (name == null) {
+				throw new NullPointerException();
+			}
+			return mapRadioButtons.get(name);
+		} catch (Exception ex) {
+			throw ex;
+		}		
+	}	
 }

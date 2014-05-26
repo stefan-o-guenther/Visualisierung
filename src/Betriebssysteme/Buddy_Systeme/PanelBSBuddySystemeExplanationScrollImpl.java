@@ -12,7 +12,8 @@ import Base.EnumScrollbar;
 public class PanelBSBuddySystemeExplanationScrollImpl extends PanelModelScrollAbstract {
 
 	public PanelBSBuddySystemeExplanationScrollImpl(ManagerBuddyMemoryAllocation buddy, ToolTipManagerBuddyMemoryAllocation tooltip) {
-		super(buddy, tooltip);		
+		super(buddy, tooltip);
+		this.initPanel();
 	}
 	
 	@Override

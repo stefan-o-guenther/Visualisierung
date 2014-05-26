@@ -61,7 +61,7 @@ public class ManagementQueueingAndLossImpl extends ManagementAbstract implements
 	@Override
 	public void reset() {
 		init();
-		panelModel.updateModel();
+		panelMain.updatePanelModel();
 	}
 	
 	private Boolean runThread = false;
@@ -82,8 +82,8 @@ public class ManagementQueueingAndLossImpl extends ManagementAbstract implements
 					queue1.setTime(time);
 					proc1.setTime(time);
 					line2.setTime(time);
-					if (panelModel != null) {
-						panelModel.updateModel();
+					if (panelMain != null) {
+						panelMain.updatePanelModel();;
 					}
 					time += tic;					
 					sleep(50);					

@@ -14,9 +14,16 @@ public class ButtonGroupColorImpl extends ButtonGroupAbstract {
 
 	public ButtonGroupColorImpl(ActionListener actionColor) {
 		super();
-		this.setActionListener(actionColor);
-		this.setRadioButtons(arrayNames);
-		this.initMapColors();
+		try {
+			if (actionColor == null) {
+				throw new NullPointerException();
+			}
+			this.setActionListener(actionColor);
+			this.setRadioButtons(arrayNames);
+			this.initMapColors();
+		} catch (Exception ex) {
+			throw ex;
+		}	
 	}
 	
 	private String[] arrayNames = {"farbig", "grau"};

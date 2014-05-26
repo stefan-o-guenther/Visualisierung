@@ -12,8 +12,6 @@ public abstract class PanelMainAbstract extends PanelAbstract implements PanelMa
 
 	public PanelMainAbstract(Management management, ToolTipManager tooltip) {
 		super(management, tooltip);
-		initComponents();
-		initLayout();
 	}	
 	
 	private static final long serialVersionUID = 1L;
@@ -21,6 +19,7 @@ public abstract class PanelMainAbstract extends PanelAbstract implements PanelMa
 	protected PanelTitleImpl panelTitle;
 	protected PanelMenuAbstract panelMenu;
 	protected PanelModelAbstract panelModel;
+	protected Integer sizeMenu;
 	
 	protected abstract PanelMenuAbstract getNewPanelMenu();
 	protected abstract PanelModelAbstract getNewPanelModel();
@@ -29,15 +28,19 @@ public abstract class PanelMainAbstract extends PanelAbstract implements PanelMa
 		return new PanelTitleImpl(management, tooltip);
 	}
 	
-	public void initComponents() {
+	protected void putPanelMainToManagement() {
+		management.setPanelMain(this);
+	}
+	
+	protected void initComponents() {
+		management.setPanelMain(this);		
 		panelModel = this.getNewPanelModel();
 		panelMenu = this.getNewPanelMenu();
 		panelTitle = this.getNewPanelTitle();
+		sizeMenu = panelMenu.getHeightMenu();
 	}	
 	
-	public void initLayout() {
-		Integer sizeMenu = panelMenu.getHeightMenu();
-		
+	protected void initLayout() {		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -53,5 +56,29 @@ public abstract class PanelMainAbstract extends PanelAbstract implements PanelMa
 					.addComponent(panelModel, GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);				
+	}
+	
+	public void updatePanel() {
+		this.updatePanelTitle();
+		this.updatePanelMenu();
+		this.updatePanelModel();
+	}
+	
+	public void updatePanelTitle() {
+		if (this.panelTitle != null) {
+			this.panelTitle.updatePanel();
+		}		
+	}
+	
+	public void updatePanelMenu() {
+		if (this.panelMenu != null) {
+			this.panelMenu.updatePanel();
+		}		
+	}
+	
+	public void updatePanelModel() {
+		if (this.panelModel != null) {
+			this.panelModel.updatePanel();
+		}		
 	}
 }

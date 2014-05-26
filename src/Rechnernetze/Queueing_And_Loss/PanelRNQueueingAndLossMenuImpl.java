@@ -22,9 +22,7 @@ public class PanelRNQueueingAndLossMenuImpl extends PanelMenuAbstract {
 
 	public PanelRNQueueingAndLossMenuImpl(ManagementQueueingAndLoss qal, ToolTipManagerQueueingAndLoss tooltip) {
 		super(qal, tooltip);
-		this.qal = qal;
-		initComponents();
-		initLayout();
+		this.initPanel();
 	}
 
 	private ManagementQueueingAndLoss qal;
@@ -40,7 +38,9 @@ public class PanelRNQueueingAndLossMenuImpl extends PanelMenuAbstract {
 	private ComboBoxProcessingTimeImpl cbProcessingTime;
 	
 	@Override
-	public void initComponents() {
+	protected void initComponents() {
+		this.qal = (ManagementQueueingAndLoss) this.getManagement();
+		
 		btnStart = new JButton("ausf\u00FChren");
 		btnStart.addActionListener(actionStart);
 		
@@ -133,7 +133,7 @@ public class PanelRNQueueingAndLossMenuImpl extends PanelMenuAbstract {
 	}
 
 	@Override
-	public void updateComponents() {
+	public void updatePanel() {
 		// TODO Auto-generated method stub
 		
 	}

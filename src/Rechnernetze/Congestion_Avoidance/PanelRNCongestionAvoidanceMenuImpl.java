@@ -19,6 +19,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import Base.EnumVisualizationStatus;
 import Base.Labeling;
 import Base.MessageBox;
 import Base.PanelMenuAutomaticAbstract;
@@ -229,7 +230,7 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuAutomaticAbstra
 		this.lblSsTreshTahoeBar.setForeground(network.getColorSsTreshTcpTahoe());
 		this.lblSsTreshRenoBar.setForeground(network.getColorSsTreshTcpReno());
 		
-		EnumNetworkStatus status = network.getNetworkStatus();
+		EnumVisualizationStatus status = network.getNetworkStatus();
 		switch (status) {
 			case START: {
 				this.chckbxTcpReno.setEnabled(true);
@@ -373,9 +374,9 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuAutomaticAbstra
 	private ActionListener ActionAssumeStepStartStop = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			try {
-				EnumNetworkStatus status = network.getNetworkStatus();
-				if (status != EnumNetworkStatus.FINISHED) {
-					if (status == EnumNetworkStatus.START) {
+				EnumVisualizationStatus status = network.getNetworkStatus();
+				if (status != EnumVisualizationStatus.FINISHED) {
+					if (status == EnumVisualizationStatus.START) {
 						checkCheckboxes();
 						inputSsTresh();
 					}

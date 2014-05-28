@@ -40,7 +40,6 @@ public abstract class PanelModelDrawCoordinateSystemAbstract extends PanelModelD
 				Integer x0 = cs.getPositionX0();
 				Integer y0 = cs.getPositionY0();
 				Integer xMax = cs.getPositionXMax();
-				Integer interval = cs.getInterval();
 				Integer arrow = cs.getArrowLength();
 				
 				// Beschriftung von X-Achse
@@ -60,13 +59,16 @@ public abstract class PanelModelDrawCoordinateSystemAbstract extends PanelModelD
 		     	
 		     	// Striche und Nummerierung bei X-Achse
 		     	for (Integer i = 1; i <= cs.getXMax(); i++) {
-		     		Integer j = x0 + (i * interval);	     		
-		     		g2d.drawLine(j, y0-5, j, y0+5);
-		     		String s = i.toString();
-		     		if (i < 10) {
-		     			s = "0" + s;
-		     		}
-		     		g2d.drawString(s, j-5, y0+22);
+		     		Integer r = i % cs.getInterval();
+		     		if (r.equals(0)) {
+		     			Integer j = cs.XToPositionX(i);	     		
+			     		g2d.drawLine(j, y0-5, j, y0+5);
+			     		String s = i.toString();
+			     		if (i < 10) {
+			     			s = "0" + s;
+			     		}
+			     		g2d.drawString(s, j-5, y0+22);
+		     		}		     		
 		     	}
 			}
 		} catch (Exception ex) {
@@ -87,7 +89,6 @@ public abstract class PanelModelDrawCoordinateSystemAbstract extends PanelModelD
 				Integer x0 = cs.getPositionX0();
 				Integer y0 = cs.getPositionY0();
 				Integer yMax = cs.getPositionYMax();
-				Integer interval = cs.getInterval();
 				Integer arrow = cs.getArrowLength();
 				
 				// Beschriftung
@@ -107,13 +108,16 @@ public abstract class PanelModelDrawCoordinateSystemAbstract extends PanelModelD
 		     	
 		     	// Striche und Nummerierung bei Y-Achse
 		     	for (Integer i = 1; i <= cs.getYMax(); i++) {
-		     		Integer j = y0 - (i * interval);
-		     		g2d.drawLine(x0-5, j, x0+5, j);
-		     		String s = i.toString();
-		     		if (i < 10) {
-		     			s = "0" + s;
-		     		}
-		     		g2d.drawString(s, x0-25, j+5);	     		
+		     		Integer r = i % cs.getInterval();
+		     		if (r.equals(0)) {
+		     			Integer j = cs.YToPositionY(i);
+			     		g2d.drawLine(x0-5, j, x0+5, j);
+			     		String s = i.toString();
+			     		if (i < 10) {
+			     			s = "0" + s;
+			     		}
+			     		g2d.drawString(s, x0-25, j+5);	    
+		     		}		     		 		
 		     	}	
 			}
 		} catch (Exception ex) {

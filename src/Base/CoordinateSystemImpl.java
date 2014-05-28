@@ -19,7 +19,8 @@ public class CoordinateSystemImpl implements CoordinateSystem {
 	private Integer gapTop = 0;
 	private Integer gapBotton = 0;	
 	private Integer interval = 1;
-	private Integer arrowLength = 2;	
+	private Integer arrowLength = 2;
+	private Integer gapBetween = 1;
 	
 	@Override
 	public void setGapLeft(Integer gap) {
@@ -80,27 +81,7 @@ public class CoordinateSystemImpl implements CoordinateSystem {
 			this.arrowLength = length;
 		}
 	}
-
-	@Override
-	public Integer getInterval() {
-		return this.interval;
-	}
-
-	@Override
-	public void setInterval(Integer interval) {
-		try {
-			if (interval == null) {
-				throw new NullPointerException();
-			}
-			if (interval <= 0) {
-				throw new IllegalArgumentException();
-			}
-			this.interval = interval;
-		} catch (Exception ex) {
-			throw ex;
-		}
-	}
-
+	
 	@Override
 	public Integer getX0() {
 		return 0;
@@ -115,7 +96,7 @@ public class CoordinateSystemImpl implements CoordinateSystem {
 	public Integer getXMax() {
 		Integer x0 = this.getPositionX0();
 		Integer xMax = this.getPositionXMax();		
-		Integer x = (xMax - x0 - this.arrowLength) / this.interval;
+		Integer x = (xMax - x0 - this.arrowLength) / this.gapBetween;
 		return x;
 	}
 
@@ -123,7 +104,7 @@ public class CoordinateSystemImpl implements CoordinateSystem {
 	public Integer getYMax() {
 		Integer y0 = this.getPositionY0();
 		Integer yMax = this.getPositionYMax();
-		Integer y = (y0 - yMax - this.arrowLength) / this.interval;		
+		Integer y = (y0 - yMax - this.arrowLength) / this.gapBetween;		
 		return y;
 	}
 
@@ -157,5 +138,73 @@ public class CoordinateSystemImpl implements CoordinateSystem {
 		} catch (Exception ex) {
 			throw ex;
 		}
+	}
+
+	@Override
+	public Integer XToPositionX(Integer x) {
+		try {
+			if (x == null) {
+				throw new NullPointerException();
+			}
+			Integer x0 = this.getPositionX0();
+			Integer xp = x0 + (x * this.gapBetween);
+			return xp;
+		} catch (Exception ex) {
+			throw ex;
+		}		
+	}
+
+	@Override
+	public Integer YToPositionY(Integer y) {
+		try {
+			if (y == null) {
+				throw new NullPointerException();
+			}
+			Integer y0 = this.getPositionY0();
+			Integer yp = y0 - (y * this.gapBetween);
+			return yp;
+		} catch (Exception ex) {
+			throw ex;
+		}	
+	}
+	
+	@Override
+	public Integer getInterval() {
+		return this.interval;
+	}
+
+	@Override
+	public void setInterval(Integer interval) {
+		try {
+			if (interval == null) {
+				throw new NullPointerException();
+			}
+			if (interval <= 0) {
+				throw new IllegalArgumentException();
+			}
+			this.interval = interval;
+		} catch (Exception ex) {
+			throw ex;
+		}
 	}	
+	
+	@Override
+	public Integer getGapBetweenNumbers() {
+		return this.gapBetween;
+	}
+
+	@Override
+	public void setGapBetweenNumbers(Integer gapBetween) {
+		try {
+			if (gapBetween == null) {
+				throw new NullPointerException();
+			}
+			if (gapBetween <= 0) {
+				throw new IllegalArgumentException();
+			}
+			this.gapBetween = gapBetween;
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
 }

@@ -115,3 +115,9 @@ RN:
 		- Menü umordnen: E/A Übertragungsrate, Ankunftsrate, Verarbeitungszeit
 		- Ausgangspufferkästchen so groß wie Paket
 		
+28.05.2014
+
+RN:
+	- TCP-Fairness
+		- 
+		

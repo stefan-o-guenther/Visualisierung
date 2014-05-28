@@ -5,9 +5,7 @@
 
 package Base;
 
-import javax.swing.ImageIcon;
 
 public interface PanelMenu extends Panel {
-	public abstract Integer getHeightMenu();	
-	public ImageIcon getImageIconHelp();
+	public abstract Integer getHeightMenu();
 }

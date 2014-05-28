@@ -13,10 +13,10 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import Base.EnumVisualizationStatus;
 import Base.Labeling;
 import Base.MessageBox;
 import Base.PanelMenuAutomaticAbstract;
@@ -25,8 +25,6 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
 	
 	public PanelRNTCPFairnessMenuImpl(ManagementFairness fairness, ToolTipManagerFairness tooltip) {
 		super(fairness, tooltip);		
-		//this.initComponents();
-		//this.initLayout();		
 		this.initPanel();
 	}
 
@@ -52,19 +50,14 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
 	private JButton btnAssumeStepStartStop;
 	private JButton btnReset;
 	
-	//private JPanel panelAutomatic = new JPanel();
-	
-	
 	@Override
 	protected void initComponents() {
 		this.fairness = (ManagementFairness) this.getManagement();
 		this.tooltip = (ToolTipManagerFairness) this.getToolTipManager();
 		
-		ImageIcon imgHelp = super.getImageIconHelp();
-		
+		ImageIcon imgHelp = super.getImageIconHelp();		
 		panelAutomatic = new PanelRNTCPFairnessAutomaticImpl(fairness);
-		
-		
+				
 		lblConnection1 = new JLabel("Verbindung 1:");
 		lblConnection1.setIcon(imgHelp);
 		
@@ -111,6 +104,54 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
 		
 		tfMaxFlowRate = new JTextField();
 	}
+	
+	@Override
+	public void updatePanel() {
+		EnumVisualizationStatus status = fairness.getFairnessStatus();
+		Boolean isStart = (status == EnumVisualizationStatus.START);
+		String modus1 = fairness.getModus1();
+		String modus2 = fairness.getModus2();
+		Integer c1 = fairness.getConnection1();
+		Integer c2 = fairness.getConnection2();
+		Integer dif = fairness.getDifference();
+		
+		this.lblModusContent1.setText(modus1);
+		this.lblModusContent2.setText(modus2);
+		this.lblCwndContent1.setText(c1.toString());
+		this.lblCwndContent2.setText(c2.toString());
+		this.lblDifferenceContent.setText(dif.toString());
+		this.tfConnection1.setEnabled(isStart);
+		this.tfConnection1.setEditable(isStart);
+		this.tfConnection2.setEnabled(isStart);		
+		this.tfConnection2.setEditable(isStart);		
+		this.tfMaxFlowRate.setEnabled(isStart);
+		this.tfMaxFlowRate.setEditable(isStart);
+		
+		switch (status) {
+			case START: {
+				this.btnReset.setEnabled(true);
+				this.btnAssumeStepStartStop.setEnabled(true);
+				this.btnAssumeStepStartStop.setText(Labeling.ASSUME);
+				break;
+			}
+			case RUN: {
+				this.btnReset.setEnabled(true);
+				this.btnAssumeStepStartStop.setEnabled(true);
+				this.btnAssumeStepStartStop.setText(Labeling.NEXT_STEP);
+				break;
+			}
+			case FINISHED: {
+				this.btnReset.setEnabled(true);
+				this.btnAssumeStepStartStop.setEnabled(false);
+				this.btnAssumeStepStartStop.setText(Labeling.NEXT_STEP);
+				break;
+			}
+			default: {			
+				break;
+			}
+		
+		}
+	}	
 	
 	@Override
 	protected void initLayout() {			
@@ -191,12 +232,6 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
 	}
 
 	@Override
-	public void updatePanel() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public Integer getHeightMenu() {
 		return 110;
 	}
@@ -206,7 +241,7 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
 			Integer maxFlowRate = new Integer(tfMaxFlowRate.getText());
 			fairness.setMaxFlowRate(maxFlowRate);
 		} catch (Exception ex) {
-			MessageBox.showErrorMessage("kein richtiges timout eingebeben!");			
+			MessageBox.showErrorMessage("falsches Flow Rate!");			
 			throw ex;
 		}
 	}
@@ -217,7 +252,7 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
 			Integer connection2 = new Integer(tfConnection2.getText());
 			fairness.setConnections(connection1, connection2);
 		} catch (Exception ex) {
-			MessageBox.showErrorMessage("kein richtiges timout eingebeben!");			
+			MessageBox.showErrorMessage("falsche Verbindungen!");			
 			throw ex;
 		}
 	}
@@ -225,6 +260,9 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
 	private ActionListener ActionReset = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			try {	
+				tfConnection1.setText("");
+				tfConnection2.setText("");
+				tfMaxFlowRate.setText("");
 				fairness.reset();
 			} catch (Exception ex) {
 				
@@ -236,9 +274,9 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
 	private ActionListener ActionAssumeStepStartStop = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			try {
-				EnumFairnessStatus status = fairness.getFairnessStatus();
-				if (status != EnumFairnessStatus.FINISHED) {
-					if (status == EnumFairnessStatus.START) {
+				EnumVisualizationStatus status = fairness.getFairnessStatus();
+				if (status != EnumVisualizationStatus.FINISHED) {
+					if (status == EnumVisualizationStatus.START) {
 						inputMaxFlowRate();
 						inputConnection();
 					}

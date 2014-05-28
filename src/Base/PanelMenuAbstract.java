@@ -13,7 +13,7 @@ public abstract class PanelMenuAbstract extends PanelAbstract implements PanelMe
 		super(management, tooltip);
 	}
 	
-	public ImageIcon getImageIconHelp() {
+	protected ImageIcon getImageIconHelp() {
 		return ImageLoader.getImageIconHelp16();
 	}
 }

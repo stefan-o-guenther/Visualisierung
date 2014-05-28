@@ -8,6 +8,10 @@ public class PointErrorImpl extends PointAbstract implements PointError {
 		
 	}
 	
+	public PointErrorImpl(Integer connection1, Integer connection2) {
+		super(connection1, connection2);
+	}
+	
 	@Override
 	public Color getColor() {
 		return Color.RED;

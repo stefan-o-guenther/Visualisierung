@@ -11,6 +11,7 @@ import java.util.List;
 
 import Base.CoordinateSystem;
 import Base.CoordinateSystemImpl;
+import Base.EnumVisualizationStatus;
 import Base.ManagementAutomaticAbstract;
 
 public class ManagementCongestionAvoidanceImpl extends ManagementAutomaticAbstract implements ManagementCongestionAvoidance {
@@ -41,7 +42,8 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAutomaticAbstra
 		cs.setGapRight(10);
 		cs.setGapTop(20);
 		cs.setGapBottom(50);
-		cs.setInterval(20);
+		cs.setGapBetweenNumbers(20);
+		cs.setInterval(1);
 		cs.setArrowLength(10);
 	}
 	
@@ -112,7 +114,7 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAutomaticAbstra
 	@Override
 	public Boolean execute() {
 		try {
-			if (((reno == true) || (tahoe == true)) && (this.getNetworkStatus() != EnumNetworkStatus.FINISHED)) {
+			if (((reno == true) || (tahoe == true)) && (this.getNetworkStatus() != EnumVisualizationStatus.FINISHED)) {
 				if (start) {				
 					Point firstPoint = new PointImpl(1,1, this.ssTreshTcpReno, this.ssTreshTcpTahoe);
 					this.listPoints.add(firstPoint);
@@ -180,16 +182,16 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAutomaticAbstra
 	}
 
 	@Override
-	public EnumNetworkStatus getNetworkStatus() {
+	public EnumVisualizationStatus getNetworkStatus() {
 		if (start) {
-			return EnumNetworkStatus.START;
+			return EnumVisualizationStatus.START;
 		} else {
 			Integer max = this.getMaxTransmissionRound();
 			Integer tr = this.getCurrentTransmissionRound();
 			if (tr < max) {
-				return EnumNetworkStatus.RUN;
+				return EnumVisualizationStatus.RUN;
 			} else {
-				return EnumNetworkStatus.FINISHED;
+				return EnumVisualizationStatus.FINISHED;
 			}
 		}
 	}

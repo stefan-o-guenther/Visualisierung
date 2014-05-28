@@ -7,6 +7,21 @@ public abstract class PointAbstract implements Point {
 		
 	}
 	
+	public PointAbstract(Integer connection1, Integer connection2) {
+		try {
+			if ((connection1 == null) || (connection2 == null)) {
+				throw new NullPointerException();
+			}
+			if ((connection1 < 0) || (connection2 < 0)) {
+				throw new IllegalArgumentException();
+			}
+			this.connection1 = connection1;
+			this.connection2 = connection2;
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
 	protected Integer connection1;
 	protected Integer connection2;
 	

@@ -58,9 +58,7 @@ public abstract class ManagementAbstract implements Management {
 	
 	@Override
 	public void updateAllPanels() {
-		if (panelMain != null) {
-			panelMain.updatePanel();
-		}
+		this.update();
 	}
 	
 	@Override

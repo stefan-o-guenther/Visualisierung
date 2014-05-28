@@ -8,6 +8,10 @@ public class PointRouteImpl extends PointAbstract implements PointRoute {
 		
 	}
 	
+	public PointRouteImpl(Integer connection1, Integer connection2) {
+		super(connection1, connection2);
+	}
+	
 	@Override
 	public Color getColor() {
 		return Color.WHITE;

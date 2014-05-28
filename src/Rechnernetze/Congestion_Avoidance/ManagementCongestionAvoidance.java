@@ -8,6 +8,7 @@ package Rechnernetze.Congestion_Avoidance;
 import java.awt.Color;
 import java.util.List;
 
+import Base.EnumVisualizationStatus;
 import Base.ManagementAutomatic;
 import Base.ManagementCoordinateSystem;
 
@@ -22,7 +23,7 @@ public interface ManagementCongestionAvoidance extends ManagementAutomatic, Mana
 	public EnumNetworkStrategy getNetworkStrategy();
 	public void setNetworkStrategy(EnumNetworkStrategy strategy);
 	
-	public EnumNetworkStatus getNetworkStatus();
+	public EnumVisualizationStatus getNetworkStatus();
 	
 	public Integer getTimeout();
 	public void setTimeout(Integer max);

@@ -12,8 +12,11 @@ public interface CoordinateSystem {
 	public Integer getArrowLength();
 	public void setArrowLength(Integer length);
 	
+	public Integer getGapBetweenNumbers();
+	public void setGapBetweenNumbers(Integer gap);
+	
 	public Integer getInterval();
-	public void setInterval(Integer interval);	
+	public void setInterval(Integer interval);
 
 	public Integer getX0();
 	public Integer getY0();
@@ -24,4 +27,7 @@ public interface CoordinateSystem {
 	public Integer getPositionY0();
 	public Integer getPositionXMax();
 	public Integer getPositionYMax();	
+	
+	public Integer XToPositionX(Integer x);
+	public Integer YToPositionY(Integer y);
 }

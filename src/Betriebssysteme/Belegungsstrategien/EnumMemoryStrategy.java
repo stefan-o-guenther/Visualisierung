@@ -10,5 +10,6 @@ public enum EnumMemoryStrategy {
 	NEXT_FIT,
 	BEST_FIT,
 	WORST_FIT,
+	SCHNEIDERINNEN_BEST_FIT,
 	NULL
 }

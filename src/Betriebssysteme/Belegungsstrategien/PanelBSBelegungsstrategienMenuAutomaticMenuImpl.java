@@ -19,13 +19,19 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.Labeling;
 import Base.MessageBox;
-import Base.PanelMenuAutomaticAbstract;
+import Base.PanelMenuAutomaticMenuAbstract;
 
-public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstract {
+public class PanelBSBelegungsstrategienMenuAutomaticMenuImpl extends PanelMenuAutomaticMenuAbstract {
 
-	public PanelBSBelegungsstrategienMenuImpl(ManagementFragmentation fragmentation, ToolTipManagerFragmentation tooltip) {
+	public PanelBSBelegungsstrategienMenuAutomaticMenuImpl(ManagementFragmentation fragmentation, ToolTipManagerFragmentation tooltip) {
 		super(fragmentation, tooltip);
 		this.initPanel();
+	}
+	
+	private PanelBSBelegungsstrategienMenuAutomaticMenuImpl() {
+		super(new ManagementFragmentationImpl(), new ToolTipManagerFragmentationImpl());
+		this.initComponents();
+		this.initLayout();
 	}
 	
 	private static final long serialVersionUID = 1L;
@@ -49,7 +55,7 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 	
 	private ComboBoxStrategy cbStrategie;
 	
-	private JTextField tSpeicher;	
+	private JTextField tSpeicher;
 	
 	@Override
 	public void updatePanel() {
@@ -76,7 +82,6 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 	        	btnExecute2.setEnabled(false);
 	        	btnExecute2.setText(Labeling.SAVE);
 	        	fragmentation.setAutomaticChecked(false);
-	        	panelAutomatic.setAutomaticEnabled(false);
 	    		break;
 	    	}
 	    	case INPUT: {
@@ -88,7 +93,6 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 	        	btnExecute2.setEnabled(true);
 	        	btnExecute2.setText(Labeling.SAVE);
 	        	fragmentation.setAutomaticChecked(false);
-	        	panelAutomatic.setAutomaticEnabled(false);
 	    		break;
 	    	}
 	    	case SEARCH:
@@ -100,7 +104,6 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 	        	btnExecute1.setText(Labeling.RESET);
 	        	btnExecute2.setEnabled(true);
 	        	btnExecute2.setText(fragmentation.getButtonAutomaticText());
-	        	panelAutomatic.setAutomaticEnabled(true);
 	        	break;
 	    	}
 	    	case FINISHED: {
@@ -112,7 +115,6 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 	        	btnExecute1.setText(Labeling.RESET);
 	        	btnExecute2.setEnabled(!(fragmentation.isAutomaticChecked()));
 	        	btnExecute2.setText(Labeling.NEXT_STEP);
-	        	panelAutomatic.setAutomaticEnabled(false);
 	        	break;
 	    	}
 	    	default: {
@@ -163,16 +165,14 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 		lblUsedSpaceOutput = new JLabel("");		
 		lblRateLabel = new JLabel(Labeling.RATE+":");		
 		lblRateOutput = new JLabel("");
-		
-		panelAutomatic = new PanelBSBelegungsstrategienAutomaticImpl(fragmentation);		
 	}	
 	
 	@Override
 	protected void initLayout() {
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
@@ -196,7 +196,7 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 										.addComponent(tSpeicher)
-										.addComponent(cbStrategie, 0, 106, Short.MAX_VALUE))))
+										.addComponent(cbStrategie, GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 								.addComponent(btnExecute2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -205,8 +205,7 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 							.addComponent(lblTotalSpaceLabel)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblTotalSpaceOutput)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelAutomatic, GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
+					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -237,8 +236,7 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblRateLabel)
 						.addComponent(lblRateOutput))
-					.addContainerGap(12, Short.MAX_VALUE))
-				.addComponent(panelAutomatic, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+					.addContainerGap(157, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 	}
@@ -246,8 +244,13 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 	@Override
 	public Integer getHeightMenu() {
 		return 160;
+	}	
+
+	@Override
+	public Integer getLengthMenu() {
+		return 420;
 	}
-		
+	
 	private ActionListener ActionExecute1 = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			try {
@@ -256,7 +259,7 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 					fragmentation.setStrategy(cbStrategie.getStrategy());		
 				} else {
 					// zurücksetzen
-					panelAutomatic.stopAutomatic();
+					fragmentation.stopAutomatic();
 					fragmentation.reset();
 					tSpeicher.setText("");
 				}
@@ -277,12 +280,6 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 		}
 	}
 	
-	private void executeFragmentation() {
-		if (!(executeManualAutomatic())) {
-			MessageBox.showErrorMessage("Keinen passenden freien Speicher gefunden!");
-		}
-	}
-	
 	private ActionListener ActionExecute2 = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			try {
@@ -295,7 +292,9 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 					case SEARCH:
 					case CHOOSE:
 					case FINISHED: {
-						executeFragmentation();
+						if (!(executeManualAutomatic())) {
+							fragmentation.showErrorMessage();
+						}
 						break;
 					}
 					default: {
@@ -306,5 +305,5 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuAutomaticAbstra
 				ex.printStackTrace();
 			}
 		}
-	};
+	};	
 }

@@ -6,7 +6,6 @@
 package Base;
 
 import java.awt.Color;
-
 import javax.swing.JPanel;
 
 public abstract class PanelAbstract extends JPanel implements Panel {

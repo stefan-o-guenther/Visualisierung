@@ -20,7 +20,7 @@ public class PanelRNCongestionAvoidanceMainImpl extends PanelMainAbstract {
 	protected PanelMenuAbstract getNewPanelMenu() {
 		ManagementCongestionAvoidance network = (ManagementCongestionAvoidance) this.getManagement();
 		ToolTipManagerCongestionAvoidance tooltip = (ToolTipManagerCongestionAvoidance) this.getToolTipManager();
-		return new PanelRNCongestionAvoidanceMenuImpl(network, tooltip);
+		return new PanelRNCongestionAvoidanceMenuAutomaticBoxImpl(network, tooltip);
 	}
 
 	@Override

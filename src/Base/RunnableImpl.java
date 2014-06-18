@@ -24,5 +24,4 @@ public class RunnableImpl implements Runnable {
 			ex.printStackTrace();
 		}
 	}
-
 }

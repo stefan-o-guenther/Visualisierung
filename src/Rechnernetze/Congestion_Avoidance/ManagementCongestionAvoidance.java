@@ -23,7 +23,7 @@ public interface ManagementCongestionAvoidance extends ManagementAutomatic, Mana
 	public EnumNetworkStrategy getNetworkStrategy();
 	public void setNetworkStrategy(EnumNetworkStrategy strategy);
 	
-	public EnumVisualizationStatus getNetworkStatus();
+	public EnumVisualizationStatus getStatus();
 	
 	public Integer getTimeout();
 	public void setTimeout(Integer max);

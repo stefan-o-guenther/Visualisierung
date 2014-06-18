@@ -1,8 +1,19 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	01.06.2014
+ */
+
 package Base;
 
 public interface CoordinateSystem {
 	
-	public void setManagement(Management management);
+	public Integer getHeight();
+	public void setHeight(Integer height);
+	
+	public Integer getWidth();
+	public void setWidth(Integer width);
+	
+	public void enableSameLength(Boolean enable);
 	
 	public void setGapLeft(Integer gap);	
 	public void setGapRight(Integer gap);	
@@ -30,4 +41,7 @@ public interface CoordinateSystem {
 	
 	public Integer XToPositionX(Integer x);
 	public Integer YToPositionY(Integer y);
+	
+	public EnumCoordinateSystem getPosition();
+	public void setPostion(EnumCoordinateSystem position);
 }

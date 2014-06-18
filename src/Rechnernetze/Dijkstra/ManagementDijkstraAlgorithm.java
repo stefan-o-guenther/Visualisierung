@@ -7,6 +7,7 @@ package Rechnernetze.Dijkstra;
 
 import java.util.List;
 
+import Base.EnumVisualizationStatus;
 import Base.ManagementAutomatic;
 
 public interface ManagementDijkstraAlgorithm extends ManagementAutomatic {
@@ -22,7 +23,7 @@ public interface ManagementDijkstraAlgorithm extends ManagementAutomatic {
 	
 	public Integer getMaxTableLines();
 	
-	public EnumDijkstraStatus getStatus();
+	public EnumVisualizationStatus getStatus();
 	
 	public List<String> getListNodeNames();
 	public List<List<String>> getListUsedNodes();

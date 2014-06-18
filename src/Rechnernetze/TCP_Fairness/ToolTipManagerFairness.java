@@ -5,8 +5,8 @@
 
 package Rechnernetze.TCP_Fairness;
 
-import Base.ToolTipManager;
+import Base.ToolTipManagerAutomatic;
 
-public interface ToolTipManagerFairness extends ToolTipManager {
+public interface ToolTipManagerFairness extends ToolTipManagerAutomatic {
 
 }

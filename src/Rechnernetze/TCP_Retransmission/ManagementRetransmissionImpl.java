@@ -27,4 +27,16 @@ public class ManagementRetransmissionImpl extends ManagementAbstract implements 
 	public String getTitle() {
 		return "TCP-Retransmission";
 	}
+
+	@Override
+	public void showErrorMessage() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void updateSize() {
+		// TODO Auto-generated method stub
+		
+	}
 }

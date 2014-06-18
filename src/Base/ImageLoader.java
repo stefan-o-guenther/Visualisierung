@@ -27,7 +27,7 @@ public class ImageLoader {
 			if (path == null) {
 				throw new NullPointerException();
 			}
-			if (path == "") {
+			if (path.equals("")) {
 				throw new IllegalArgumentException();
 			}			
 			InputStream stream = ImageLoader.class.getResourceAsStream(path);
@@ -43,7 +43,7 @@ public class ImageLoader {
 			if (path == null) {
 				throw new NullPointerException();
 			}
-			if (path == "") {
+			if (path.equals("")) {
 				throw new IllegalArgumentException();
 			}
 			InputStream stream = ImageLoader.class.getResourceAsStream(path);
@@ -60,7 +60,7 @@ public class ImageLoader {
 			if (path == null) {
 				throw new NullPointerException();
 			}
-			if (path == "") {
+			if (path.equals("")) {
 				throw new IllegalArgumentException();
 			}
 			ImageIcon icon = new ImageIcon(ImageLoader.class.getResource(path));

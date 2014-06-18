@@ -1,26 +1,96 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	01.06.2014
+ */
+
 package Base;
 
 public class CoordinateSystemImpl implements CoordinateSystem {
 
-	public CoordinateSystemImpl(Management management) {
+	public CoordinateSystemImpl(Boolean sameSize, EnumCoordinateSystem position) {
 		try {
-			if (management == null) {
+			if ((sameSize == null) && (position == null)) {
 				throw new NullPointerException();
 			}
-			this.management = management;
+			this.sameSize = sameSize;
+			this.position = position;
+			init();
 		} catch (Exception ex) {
 			throw ex;
 		}
-	}	
+	}
 	
-	private Management management;	
-	private Integer gapLeft = 0;
-	private Integer gapRight = 0;
-	private Integer gapTop = 0;
-	private Integer gapBotton = 0;	
-	private Integer interval = 1;
-	private Integer arrowLength = 2;
-	private Integer gapBetween = 1;
+	private Integer gapLeft;
+	private Integer gapRight;
+	private Integer gapTop;
+	private Integer gapBotton;	
+	private Integer interval;
+	private Integer arrowLength;
+	private Integer gapBetween;
+	private Integer height;
+	private Integer width;
+	private Boolean sameSize;
+	
+	private EnumCoordinateSystem position;
+	
+	private void init() {
+		gapLeft = 35;
+		gapRight = 10;
+		gapTop = 20;			
+		interval = 1;
+		arrowLength = 10;
+		gapBetween = 1;
+		height = 0;
+		width = 0;
+		switch (position) {
+			case BOTTOM: {
+				gapBotton = 50;
+				break;
+			}
+			case RIGHT: {
+				gapBotton = 30;
+				break;
+			}
+			default: {
+				gapBotton = 50;
+				break;
+			}
+		}
+	}
+	
+	private Integer calcualteAxisXLength() {
+		return (this.width - this.gapRight - this.gapLeft);
+	}
+	
+	private Integer calculateAxisYLength() {
+		return (this.height - this.gapBotton - this.gapTop);
+	}
+	
+	private Integer calculateAxisMinLength() {
+		int x = this.calcualteAxisXLength().intValue();
+		int y = this.calculateAxisYLength().intValue();
+		if (x < y) {
+			return x;
+		} else {
+			return y;
+		}
+	}
+	
+	private Integer getAxisXLength() {
+		if (this.sameSize) {
+			return this.calculateAxisMinLength();
+		} else {
+			return this.calcualteAxisXLength();
+		}
+	}
+	
+	private Integer getAxisYLength() {
+		if (this.sameSize) {
+			return this.calculateAxisMinLength();
+		} else {
+			return this.calculateAxisYLength();
+		}
+	}
 	
 	@Override
 	public void setGapLeft(Integer gap) {
@@ -91,53 +161,35 @@ public class CoordinateSystemImpl implements CoordinateSystem {
 	public Integer getY0() {
 		return 0;
 	}
-
+	
 	@Override
 	public Integer getXMax() {
-		Integer x0 = this.getPositionX0();
-		Integer xMax = this.getPositionXMax();		
-		Integer x = (xMax - x0 - this.arrowLength) / this.gapBetween;
-		return x;
+		return (this.getAxisXLength() - this.arrowLength) / this.gapBetween;
 	}
 
 	@Override
 	public Integer getYMax() {
-		Integer y0 = this.getPositionY0();
-		Integer yMax = this.getPositionYMax();
-		Integer y = (y0 - yMax - this.arrowLength) / this.gapBetween;		
-		return y;
+		return (this.getAxisYLength() - this.arrowLength) / this.gapBetween;
 	}
 
 	@Override
 	public Integer getPositionX0() {
 		return this.gapLeft;
 	}
-
+	
 	@Override
 	public Integer getPositionY0() {
-		return (management.getHeight() - this.gapBotton);
+		return (this.getPositionYMax() + this.getAxisYLength());
 	}
 
 	@Override
 	public Integer getPositionXMax() {
-		return (management.getWidth() - this.gapRight);
+		return (this.getPositionX0() + this.getAxisXLength());
 	}
 
 	@Override
 	public Integer getPositionYMax() {
 		return this.gapTop;
-	}
-
-	@Override
-	public void setManagement(Management management) {
-		try {
-			if (management == null) {
-				throw new NullPointerException();
-			}
-			this.management = management;
-		} catch (Exception ex) {
-			throw ex;
-		}
 	}
 
 	@Override
@@ -179,7 +231,7 @@ public class CoordinateSystemImpl implements CoordinateSystem {
 			if (interval == null) {
 				throw new NullPointerException();
 			}
-			if (interval <= 0) {
+			if (interval.intValue() <= 0) {
 				throw new IllegalArgumentException();
 			}
 			this.interval = interval;
@@ -199,10 +251,73 @@ public class CoordinateSystemImpl implements CoordinateSystem {
 			if (gapBetween == null) {
 				throw new NullPointerException();
 			}
-			if (gapBetween <= 0) {
+			if (gapBetween.intValue() <= 0) {
 				throw new IllegalArgumentException();
 			}
 			this.gapBetween = gapBetween;
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+
+	@Override
+	public Integer getHeight() {
+		return this.height;
+	}
+
+	@Override
+	public void setHeight(Integer height) {
+		try {
+			if (height == null) {
+				throw new NullPointerException();
+			}
+			this.height = height;
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+
+	@Override
+	public Integer getWidth() {
+		return this.width;
+	}
+	
+	@Override
+	public void setWidth(Integer width) {
+		try {
+			if (width == null) {
+				throw new NullPointerException();
+			}
+			this.width = width;
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+
+	@Override
+	public void enableSameLength(Boolean enable) {
+		try {
+			if (enable == null) {
+				throw new NullPointerException();
+			}
+			this.sameSize = enable;
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+
+	@Override
+	public EnumCoordinateSystem getPosition() {
+		return this.position;
+	}
+
+	@Override
+	public void setPostion(EnumCoordinateSystem position) {
+		try {
+			if (position == null) {
+				throw new NullPointerException();
+			}
+			this.position = position;
 		} catch (Exception ex) {
 			throw ex;
 		}

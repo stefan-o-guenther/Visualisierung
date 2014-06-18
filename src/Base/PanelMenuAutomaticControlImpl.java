@@ -18,10 +18,10 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public abstract class PanelAutomaticAbstract extends PanelAbstract implements PanelAutomatic {	
+public class PanelMenuAutomaticControlImpl extends PanelMenuAutomaticAbstract implements PanelMenuAutomaticControl {	
 	
-	public PanelAutomaticAbstract(ManagementAutomatic management) {
-		super(management, new ToolTipManagerAutomaticImpl());
+	public PanelMenuAutomaticControlImpl(ManagementAutomatic management, ToolTipManagerAutomatic tooltip) {
+		super(management, tooltip);
 		this.initPanel();
 	}
 	
@@ -34,15 +34,15 @@ public abstract class PanelAutomaticAbstract extends PanelAbstract implements Pa
 	
 	private ManagementAutomatic management;
 	private ToolTipManagerAutomatic tooltip;
-	private AutomaticThread tAuto; //= new AutoThread();
 	
-	private Boolean enabled;
+	private Integer maxWait = 2000;
+	private Integer minWait = 125;
+	private Integer step = 125;
+	private Integer initWait = 1000;	
 	
 	protected void initComponents() {
 		this.management = (ManagementAutomatic) this.getManagement();
 		this.tooltip = (ToolTipManagerAutomatic) this.getToolTipManager();
-		
-		enabled = true;
 		
 		lblToolTip = new JLabel(" ");
 		lblToolTip.setIcon(ImageLoader.getImageIconHelp16());
@@ -58,13 +58,19 @@ public abstract class PanelAutomaticAbstract extends PanelAbstract implements Pa
 		chckbxAutomatic.setBackground(background);
 		chckbxAutomatic.addActionListener(actionAuto);
 		
-		sliderSpeed = new JSlider(0, 100, 50);
+		sliderSpeed = new JSlider();
+		sliderSpeed.setMinimum(this.minWait);
+		sliderSpeed.setMaximum(this.maxWait);
+		sliderSpeed.setInverted(true);
+		sliderSpeed.setValue(this.initWait);
+		
+		sliderSpeed.setMajorTickSpacing(this.step); //Abst‰nde im Groﬂraster
 		sliderSpeed.setBackground(background);
 		sliderSpeed.setPaintTicks(true);
 		sliderSpeed.setSnapToTicks(true);
 		sliderSpeed.setPaintLabels(false);
-		sliderSpeed.setMinorTickSpacing(10); //Abst‰nde im Feinraster
-    	sliderSpeed.setMajorTickSpacing(20); //Abst‰nde im Groﬂraster
+		//sliderSpeed.setMinorTickSpacing(10); //Abst‰nde im Feinraster
+    	
     	sliderSpeed.addChangeListener(changeSpeed);
     	
     	setSpeed();    	
@@ -116,10 +122,10 @@ public abstract class PanelAutomaticAbstract extends PanelAbstract implements Pa
 		management.updateAllPanels();
 	}	
 	
-	private void setSpeed() {		
-		Integer speed = 2500 - (sliderSpeed.getValue() * 20);
+	private void setSpeed() {
+		Integer value = sliderSpeed.getValue();
 		if (management != null) {
-			management.setSpeed(speed);
+			management.setSpeed(value);
 		}		
 	}
 	
@@ -134,43 +140,10 @@ public abstract class PanelAutomaticAbstract extends PanelAbstract implements Pa
 			chckbxAutomatic.setSelected(autoChe);
 			sliderSpeed.setEnabled(autoChe);
 		}		
-		chckbxAutomatic.setEnabled(enabled);	
+		chckbxAutomatic.setEnabled(management.isAutomaticEnabled());	
 	}
 	
-	@Override
-	public void startAutomatic() {
-		if ((management != null) && (!(management.isAutomaticRunning())) && (management.isAutomaticChecked())) {
-			management.setAutomaticRunning(true);
-			tAuto = new AutomaticThread(management, this);
-			tAuto.start();
-		}
-		updateAutomatic();
-	}
-	
-	@Override
-	public void stopAutomatic() {
-		if ((management != null) && (management.isAutomaticRunning())) {
-			management.setAutomaticRunning(false);
-			management.setAutomaticChecked(false);
-		}
-		updateAutomatic();
-	}
-	
-	@Override
-	public void switchAutomatic() {
-		if ((management != null) && (management.isAutomaticRunning())) {
-			stopAutomatic();
-		} else {
-			startAutomatic();
-		}
-		updateAutomatic();
-	}
-	
-	@Override
-	public void setAutomaticEnabled(Boolean enabled) {
-		this.enabled = enabled;
-		updatePanel();
-	}
+
 	
 	private ActionListener actionAuto = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
@@ -186,5 +159,10 @@ public abstract class PanelAutomaticAbstract extends PanelAbstract implements Pa
 			setSpeed();
 			updateAutomatic();
 		}
-	};	
+	};
+
+	@Override
+	public Integer getHeightMenu() {
+		return 10;
+	}
 }

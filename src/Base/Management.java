@@ -21,4 +21,5 @@ public interface Management {
 	public void setWidth(Integer width);
 	
 	public void setSize(Integer height, Integer width);
+	public void showErrorMessage();
 }

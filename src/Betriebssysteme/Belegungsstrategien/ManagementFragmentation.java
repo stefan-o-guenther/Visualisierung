@@ -5,7 +5,6 @@
 
 package Betriebssysteme.Belegungsstrategien;
 
-import java.awt.Color;
 import java.util.List;
 
 import Base.ManagementAutomatic;

@@ -20,7 +20,7 @@ public class PanelRNTCPFairnessMainImpl extends PanelMainAbstract {
 	public PanelMenuAbstract getNewPanelMenu() {
 		ManagementFairness fairness = (ManagementFairness) this.getManagement();
 		ToolTipManagerFairness tooltip = (ToolTipManagerFairness) this.getToolTipManager();
-		return new PanelRNTCPFairnessMenuImpl(fairness, tooltip);
+		return new PanelRNTCPFairnessMenuAutomaticBoxImpl(fairness, tooltip);
 	}
 
 	@Override

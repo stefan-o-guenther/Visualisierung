@@ -11,6 +11,7 @@ import java.util.List;
 
 import Base.CoordinateSystem;
 import Base.CoordinateSystemImpl;
+import Base.EnumCoordinateSystem;
 import Base.EnumVisualizationStatus;
 import Base.ManagementAutomaticAbstract;
 
@@ -37,16 +38,13 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAutomaticAbstra
 	private List<Point> listPoints;	
 	
 	private void initCoordinateSystem() {
-		cs = new CoordinateSystemImpl(this);
-		cs.setGapLeft(30);
-		cs.setGapRight(10);
-		cs.setGapTop(20);
-		cs.setGapBottom(50);
+		cs = new CoordinateSystemImpl(false, EnumCoordinateSystem.BOTTOM);
+		cs.setHeight(height);
+		cs.setWidth(width);
 		cs.setGapBetweenNumbers(20);
 		cs.setInterval(1);
 		cs.setArrowLength(10);
-	}
-	
+	}	
 	
 	private void init() {
 		this.start = true;
@@ -114,7 +112,7 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAutomaticAbstra
 	@Override
 	public Boolean execute() {
 		try {
-			if (((reno == true) || (tahoe == true)) && (this.getNetworkStatus() != EnumVisualizationStatus.FINISHED)) {
+			if (((reno == true) || (tahoe == true)) && (this.getStatus() != EnumVisualizationStatus.FINISHED)) {
 				if (start) {				
 					Point firstPoint = new PointImpl(1,1, this.ssTreshTcpReno, this.ssTreshTcpTahoe);
 					this.listPoints.add(firstPoint);
@@ -149,7 +147,7 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAutomaticAbstra
 						listPoints.add(newPoint);
 					}					
 				}
-				update();
+				updatePanelMain();
 				return true;
 			} else {
 				setAutomaticChecked(false);
@@ -165,7 +163,7 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAutomaticAbstra
 	@Override
 	public void reset() {
 		init();
-		update();
+		updatePanelMain();
 		
 	}
 
@@ -182,7 +180,7 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAutomaticAbstra
 	}
 
 	@Override
-	public EnumVisualizationStatus getNetworkStatus() {
+	public EnumVisualizationStatus getStatus() {
 		if (start) {
 			return EnumVisualizationStatus.START;
 		} else {
@@ -334,5 +332,30 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAutomaticAbstra
 	@Override
 	public CoordinateSystem getCoordinateSystem() {
 		return this.cs;
+	}
+
+	@Override
+	public Boolean isAutomaticEnabled() {
+		return (this.getStatus() == EnumVisualizationStatus.RUN);
+	}
+
+	@Override
+	public void showErrorMessage() {
+		
+	}
+
+	@Override
+	protected void updateSize() {
+		if (cs != null) {
+			int widthO = cs.getWidth().intValue();
+			int heightO = cs.getHeight().intValue();
+			int widthN = width.intValue();
+			int heightN = height.intValue();
+			if ((widthO != widthN) || (heightO != heightN)) {
+				cs.setHeight(height);
+				cs.setWidth(width);
+			}
+		}
+		this.updatePanelMenu();
 	}	
 }

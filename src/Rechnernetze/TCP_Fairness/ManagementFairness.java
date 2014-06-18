@@ -14,10 +14,9 @@ import Base.ManagementCoordinateSystem;
 
 public interface ManagementFairness extends ManagementAutomatic, ManagementCoordinateSystem {
 
-	public EnumVisualizationStatus getFairnessStatus();
+	public EnumVisualizationStatus getStatus();
 	
 	public Integer getMaxFlowRate();
-	public void setMaxFlowRate(Integer maxFlowRate);
 	
 	public void setConnections(Integer connection1, Integer connection2);
 	public Integer getConnection1();
@@ -26,8 +25,7 @@ public interface ManagementFairness extends ManagementAutomatic, ManagementCoord
 	
 	public Integer getMaxConnnection();
 	
-	public String getModus1();
-	public String getModus2();
+	public String getModus();
 	
 	public List<Point> getListPoints();
 	

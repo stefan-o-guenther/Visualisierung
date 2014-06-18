@@ -21,6 +21,8 @@ public class MemoryStrategyFactory {
 				return new MemoryStrategyBestFitImpl(example);
 			} else if (value == EnumMemoryStrategy.WORST_FIT) {
 				return new MemoryStrategyWorstFitImpl(example);
+			} else if (value == EnumMemoryStrategy.SCHNEIDERINNEN_BEST_FIT) {
+				return new MemoryStrategySchneiderinnenBestFitImpl(example);
 			} else {
 				throw new IllegalArgumentException();
 			}

@@ -22,11 +22,11 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import Base.EnumVisualizationStatus;
 import Base.Labeling;
 import Base.MessageBox;
-import Base.PanelMenuAutomaticAbstract;
+import Base.PanelMenuAutomaticMenuAbstract;
 
-public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuAutomaticAbstract {
+public class PanelRNCongestionAvoidanceMenuAutomaticMenuImpl extends PanelMenuAutomaticMenuAbstract {
 	
-	public PanelRNCongestionAvoidanceMenuImpl(ManagementCongestionAvoidance network, ToolTipManagerCongestionAvoidance tooltip) {
+	public PanelRNCongestionAvoidanceMenuAutomaticMenuImpl(ManagementCongestionAvoidance network, ToolTipManagerCongestionAvoidance tooltip) {
 		super(network, tooltip);
 		this.initPanel();
 	}	
@@ -51,9 +51,9 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuAutomaticAbstra
 	private JCheckBox chckbxTcpReno;
 	private JCheckBox chckbxTcpTahoe;
 	
-	private JLabel lblSsTreshTahoeBar;
+	private JLabel lblSsThreshTahoeBar;
 	private JLabel lblSsTreshTahoeLabel;
-	private JLabel lblSsTreshRenoBar;
+	private JLabel lblSsThreshRenoBar;
 	private JLabel lblSsTreshRenoLabel;
 	
 	@Override
@@ -97,7 +97,7 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuAutomaticAbstra
 		chckbxTcpReno.setSelected(false);
 		chckbxTcpReno.addActionListener(ActionTcpRenoTcpTahoe);
 		
-		lblSsTresh = new JLabel("ssTresh:");
+		lblSsTresh = new JLabel("SSThresh:");
 		lblSsTresh.setIcon(imgHelp);
 		
 		tfSsTresh = new JTextField();
@@ -112,8 +112,6 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuAutomaticAbstra
 		btnAssumeStepStartStop = new JButton(Labeling.ASSUME);
 		btnAssumeStepStartStop.addActionListener(ActionAssumeStepStartStop);
 		
-		panelAutomatic = new PanelRNCongestionAvoidanceAutomaticImpl(network);
-		
 		tfTrippleDuplACK = new JTextField();
 		tfTrippleDuplACK.setColumns(10);
 		
@@ -123,13 +121,13 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuAutomaticAbstra
 		lblTripple = new JLabel(" ");
 		lblTripple.setIcon(imgHelp);
 			
-		lblSsTreshTahoeBar = new JLabel("-");
-		lblSsTreshTahoeBar.setForeground(network.getColorSsTreshTcpTahoe());
-		lblSsTreshTahoeBar.setFont(new Font("Tahoma", Font.PLAIN, 33));		
+		lblSsThreshTahoeBar = new JLabel("-");
+		lblSsThreshTahoeBar.setForeground(network.getColorSsTreshTcpTahoe());
+		lblSsThreshTahoeBar.setFont(new Font("Tahoma", Font.PLAIN, 33));		
 		
-		lblSsTreshRenoBar = new JLabel("-");
-		lblSsTreshRenoBar.setForeground(network.getColorSsTreshTcpReno());
-		lblSsTreshRenoBar.setFont(new Font("Tahoma", Font.PLAIN, 33));
+		lblSsThreshRenoBar = new JLabel("-");
+		lblSsThreshRenoBar.setForeground(network.getColorSsTreshTcpReno());
+		lblSsThreshRenoBar.setFont(new Font("Tahoma", Font.PLAIN, 33));
 		
 		lblSsTreshTahoeLabel = new JLabel("ssTresh (TCP-Tahoe)");
 		lblSsTreshRenoLabel = new JLabel("ssTresh (TCP-Reno)");
@@ -174,15 +172,13 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuAutomaticAbstra
 								.addComponent(btnAssumeStepStartStop, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(btnReset, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblSsTreshTahoeBar)
+							.addComponent(lblSsThreshTahoeBar)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblSsTreshTahoeLabel)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(lblSsTreshRenoBar)
+							.addComponent(lblSsThreshRenoBar)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblSsTreshRenoLabel)))
-					.addGap(18)
-					.addComponent(panelAutomatic, GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE))
+							.addComponent(lblSsTreshRenoLabel))))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -212,10 +208,8 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuAutomaticAbstra
 						.addComponent(lblSsTreshRenoLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addGroup(Alignment.TRAILING, groupLayout.createParallelGroup(Alignment.LEADING, false)
 							.addComponent(lblSsTreshTahoeLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(lblSsTreshRenoBar, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-							.addComponent(lblSsTreshTahoeBar, 0, 0, Short.MAX_VALUE)))
-					.addGap(255))
-				.addComponent(panelAutomatic, GroupLayout.DEFAULT_SIZE, 360, Short.MAX_VALUE)
+							.addComponent(lblSsThreshRenoBar, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblSsThreshTahoeBar, 0, 0, Short.MAX_VALUE))))
 		);
 		setLayout(groupLayout);
 	}
@@ -227,10 +221,10 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuAutomaticAbstra
 		
 		this.lblTCPTahoe.setForeground(network.getColorTcpTahoe());
 		this.lblTCPReno.setForeground(network.getColorTcpReno());		
-		this.lblSsTreshTahoeBar.setForeground(network.getColorSsTreshTcpTahoe());
-		this.lblSsTreshRenoBar.setForeground(network.getColorSsTreshTcpReno());
+		this.lblSsThreshTahoeBar.setForeground(network.getColorSsTreshTcpTahoe());
+		this.lblSsThreshRenoBar.setForeground(network.getColorSsTreshTcpReno());
 		
-		EnumVisualizationStatus status = network.getNetworkStatus();
+		EnumVisualizationStatus status = network.getStatus();
 		switch (status) {
 			case START: {
 				this.chckbxTcpReno.setEnabled(true);
@@ -244,8 +238,7 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuAutomaticAbstra
 				this.tfTrippleDuplACK.setEnabled(true);	
 				this.tfTrippleDuplACK.setEditable(true);
 				this.btnAssumeStepStartStop.setEnabled(true);
-				this.btnAssumeStepStartStop.setText(Labeling.ASSUME);				
-				this.panelAutomatic.setAutomaticEnabled(false);				
+				this.btnAssumeStepStartStop.setText(Labeling.ASSUME);		
 				break;
 			}
 			case RUN: {
@@ -263,7 +256,6 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuAutomaticAbstra
 				this.btnAssumeStepStartStop.setEnabled(true);
 				this.btnAssumeStepStartStop.setText(Labeling.RESET);
 				this.btnAssumeStepStartStop.setText(network.getButtonAutomaticText());
-				this.panelAutomatic.setAutomaticEnabled(true);				
 				break;
 			}
 			case FINISHED: {
@@ -278,8 +270,7 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuAutomaticAbstra
 				this.tfTrippleDuplACK.setEnabled(false);	
 				this.tfTrippleDuplACK.setEditable(false);
 				this.btnAssumeStepStartStop.setEnabled(false);
-				this.btnAssumeStepStartStop.setText(Labeling.NEXT_STEP);	
-				this.panelAutomatic.setAutomaticEnabled(false);				
+				this.btnAssumeStepStartStop.setText(Labeling.NEXT_STEP);
 				break;
 			}
 			default: {
@@ -374,7 +365,7 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuAutomaticAbstra
 	private ActionListener ActionAssumeStepStartStop = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			try {
-				EnumVisualizationStatus status = network.getNetworkStatus();
+				EnumVisualizationStatus status = network.getStatus();
 				if (status != EnumVisualizationStatus.FINISHED) {
 					if (status == EnumVisualizationStatus.START) {
 						checkCheckboxes();
@@ -405,6 +396,10 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuAutomaticAbstra
 				ex.printStackTrace();
 			}			
 		}
-	};	
-	
+	};
+
+	@Override
+	public Integer getLengthMenu() {
+		return 620;
+	}		
 }

@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import Base.EnumVisualizationStatus;
 import Base.ManagementAutomaticAbstract;
 
 public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract implements ManagementDijkstraAlgorithm {
 	
 	public ManagementDijkstraAlgorithmImpl() {
 		super();
-		createNodes();
-		
+		createNodes();		
 		putNodesInList();
 		putEdges();
 		initDijkstra();		
@@ -390,7 +390,7 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 				break;
 			}
 		}
-		update();
+		updatePanelMain();
 		return true;
 	}	
 
@@ -462,9 +462,24 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 		return false;
 	}
 
-	@Override
-	public EnumDijkstraStatus getStatus() {
+	private EnumDijkstraStatus getDijkstraStatus() {
 		return status;
+	}
+	
+	@Override
+	public EnumVisualizationStatus getStatus() {
+		EnumDijkstraStatus status = this.getDijkstraStatus();
+		switch (status) {
+			case START: return EnumVisualizationStatus.START;
+			case EXECUTE_NODE_CHAIN: return EnumVisualizationStatus.RUN;
+			case EXECUTE_NODE_DISTANCE: return EnumVisualizationStatus.RUN;
+			case EXECUTE_MIN_NORMAL: return EnumVisualizationStatus.RUN;
+			case EXECUTE_MIN_ROUTE: return EnumVisualizationStatus.RUN;
+			case EXECUTE_COMPARE: return EnumVisualizationStatus.RUN;
+			case ROUTE: return EnumVisualizationStatus.RUN;
+			case FINISHED: return EnumVisualizationStatus.FINISHED;
+		default: return EnumVisualizationStatus.START;
+		}
 	}
 
 	@Override
@@ -475,7 +490,7 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 	@Override
 	public void reset() {
 		initDijkstra();
-		update();
+		updatePanelMain();
 	}
 
 	@Override
@@ -510,5 +525,21 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 	@Override
 	public String getTitle() {
 		return "Dijkstra";
+	}
+
+	@Override
+	public Boolean isAutomaticEnabled() {
+		return (this.getStatus() == EnumVisualizationStatus.RUN);
+	}
+
+	@Override
+	public void showErrorMessage() {
+				
+	}
+
+	@Override
+	protected void updateSize() {
+		// TODO Auto-generated method stub
+		
 	}
 }

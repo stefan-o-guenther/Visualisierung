@@ -9,14 +9,27 @@ public abstract class ManagementAutomaticAbstract extends ManagementAbstract imp
 	
 	public ManagementAutomaticAbstract() {
 		super();
-		isAutomaticChecked = false;
-		isAutomaticRunning = false;
-		speed = 0;
+		this.isAutomaticChecked = false;
+		this.isAutomaticRunning = false;
+		this.speed = 0;		
 	}
 	
 	protected Boolean isAutomaticChecked;
 	protected Boolean isAutomaticRunning;
+	protected Boolean isAutomaticEnabled;
 	protected Integer speed;
+	protected ThreadAutomatic tAuto; //= new AutoThread();	
+	
+	protected void setAutomaticEnabled(Boolean isAutomaticEnabled) {
+		try {
+			if (isAutomaticEnabled == null) {
+				throw new NullPointerException();
+			}
+			this.isAutomaticEnabled = isAutomaticEnabled;
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
 	
 	@Override
 	public Boolean isAutomaticChecked() {
@@ -87,5 +100,34 @@ public abstract class ManagementAutomaticAbstract extends ManagementAbstract imp
 	@Override
 	public void resetAutomatic() {
 		
+	}
+	
+	@Override
+	public void startAutomatic() {
+		if ((!(isAutomaticRunning())) && (isAutomaticChecked())) {
+			setAutomaticRunning(true);
+			tAuto = new ThreadAutomatic(this);
+			tAuto.start();
+		}
+		this.updatePanelMain();
+	}
+	
+	@Override
+	public void stopAutomatic() {
+		if (isAutomaticRunning()) {
+			setAutomaticRunning(false);
+			setAutomaticChecked(false);
+		}
+		updatePanelMain();
+	}
+	
+	@Override
+	public void switchAutomatic() {
+		if (isAutomaticRunning()) {
+			stopAutomatic();
+		} else {
+			startAutomatic();
+		}
+		updatePanelMain();
 	}
 }

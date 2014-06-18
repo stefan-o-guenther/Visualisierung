@@ -7,28 +7,31 @@ package Betriebssysteme.Buddy_Systeme;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.Labeling;
-import Base.PanelMenuAbstract;
 
-public class PanelBSBuddySystemeMenuImpl extends PanelMenuAbstract {
+public class PanelBSBuddySystemeMenuControlImpl extends PanelBSBuddySystemeMenuAbstract {
 
-	public PanelBSBuddySystemeMenuImpl(ManagerBuddyMemoryAllocation buddy, ToolTipManagerBuddyMemoryAllocation tooltip) {
+	public PanelBSBuddySystemeMenuControlImpl(ManagerBuddyMemoryAllocation buddy, ToolTipManagerBuddyMemoryAllocation tooltip) {
 		super(buddy, tooltip);
 		this.initPanel();
 	}
 
+	private PanelBSBuddySystemeMenuControlImpl() {
+		super(new ManagerBuddyMemoryAllocationImpl(), new ToolTipManagerBuddyMemoryAllocationImpl());
+		this.initComponents();
+		this.initLayout();
+	}
+	
 	private ManagerBuddyMemoryAllocation buddy;
 	private ToolTipManagerBuddyMemoryAllocation tooltip;
 	
@@ -43,22 +46,12 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuAbstract {
 	private JLabel lblProcessName;
 	private JLabel lblProcessSize;
 	private JLabel lblExampleTip;	
-	private JLabel lblProcessCountLabel;	
-	private JLabel lblProcessSpaceLabel;	
-	private JLabel lblFreeSpaceLabel;	
-	private JLabel lblRestSpaceLable;	
-	private JLabel lblProcessCountOutput;
-	private JLabel lblProcessSpaceOutput;	
-	private JLabel lblFreeSpaceOutput;	
-	private JLabel lblRestSpaceOutput;
 	
 	private JButton btnExecute1;	
 	private JButton btnExecute2;	
 	private JButton btnExample;
 	
 	private ButtonGroupProcessImpl groupProcess;
-	
-	private JPanel panel;
 	
 	@Override
 	protected void initComponents() {
@@ -83,6 +76,8 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuAbstract {
 		groupProcess = new ButtonGroupProcessImpl(actionProcess);	
 		rdbtnProcessStart = groupProcess.getRadioButtonStart();
 		rdbtnProcessStop = groupProcess.getRadioButtonStop();
+		//rdbtnProcessStart = new JRadioButton("starten");
+		//rdbtnProcessStop = new JRadioButton("stoppen");
 				
 		btnExecute1 = new JButton("zur\u00FCcksetzen");
 		btnExecute1.addActionListener(actionExecute1);
@@ -100,13 +95,10 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuAbstract {
 		tfProcessSize = new JTextField();
 		tfProcessSize.setColumns(10);
 		tfProcessSize.setText("");
-		
-		panel = new JPanel();
-		panel.setBackground(getBackground());		
 	}
 	
 	@Override
-	protected void initLayout() {
+	protected void initLayout() {		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -114,14 +106,14 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuAbstract {
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(lblProcessName, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblSpace, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(lblProcessName, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lblSpace, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(tfProcessName, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)
 								.addComponent(tfSpace, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE)))
-						.addComponent(rdbtnProcessStart, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(rdbtnProcessStart, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(rdbtnProcessStop, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -131,94 +123,36 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuAbstract {
 							.addComponent(tfProcessSize, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE))
 						.addComponent(btnExecute1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addGap(18)
+					.addComponent(lblExampleTip)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(btnExecute2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(btnExample, GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblExampleTip)
-					.addPreferredGap(ComponentPlacement.RELATED, 172, Short.MAX_VALUE)
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
+					.addGap(314))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(14)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblSpace)
-								.addComponent(btnExecute1)
-								.addComponent(tfSpace, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnExample)
-								.addComponent(lblExampleTip))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblProcessName)
-								.addComponent(lblProcessSize)
-								.addComponent(tfProcessName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(tfProcessSize, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnExecute2))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(rdbtnProcessStart)
-								.addComponent(rdbtnProcessStop))))
-					.addContainerGap())
-		);
-		
-		lblProcessCountLabel = new JLabel("Anzahl der Prozesse:");
-		lblProcessSpaceLabel = new JLabel("Belegter Speicherplatz:");
-		lblFreeSpaceLabel = new JLabel("Freier Speicherplatz:");
-		lblRestSpaceLable = new JLabel("Verschnitt:");
-		lblProcessCountOutput = new JLabel("");
-		lblProcessSpaceOutput = new JLabel("");
-		lblFreeSpaceOutput = new JLabel("");
-		lblRestSpaceOutput = new JLabel("");
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(lblProcessCountLabel)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblProcessCountOutput))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(lblProcessSpaceLabel)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblProcessSpaceOutput))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(lblFreeSpaceLabel)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblFreeSpaceOutput))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(lblRestSpaceLable)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblRestSpaceOutput)))
-					.addContainerGap(47, Short.MAX_VALUE))
-		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblProcessCountLabel)
-						.addComponent(lblProcessCountOutput))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblSpace)
+						.addComponent(btnExecute1)
+						.addComponent(lblExampleTip)
+						.addComponent(btnExample)
+						.addComponent(tfSpace, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblProcessSpaceLabel)
-						.addComponent(lblProcessSpaceOutput))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblProcessSize)
+						.addComponent(tfProcessSize, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnExecute2)
+						.addComponent(lblProcessName)
+						.addComponent(tfProcessName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblFreeSpaceLabel)
-						.addComponent(lblFreeSpaceOutput))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblRestSpaceLable)
-						.addComponent(lblRestSpaceOutput))
-					.addContainerGap(19, Short.MAX_VALUE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(rdbtnProcessStart)
+						.addComponent(rdbtnProcessStop))
+					.addContainerGap(209, Short.MAX_VALUE))
 		);
-		panel.setLayout(gl_panel);
 		setLayout(groupLayout);
 	}
 
@@ -268,22 +202,6 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuAbstract {
 				}
 			}					
 		}
-		DecimalFormat decimalFormat = new DecimalFormat("#0.00");
-		
-		Integer processCount = buddy.getProcessCount();
-		lblProcessCountOutput.setText(processCount.toString());
-		
-		Integer processSpace = buddy.getProcessSpace();
-		Double processRate = buddy.getProcessRate();				
-		lblProcessSpaceOutput.setText(processSpace + " (" + decimalFormat.format(processRate) + "%)");
-		
-		Integer freeSpace = buddy.getFreeSpace();
-		Double freeRate = buddy.getFreeRate();		
-		lblFreeSpaceOutput.setText(freeSpace + " (" + decimalFormat.format(freeRate) + "%)");
-		
-		Integer restSpace = buddy.getRestSpace();
-		Double restRate = buddy.getRestRate();
-		lblRestSpaceOutput.setText(restSpace + " (" + decimalFormat.format(restRate) + "%)");
 	}
 		
 	private void inputTotalSpace() {
@@ -318,8 +236,7 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuAbstract {
 		try {
 			process = new Integer(text);
 		} catch (Exception ex) {
-			tfSpace.setText("");
-			//noInput();
+			
 		} finally {
 			
 		}
@@ -342,7 +259,6 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuAbstract {
 					break;
 				}
 			}
-			updatePanel();
 		}
 	};
 	
@@ -360,9 +276,7 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuAbstract {
 						switch(radioButton) {
 							case PROCESS_START: {
 								Integer processSize = inputProcessSize();
-								if (processSize != null) {
-									buddy.startProcess(processName, processSize);								
-								}
+								buddy.startProcess(processName, processSize);							
 								break;
 							}
 							case PROCESS_STOP: {
@@ -382,7 +296,6 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuAbstract {
 					break;
 				}
 			}
-			updatePanel();
 		}
 	};
 	
@@ -402,7 +315,7 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuAbstract {
 			buddy.startProcess("f", 50);
 			buddy.stopProcess("e");
 			buddy.stopProcess("f");
-			updatePanel();
+			//updatePanel();
 		}
 	};
 	

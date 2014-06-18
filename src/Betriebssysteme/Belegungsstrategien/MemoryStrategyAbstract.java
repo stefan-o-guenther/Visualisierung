@@ -38,12 +38,12 @@ public abstract class MemoryStrategyAbstract implements MemoryStrategy {
 	protected EnumMemoryStatus status;
 	protected Boolean suitable = false;
 	
-	protected abstract void inputOK();
-	protected abstract Boolean isSuitableSpace(Integer number, Integer value);
+	protected abstract void inputOK();	
 	protected abstract void finishNotFit();
 	protected abstract Integer getPos();	
 	protected abstract void finishChoose();
 	protected abstract void initStrategy();
+	protected abstract Boolean checkSpaceSuitability(Integer number, Integer value);
 	
 	protected void copyListSpace() {
 		listSpacePublic = new ArrayList<Space>(listSpaceWork);
@@ -147,6 +147,26 @@ public abstract class MemoryStrategyAbstract implements MemoryStrategy {
 		hideNegativeRestValues();
 	}
 	
+	private Boolean checkSpace(Integer number, Integer value) {
+		try {
+			if ((number == null) || (value == null)) {
+				throw new NullPointerException();
+			}
+			int inumber = number.intValue();
+			int ivalue = value.intValue();
+			if ((inumber < 0) || (ivalue < 0)) {
+				throw new IllegalArgumentException();
+			}
+			if (inumber <= ivalue) {
+				return suitable = checkSpaceSuitability(number, value);
+			} else {
+				return false;
+			}
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
 	protected void search() {		
 		executionOK = false;
 		this.hideNewValues();
@@ -162,7 +182,7 @@ public abstract class MemoryStrategyAbstract implements MemoryStrategy {
 					spaceE.showNewValue(true);
 					Integer value = spaceE.getCurrentValue();
 					spaceE.showRestValue(true);
-					suitable = isSuitableSpace(number, value);
+					suitable = checkSpace(number, value);
 					executionOK = true;				
 				} else {					
 					finishNotFit();										

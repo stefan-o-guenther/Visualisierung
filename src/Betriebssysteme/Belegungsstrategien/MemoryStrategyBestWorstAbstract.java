@@ -51,4 +51,64 @@ public abstract class MemoryStrategyBestWorstAbstract extends MemoryStrategyAbst
 		zBestWorst = null;
 		pBestWorst = START;
 	}
+	
+	protected Boolean isSuitableSpace(Integer number, Integer value) {
+		try {
+			if ((number == null) || (value == null)) {
+				throw new NullPointerException();
+			}
+			int inumber = number.intValue();
+			int ivalue = value.intValue();
+			if ((inumber < 0) || (ivalue < 0)) {
+				throw new IllegalArgumentException();
+			}
+			if (ivalue >= inumber) {
+				if (ivalue == inumber) {
+					return true;									
+				} else {
+					return false;
+				}			
+			} else {
+				return false;
+			}
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+	protected void checkIfBest(Integer value) {
+		try {
+			if (value == null) {
+				throw new NullPointerException();
+			}
+			int ival = value.intValue();
+			if (ival < 0) {
+				throw new IllegalArgumentException();
+			}
+			if ((zBestWorst == null) || (ival < zBestWorst.intValue())) {
+				zBestWorst = value;
+				pBestWorst = position;
+				
+			}
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+	protected void checkIfWorst(Integer value) {
+		try {
+			if (value == null) {
+				throw new NullPointerException();
+			}
+			if (value < 0) {
+				throw new IllegalArgumentException();
+			}
+			if ((zBestWorst == null) || (value > zBestWorst)) {									
+				zBestWorst = value;
+				pBestWorst = position;
+			}
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
 }

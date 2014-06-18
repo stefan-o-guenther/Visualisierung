@@ -10,13 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Base.ManagementAutomaticAbstract;
+import Base.MessageBox;
 
 public class ManagementFragmentationImpl extends ManagementAutomaticAbstract implements ManagementFragmentation {
 
 	public ManagementFragmentationImpl() {
 		super();
 		init();
-		update();
+		updatePanelMain();
 	}	
 	
 	private MemoryStrategy strategy;	
@@ -67,7 +68,7 @@ public class ManagementFragmentationImpl extends ManagementAutomaticAbstract imp
 			}
 			List<Space> example = loadExample();
 			strategy = MemoryStrategyFactory.getStrategy(value, example);
-			update();		
+			updatePanelMain();		
 		} catch (Exception ex) {
 			throw ex;
 		}
@@ -88,7 +89,7 @@ public class ManagementFragmentationImpl extends ManagementAutomaticAbstract imp
 				this.setAutomaticRunning(false);
 				isAutomaticChecked = false;
 				isAutomaticRunning = false;
-				update();
+				updatePanelMain();
 			}
 			
 		} catch (Exception ex) {
@@ -109,7 +110,7 @@ public class ManagementFragmentationImpl extends ManagementAutomaticAbstract imp
 	public Boolean execute() {
 		if (strategy != null) {
 			Boolean result = strategy.execute();
-			update();
+			updatePanelMain();
 			return result;
 		} else {
 			return false;
@@ -119,7 +120,7 @@ public class ManagementFragmentationImpl extends ManagementAutomaticAbstract imp
 	@Override
 	public void reset() {		
 		init();
-		update();
+		updatePanelMain();
 	}
 
 	@Override
@@ -182,4 +183,27 @@ public class ManagementFragmentationImpl extends ManagementAutomaticAbstract imp
 	public String getTitle() {
 		return "Belegungsstrategien";
 	}
+
+	@Override
+	public void showErrorMessage() {
+		MessageBox.showErrorMessage("Keinen passenden freien Speicher gefunden!");
+	}
+	
+	@Override
+	public Boolean isAutomaticEnabled() {
+		EnumMemoryStatus status = this.getStatus();
+		if (status == EnumMemoryStatus.SEARCH) {
+			return true;
+		} else if (status == EnumMemoryStatus.CHOOSE) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	protected void updateSize() {
+		// TODO Auto-generated method stub
+		
+	}	
 }

@@ -5,13 +5,8 @@
 
 package Base;
 
-public class ToolTipManagerAutomaticImpl implements ToolTipManagerAutomatic {
+public abstract class ToolTipManagerAutomaticAbstract implements ToolTipManagerAutomatic {
 
-	@Override
-	public String getToolTipTitle() {
-		return getToolTipSpeed();
-	}
-	
 	public String getToolTipSpeed() {
 		String tooltipSpeed = ""
 			+ "<html>"
@@ -20,5 +15,5 @@ public class ToolTipManagerAutomaticImpl implements ToolTipManagerAutomatic {
         	+ "Standardm&auml;&szlig;ig ist die Geschwindigkeit auf 50% eingestellt.<br>"
         	+ "</html>";
 		return tooltipSpeed;
-	}	
+	}
 }

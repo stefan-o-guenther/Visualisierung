@@ -27,4 +27,16 @@ public class ManagementDefaultImpl extends ManagementAbstract implements Managem
 	public String getTitle() {
 		return "Visualisierung";
 	}
+
+	@Override
+	public void showErrorMessage() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void updateSize() {
+		// TODO Auto-generated method stub
+		
+	}
 }

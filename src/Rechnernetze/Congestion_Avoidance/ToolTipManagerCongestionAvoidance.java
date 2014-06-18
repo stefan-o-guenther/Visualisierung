@@ -5,13 +5,13 @@
 
 package Rechnernetze.Congestion_Avoidance;
 
-import Base.ToolTipManager;
+import Base.ToolTipManagerAutomatic;
 
-public interface ToolTipManagerCongestionAvoidance extends ToolTipManager {
+public interface ToolTipManagerCongestionAvoidance extends ToolTipManagerAutomatic {
 
 	public String getToolTipTcpTahoe();
 	public String getToolTipTcpReno();
-	public String getToolTipSsTresh();
+	public String getToolTipSsThresh();
 	public String getToolTipTimeout();
 	public String getToolTipTrippleDuplAck();
 }

@@ -20,7 +20,7 @@ public class PanelRNDijkstraAlgorithmMainImpl extends PanelMainAbstract {
 	public PanelMenuAbstract getNewPanelMenu() {
 		ManagementDijkstraAlgorithm dijkstra = (ManagementDijkstraAlgorithm) this.getManagement();		
 		ToolTipManagerDijkstraAlgorithm tooltip = (ToolTipManagerDijkstraAlgorithm) this.getToolTipManager();
-		return new PanelRNDijkstraAlgorithmMenuImpl(dijkstra, tooltip);
+		return new PanelRNDijkstraAlgorithmMenuAutomaticBoxImpl(dijkstra, tooltip);
 	}
 
 	@Override

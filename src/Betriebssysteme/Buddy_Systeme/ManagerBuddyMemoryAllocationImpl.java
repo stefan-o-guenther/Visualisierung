@@ -124,13 +124,15 @@ public class ManagerBuddyMemoryAllocationImpl extends ManagementAbstract impleme
 	@Override
 	public void startProcess(String name, Integer value) {
 		try {
-			if ((name == null) || (value == null)) {
-				throw new NullPointerException();
-			}
-			if ((name == "") || (value <= 0)) {
-				throw new IllegalArgumentException();
-			}
-			if (root != null) {
+			if ((name == null) || (name == "") || (name.length() == 0)) {
+				updateList("kein Prozessname");
+			} else if (value == null) {
+				updateList("keine Prozessgrˆﬂe");
+			} else if (name.length() > 6) {
+				updateList("Prozessname ist zu groﬂ");
+			} else if (value <= 0) {
+				updateList("Prozessgrˆﬂe ist zu klein");
+			} else	if (root != null) {
 				if (getSpaceNode(name) == null) {
 					List<BuddyNode> list = root.findPossibleBuddyNodes(value);				
 					BuddyNode buddy = getMinBuddyNode(list);
@@ -147,12 +149,14 @@ public class ManagerBuddyMemoryAllocationImpl extends ManagementAbstract impleme
 					}														
 				} else {
 					updateList("Prozess " + name + " existiert schon.");
-				}
-				update();
-			}			
+				}				
+			} else {
+				updateList("kein Gesammtspeicher");
+			}
 		} catch (Exception ex) {
 			throw ex;
 		}
+		updatePanelMain();
 	}
 
 	@Override
@@ -175,11 +179,11 @@ public class ManagerBuddyMemoryAllocationImpl extends ManagementAbstract impleme
 			}
 			while (root.clean()) {
 				updateList("Buddies verschmolzen.");
-			}
-			update();
+			}			
 		} catch (Exception ex) {
 			throw ex;
 		}
+		updatePanelMain();
 	}
 
 	@Override
@@ -194,7 +198,7 @@ public class ManagerBuddyMemoryAllocationImpl extends ManagementAbstract impleme
 			root = new BuddyNodeImpl(value);
 			status = EnumBuddyMemoryAllocation.EXECUTE;	
 			updateList("Hauptspeicher initialisiert.");
-			update();
+			updatePanelMain();
 		} catch (Exception ex) {
 			throw ex;
 		}	
@@ -210,7 +214,7 @@ public class ManagerBuddyMemoryAllocationImpl extends ManagementAbstract impleme
 	@Override
 	public void reset() {
 		init();
-		update();
+		updatePanelMain();
 	}
 
 	@Override
@@ -395,5 +399,16 @@ public class ManagerBuddyMemoryAllocationImpl extends ManagementAbstract impleme
 	@Override
 	public String getTitle() {
 		return "Buddy Systeme";
+	}
+
+	@Override
+	public void showErrorMessage() {
+		
+	}
+
+	@Override
+	protected void updateSize() {
+		// TODO Auto-generated method stub
+		
 	}	
 }

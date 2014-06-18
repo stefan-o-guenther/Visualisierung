@@ -6,7 +6,8 @@
 package Rechnernetze.Pipeline_Protocol;
 
 import Base.Management;
+import Base.ManagementAutomatic;
 
-public interface ManagementPipelineProtocol extends Management {
+public interface ManagementPipelineProtocol extends ManagementAutomatic {
 
 }

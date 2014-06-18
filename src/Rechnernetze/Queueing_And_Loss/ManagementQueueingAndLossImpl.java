@@ -104,4 +104,16 @@ public class ManagementQueueingAndLossImpl extends ManagementAbstract implements
 	public String getTitle() {
 		return "Queueing And Loss";
 	}
+
+	@Override
+	public void showErrorMessage() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void updateSize() {
+		// TODO Auto-generated method stub
+		
+	}
 }

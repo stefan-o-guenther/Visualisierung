@@ -5,7 +5,9 @@
 
 package Rechnernetze.Congestion_Avoidance;
 
-public class ToolTipManagerCongestionAvoidanceImpl implements ToolTipManagerCongestionAvoidance {
+import Base.ToolTipManagerAutomaticAbstract;
+
+public class ToolTipManagerCongestionAvoidanceImpl extends ToolTipManagerAutomaticAbstract implements ToolTipManagerCongestionAvoidance {
 	
 	public String getToolTipTitle() {
 		String tooltipTitle = ""
@@ -52,8 +54,8 @@ public class ToolTipManagerCongestionAvoidanceImpl implements ToolTipManagerCong
 	}
 
 	@Override
-	public String getToolTipSsTresh() {
-		String tooltipSsTresh = ""
+	public String getToolTipSsThresh() {
+		String tooltipSsThresh = ""
 			+ "<html>"
 			+ "<p>"
 			+ ""
@@ -64,7 +66,7 @@ public class ToolTipManagerCongestionAvoidanceImpl implements ToolTipManagerCong
 			+ ""
 			+ "</p>"
 			+ "</html>";		
-		return tooltipSsTresh;
+		return tooltipSsThresh;
 	}
 
 	@Override

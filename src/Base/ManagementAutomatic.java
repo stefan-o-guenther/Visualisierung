@@ -14,4 +14,9 @@ public interface ManagementAutomatic extends Management {
 	public void setSpeed(Integer value);
 	public String getButtonAutomaticText();
 	public void resetAutomatic();
+	
+	public void startAutomatic();
+	public void stopAutomatic();
+	public void switchAutomatic();
+	public Boolean isAutomaticEnabled();
 }

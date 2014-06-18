@@ -17,7 +17,7 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 	public ManagementPagingImpl() {
 		super();
 		init();
-		update();
+		updatePanelMain();
 	}	
 	
 	private ReplacementStrategy strategy;
@@ -42,7 +42,7 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 		init();
 		if ((enumStrategy != null) && (listSequence != null) && (ram != null) && (disk != null)) {
 			strategy = ReplacementStrategyFactory.getStrategy(enumStrategy, listSequence, ram, disk);
-			update();
+			updatePanelMain();
 		}
 	}	
 
@@ -50,7 +50,7 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 	public Boolean execute() {		
 		if ((strategy != null) && (strategy.getStatus() == EnumPagingStatus.SEARCH)) {
 			strategy.execute();
-			update();
+			updatePanelMain();
 		}
 		return true;
 	}	
@@ -97,7 +97,7 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 	public Boolean resetRBits() {
 		if ((strategy != null) && (strategy.useRM())) {
 			Boolean result = strategy.resetRBits();
-			update();
+			updatePanelMain();
 			return result;
 		} else {
 			return false;
@@ -108,7 +108,7 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 	public Boolean setMBit() {
 		if ((strategy != null) && (strategy.useRM())) {
 			Boolean result = strategy.setMBit();
-			update();
+			updatePanelMain();
 			return result;
 		} else {
 			return false;
@@ -118,7 +118,7 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 	@Override
 	public void reset() {
 		init();
-		update();
+		updatePanelMain();
 	}
 
 	@Override
@@ -157,7 +157,7 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 	public void setViewOldStates(Boolean value) {
 		if (value != null) {
 			oldStates = value;
-			update();
+			updatePanelMain();
 		}
 	}
 
@@ -173,5 +173,17 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 	@Override
 	public String getTitle() {
 		return "Seitenersetzungsstrategien";
+	}
+
+	@Override
+	public void showErrorMessage() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void updateSize() {
+		// TODO Auto-generated method stub
+		
 	}
 }

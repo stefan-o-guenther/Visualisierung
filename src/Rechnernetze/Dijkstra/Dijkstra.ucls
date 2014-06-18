@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.5" icons="true" always-add-relationships="true" generalizations="true" realizations="true" 
   associations="true" dependencies="true" nesting-relationships="true">  
-  <class id="1" language="java" name="Rechnernetze.Dijkstra.PanelRNDijkstraAlgorithmMenuImpl" project="Visualisierung" 
-    file="/Visualisierung/src/Rechnernetze/Dijkstra/PanelRNDijkstraAlgorithmMenuImpl.java" binary="false" 
+  <class id="1" language="java" name="Rechnernetze.Dijkstra.PanelRNDijkstraAlgorithmMenuAutomaticMenuImpl" 
+    project="Visualisierung" 
+    file="/Visualisierung/src/Rechnernetze/Dijkstra/PanelRNDijkstraAlgorithmMenuAutomaticMenuImpl.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="261" width="497" x="103" y="-3"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
@@ -11,8 +12,9 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="Rechnernetze.Dijkstra.PanelRNDijkstraAlgorithmAutomaticImpl" 
-    project="Visualisierung" file="/Visualisierung/src/Rechnernetze/Dijkstra/PanelRNDijkstraAlgorithmAutomaticImpl.java" 
+  <class id="2" language="java" name="Rechnernetze.Dijkstra.PanelRNDijkstraAlgorithmMenuAutomaticControlImpl" 
+    project="Visualisierung" 
+    file="/Visualisierung/src/Rechnernetze/Dijkstra/PanelRNDijkstraAlgorithmMenuAutomaticControlImpl.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="292" y="481"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
@@ -21,10 +23,6 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <dependency id="3">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="2"/>  
-  </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

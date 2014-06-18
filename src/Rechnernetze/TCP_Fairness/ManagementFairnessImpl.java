@@ -11,6 +11,7 @@ import java.util.List;
 
 import Base.CoordinateSystem;
 import Base.CoordinateSystemImpl;
+import Base.EnumCoordinateSystem;
 import Base.EnumSurface;
 import Base.EnumVisualizationStatus;
 import Base.ManagementAutomaticAbstract;
@@ -25,24 +26,23 @@ public class ManagementFairnessImpl extends ManagementAutomaticAbstract implemen
 	
 	private CoordinateSystem cs;	
 	private EnumVisualizationStatus status;	
-	private Integer maxFlowRate;
 	private List<Point> listPoints;
+	private Integer maxFlowRate;
 	
 	private void init() {
-		this.maxFlowRate = 0;
 		listPoints = new ArrayList<Point>();
 		status = EnumVisualizationStatus.START;
+		maxFlowRate = 0;
 	}	
 	
 	private void initCoordinateSystem() {
-		cs = new CoordinateSystemImpl(this);
-		cs.setGapLeft(30);
-		cs.setGapRight(10);
-		cs.setGapTop(20);
-		cs.setGapBottom(50);
+		cs = new CoordinateSystemImpl(true, EnumCoordinateSystem.RIGHT);
+		cs.setHeight(height);
+		cs.setWidth(width);
 		cs.setGapBetweenNumbers(7);
 		cs.setInterval(4);
 		cs.setArrowLength(10);
+		this.setMaxFlowRate();
 	}
 	
 	private void testListPoints() {
@@ -67,9 +67,7 @@ public class ManagementFairnessImpl extends ManagementAutomaticAbstract implemen
 		} catch (Exception ex) {
 			throw ex;
 		}
-	}
-	
-	
+	}	
 	
 	@Override
 	public Boolean execute() {
@@ -83,7 +81,7 @@ public class ManagementFairnessImpl extends ManagementAutomaticAbstract implemen
 						Integer c1 = point.getConnection1();
 						Integer c2 = point.getConnection2();
 						Integer sum = c1 + c2;
-						if (sum > this.maxFlowRate) {
+						if (sum > this.getMaxFlowRate()) {
 							PointError pointE = new PointErrorImpl(c1,c2);
 							PointStart pointS = new PointStartImpl((c1/2), (c2/2));
 							listPoints.remove(point);							
@@ -112,7 +110,7 @@ public class ManagementFairnessImpl extends ManagementAutomaticAbstract implemen
 			} else {
 				result = false;
 			}
-			this.update();
+			this.updatePanelMain();
 			return result;
 		} catch (Exception ex) {
 			throw ex;
@@ -122,7 +120,7 @@ public class ManagementFairnessImpl extends ManagementAutomaticAbstract implemen
 	@Override
 	public void reset() {
 		init();
-		this.update();
+		this.updatePanelMain();
 	}
 	
 	@Override
@@ -136,28 +134,27 @@ public class ManagementFairnessImpl extends ManagementAutomaticAbstract implemen
 	}
 
 	@Override
-	public EnumVisualizationStatus getFairnessStatus() {
+	public EnumVisualizationStatus getStatus() {
 		return status;
 	}
 
+	private void setMaxFlowRate() {
+		if (cs != null) {
+			int xMax = cs.getXMax().intValue();
+			int yMax = cs.getYMax().intValue();
+			Integer max = 0;
+			if (yMax > xMax) {
+				max = xMax;
+			} else {
+				max = yMax;
+			}			
+			this.maxFlowRate = max; 
+		}		
+	}
+	
 	@Override
 	public Integer getMaxFlowRate() {
 		return this.maxFlowRate;
-	}
-
-	@Override
-	public void setMaxFlowRate(Integer maxFlowRate) {
-		try {
-			if (maxFlowRate == null) {
-				throw new NullPointerException();
-			}
-			if (maxFlowRate > getMaxConnnection()) {
-				throw new IllegalArgumentException();
-			}
-			this.maxFlowRate = maxFlowRate;
-		} catch (Exception ex) {
-			throw ex;
-		}
 	}
 
 	@Override
@@ -215,25 +212,15 @@ public class ManagementFairnessImpl extends ManagementAutomaticAbstract implemen
 		return point.getConnection2();
 	}
 
-	private String getModus() {
+	@Override
+	public String getModus() {
 		if (status == EnumVisualizationStatus.START) {
 			return "-";
 		} else {
 			return "Congestion Avoidance"; 
 		}
-	}
+	}	
 	
-	
-	@Override
-	public String getModus1() {
-		return this.getModus();
-	}
-
-	@Override
-	public String getModus2() {
-		return this.getModus();
-	}
-
 	@Override
 	public Integer getDifference() {
 		Integer dif = 0;
@@ -268,9 +255,38 @@ public class ManagementFairnessImpl extends ManagementAutomaticAbstract implemen
 	@Override
 	public Color getColorMaxFlowRate() {
 		if (this.getSurface() == EnumSurface.COLORED) {
-			return Color.BLUE;
+			return Color.RED;
 		} else {
 			return Color.BLACK;
 		}
+	}
+
+	@Override
+	public Boolean isAutomaticEnabled() {
+		return (this.getStatus() == EnumVisualizationStatus.RUN);
+	}
+
+	@Override
+	public void showErrorMessage() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void updateSize() {
+		if ((cs != null) && (status == EnumVisualizationStatus.START)) {
+			int widthO = cs.getWidth().intValue();
+			int heightO = cs.getHeight().intValue();
+			int widthN = width.intValue();
+			int heightN = height.intValue();
+			if ((widthO != widthN) || (heightO != heightN)) {
+				cs.setHeight(height);
+				cs.setWidth(width);
+			}
+			if (this.getStatus() == EnumVisualizationStatus.START) {
+				this.setMaxFlowRate();
+			}
+		}
+		this.updatePanelMenu();
 	}
 }

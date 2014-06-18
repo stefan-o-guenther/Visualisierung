@@ -9,6 +9,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
 import Base.PanelModelAbstract;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class PanelBSBuddySystemeModelImpl extends PanelModelAbstract {
 
@@ -17,10 +18,16 @@ public class PanelBSBuddySystemeModelImpl extends PanelModelAbstract {
 		this.initPanel();
 	}
 	
+	private PanelBSBuddySystemeModelImpl() {
+		super(new ManagerBuddyMemoryAllocationImpl(), new ToolTipManagerBuddyMemoryAllocationImpl());
+		this.initComponents();
+		this.initLayout();
+	}
+	
 	private PanelModelAbstract panelDraw;
 	private PanelModelAbstract panelExplanation;
 	
-	public void initComponents() {
+	protected void initComponents() {
 		ManagerBuddyMemoryAllocation buddy = (ManagerBuddyMemoryAllocation) this.getManagement();
 		ToolTipManagerBuddyMemoryAllocation tooltip = (ToolTipManagerBuddyMemoryAllocation) this.getToolTipManager();		
 		panelDraw = new PanelBSBuddySystemeModelScrollImpl(buddy, tooltip);
@@ -28,13 +35,13 @@ public class PanelBSBuddySystemeModelImpl extends PanelModelAbstract {
 	}
 
 	@Override
-	public void initLayout() {
+	protected void initLayout() {
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addComponent(panelDraw, GroupLayout.DEFAULT_SIZE, 800, GroupLayout.PREFERRED_SIZE)
-					.addComponent(panelExplanation, GroupLayout.PREFERRED_SIZE, 100, Short.MAX_VALUE))
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addComponent(panelDraw, GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
+					.addComponent(panelExplanation, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)

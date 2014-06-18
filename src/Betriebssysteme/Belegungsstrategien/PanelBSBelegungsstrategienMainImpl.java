@@ -22,7 +22,7 @@ public class PanelBSBelegungsstrategienMainImpl extends PanelMainAbstract {
 	protected PanelMenuAbstract getNewPanelMenu() {
 		ManagementFragmentation memory = (ManagementFragmentation) this.getManagement();
 		ToolTipManagerFragmentation tooltip = (ToolTipManagerFragmentation) this.getToolTipManager();
-		return new PanelBSBelegungsstrategienMenuImpl(memory, tooltip);
+		return new PanelBSBelegungsstrategienMenuAutomaticBoxImpl(memory, tooltip);
 	}
 
 	@Override

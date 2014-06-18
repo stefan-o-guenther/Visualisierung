@@ -20,7 +20,7 @@ public class PanelBSBuddySystemeMainImpl extends PanelMainAbstract {
 	public PanelMenuAbstract getNewPanelMenu() {
 		ManagerBuddyMemoryAllocation buddy =  (ManagerBuddyMemoryAllocation) this.getManagement();
 		ToolTipManagerBuddyMemoryAllocation tooltip = (ToolTipManagerBuddyMemoryAllocation) this.getToolTipManager();
-		return new PanelBSBuddySystemeMenuImpl(buddy, tooltip);
+		return new PanelBSBuddySystemeMenuBoxImpl(buddy, tooltip);
 	}
 
 	@Override

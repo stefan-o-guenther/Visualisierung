@@ -5,7 +5,9 @@
 
 package Rechnernetze.Dijkstra;
 
-public class ToolTipManagerDijkstraAlgorithmImpl implements ToolTipManagerDijkstraAlgorithm {
+import Base.ToolTipManagerAutomaticAbstract;
+
+public class ToolTipManagerDijkstraAlgorithmImpl extends ToolTipManagerAutomaticAbstract implements ToolTipManagerDijkstraAlgorithm {
 
 	public String getToolTipTitle() {
 		String tooltipTitle = ""

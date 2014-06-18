@@ -12,15 +12,16 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 
+import Base.EnumVisualizationStatus;
 import Base.Labeling;
-import Base.PanelMenuAutomaticAbstract;
-import Base.PanelAutomaticAbstract;
+import Base.PanelMenuAutomaticMenuAbstract;
+import Base.PanelMenuAutomaticControlImpl;
 
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuAutomaticAbstract {
+public class PanelRNDijkstraAlgorithmMenuAutomaticMenuImpl extends PanelMenuAutomaticMenuAbstract {
 
-	public PanelRNDijkstraAlgorithmMenuImpl(ManagementDijkstraAlgorithm dijkstra, ToolTipManagerDijkstraAlgorithm tooltip) {
+	public PanelRNDijkstraAlgorithmMenuAutomaticMenuImpl(ManagementDijkstraAlgorithm dijkstra, ToolTipManagerDijkstraAlgorithm tooltip) {
 		super(dijkstra, tooltip);
 		this.initPanel();
 	}
@@ -29,7 +30,6 @@ public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuAutomaticAbstract
 	
 	private JButton btnNextStep;
 	private JButton btnReset;
-	private PanelAutomaticAbstract panelAutomatic;
 	
 	@Override
 	protected void initComponents() {
@@ -39,8 +39,6 @@ public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuAutomaticAbstract
 		btnNextStep.addActionListener(ActionExecute);		
 		btnReset = new JButton(Labeling.RESET);
 		btnReset.addActionListener(ActionReset);
-		
-		panelAutomatic = new PanelRNDijkstraAlgorithmAutomaticImpl(dijkstra);		
 	}
 
 	@Override
@@ -53,8 +51,7 @@ public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuAutomaticAbstract
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(btnReset, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(btnNextStep, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panelAutomatic, GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -64,15 +61,13 @@ public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuAutomaticAbstract
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnReset)
 					.addContainerGap(59, Short.MAX_VALUE))
-				.addComponent(panelAutomatic, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
 		);
 		setLayout(groupLayout);		
 	}
 
 	@Override
 	public void updatePanel() {
-		Boolean notFinished = (dijkstra.getStatus() != EnumDijkstraStatus.FINISHED);
-		panelAutomatic.setAutomaticEnabled(notFinished);				
+		Boolean notFinished = (dijkstra.getStatus() != EnumVisualizationStatus.FINISHED);
 		btnNextStep.setEnabled(notFinished);		
 		btnReset.setEnabled(true);
 		btnNextStep.setText(dijkstra.getButtonAutomaticText());
@@ -95,5 +90,10 @@ public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuAutomaticAbstract
 	@Override
 	public Integer getHeightMenu() {
 		return 70;
+	}
+
+	@Override
+	public Integer getLengthMenu() {
+		return 220;
 	}
 }

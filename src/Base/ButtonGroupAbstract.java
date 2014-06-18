@@ -38,7 +38,8 @@ public abstract class ButtonGroupAbstract extends ButtonGroup {
 			}
 			Integer length = arrayNames.length;
 			for (Integer i = 0; i < length; i++) {
-				Boolean selected = (i.equals(0));
+				int j = i.intValue();
+				Boolean selected = (j == 0);
 				String name = arrayNames[i];
 				JRadioButton rdbtn = new JRadioButton(arrayNames[i]);
 				rdbtn.setName(name);

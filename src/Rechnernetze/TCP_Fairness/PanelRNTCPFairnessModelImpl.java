@@ -7,6 +7,7 @@ package Rechnernetze.TCP_Fairness;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Polygon;
 import java.util.List;
 
 import Base.PanelModelDrawCoordinateSystemAbstract;
@@ -37,7 +38,9 @@ public class PanelRNTCPFairnessModelImpl extends PanelModelDrawCoordinateSystemA
 	}
 	
 	private void printMaxFlowRate() {
-		BasicStroke bs = new BasicStroke(3, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_BEVEL);
+		float[] dash = {10f, 0f, 0f};		
+		BasicStroke bs = new BasicStroke(3, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL, 1.0f, dash, 0f);
+		//BasicStroke bs = new BasicStroke(1, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND, 1.0f, dash, 2f);
 		g2d.setStroke(bs);
 		Integer mfr = fairness.getMaxFlowRate();
 		Integer x1 = cs.XToPositionX(mfr);
@@ -45,16 +48,18 @@ public class PanelRNTCPFairnessModelImpl extends PanelModelDrawCoordinateSystemA
 		Integer x2 = cs.XToPositionX(0);
 		Integer y2 = cs.YToPositionY(mfr);
 		g2d.setColor(fairness.getColorMaxFlowRate());
-		g2d.drawLine(x1, y1, x2, y2);
+		g2d.drawLine(x1, y1, x2, y2);		
 	}
 	
 	private void printFairnessLine() {
-		BasicStroke bs = new BasicStroke(3, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_BEVEL);
+		BasicStroke bs = new BasicStroke(3, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL);
 		g2d.setStroke(bs);
-		Integer xMax = cs.getXMax();
-		Integer yMax = cs.getYMax();
-		Integer max = yMax;
-		if (max > xMax) {
+		int xMax = cs.getXMax().intValue();
+		int yMax = cs.getYMax().intValue();
+		Integer max = 0;
+		if (xMax > yMax) {
+			max = yMax;
+		} else {
 			max = xMax;
 		}
 		Integer x1 = cs.XToPositionX(0);
@@ -63,6 +68,25 @@ public class PanelRNTCPFairnessModelImpl extends PanelModelDrawCoordinateSystemA
 		Integer y2 = cs.YToPositionY(max);
 		g2d.setColor(fairness.getColorFairness());
 		g2d.drawLine(x1, y1, x2, y2);
+		
+		// Pfeil bei Fairness
+		
+		
+		Integer arrow = cs.getArrowLength() * 2;
+		Integer a = arrow / 2;
+		Integer b = a / 2;		
+		
+		Integer xA = x2;
+		Integer yA = y2;
+		Integer xB = xA - a - b;
+		Integer yB = yA + a - b;
+		Integer xC = xA - a + b;
+		Integer yC = yA + a + b;
+		
+		
+		Polygon p = new Polygon(new int[] {xA, xB, xC}, new int[] {yA, yB, yC}, 3 );	
+		g2d.drawPolygon(p);
+     	g2d.fillPolygon(p);
 	}
 	
 	private void printOvals() {
@@ -82,9 +106,9 @@ public class PanelRNTCPFairnessModelImpl extends PanelModelDrawCoordinateSystemA
 	@Override
 	protected void doDrawing() {
 		if (fairness != null) {
-			fairness.setSize(this.getHeight(), this.getWidth());	
+			fairness.setSize(this.getHeight(), this.getWidth());				
+			this.printMaxFlowRate();
 			this.printFairnessLine();			
-			this.printMaxFlowRate();	
 			this.printCoordinateSystem("Verbindung 1", "Verbindung 2");
 			this.printLines();
 			this.printOvals();

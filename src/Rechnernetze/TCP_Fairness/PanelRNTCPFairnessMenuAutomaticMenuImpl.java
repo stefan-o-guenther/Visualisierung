@@ -19,13 +19,21 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import Base.EnumVisualizationStatus;
 import Base.Labeling;
 import Base.MessageBox;
-import Base.PanelMenuAutomaticAbstract;
+import Base.PanelMenuAutomaticMenuAbstract;
 
-public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
+public class PanelRNTCPFairnessMenuAutomaticMenuImpl extends PanelMenuAutomaticMenuAbstract {
 	
-	public PanelRNTCPFairnessMenuImpl(ManagementFairness fairness, ToolTipManagerFairness tooltip) {
+	public PanelRNTCPFairnessMenuAutomaticMenuImpl(ManagementFairness fairness, ToolTipManagerFairness tooltip) {
 		super(fairness, tooltip);		
 		this.initPanel();
+	}
+	
+	// only for Designer
+	private PanelRNTCPFairnessMenuAutomaticMenuImpl() {
+		super(new ManagementFairnessImpl(), new ToolTipManagerFairnessImpl());
+		this.initComponents();
+		this.initLayout();
+		this.updatePanel();
 	}
 
 	private ManagementFairness fairness;
@@ -33,14 +41,12 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
 	
 	private JTextField tfConnection1;
 	private JTextField tfConnection2;	
-	private JTextField tfMaxFlowRate;
-	private JLabel lblMaxFlowRate;
+	private JLabel lblMaxFlowRateLabel;
+	private JLabel lblMaxFlowRateContent;
 	private JLabel lblConnection1;
 	private JLabel lblConnection2;
-	private JLabel lblModusLabel1;
-	private JLabel lblModusLabel2;
-	private JLabel lblModusContent1;
-	private JLabel lblModusContent2;
+	private JLabel lblModusLabel;
+	private JLabel lblModusContent;
 	private JLabel lblCwndLabel1;
 	private JLabel lblCwndLabel2;
 	private JLabel lblDiferenceLabel;
@@ -56,8 +62,6 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
 		this.tooltip = (ToolTipManagerFairness) this.getToolTipManager();
 		
 		ImageIcon imgHelp = super.getImageIconHelp();		
-		panelAutomatic = new PanelRNTCPFairnessAutomaticImpl(fairness);
-				
 		lblConnection1 = new JLabel("Verbindung 1:");
 		lblConnection1.setIcon(imgHelp);
 		
@@ -68,15 +72,10 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
 		
 		tfConnection2 = new JTextField();
 		
-		lblModusLabel1 = new JLabel("Modus:");
-		lblModusLabel1.setIcon(imgHelp);
+		lblModusLabel = new JLabel("Modus:");
+		lblModusLabel.setIcon(imgHelp);
 		
-		lblModusLabel2 = new JLabel("Modus:");
-		lblModusLabel2.setIcon(imgHelp);
-		
-		lblModusContent1 = new JLabel("-");
-		
-		lblModusContent2 = new JLabel("-");		
+		lblModusContent = new JLabel("-");
 		
 		lblCwndLabel1 = new JLabel("cwnd:");
 		lblCwndLabel1.setIcon(imgHelp);
@@ -99,33 +98,31 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
 		btnReset = new JButton(Labeling.RESET);
 		btnReset.addActionListener(ActionReset);
 		
-		lblMaxFlowRate = new JLabel("maximale Durchflussleistung:");
-		lblMaxFlowRate.setIcon(imgHelp);
+		lblMaxFlowRateLabel = new JLabel("maximale Durchflussleistung:");
+		lblMaxFlowRateLabel.setIcon(imgHelp);
 		
-		tfMaxFlowRate = new JTextField();
+		lblMaxFlowRateContent = new JLabel("0");
 	}
 	
 	@Override
 	public void updatePanel() {
-		EnumVisualizationStatus status = fairness.getFairnessStatus();
+		EnumVisualizationStatus status = fairness.getStatus();
 		Boolean isStart = (status == EnumVisualizationStatus.START);
-		String modus1 = fairness.getModus1();
-		String modus2 = fairness.getModus2();
+		String modus = fairness.getModus();
 		Integer c1 = fairness.getConnection1();
 		Integer c2 = fairness.getConnection2();
 		Integer dif = fairness.getDifference();
+		Integer mfr = fairness.getMaxFlowRate();
 		
-		this.lblModusContent1.setText(modus1);
-		this.lblModusContent2.setText(modus2);
+		this.lblModusContent.setText(modus);
 		this.lblCwndContent1.setText(c1.toString());
 		this.lblCwndContent2.setText(c2.toString());
 		this.lblDifferenceContent.setText(dif.toString());
+		this.lblMaxFlowRateContent.setText(mfr.toString());
 		this.tfConnection1.setEnabled(isStart);
 		this.tfConnection1.setEditable(isStart);
 		this.tfConnection2.setEnabled(isStart);		
-		this.tfConnection2.setEditable(isStart);		
-		this.tfMaxFlowRate.setEnabled(isStart);
-		this.tfMaxFlowRate.setEditable(isStart);
+		this.tfConnection2.setEditable(isStart);
 		
 		switch (status) {
 			case START: {
@@ -137,7 +134,7 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
 			case RUN: {
 				this.btnReset.setEnabled(true);
 				this.btnAssumeStepStartStop.setEnabled(true);
-				this.btnAssumeStepStartStop.setText(Labeling.NEXT_STEP);
+				this.btnAssumeStepStartStop.setText(fairness.getButtonAutomaticText());
 				break;
 			}
 			case FINISHED: {
@@ -154,17 +151,15 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
 	}	
 	
 	@Override
-	protected void initLayout() {			
+	protected void initLayout() {				
+		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblMaxFlowRate)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(tfMaxFlowRate, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblMaxFlowRateLabel)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 								.addComponent(lblConnection2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -172,31 +167,28 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 								.addComponent(tfConnection1, 0, 0, Short.MAX_VALUE)
-								.addComponent(tfConnection2, GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(lblModusLabel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblModusLabel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblModusContent2, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblModusContent1, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE))))
+								.addComponent(tfConnection2, GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE))))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblMaxFlowRateContent, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(lblCwndLabel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(lblDiferenceLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(lblCwndLabel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(lblDiferenceLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(lblCwndLabel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(lblDifferenceContent, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(lblDifferenceContent, GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
 						.addComponent(lblCwndContent2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(lblCwndContent1, GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE))
+						.addComponent(lblCwndContent1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(btnAssumeStepStartStop, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnReset, GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
-					.addGap(18)
-					.addComponent(panelAutomatic, GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE))
+						.addComponent(btnReset, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblModusLabel)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblModusContent, GroupLayout.PREFERRED_SIZE, 143, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(661, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -205,8 +197,6 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblConnection1)
 						.addComponent(tfConnection1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblModusLabel1)
-						.addComponent(lblModusContent1)
 						.addComponent(lblCwndLabel1)
 						.addComponent(lblCwndContent1)
 						.addComponent(btnAssumeStepStartStop))
@@ -214,19 +204,18 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblConnection2)
 						.addComponent(tfConnection2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblModusLabel2)
-						.addComponent(btnReset)
-						.addComponent(lblModusContent2)
 						.addComponent(lblCwndLabel2)
-						.addComponent(lblCwndContent2))
+						.addComponent(lblCwndContent2)
+						.addComponent(btnReset))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblMaxFlowRate)
-						.addComponent(tfMaxFlowRate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblMaxFlowRateLabel)
+						.addComponent(lblMaxFlowRateContent)
 						.addComponent(lblDiferenceLabel)
-						.addComponent(lblDifferenceContent))
-					.addContainerGap(56, Short.MAX_VALUE))
-				.addComponent(panelAutomatic, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+						.addComponent(lblDifferenceContent)
+						.addComponent(lblModusLabel)
+						.addComponent(lblModusContent))
+					.addContainerGap(60, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 	}
@@ -234,16 +223,6 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
 	@Override
 	public Integer getHeightMenu() {
 		return 110;
-	}
-	
-	private void inputMaxFlowRate() throws Exception {
-		try {
-			Integer maxFlowRate = new Integer(tfMaxFlowRate.getText());
-			fairness.setMaxFlowRate(maxFlowRate);
-		} catch (Exception ex) {
-			MessageBox.showErrorMessage("falsches Flow Rate!");			
-			throw ex;
-		}
 	}
 	
 	private void inputConnection() throws Exception {
@@ -262,7 +241,6 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
 			try {	
 				tfConnection1.setText("");
 				tfConnection2.setText("");
-				tfMaxFlowRate.setText("");
 				fairness.reset();
 			} catch (Exception ex) {
 				
@@ -274,10 +252,9 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
 	private ActionListener ActionAssumeStepStartStop = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			try {
-				EnumVisualizationStatus status = fairness.getFairnessStatus();
+				EnumVisualizationStatus status = fairness.getStatus();
 				if (status != EnumVisualizationStatus.FINISHED) {
 					if (status == EnumVisualizationStatus.START) {
-						inputMaxFlowRate();
 						inputConnection();
 					}
 					executeManualAutomatic();
@@ -288,5 +265,9 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuAutomaticAbstract {
 			updatePanel();
 		}
 	};
-	
+
+	@Override
+	public Integer getLengthMenu() {
+		return 600;
+	}
 }

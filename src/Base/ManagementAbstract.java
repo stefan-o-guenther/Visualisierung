@@ -20,9 +20,29 @@ public abstract class ManagementAbstract implements Management {
 	protected Integer height;
 	protected Integer width;
 	
-	protected void update() {
+	protected abstract void updateSize();
+	
+	protected void updatePanelMain() {
 		if (panelMain != null) {
 			panelMain.updatePanel();
+		}		
+	}
+	
+	protected void updatePanelTitle() {
+		if (panelMain != null) {
+			panelMain.updatePanelTitle();
+		}		
+	}
+	
+	protected void updatePanelMenu() {
+		if (panelMain != null) {
+			panelMain.updatePanelMenu();
+		}		
+	}
+	
+	protected void updatePanelModel() {
+		if (panelMain != null) {
+			panelMain.updatePanelModel();
 		}		
 	}
 	
@@ -38,7 +58,7 @@ public abstract class ManagementAbstract implements Management {
 				throw new NullPointerException();
 			}
 			this.surface = surface;
-			update();
+			updatePanelMain();
 		} catch (Exception ex) {
 			throw ex;
 		}
@@ -58,7 +78,7 @@ public abstract class ManagementAbstract implements Management {
 	
 	@Override
 	public void updateAllPanels() {
-		this.update();
+		this.updatePanelMain();
 	}
 	
 	@Override
@@ -73,6 +93,7 @@ public abstract class ManagementAbstract implements Management {
 				throw new NullPointerException();
 			}
 			this.height = height;
+			this.updateSize();
 		} catch (Exception ex) {
 			throw ex;
 		}
@@ -90,6 +111,7 @@ public abstract class ManagementAbstract implements Management {
 				throw new NullPointerException();
 			}
 			this.width = width;
+			this.updateSize();
 		} catch (Exception ex) {
 			throw ex;
 		}
@@ -101,11 +123,9 @@ public abstract class ManagementAbstract implements Management {
 			if ((height == null) || (width == null)) {
 				throw new NullPointerException();
 			}			
-			if ((panelMain != null) && ((!(this.height.equals(height))) || (!(this.width.equals(width))))) {
-				this.height = height;
-				this.width = width;				
-				panelMain.updatePanelMenu();
-			}
+			this.height = height;
+			this.width = width;				
+			this.updateSize();
 		} catch (Exception ex) {
 			throw ex;
 		}

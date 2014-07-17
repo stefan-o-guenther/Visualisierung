@@ -33,4 +33,6 @@ public class Labeling {
 	public final static String SET_M_BIT = "M-Bit setzen";
 	public final static String WRONG_COUNT_RAM = "Keine g\u00fcltige RAM-Anzahl eingegeben!";
 	public final static String WRONG_COUNT_DISK = "Keine g\u00fcltige DISK-Anzahl eingebeben!";
+	public final static String SIZE_PROCESS = "Prozessgr\u00F6\u00DFe";
+	public final static String SIZE_SPACE = "Speichergr\u00F6\u00DFe";
 }

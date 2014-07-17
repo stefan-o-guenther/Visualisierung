@@ -23,6 +23,7 @@ import Base.EnumVisualizationStatus;
 import Base.Labeling;
 import Base.MessageBox;
 import Base.PanelMenuAutomaticMenuAbstract;
+import java.awt.Color;
 
 public class PanelRNCongestionAvoidanceMenuAutomaticMenuImpl extends PanelMenuAutomaticMenuAbstract {
 	
@@ -31,30 +32,42 @@ public class PanelRNCongestionAvoidanceMenuAutomaticMenuImpl extends PanelMenuAu
 		this.initPanel();
 	}	
 	
+	private PanelRNCongestionAvoidanceMenuAutomaticMenuImpl() {
+		super(new ManagementCongestionAvoidanceImpl(), new ToolTipManagerCongestionAvoidanceImpl());
+		this.initComponents();
+		this.initLayout();
+	}
+	
 	private ButtonGroupNetworkStrategyImpl groupNetworkStrategy;
 	private ManagementCongestionAvoidance network;
 	private ToolTipManagerCongestionAvoidance tooltip;
 	
-	private JTextField tfSsTresh;
-	private JTextField tfTimeout;
+	private JLabel lblTCPReno;
+	private JCheckBox chckbxTCPReno;
+	
+	private JLabel lblTCPTahoe;	
+	private JCheckBox chckbxTCPTahoe;
+	
+	private JLabel lblSSThresh;
+	private JTextField tfSSThresh;
+	
+	private JLabel lblTimeout;
 	private JRadioButton rdbtnTimeout;
-	private JRadioButton rdbtnTrippleDuplACK;
+	private JTextField tfTimeout;
+	
+	private JLabel lblTrippleDuplACK;
+	private JRadioButton rdbtnTrippleDuplACK;	
 	private JTextField tfTrippleDuplACK;
 	
-	private JLabel lblTCPTahoe;
-	private JLabel lblSsTresh;
+	private JLabel lblSSThreshTCPRenoBar;
+	private JLabel lblSSThreshTCPRenoLabel;
+	
+	private JLabel lblSSThreshTCPTahoeBar;
+	private JLabel lblSSThreshTCPTahoeLabel;
+	
 	private JButton btnAssumeStepStartStop;
 	private JButton btnReset;
-	private JLabel lblTimeout;
-	private JLabel lblTripple;
-	private JLabel lblTCPReno;
-	private JCheckBox chckbxTcpReno;
-	private JCheckBox chckbxTcpTahoe;
-	
-	private JLabel lblSsThreshTahoeBar;
-	private JLabel lblSsTreshTahoeLabel;
-	private JLabel lblSsThreshRenoBar;
-	private JLabel lblSsTreshRenoLabel;
+	private JButton btnLoadExample;	
 	
 	@Override
 	protected void initComponents() {
@@ -65,74 +78,82 @@ public class PanelRNCongestionAvoidanceMenuAutomaticMenuImpl extends PanelMenuAu
 		
 		groupNetworkStrategy = new ButtonGroupNetworkStrategyImpl(actionStrategy);
 		
-		//rdbtnTimeout = new JRadioButton("timeout");
+		//rdbtnTimeout = new JRadioButton("timeout:");		
+		//rdbtnTrippleDuplACK = new JRadioButton("tripple dupl. ACK:");
 		rdbtnTimeout = groupNetworkStrategy.geRadioButtonTimout();
-		rdbtnTimeout.setBackground(this.getBackground());
-		
-		//rdbtnTrippleDuplACK = new JRadioButton("tripple dupl. ACK");
 		rdbtnTrippleDuplACK = groupNetworkStrategy.getRadioButtonTrippleDublACK();
-		rdbtnTrippleDuplACK.setBackground(this.getBackground());
-		
-		network.setNetworkStrategy(groupNetworkStrategy.getSelectedButton());
-		
-		lblTCPTahoe = new JLabel("-");
-		lblTCPTahoe.setFont(new Font("Tahoma", Font.PLAIN, 33));
-		lblTCPTahoe.setForeground(network.getColorTcpTahoe());
-		lblTCPTahoe.setIcon(imgHelp);
-		lblTCPTahoe.setToolTipText(this.tooltip.getToolTipTcpTahoe());
-		
-		chckbxTcpTahoe = new JCheckBox("TCP-Tahoe");
-		chckbxTcpTahoe.setBackground(this.getBackground());	
-		chckbxTcpTahoe.setSelected(false);
-		chckbxTcpTahoe.addActionListener(ActionTcpRenoTcpTahoe);		
+		rdbtnTimeout.setSelected(true);
+		selectStrategy();
 		
 		lblTCPReno = new JLabel("-");
+		lblTCPReno.setForeground(Color.BLACK);
 		lblTCPReno.setFont(new Font("Tahoma", Font.PLAIN, 33));
-		lblTCPReno.setForeground(network.getColorTcpReno());
 		lblTCPReno.setIcon(imgHelp);
-		lblTCPReno.setToolTipText(this.tooltip.getToolTipTcpReno());
+		lblTCPReno.setToolTipText(tooltip.getToolTipTcpReno());
 		
-		chckbxTcpReno = new JCheckBox("TCP-Reno");
-		chckbxTcpReno.setBackground(this.getBackground());
-		chckbxTcpReno.setSelected(false);
-		chckbxTcpReno.addActionListener(ActionTcpRenoTcpTahoe);
+		lblTCPTahoe = new JLabel("-");
+		lblTCPTahoe.setForeground(Color.BLUE);
+		lblTCPTahoe.setFont(new Font("Tahoma", Font.PLAIN, 33));
+		lblTCPTahoe.setIcon(imgHelp);
+		lblTCPTahoe.setToolTipText(tooltip.getToolTipTcpTahoe());
 		
-		lblSsTresh = new JLabel("SSThresh:");
-		lblSsTresh.setIcon(imgHelp);
+		chckbxTCPReno = new JCheckBox("TCP Reno");
+		chckbxTCPReno.setSelected(false);
+		chckbxTCPReno.addActionListener(ActionTcpReno);
+		this.selectTCPReno();		
 		
-		tfSsTresh = new JTextField();
-		tfSsTresh.setColumns(10);
+		chckbxTCPTahoe = new JCheckBox("TCP Tahoe");
+		chckbxTCPTahoe.setSelected(false);
+		chckbxTCPTahoe.addActionListener(ActionTcpTahoe);
+		this.selectTCPTahoe();
 		
-		tfTimeout = new JTextField();
-		tfTimeout.setColumns(10);
+		lblSSThresh = new JLabel("SSThresh:");
+		lblSSThresh.setIcon(imgHelp);
+		lblSSThresh.setToolTipText(tooltip.getToolTipSSThresh());
 		
-		btnReset = new JButton(Labeling.NEXT_STEP);
-		btnReset.addActionListener(ActionReset);
-		
-		btnAssumeStepStartStop = new JButton(Labeling.ASSUME);
-		btnAssumeStepStartStop.addActionListener(ActionAssumeStepStartStop);
-		
-		tfTrippleDuplACK = new JTextField();
-		tfTrippleDuplACK.setColumns(10);
+		tfSSThresh = new JTextField();
+		tfSSThresh.setColumns(10);
+		tfSSThresh.setText("");
 		
 		lblTimeout = new JLabel(" ");
 		lblTimeout.setIcon(imgHelp);
+		lblTimeout.setToolTipText(tooltip.getToolTipTimeout());
 		
-		lblTripple = new JLabel(" ");
-		lblTripple.setIcon(imgHelp);
-			
-		lblSsThreshTahoeBar = new JLabel("-");
-		lblSsThreshTahoeBar.setForeground(network.getColorSsTreshTcpTahoe());
-		lblSsThreshTahoeBar.setFont(new Font("Tahoma", Font.PLAIN, 33));		
+		lblTrippleDuplACK = new JLabel(" ");
+		lblTrippleDuplACK.setIcon(imgHelp);
+		lblTrippleDuplACK.setToolTipText(tooltip.getToolTipTrippleDuplAck());
 		
-		lblSsThreshRenoBar = new JLabel("-");
-		lblSsThreshRenoBar.setForeground(network.getColorSsTreshTcpReno());
-		lblSsThreshRenoBar.setFont(new Font("Tahoma", Font.PLAIN, 33));
+		tfTimeout = new JTextField();
+		tfTimeout.setColumns(10);
+		tfTimeout.setText("");
 		
-		lblSsTreshTahoeLabel = new JLabel("ssTresh (TCP-Tahoe)");
-		lblSsTreshRenoLabel = new JLabel("ssTresh (TCP-Reno)");
+		tfTrippleDuplACK = new JTextField();
+		tfTrippleDuplACK.setColumns(10);
+		tfTrippleDuplACK.setText("");
 		
-		this.selectTcpRenoTcpTahoe();
+		lblSSThreshTCPRenoBar = new JLabel("-");
+		lblSSThreshTCPRenoBar.setForeground(Color.GREEN);		
+		lblSSThreshTCPRenoBar.setFont(new Font("Tahoma", Font.PLAIN, 33));
+		lblSSThreshTCPRenoBar.setIcon(imgHelp);
+		lblSSThreshTCPRenoBar.setToolTipText(tooltip.getToolTipSSThreshTCPReno());
+		
+		lblSSThreshTCPTahoeBar = new JLabel("-");
+		lblSSThreshTCPTahoeBar.setForeground(Color.RED);		
+		lblSSThreshTCPTahoeBar.setFont(new Font("Tahoma", Font.PLAIN, 33));
+		lblSSThreshTCPTahoeBar.setIcon(imgHelp);
+		lblSSThreshTCPTahoeBar.setToolTipText(tooltip.getToolTipSSThreshTCPTahoe());
+		
+		lblSSThreshTCPRenoLabel = new JLabel("SSThresh (TCP Reno)");		
+		lblSSThreshTCPTahoeLabel = new JLabel("SSThresh (TCP Tahoe)");
+		
+		btnAssumeStepStartStop = new JButton(Labeling.ASSUME);	
+		btnAssumeStepStartStop.addActionListener(ActionAssumeStepStartStop);
+		
+		btnReset = new JButton(Labeling.RESET);	
+		btnReset.addActionListener(ActionReset);
+		
+		btnLoadExample = new JButton(Labeling.LOAD_EXAMPLE);
+		btnLoadExample.addActionListener(ActionLoadExample);			
 	}
 	
 	@Override
@@ -142,74 +163,80 @@ public class PanelRNCongestionAvoidanceMenuAutomaticMenuImpl extends PanelMenuAu
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnAssumeStepStartStop, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(btnReset, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(lblTCPTahoe, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(lblTCPReno, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(chckbxTCPTahoe, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(chckbxTCPReno, GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
+							.addGap(18)
+							.addComponent(lblSSThresh)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(tfSSThresh, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)))
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblTrippleDuplACK)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(rdbtnTrippleDuplACK))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblTimeout)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(rdbtnTimeout, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(tfTrippleDuplACK, 0, 0, Short.MAX_VALUE)
+								.addComponent(tfTimeout, GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)))
+						.addComponent(btnLoadExample, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(lblTCPReno, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(lblTCPTahoe, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(chckbxTcpReno, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(chckbxTcpTahoe, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addGap(18)
-							.addComponent(lblSsTresh)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(tfSsTresh, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblTimeout)
-								.addComponent(lblTripple))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(rdbtnTimeout, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(rdbtnTrippleDuplACK, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(tfTimeout, 0, 0, Short.MAX_VALUE)
-								.addComponent(tfTrippleDuplACK, GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE))
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(btnAssumeStepStartStop, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(btnReset, GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblSsThreshTahoeBar)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblSsTreshTahoeLabel)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(lblSsThreshRenoBar)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblSsTreshRenoLabel))))
+						.addComponent(lblSSThreshTCPRenoBar)
+						.addComponent(lblSSThreshTCPTahoeBar))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblSSThreshTCPRenoLabel)
+						.addComponent(lblSSThreshTCPTahoeLabel))
+					.addContainerGap(35, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblTCPTahoe, GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(chckbxTcpTahoe, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-							.addComponent(lblSsTresh)
-							.addComponent(tfSsTresh, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(lblTimeout)
-							.addComponent(rdbtnTimeout, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(tfTimeout, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(btnAssumeStepStartStop, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(lblSSThreshTCPRenoLabel, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblTCPReno, GroupLayout.PREFERRED_SIZE, 23, Short.MAX_VALUE)
 						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(chckbxTcpReno, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-							.addComponent(lblTripple)
-							.addComponent(rdbtnTrippleDuplACK)
-							.addComponent(tfTrippleDuplACK, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(btnReset, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+							.addComponent(chckbxTCPReno, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(lblSSThresh, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+							.addComponent(tfSSThresh, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblTimeout, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+							.addComponent(rdbtnTimeout, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(tfTimeout, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblSSThreshTCPRenoBar, 0, 0, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(lblSsTreshRenoLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(Alignment.TRAILING, groupLayout.createParallelGroup(Alignment.LEADING, false)
-							.addComponent(lblSsTreshTahoeLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(lblSsThreshRenoBar, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-							.addComponent(lblSsThreshTahoeBar, 0, 0, Short.MAX_VALUE))))
+						.addComponent(lblSSThreshTCPTahoeLabel, GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+						.addComponent(lblTCPTahoe, GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)
+						.addComponent(chckbxTCPTahoe, GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+						.addComponent(rdbtnTrippleDuplACK, GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+						.addComponent(tfTrippleDuplACK, GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+						.addComponent(lblSSThreshTCPTahoeBar, 0, 0, Short.MAX_VALUE)
+						.addComponent(lblTrippleDuplACK, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnAssumeStepStartStop)
+						.addComponent(btnReset)
+						.addComponent(btnLoadExample))
+					.addGap(210))
 		);
 		setLayout(groupLayout);
 	}
@@ -221,16 +248,16 @@ public class PanelRNCongestionAvoidanceMenuAutomaticMenuImpl extends PanelMenuAu
 		
 		this.lblTCPTahoe.setForeground(network.getColorTcpTahoe());
 		this.lblTCPReno.setForeground(network.getColorTcpReno());		
-		this.lblSsThreshTahoeBar.setForeground(network.getColorSsTreshTcpTahoe());
-		this.lblSsThreshRenoBar.setForeground(network.getColorSsTreshTcpReno());
+		this.lblSSThreshTCPTahoeBar.setForeground(network.getColorSsTreshTcpTahoe());
+		this.lblSSThreshTCPRenoBar.setForeground(network.getColorSsTreshTcpReno());
 		
 		EnumVisualizationStatus status = network.getStatus();
 		switch (status) {
 			case START: {
-				this.chckbxTcpReno.setEnabled(true);
-				this.chckbxTcpTahoe.setEnabled(true);
-				this.tfSsTresh.setEnabled(true);
-				this.tfSsTresh.setEditable(true);
+				this.chckbxTCPReno.setEnabled(true);
+				this.chckbxTCPTahoe.setEnabled(true);
+				this.tfSSThresh.setEnabled(true);
+				this.tfSSThresh.setEditable(true);
 				this.rdbtnTimeout.setEnabled(true);
 				this.rdbtnTrippleDuplACK.setEnabled(true);
 				this.tfTimeout.setEnabled(true);
@@ -238,14 +265,15 @@ public class PanelRNCongestionAvoidanceMenuAutomaticMenuImpl extends PanelMenuAu
 				this.tfTrippleDuplACK.setEnabled(true);	
 				this.tfTrippleDuplACK.setEditable(true);
 				this.btnAssumeStepStartStop.setEnabled(true);
-				this.btnAssumeStepStartStop.setText(Labeling.ASSUME);		
+				this.btnAssumeStepStartStop.setText(Labeling.ASSUME);
+				this.btnLoadExample.setEnabled(true);
 				break;
 			}
 			case RUN: {
-				this.chckbxTcpReno.setEnabled(false);
-				this.chckbxTcpTahoe.setEnabled(false);
-				this.tfSsTresh.setEnabled(false);
-				this.tfSsTresh.setEditable(false);
+				this.chckbxTCPReno.setEnabled(false);
+				this.chckbxTCPTahoe.setEnabled(false);
+				this.tfSSThresh.setEnabled(false);
+				this.tfSSThresh.setEditable(false);
 				this.rdbtnTimeout.setEnabled(true);
 				this.rdbtnTrippleDuplACK.setEnabled(true);
 				Boolean notRunning = !(network.isAutomaticRunning());
@@ -254,15 +282,16 @@ public class PanelRNCongestionAvoidanceMenuAutomaticMenuImpl extends PanelMenuAu
 				this.tfTrippleDuplACK.setEnabled(notRunning);	
 				this.tfTrippleDuplACK.setEditable(notRunning);
 				this.btnAssumeStepStartStop.setEnabled(true);
-				this.btnAssumeStepStartStop.setText(Labeling.RESET);
+				this.btnAssumeStepStartStop.setText(Labeling.NEXT_STEP);
 				this.btnAssumeStepStartStop.setText(network.getButtonAutomaticText());
+				this.btnLoadExample.setEnabled(false);
 				break;
 			}
 			case FINISHED: {
-				this.chckbxTcpReno.setEnabled(false);
-				this.chckbxTcpTahoe.setEnabled(false);
-				this.tfSsTresh.setEnabled(false);
-				this.tfSsTresh.setEditable(false);
+				this.chckbxTCPReno.setEnabled(false);
+				this.chckbxTCPTahoe.setEnabled(false);
+				this.tfSSThresh.setEnabled(false);
+				this.tfSSThresh.setEditable(false);
 				this.rdbtnTimeout.setEnabled(false);
 				this.rdbtnTrippleDuplACK.setEnabled(false);
 				this.tfTimeout.setEnabled(false);
@@ -271,6 +300,7 @@ public class PanelRNCongestionAvoidanceMenuAutomaticMenuImpl extends PanelMenuAu
 				this.tfTrippleDuplACK.setEditable(false);
 				this.btnAssumeStepStartStop.setEnabled(false);
 				this.btnAssumeStepStartStop.setText(Labeling.NEXT_STEP);
+				this.btnLoadExample.setEnabled(false);
 				break;
 			}
 			default: {
@@ -281,12 +311,17 @@ public class PanelRNCongestionAvoidanceMenuAutomaticMenuImpl extends PanelMenuAu
 
 	@Override
 	public Integer getHeightMenu() {
-		return 100;
-	}
+		return 110;
+	}	
+
+	@Override
+	public Integer getLengthMenu() {
+		return 690;
+	}		
 
 	private void inputSsTresh() throws Exception {
 		try {
-			Integer ssTresh = new Integer(tfSsTresh.getText());
+			Integer ssTresh = new Integer(tfSSThresh.getText());
 			if (ssTresh > network.getMaxCwnd()) {
 				throw new Exception();
 			}
@@ -324,18 +359,26 @@ public class PanelRNCongestionAvoidanceMenuAutomaticMenuImpl extends PanelMenuAu
 	}
 	
 	private void checkCheckboxes() throws Exception {		
-		Boolean reno = this.chckbxTcpReno.isSelected();
-		Boolean tahoe = this.chckbxTcpTahoe.isSelected();
+		Boolean reno = this.chckbxTCPReno.isSelected();
+		Boolean tahoe = this.chckbxTCPTahoe.isSelected();
 		if ((reno == false) && (tahoe == false)) {
 			MessageBox.showErrorMessage("kein Typ ausgewählt!");
 			throw new Exception("nichts ausgewählt");
 		}			
 	}
 	
+	private void selectStrategy() {
+		try {
+			network.setNetworkStrategy(groupNetworkStrategy.getSelectedButton());
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
 	private ActionListener actionStrategy = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			try {
-				network.setNetworkStrategy(groupNetworkStrategy.getSelectedButton());
+				selectStrategy();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}			
@@ -356,7 +399,7 @@ public class PanelRNCongestionAvoidanceMenuAutomaticMenuImpl extends PanelMenuAu
 			try {	
 				network.reset();
 			} catch (Exception ex) {
-				
+				throw ex;
 			}
 			updatePanel();
 		}
@@ -381,25 +424,60 @@ public class PanelRNCongestionAvoidanceMenuAutomaticMenuImpl extends PanelMenuAu
 		}
 	};
 	
-	private void selectTcpRenoTcpTahoe() {
-		Boolean isTcpRenoSelected = chckbxTcpReno.isSelected();
-		Boolean isTcpTahoeSelected = chckbxTcpTahoe.isSelected();
-		network.setTcpReno(isTcpRenoSelected);
-		network.setTcpTahoe(isTcpTahoeSelected);
+	private ActionListener ActionLoadExample = new ActionListener() {
+		public void actionPerformed (ActionEvent e) {
+			try {	
+				chckbxTCPReno.setSelected(true);
+				selectTCPReno();
+				chckbxTCPTahoe.setSelected(true);
+				selectTCPTahoe();				
+				tfSSThresh.setText("8");
+				tfTimeout.setText("12");
+				tfTrippleDuplACK.setText("12");
+				rdbtnTrippleDuplACK.setSelected(true);	
+				selectStrategy();
+			} catch (Exception ex) {
+				
+			}
+			updatePanel();
+		}
+	};
+	
+	private void selectTCPReno() {
+		try {
+			Boolean isSelected = this.chckbxTCPReno.isSelected();
+			network.setTcpReno(isSelected);
+		} catch (Exception ex) {
+			throw ex;
+		}
 	}
 	
-	private ActionListener ActionTcpRenoTcpTahoe = new ActionListener() {
+	private void selectTCPTahoe() {
+		try {
+			Boolean isSelected = this.chckbxTCPTahoe.isSelected();
+			network.setTcpTahoe(isSelected);
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+	private ActionListener ActionTcpReno = new ActionListener() {
 		public void actionPerformed (ActionEvent e) {
 			try {
-				selectTcpRenoTcpTahoe();
+				selectTCPReno();
 			} catch (Exception ex) {
 				ex.printStackTrace();
 			}			
 		}
 	};
-
-	@Override
-	public Integer getLengthMenu() {
-		return 620;
-	}		
+	
+	private ActionListener ActionTcpTahoe = new ActionListener() {
+		public void actionPerformed (ActionEvent e) {
+			try {
+				selectTCPTahoe();
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}			
+		}
+	};
 }

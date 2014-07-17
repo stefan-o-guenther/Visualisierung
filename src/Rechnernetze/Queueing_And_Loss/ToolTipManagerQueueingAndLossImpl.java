@@ -5,7 +5,9 @@
 
 package Rechnernetze.Queueing_And_Loss;
 
-public class ToolTipManagerQueueingAndLossImpl implements ToolTipManagerQueueingAndLoss {
+import Base.ToolTipManagerAutomaticAbstract;
+
+public class ToolTipManagerQueueingAndLossImpl extends ToolTipManagerAutomaticAbstract implements ToolTipManagerQueueingAndLoss {
 	
 	public String getToolTipTitle() {
 		String tooltipTitle = ""

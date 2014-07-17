@@ -9,7 +9,6 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
 import Base.PanelModelAbstract;
-import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class PanelBSBuddySystemeModelImpl extends PanelModelAbstract {
 

@@ -12,17 +12,12 @@ public abstract class PanelMenuAutomaticBoxAbstract extends PanelMenuAutomaticAb
 
 	public PanelMenuAutomaticBoxAbstract(ManagementAutomatic management, ToolTipManagerAutomatic tooltip) {
 		super(management, tooltip);		
-	}
+	}	
 	
 	private PanelMenuAutomaticMenuAbstract panelMenu;		
-	private PanelMenuAutomaticControlImpl panelControl;	
+	private PanelMenuAutomaticControlAbstract panelControl;	
 	
-	private PanelMenuAutomaticControlImpl getNewPanelAutomaticMenuControler() {
-		ManagementAutomatic management = (ManagementAutomatic) this.getManagement();
-		ToolTipManagerAutomatic tooltip = (ToolTipManagerAutomatic) this.getToolTipManager();
-		return new PanelMenuAutomaticControlImpl(management, tooltip);
-	}
-	
+	protected abstract PanelMenuAutomaticControlAbstract getNewPanelAutomaticMenuControler();
 	protected abstract PanelMenuAutomaticMenuAbstract getNewPanelMenuAutomaticMenu();	
 		
 	@Override

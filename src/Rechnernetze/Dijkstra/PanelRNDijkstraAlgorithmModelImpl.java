@@ -8,15 +8,13 @@ package Rechnernetze.Dijkstra;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.geom.CubicCurve2D;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import Base.PanelModelDrawAbstract;
 import Base.EnumSurface;
 import Base.ImageLoader;
+import Base.PanelModelDrawAbstract;
 
 public class PanelRNDijkstraAlgorithmModelImpl extends PanelModelDrawAbstract {
 

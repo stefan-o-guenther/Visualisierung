@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	01.07.2014
+ */
+
 package Betriebssysteme.Belegungsstrategien;
 
 import java.awt.Color;

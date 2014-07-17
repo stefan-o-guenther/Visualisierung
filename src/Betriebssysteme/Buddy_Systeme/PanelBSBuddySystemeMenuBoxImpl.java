@@ -7,8 +7,6 @@ package Betriebssysteme.Buddy_Systeme;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-
-import Base.PanelMenuAbstract;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class PanelBSBuddySystemeMenuBoxImpl extends PanelBSBuddySystemeMenuAbstract {

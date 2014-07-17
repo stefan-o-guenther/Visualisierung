@@ -56,8 +56,7 @@ public class ToolTipManagerBuddyMemoryAllocationImpl implements ToolTipManagerBu
 	public String getToolTipProcessName() {
 		String tooltipProcessName = ""
 			+ "<html>"
-			+ "Da der BuddySystem-Algorithmus immer mit Bl&ouml;cken der L&auml;nge 2<sup>k</sup> arbeitet,<br/>"
-			+ "wird jede Eingabe auf die n&auml;chst h&ouml;herliegende 2er-Potzenzzahl gerundet.<br/>"
+			+ "Name für einen Prozess. Der Name darf aus h&ouml;chstens 6 Zeichen bestehen.<br/>"
 			+ "</<html>";
 		return tooltipProcessName;
 	}

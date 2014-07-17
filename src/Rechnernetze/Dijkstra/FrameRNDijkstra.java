@@ -13,10 +13,4 @@ public class FrameRNDijkstra extends FrameAbstract {
 		super("Dijkstra");
         initUI(new PanelRNDijkstraAlgorithmMainImpl());
     }
-
-    public static void main(String[] args) {
-    	initToolTipManager();
-    	initLookAndFeel();
-    	baseMain(new FrameRNDijkstra());	
-    }
 }

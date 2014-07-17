@@ -13,10 +13,4 @@ public class FrameRNPipelineProtocol extends FrameAbstract {
 		super("Pipeline Protocol");
         initUI(new PanelRNPipelineProtocolMainImpl());
     }
-
-    public static void main(String[] args) {
-    	initToolTipManager();
-    	initLookAndFeel();
-    	baseMain(new FrameRNPipelineProtocol());	
-    }
 }

@@ -79,7 +79,7 @@ public abstract class PanelModelDrawCoordinateSystemAbstract extends PanelModelD
 		     	// Striche und Nummerierung bei X-Achse
 		     	for (Integer i = 1; i <= cs.getXMax(); i++) {
 		     		int j = i.intValue();
-		     		int r = j % cs.getInterval();
+		     		int r = j % cs.getIntervalX();
 		     		if (r == 0) {
 		     			Integer xpos = cs.XToPositionX(i);	     		
 			     		g2d.drawLine(xpos, y0-5, xpos, y0+5);
@@ -141,7 +141,7 @@ public abstract class PanelModelDrawCoordinateSystemAbstract extends PanelModelD
 		     	// Striche und Nummerierung bei Y-Achse
 		     	for (Integer i = 1; i <= cs.getYMax(); i++) {
 		     		int j = i.intValue();
-		     		int r = j % cs.getInterval();
+		     		int r = j % cs.getIntervalY();
 		     		if (r == 0) {
 		     			Integer ypos = cs.YToPositionY(i);
 			     		g2d.drawLine(x0-5, ypos, x0+5, ypos);

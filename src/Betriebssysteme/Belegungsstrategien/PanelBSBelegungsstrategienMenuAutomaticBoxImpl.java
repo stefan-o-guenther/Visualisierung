@@ -1,9 +1,14 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	01.07.2014
+ */
+
 package Betriebssysteme.Belegungsstrategien;
 
-import Base.PanelMenuAutomaticBoxAbstract;
+import Base.PanelMenuAutomaticBoxNormalAbstract;
 import Base.PanelMenuAutomaticMenuAbstract;
 
-public class PanelBSBelegungsstrategienMenuAutomaticBoxImpl extends PanelMenuAutomaticBoxAbstract {
+public class PanelBSBelegungsstrategienMenuAutomaticBoxImpl extends PanelMenuAutomaticBoxNormalAbstract {
 
 	public PanelBSBelegungsstrategienMenuAutomaticBoxImpl(ManagementFragmentation fragmentation, ToolTipManagerFragmentation tooltip) {
 		super(fragmentation, tooltip);

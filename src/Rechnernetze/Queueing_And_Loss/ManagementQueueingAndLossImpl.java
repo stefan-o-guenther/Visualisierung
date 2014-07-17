@@ -5,104 +5,140 @@
 
 package Rechnernetze.Queueing_And_Loss;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.swing.JPanel;
+import Base.ManagementAutomaticAbstract;
 
-import Base.ManagementAbstract;
+public class ManagementQueueingAndLossImpl extends ManagementAutomaticAbstract implements ManagementQueueingAndLoss {
 
-public class ManagementQueueingAndLossImpl extends ManagementAbstract implements ManagementQueueingAndLoss {
-	private double time;
-	private double tic;
-	private Line line1;
-	private Sender sender1;
-	private Dropper dropper1;
-	private Queue queue1;
-	private Line line2;
-	private Processor proc1;
-	private TimerThread timerThread;	
-
-	public ManagementQueueingAndLossImpl(double tick) {
+	public ManagementQueueingAndLossImpl() {
 		super();
-		tic = tick;
 		init();
 	}
+	
+	private long termSpeed;
+	private long termError;
+	private long termProcessing;
+	private long termInterval;
+	
+	private List<Packet> listInput;
+	private List<Packet> listOutput;
+	private List<Packet> listError;
+	private List<Packet> listRouter;
+	
+	private long timeInput;
+	private long timeOutput;
+	
+	private long timeRouter;
+	private long timeNewPacket;
+	
+	private long timeCurrent;
+	
+	private int numberPacket;
 	
 	private void init() {
-		line1 = new Line(1E-2, new Rectangle(10,60,200,10));
-		sender1 = new Sender(1E-3,line1);
-		dropper1 = new Dropper(.6E-2, new Rectangle(200,70,10,60));
-		queue1 = new Queue(10, line1,dropper1, new Rectangle(210,40,100,50));
-		line2 = new Line(1E-2, new Rectangle(340,60,200,10));
-		proc1 = new Processor(2E-3, queue1, line2, new Rectangle(310,50,30,30));
-		time = 0;
-		runThread = false;
-	}
-
-	public void launchSim(double emitRate, double processorRate) {
-		sender1.setEmitInterval(emitRate);
-		proc1.setWrkLength(processorRate);
-		runThread = true;
-		timerThread = new TimerThread();
-		timerThread.start();
-	}
-
-	public void draw(Graphics g) {
-		dropper1.draw(g);
-		line1.draw(g);
-		line2.draw(g);
-		queue1.draw(g);
-		proc1.draw(g);
-		g.drawString(TimedClass.timeToString(time),10,110);
-		g.drawString(queue1.getDropStat(),10,125);
-	}
-
-	@Override
-	public void reset() {
-		init();
-		panelMain.updatePanelModel();
+		listInput = new ArrayList<Packet>();
+		listOutput = new ArrayList<Packet>();
+		listError = new ArrayList<Packet>();
+		listRouter = new ArrayList<Packet>();
+		numberPacket = 0;
 	}
 	
-	private Boolean runThread = false;
 	
-	public class TimerThread extends Thread {
-	    String text;
-	  
-	    public TimerThread() {
-	    	super();
-	    }
-	  
-	    public void run() {
-	    	try {
-	    		while (runThread) {
-					dropper1.setTime(time);
-					sender1.setTime(time);
-					line1.setTime(time);
-					queue1.setTime(time);
-					proc1.setTime(time);
-					line2.setTime(time);
-					if (panelMain != null) {
-						panelMain.updatePanelModel();;
-					}
-					time += tic;					
-					sleep(50);					
-				}	    		
-		    } catch (InterruptedException e) {
-	        	System.out.println("Thread abgebrochen");
-	        }
-	    }
-	}
-
-	@Override
+	private int maxRouter = 10;
+	
 	public Boolean execute() {
+		
+		return true;
+	}
+	
+	private void executeNewPacket() {
+		long termDif = timeCurrent - timeNewPacket;
+		if (termDif >= termInterval) {
+			Packet packet = null;
+			switch (numberPacket) {
+				case 0: {
+					packet = new PacketBlueImpl();
+				}
+				case 1: {
+					packet = new PacketCyanImpl();
+				}
+				case 2: {
+					packet = new PacketGreenImpl();
+				}
+				case 3: {
+					packet = new PacketMagentaImpl();
+				}
+				case 4: {
+					packet = new PacketOrangeImpl();
+				}
+				case 5: {
+					packet = new PacketPinkImpl();
+				}
+				case 6: {
+					packet = new PacketRedImpl();
+				}
+				case 7: {
+					packet = new PacketYellowImpl();
+				}
+				default: {
+					packet = new PacketBlueImpl();
+				}
+			}			
+			numberPacket = (numberPacket + 1) % 8;
+			listInput.add(packet);
+			timeNewPacket = timeCurrent;
+		}
+	}
+	
+	
+	private void executeInput() {
+		
+	}
+	
+	
+	
+	private void executeRouter() {
+		int size = listRouter.size();
+		long termDif = timeCurrent - timeRouter;
+		if ((size > 0) && (termDif >= termProcessing)) {			
+			Packet packet = listRouter.remove(size-1);
+			packet.setPosition(0);
+			listOutput.add(packet);			
+			timeRouter = timeCurrent;
+		}		
+	}
+	
+	
+	
+	
+	
+	@Override
+	protected Boolean executeAutomatic() {
+		timeCurrent = System.currentTimeMillis();
+		
+		return true;
+	}
+
+	
+	
+	@Override
+	public Boolean isAutomaticEnabled() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
 	public String getTitle() {
-		return "Queueing And Loss";
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
@@ -116,4 +152,36 @@ public class ManagementQueueingAndLossImpl extends ManagementAbstract implements
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public List<Packet> getListInput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Packet> getListOutput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Packet> getListError() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Packet> getListRouter() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Integer getMaxRouter() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 }

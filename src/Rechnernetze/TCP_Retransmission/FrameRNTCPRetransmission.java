@@ -13,10 +13,4 @@ public class FrameRNTCPRetransmission extends FrameAbstract {
 		super("TCP-Retransmission");
         initUI(new PanelRNTCPRetransmissionMainImpl());
     }
-
-    public static void main(String[] args) {
-    	initToolTipManager();
-    	initLookAndFeel();
-    	baseMain(new FrameRNTCPRetransmission());	
-    }
 }

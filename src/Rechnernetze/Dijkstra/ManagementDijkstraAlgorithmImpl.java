@@ -353,7 +353,7 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 	}
 		
 	@Override
-	public Boolean execute() {
+	protected Boolean executeAutomatic() {
 		switch (status) {
 			case START: {
 				executeStart();

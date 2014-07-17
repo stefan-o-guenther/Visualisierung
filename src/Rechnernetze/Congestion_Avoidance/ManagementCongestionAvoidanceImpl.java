@@ -41,8 +41,10 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAutomaticAbstra
 		cs = new CoordinateSystemImpl(false, EnumCoordinateSystem.BOTTOM);
 		cs.setHeight(height);
 		cs.setWidth(width);
-		cs.setGapBetweenNumbers(20);
-		cs.setInterval(1);
+		cs.setGapBetweenX(20);
+		cs.setGapBetweenY(20);
+		cs.setIntervalX(1);
+		cs.setIntervalY(1);
 		cs.setArrowLength(10);
 	}	
 	
@@ -110,7 +112,7 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAutomaticAbstra
 	}
 	
 	@Override
-	public Boolean execute() {
+	protected Boolean executeAutomatic() {
 		try {
 			if (((reno == true) || (tahoe == true)) && (this.getStatus() != EnumVisualizationStatus.FINISHED)) {
 				if (start) {				

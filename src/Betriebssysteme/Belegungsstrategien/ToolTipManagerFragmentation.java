@@ -11,4 +11,5 @@ public interface ToolTipManagerFragmentation extends ToolTipManagerAutomatic {
 
 	public String getToolTipStratgy();
 	public String getToolTipSpeicher();
+	public String getToolTipHauptspeicher();
 }

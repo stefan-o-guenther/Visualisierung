@@ -1,10 +1,10 @@
 package Rechnernetze.Congestion_Avoidance;
 
-import Base.PanelMenuAutomaticBoxAbstract;
+import Base.PanelMenuAutomaticBoxNormalAbstract;
 import Base.PanelMenuAutomaticControlImpl;
 import Base.PanelMenuAutomaticMenuAbstract;
 
-public class PanelRNCongestionAvoidanceMenuAutomaticBoxImpl extends PanelMenuAutomaticBoxAbstract {
+public class PanelRNCongestionAvoidanceMenuAutomaticBoxImpl extends PanelMenuAutomaticBoxNormalAbstract {
 
 	public PanelRNCongestionAvoidanceMenuAutomaticBoxImpl(ManagementCongestionAvoidance network, ToolTipManagerCongestionAvoidance tooltip) {
 		super(network, tooltip);

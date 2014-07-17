@@ -13,10 +13,4 @@ public class FrameRNCongestionAvoidanceImpl extends FrameAbstract {
 		super("Congestion Avoidance");
         initUI(new PanelRNCongestionAvoidanceMainImpl());
     }
-
-    public static void main(String[] args) {
-    	initToolTipManager();
-    	initLookAndFeel();
-    	baseMain(new FrameRNCongestionAvoidanceImpl());	
-    }
 }

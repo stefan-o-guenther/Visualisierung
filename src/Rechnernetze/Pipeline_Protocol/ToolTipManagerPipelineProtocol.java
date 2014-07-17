@@ -5,8 +5,8 @@
 
 package Rechnernetze.Pipeline_Protocol;
 
-import Base.ToolTipManager;
+import Base.ToolTipManagerAutomatic;
 
-public interface ToolTipManagerPipelineProtocol extends ToolTipManager {
+public interface ToolTipManagerPipelineProtocol extends ToolTipManagerAutomatic {
 
 }

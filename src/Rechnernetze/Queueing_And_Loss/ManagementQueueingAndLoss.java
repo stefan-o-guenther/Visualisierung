@@ -5,13 +5,15 @@
 
 package Rechnernetze.Queueing_And_Loss;
 
-import java.awt.Graphics;
+import java.util.List;
 
-import Base.Management;
+import Base.ManagementAutomatic;
 
-public interface ManagementQueueingAndLoss extends Management {
+public interface ManagementQueueingAndLoss extends ManagementAutomatic {
 
-	void launchSim(double emitRate, double processorRate);
-	void draw(Graphics g);
-	void reset();
+	List<Packet> getListInput();
+	List<Packet> getListOutput();
+	List<Packet> getListError();
+	List<Packet> getListRouter();
+	Integer getMaxRouter();
 }

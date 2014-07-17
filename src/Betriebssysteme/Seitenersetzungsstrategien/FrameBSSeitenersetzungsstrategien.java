@@ -13,10 +13,4 @@ public class FrameBSSeitenersetzungsstrategien extends FrameAbstract {
 		super("Seitenersetzungsstrategien");
 		initUI(new PanelBSSeitenersetzungsstrategienMainImpl());
     }
-
-    public static void main(String[] args) {
-    	initToolTipManager();
-    	initLookAndFeel();
-    	baseMain(new FrameBSSeitenersetzungsstrategien());	
-    }
 }

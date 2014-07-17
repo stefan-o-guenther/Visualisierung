@@ -14,7 +14,7 @@ public class Pipeline_Protocol extends MainAbstract {
 	}
 	
 	public static void main(String[] args) {
-    	initToolTipManager();
+		initToolTipManager();
     	initLookAndFeel();
     	baseMain(new FrameRNPipelineProtocol());	
     }

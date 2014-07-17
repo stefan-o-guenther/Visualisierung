@@ -20,7 +20,7 @@ public class PanelRNPipelineProtocolMainImpl extends PanelMainAbstract {
 	public PanelMenuAbstract getNewPanelMenu() {
 		ManagementPipelineProtocol pipeline = (ManagementPipelineProtocol) this.getManagement();
 		ToolTipManagerPipelineProtocol tooltip = (ToolTipManagerPipelineProtocol) this.getToolTipManager();
-		return new PanelRNPipelineProtocolMenuPipelineBoxImpl(pipeline, tooltip);
+		return new PanelRNPipelineProtocolMenuAutomaticBoxImpl(pipeline, tooltip);
 	}
 
 	@Override

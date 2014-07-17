@@ -39,8 +39,10 @@ public class ManagementFairnessImpl extends ManagementAutomaticAbstract implemen
 		cs = new CoordinateSystemImpl(true, EnumCoordinateSystem.RIGHT);
 		cs.setHeight(height);
 		cs.setWidth(width);
-		cs.setGapBetweenNumbers(7);
-		cs.setInterval(4);
+		cs.setGapBetweenX(7);
+		cs.setGapBetweenY(7);
+		cs.setIntervalX(4);
+		cs.setIntervalY(4);
 		cs.setArrowLength(10);
 		this.setMaxFlowRate();
 	}
@@ -70,7 +72,7 @@ public class ManagementFairnessImpl extends ManagementAutomaticAbstract implemen
 	}	
 	
 	@Override
-	public Boolean execute() {
+	protected Boolean executeAutomatic() {
 		try {
 			Boolean result = true;
 			if (listPoints != null) {

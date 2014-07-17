@@ -49,7 +49,7 @@ public class PanelRNTCPFairnessMenuAutomaticMenuImpl extends PanelMenuAutomaticM
 	private JLabel lblModusContent;
 	private JLabel lblCwndLabel1;
 	private JLabel lblCwndLabel2;
-	private JLabel lblDiferenceLabel;
+	private JLabel lblDifferenceLabel;
 	private JLabel lblCwndContent1;
 	private JLabel lblCwndContent2;
 	private JLabel lblDifferenceContent;
@@ -62,11 +62,13 @@ public class PanelRNTCPFairnessMenuAutomaticMenuImpl extends PanelMenuAutomaticM
 		this.tooltip = (ToolTipManagerFairness) this.getToolTipManager();
 		
 		ImageIcon imgHelp = super.getImageIconHelp();		
-		lblConnection1 = new JLabel("Verbindung 1:");
+		lblConnection1 = new JLabel("Verbindung 1 cwnd Startwert:");
 		lblConnection1.setIcon(imgHelp);
+		lblConnection1.setToolTipText(tooltip.getToolTipConnection1());
 		
-		lblConnection2 = new JLabel("Verbindung 2:");
+		lblConnection2 = new JLabel("Verbindung 2 cwnd Startwert:");
 		lblConnection2.setIcon(imgHelp);
+		lblConnection2.setToolTipText(tooltip.getToolTipConnection2());
 		
 		tfConnection1 = new JTextField();
 		
@@ -74,17 +76,21 @@ public class PanelRNTCPFairnessMenuAutomaticMenuImpl extends PanelMenuAutomaticM
 		
 		lblModusLabel = new JLabel("Modus:");
 		lblModusLabel.setIcon(imgHelp);
+		lblModusLabel.setToolTipText(tooltip.getToolTipModus());
 		
 		lblModusContent = new JLabel("-");
 		
-		lblCwndLabel1 = new JLabel("cwnd:");
-		lblCwndLabel1.setIcon(imgHelp);
+		lblCwndLabel1 = new JLabel("aktueller Wert:");
+		//lblCwndLabel1.setIcon(imgHelp);
+		//lblCwndLabel1.setToolTipText(tooltip.getToolTipCwnd1());
 		
-		lblCwndLabel2 = new JLabel("cwnd:");
-		lblCwndLabel2.setIcon(imgHelp);
+		lblCwndLabel2 = new JLabel("aktueller Wert:");
+		//lblCwndLabel2.setIcon(imgHelp);
+		//lblCwndLabel2.setToolTipText(tooltip.getToolTipCwnd2());
 		
-		lblDiferenceLabel = new JLabel("Differenz:");
-		lblDiferenceLabel.setIcon(imgHelp);
+		lblDifferenceLabel = new JLabel("Differenz:");
+		lblDifferenceLabel.setIcon(imgHelp);
+		lblDifferenceLabel.setToolTipText(tooltip.getToolTipDifference());
 		
 		lblCwndContent1 = new JLabel("-");
 		
@@ -100,6 +106,7 @@ public class PanelRNTCPFairnessMenuAutomaticMenuImpl extends PanelMenuAutomaticM
 		
 		lblMaxFlowRateLabel = new JLabel("maximale Durchflussleistung:");
 		lblMaxFlowRateLabel.setIcon(imgHelp);
+		lblMaxFlowRateLabel.setToolTipText(tooltip.getToolTipMaxFlowRate());
 		
 		lblMaxFlowRateContent = new JLabel("0");
 	}
@@ -172,7 +179,7 @@ public class PanelRNTCPFairnessMenuAutomaticMenuImpl extends PanelMenuAutomaticM
 					.addComponent(lblMaxFlowRateContent, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(lblDiferenceLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(lblDifferenceLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(lblCwndLabel2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(lblCwndLabel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
@@ -211,7 +218,7 @@ public class PanelRNTCPFairnessMenuAutomaticMenuImpl extends PanelMenuAutomaticM
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblMaxFlowRateLabel)
 						.addComponent(lblMaxFlowRateContent)
-						.addComponent(lblDiferenceLabel)
+						.addComponent(lblDifferenceLabel)
 						.addComponent(lblDifferenceContent)
 						.addComponent(lblModusLabel)
 						.addComponent(lblModusContent))

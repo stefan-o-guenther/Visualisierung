@@ -13,10 +13,4 @@ public class FrameBSBuddySystemeImpl extends FrameAbstract {
         super("Buddy Systeme");
         initUI(new PanelBSBuddySystemeMainImpl());
     }
-
-    public static void main(String[] args) {
-    	initToolTipManager();
-    	initLookAndFeel();
-    	baseMain(new FrameBSBuddySystemeImpl());	
-    }
 }

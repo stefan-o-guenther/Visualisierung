@@ -11,14 +11,37 @@ public abstract class ManagementAutomaticAbstract extends ManagementAbstract imp
 		super();
 		this.isAutomaticChecked = false;
 		this.isAutomaticRunning = false;
-		this.speed = 0;		
+		this.speed = 0;
+		this.initTime();
 	}
 	
 	protected Boolean isAutomaticChecked;
 	protected Boolean isAutomaticRunning;
 	protected Boolean isAutomaticEnabled;
 	protected Integer speed;
-	protected ThreadAutomatic tAuto; //= new AutoThread();	
+	protected ThreadAutomatic tAuto; //= new AutoThread();
+	protected long time;
+	
+	protected abstract Boolean executeAutomatic();
+	
+	protected void initTime() {
+		this.time = System.currentTimeMillis();
+	}
+	
+	protected long getTime() {
+		return time;
+	}
+	
+	protected void setTime(long time) {
+		try {
+			if (time < 0) {
+				throw new IllegalArgumentException();
+			}
+			this.time = time;
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
 	
 	protected void setAutomaticEnabled(Boolean isAutomaticEnabled) {
 		try {
@@ -28,6 +51,17 @@ public abstract class ManagementAutomaticAbstract extends ManagementAbstract imp
 			this.isAutomaticEnabled = isAutomaticEnabled;
 		} catch (Exception ex) {
 			throw ex;
+		}
+	}
+	
+	public Boolean execute() {
+		long timeCurrent = System.currentTimeMillis();
+		long timeDif = timeCurrent - time;
+		if ((!(this.isAutomaticChecked())) || (timeDif >= this.getSpeed())) {
+			time = timeCurrent;
+			return this.executeAutomatic();
+		} else {
+			return true;
 		}
 	}
 	

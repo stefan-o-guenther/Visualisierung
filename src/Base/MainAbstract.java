@@ -41,6 +41,6 @@ public abstract class MainAbstract {
 	
 	protected static void baseMain(final JFrame frame) {		
 		/* Create and display the form */
-    	SwingUtilities.invokeLater(new RunnableImpl(frame));	
-	}	
+		SwingUtilities.invokeLater(new RunnableImpl(frame));	
+	}
 }

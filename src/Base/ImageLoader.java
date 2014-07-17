@@ -21,6 +21,7 @@ public class ImageLoader {
 	private static ImageIcon imgIconTurtle = null;
 	
 	private static BufferedImage imgRouter = null;
+	private static BufferedImage imgRouter2 = null;
 	
 	private static BufferedImage loadImage(String path) throws Exception {
 		try {
@@ -117,5 +118,12 @@ public class ImageLoader {
 			imgRouter = loadImage("/Base/img/70px-Router.png");
 		}
 		return imgRouter;
+	}
+	
+	public static BufferedImage getBufferedImageRouter2() throws Exception {
+		if (imgRouter2 == null) {
+			imgRouter2 = loadImage("/Base/img/500px-Router.svg.png");
+		}
+		return imgRouter2;
 	}
 }

@@ -13,10 +13,4 @@ public class FrameRNTCPFairness extends FrameAbstract {
 		super("TCP-Fairness");
         initUI(new PanelRNTCPFairnessMainImpl());
     }
-
-    public static void main(String[] args) {
-    	initToolTipManager();
-    	initLookAndFeel();
-    	baseMain(new FrameRNTCPFairness());	
-    }
 }

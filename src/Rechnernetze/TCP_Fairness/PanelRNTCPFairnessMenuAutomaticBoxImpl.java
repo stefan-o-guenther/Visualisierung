@@ -1,9 +1,9 @@
 package Rechnernetze.TCP_Fairness;
 
-import Base.PanelMenuAutomaticBoxAbstract;
+import Base.PanelMenuAutomaticBoxNormalAbstract;
 import Base.PanelMenuAutomaticMenuAbstract;
 
-public class PanelRNTCPFairnessMenuAutomaticBoxImpl extends PanelMenuAutomaticBoxAbstract {
+public class PanelRNTCPFairnessMenuAutomaticBoxImpl extends PanelMenuAutomaticBoxNormalAbstract {
 
 	public PanelRNTCPFairnessMenuAutomaticBoxImpl(ManagementFairness fairness, ToolTipManagerFairness tooltip) {
 		super(fairness, tooltip);

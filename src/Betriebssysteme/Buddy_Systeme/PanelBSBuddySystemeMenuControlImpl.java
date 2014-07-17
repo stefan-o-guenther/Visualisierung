@@ -60,13 +60,13 @@ public class PanelBSBuddySystemeMenuControlImpl extends PanelBSBuddySystemeMenuA
 		
 		ImageIcon imgHelp = this.getImageIconHelp();		
 		
-		lblSpace = new JLabel("Speichergr\u00F6\u00DFe:");	
+		lblSpace = new JLabel(Labeling.SIZE_SPACE + ":");	
 		lblSpace.setIcon(imgHelp);
 		lblSpace.setToolTipText(tooltip.getToolTipSpaceSize());
 		lblProcessName = new JLabel("Prozessname:");	
 		lblProcessName.setIcon(imgHelp);
 		lblProcessName.setToolTipText(tooltip.getToolTipProcessName());
-		lblProcessSize = new JLabel("Prozessgr\u00F6\u00DFe:");
+		lblProcessSize = new JLabel(Labeling.SIZE_PROCESS + ":");
 		lblProcessSize.setIcon(imgHelp);
 		lblProcessSize.setToolTipText(tooltip.getToolTipProcessSize());
 		lblExampleTip = new JLabel(" ");
@@ -79,11 +79,11 @@ public class PanelBSBuddySystemeMenuControlImpl extends PanelBSBuddySystemeMenuA
 		//rdbtnProcessStart = new JRadioButton("starten");
 		//rdbtnProcessStop = new JRadioButton("stoppen");
 				
-		btnExecute1 = new JButton("zur\u00FCcksetzen");
+		btnExecute1 = new JButton(Labeling.RESET);
 		btnExecute1.addActionListener(actionExecute1);
 		btnExecute2 = new JButton("Prozess beenden");
 		btnExecute2.addActionListener(actionExecute2);
-		btnExample = new JButton("Beispiel laden");
+		btnExample = new JButton(Labeling.LOAD_EXAMPLE);
 		btnExample.addActionListener(actionDemo);
 		
 		tfSpace = new JTextField();

@@ -5,9 +5,16 @@
 
 package Rechnernetze.Pipeline_Protocol;
 
-import Base.Management;
+import java.util.List;
+
 import Base.ManagementAutomatic;
 
 public interface ManagementPipelineProtocol extends ManagementAutomatic {
 
+	List<Packet> getListPacket();
+	Integer getPositionStart();
+	Integer getPositionTarget();
+	Integer getPacketHeight();
+	Integer getPacketWidth();
+	Integer getCount();
 }

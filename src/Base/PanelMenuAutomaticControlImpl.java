@@ -5,7 +5,6 @@
 
 package Base;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,27 +17,30 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-public class PanelMenuAutomaticControlImpl extends PanelMenuAutomaticAbstract implements PanelMenuAutomaticControl {	
+public class PanelMenuAutomaticControlImpl extends PanelMenuAutomaticControlAbstract {	
 	
 	public PanelMenuAutomaticControlImpl(ManagementAutomatic management, ToolTipManagerAutomatic tooltip) {
 		super(management, tooltip);
 		this.initPanel();
 	}
 	
-	private Color background;
-	private JLabel lblToolTip;
-	private JLabel lblTurtle;
-	private JLabel lblRabbit;
-	private JCheckBox chckbxAutomatic;
-	private JSlider sliderSpeed;
+	private PanelMenuAutomaticControlImpl() {
+		super(new ManagementAutomaticTestImpl(), new ToolTipManagerAutomaticTestImpl());
+		this.initComponents();
+		this.initLayout();
+	}
 	
-	private ManagementAutomatic management;
-	private ToolTipManagerAutomatic tooltip;
+	private JCheckBox chckbxAutomatic;		
 	
 	private Integer maxWait = 2000;
 	private Integer minWait = 125;
 	private Integer step = 125;
-	private Integer initWait = 1000;	
+	private Integer initWait = 1000;
+	
+	private JLabel lblTurtle;
+	private JLabel lblRabbit;
+	private JSlider sliderSpeed;
+	private JLabel lblToolTip;
 	
 	protected void initComponents() {
 		this.management = (ManagementAutomatic) this.getManagement();
@@ -48,10 +50,10 @@ public class PanelMenuAutomaticControlImpl extends PanelMenuAutomaticAbstract im
 		lblToolTip.setIcon(ImageLoader.getImageIconHelp16());
 		lblToolTip.setToolTipText(tooltip.getToolTipSpeed());
 		
-		lblTurtle = new JLabel(" ");
-		lblTurtle.setIcon(ImageLoader.getImageIconTurtle());
+		lblTurtle = new JLabel("");
+		lblTurtle.setIcon(ImageLoader.getImageIconTurtle());		
 		
-		lblRabbit = new JLabel(" ");
+		lblRabbit = new JLabel("");
 		lblRabbit.setIcon(ImageLoader.getImageIconRabbit());
 		
 		chckbxAutomatic = new JCheckBox("automatischer Durchlauf");
@@ -77,42 +79,39 @@ public class PanelMenuAutomaticControlImpl extends PanelMenuAutomaticAbstract im
 	}
 	
 	@Override
-	protected void initLayout() {
+	protected void initLayout() {		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(26)
-							.addComponent(lblToolTip))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblTurtle)))
+					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblTurtle)
+						.addComponent(lblToolTip))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(chckbxAutomatic)
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(sliderSpeed, GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+							.addComponent(sliderSpeed, GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblRabbit))
-						.addComponent(chckbxAutomatic))
+							.addComponent(lblRabbit)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
+				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
 						.addComponent(lblRabbit)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE, false)
 								.addComponent(chckbxAutomatic)
 								.addComponent(lblToolTip))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addComponent(lblTurtle)
 								.addComponent(sliderSpeed, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap(231, Short.MAX_VALUE))
+					.addGap(329))
 		);
 		setLayout(groupLayout);
 	}		
@@ -129,7 +128,7 @@ public class PanelMenuAutomaticControlImpl extends PanelMenuAutomaticAbstract im
 		}		
 	}
 	
-	private Boolean isAutomaticChecked() {
+	protected Boolean isAutomaticChecked() {
 		return chckbxAutomatic.isSelected();
 	}
 	
@@ -149,7 +148,7 @@ public class PanelMenuAutomaticControlImpl extends PanelMenuAutomaticAbstract im
 		public void actionPerformed (ActionEvent e) {
 			if (management != null) {
 				management.setAutomaticChecked(isAutomaticChecked());
-			}			
+			}
 			updateAutomatic();
 		}
 	};
@@ -160,6 +159,7 @@ public class PanelMenuAutomaticControlImpl extends PanelMenuAutomaticAbstract im
 			updateAutomatic();
 		}
 	};
+	
 
 	@Override
 	public Integer getHeightMenu() {

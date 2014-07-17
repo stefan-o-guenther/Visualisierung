@@ -12,7 +12,7 @@ import Base.PanelModelAbstract;
 public class PanelRNQueueingAndLossMainImpl extends PanelMainAbstract {
 
 	public PanelRNQueueingAndLossMainImpl() {
-		super(new ManagementQueueingAndLossImpl(1E-4), new ToolTipManagerQueueingAndLossImpl());
+		super(new ManagementQueueingAndLossImpl(), new ToolTipManagerQueueingAndLossImpl());
 		this.initPanel();
 	}
 
@@ -20,7 +20,7 @@ public class PanelRNQueueingAndLossMainImpl extends PanelMainAbstract {
 	public PanelMenuAbstract getNewPanelMenu() {
 		ManagementQueueingAndLoss qal = (ManagementQueueingAndLoss) this.getManagement();
 		ToolTipManagerQueueingAndLoss tooltip = (ToolTipManagerQueueingAndLoss) this.getToolTipManager();
-		return new PanelRNQueueingAndLossMenuImpl(qal, tooltip);
+		return new PanelRNQueueingAndLossMenuAutomaticBoxImpl(qal, tooltip);
 	}
 
 	@Override

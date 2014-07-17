@@ -11,7 +11,9 @@ public interface ToolTipManagerCongestionAvoidance extends ToolTipManagerAutomat
 
 	public String getToolTipTcpTahoe();
 	public String getToolTipTcpReno();
-	public String getToolTipSsThresh();
+	public String getToolTipSSThresh();
 	public String getToolTipTimeout();
 	public String getToolTipTrippleDuplAck();
+	public String getToolTipSSThreshTCPReno();
+	public String getToolTipSSThreshTCPTahoe();
 }

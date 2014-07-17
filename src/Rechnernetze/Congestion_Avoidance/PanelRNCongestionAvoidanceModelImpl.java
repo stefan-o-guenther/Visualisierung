@@ -80,7 +80,7 @@ public class PanelRNCongestionAvoidanceModelImpl extends PanelModelDrawCoordinat
 			BasicStroke bs = new BasicStroke(3, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_BEVEL);
 			g2d.setStroke(bs);	
 			
-			Integer gap = cs.getGapBetweenNumbers();
+			Integer gap = cs.getGapBetweenX();
 			
 			List<Point> listPoints = network.getListPoints();
 			Integer size = listPoints.size();				

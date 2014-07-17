@@ -5,10 +5,10 @@
 
 package Rechnernetze.Queueing_And_Loss;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 
+import Base.ImageLoader;
 import Base.PanelModelDrawAbstract;
 
 public class PanelRNQueueingAndLossModelImpl extends PanelModelDrawAbstract {
@@ -20,27 +20,30 @@ public class PanelRNQueueingAndLossModelImpl extends PanelModelDrawAbstract {
 	
 	private ManagementQueueingAndLoss qal;
 	
+	private BufferedImage getRouterImage() throws Exception {
+		return ImageLoader.getBufferedImageRouter2();
+	}
+	
+	private void drawRouter() {		
+		try {
+			int x = 20;
+			int y = 20;
+			g2d.drawImage(getRouterImage(), x, y, null);
+			g2d.setColor(Color.BLACK);
+			g2d.drawRect(x+10, y+30, 20, 20);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
 	@Override
 	protected void doDrawing() {
-		// TODO Auto-generated method stub
+		drawRouter();
 		
 	}
 
 	@Override
 	protected void initComponents() {
 		this.qal = (ManagementQueueingAndLoss) this.getManagement();
-	}
-	
-	public void paint (Graphics g) {
-		update(g); // eliminate flashing : update is overriden
-	}
-	
-	public void update (Graphics g) {
-		//work on a offscreen image
-		Dimension offDimension = getSize();
-		Image offImage = createImage(offDimension.width, offDimension.height);
-		Graphics offGraphics = offImage.getGraphics();
-		qal.draw(offGraphics);
-		g.drawImage(offImage, 0, 0, this);
 	}
 }

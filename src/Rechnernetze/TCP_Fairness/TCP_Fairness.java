@@ -14,7 +14,7 @@ public class TCP_Fairness extends MainAbstract {
 	}
 	
 	public static void main(String[] args) {
-    	initToolTipManager();
+		initToolTipManager();
     	initLookAndFeel();
     	baseMain(new FrameRNTCPFairness());	
     }

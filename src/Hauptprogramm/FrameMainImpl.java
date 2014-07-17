@@ -26,15 +26,6 @@ public class FrameMainImpl extends FrameAbstract {
 	private JPanel globalPanel = new PanelDefaultMainImpl();
 	
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		initToolTipManager();
-    	initLookAndFeel();
-    	baseMain(new FrameMainImpl());	
-	}
-	
-	/**
 	 * Create the frame.
 	 */
 	public FrameMainImpl() {	

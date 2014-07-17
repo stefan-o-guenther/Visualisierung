@@ -5,7 +5,6 @@
 
 package Base;
 
-
 public interface PanelMenu extends Panel {
 	public Integer getHeightMenu();
 }

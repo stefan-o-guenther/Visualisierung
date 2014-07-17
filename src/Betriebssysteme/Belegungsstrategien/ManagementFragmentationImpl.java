@@ -5,7 +5,6 @@
 
 package Betriebssysteme.Belegungsstrategien;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,60 +19,21 @@ public class ManagementFragmentationImpl extends ManagementAutomaticAbstract imp
 		updatePanelMain();
 	}	
 	
-	private MemoryStrategy strategy;	
-	
+	private MemoryStrategy memStrategy;
+		
 	private void init() {
-		strategy = null;		
-	}
-	
-	private List<Space> loadExample() {
-		List<Space> listSpaceExample = new ArrayList<Space>();
-		listSpaceExample.add(new SpaceEmptyImpl(10));
-		listSpaceExample.add(new SpaceFullImpl(1));
-		listSpaceExample.add(new SpaceEmptyImpl(4));
-		listSpaceExample.add(new SpaceFullImpl(1));
-		listSpaceExample.add(new SpaceEmptyImpl(20));
-		listSpaceExample.add(new SpaceFullImpl(1));
-		listSpaceExample.add(new SpaceEmptyImpl(18));
-		listSpaceExample.add(new SpaceFullImpl(1));
-		listSpaceExample.add(new SpaceEmptyImpl(7));
-		listSpaceExample.add(new SpaceFullImpl(1));
-		listSpaceExample.add(new SpaceEmptyImpl(9));
-		listSpaceExample.add(new SpaceFullImpl(1));
-		listSpaceExample.add(new SpaceEmptyImpl(12));
-		listSpaceExample.add(new SpaceFullImpl(1));
-		listSpaceExample.add(new SpaceEmptyImpl(15));
-		listSpaceExample.add(new SpaceFullImpl(1));
-		listSpaceExample.add(new SpaceEmptyImpl(8));
-		return listSpaceExample;
-	}
+		memStrategy = null;
+	}	
 	
 	@Override
 	public EnumMemoryStrategy getStrategy() {
-		if (strategy != null) {
-			return strategy.getStrategy();
+		if (memStrategy != null) {
+			return memStrategy.getStrategy();
 		} else {
 			return EnumMemoryStrategy.NULL;
 		}		
 	}
 
-	@Override
-	public void setStrategy(EnumMemoryStrategy value) {	
-		try {
-			if (value == null) {
-				throw new NullPointerException();
-			}
-			if (value == EnumMemoryStrategy.NULL) {
-				throw new IllegalArgumentException();
-			}
-			List<Space> example = loadExample();
-			strategy = MemoryStrategyFactory.getStrategy(value, example);
-			updatePanelMain();		
-		} catch (Exception ex) {
-			throw ex;
-		}
-	}
-	
 	@Override
 	public void inputNumber(Integer value) {
 		try {
@@ -83,8 +43,8 @@ public class ManagementFragmentationImpl extends ManagementAutomaticAbstract imp
 			if (value <= 0) {
 				throw new IllegalArgumentException();
 			}
-			if ((strategy != null) && (strategy.getStatus() == EnumMemoryStatus.INPUT)) {
-				strategy.inputNumber(value);
+			if ((memStrategy != null) && (memStrategy.getStatus() == EnumMemoryStatus.INPUT)) {
+				memStrategy.inputNumber(value);
 				this.setAutomaticChecked(false);
 				this.setAutomaticRunning(false);
 				isAutomaticChecked = false;
@@ -99,17 +59,17 @@ public class ManagementFragmentationImpl extends ManagementAutomaticAbstract imp
 
 	@Override
 	public EnumMemoryStatus getStatus() {
-		if (strategy != null) {
-			return strategy.getStatus();
+		if (memStrategy != null) {
+			return memStrategy.getStatus();
 		} else {
 			return EnumMemoryStatus.START;
 		}		
 	}
 	
 	@Override
-	public Boolean execute() {
-		if (strategy != null) {
-			Boolean result = strategy.execute();
+	protected Boolean executeAutomatic() {
+		if (memStrategy != null) {
+			Boolean result = memStrategy.execute();
 			updatePanelMain();
 			return result;
 		} else {
@@ -125,10 +85,10 @@ public class ManagementFragmentationImpl extends ManagementAutomaticAbstract imp
 
 	@Override
 	public List<Space> getListSpace() {
-		if (strategy != null) {
-			return strategy.getListSpace();
+		if (memStrategy != null) {
+			return memStrategy.getListSpace();
 		} else {
-			return this.loadExample();
+			return new ArrayList<Space>();
 		}
 	}
 	
@@ -173,10 +133,15 @@ public class ManagementFragmentationImpl extends ManagementAutomaticAbstract imp
 
 	@Override
 	public Double getUsedRate() {
-		Integer used = getUsedSpace();
 		Integer total = getTotalSpace();
-		Double rate = (((double) used) * 100.0) / ((double) total); 
-		return rate;
+		int t = total.intValue();
+		if (t <= 0) {
+			return 0.0;
+		} else {
+			Integer used = getUsedSpace();
+			Double rate = (((double) used) * 100.0) / ((double) total); 
+			return rate;		
+		}		
 	}
 
 	@Override
@@ -203,7 +168,46 @@ public class ManagementFragmentationImpl extends ManagementAutomaticAbstract imp
 
 	@Override
 	protected void updateSize() {
-		// TODO Auto-generated method stub
-		
-	}	
+		// nothing
+	}
+
+	private List<Space> getGeneralStorage(List<Integer> list) {
+		List<Space> listSpace = new ArrayList<Space>();
+		try {
+			// teste Zahlen
+			for (Integer number : list) {
+				int x = number.intValue();
+				if (x <= 0) {
+					throw new IllegalArgumentException();
+				}
+			}
+			for (Integer i = 0; i < list.size(); i++) {
+				int j = i.intValue();
+				Space space;
+				if (j > 0) {
+					space = new SpaceFullImpl(1);
+					listSpace.add(space);					
+				}
+				Integer number = list.get(i);
+				space = new SpaceEmptyImpl(number);
+				listSpace.add(space);
+			}
+		} catch (Exception ex) {
+			throw ex;
+		}		
+		return listSpace;
+	}
+
+	@Override
+	public void assume(EnumMemoryStrategy strategy, List<Integer> list) {
+		if ((strategy == null) || (list == null)) {
+			throw new NullPointerException();
+		}
+		if ((strategy == EnumMemoryStrategy.NULL) || (list.size() <= 0)) {
+			throw new IllegalArgumentException();
+		}
+		List<Space> listSpace = this.getGeneralStorage(list);		
+		memStrategy = MemoryStrategyFactory.getStrategy(strategy, listSpace);
+		updatePanelMain();
+	}		
 }

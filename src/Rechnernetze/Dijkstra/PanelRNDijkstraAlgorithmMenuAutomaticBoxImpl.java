@@ -1,10 +1,9 @@
 package Rechnernetze.Dijkstra;
 
-import Base.PanelMenuAutomaticBoxAbstract;
-import Base.PanelMenuAutomaticControlImpl;
+import Base.PanelMenuAutomaticBoxNormalAbstract;
 import Base.PanelMenuAutomaticMenuAbstract;
 
-public class PanelRNDijkstraAlgorithmMenuAutomaticBoxImpl extends PanelMenuAutomaticBoxAbstract {
+public class PanelRNDijkstraAlgorithmMenuAutomaticBoxImpl extends PanelMenuAutomaticBoxNormalAbstract {
 
 	public PanelRNDijkstraAlgorithmMenuAutomaticBoxImpl(ManagementDijkstraAlgorithm dijkstra, ToolTipManagerDijkstraAlgorithm tooltip) {
 		super(dijkstra, tooltip);

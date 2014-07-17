@@ -30,6 +30,12 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuAbstract
 		super(paging, tooltip);
 		this.initPanel();
 	}
+	
+	private PanelBSSeitenersetzungsstrategienMenuImpl() {
+		super(new ManagementPagingImpl(), new ToolTipManagerPagingImpl());
+		this.initComponents();
+		this.initLayout();
+	}
 
 	private JLabel lblStrategie;
 	private JLabel lblReferenzfolge;
@@ -218,12 +224,12 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuAbstract
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblToolTipR)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnR, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+						.addGroup(groupLayout.createSequentialGroup()
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblReferenzfolge)
 								.addComponent(lblStrategie))
@@ -249,14 +255,14 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuAbstract
 							.addComponent(lblToolTipM)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(btnM, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblErrorTitle)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(lblErrorValue, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-						.addComponent(chckbxkOldStates, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(228, Short.MAX_VALUE))
+						.addComponent(chckbxkOldStates, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(132, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -284,7 +290,7 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuAbstract
 						.addComponent(btnR)
 						.addComponent(lblToolTipM)
 						.addComponent(btnM))
-					.addContainerGap(271, Short.MAX_VALUE))
+					.addContainerGap(208, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);		
 	}

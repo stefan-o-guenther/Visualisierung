@@ -14,7 +14,7 @@ public class Queueing_And_Loss extends MainAbstract {
 	}
 	
 	public static void main(String[] args) {
-    	initToolTipManager();
+		initToolTipManager();
     	initLookAndFeel();
     	baseMain(new FrameRNQueueingAndLoss());	
     }

@@ -24,12 +24,12 @@ public class ThreadAutomatic extends Thread {
     public void run() {
     	try {
     		while(management.isAutomaticRunning() && management.isAutomaticChecked()) {
-                if (!(management.execute())) {
-    				management.setAutomaticChecked(false);
+            	if (!(management.execute())) {                	
+            		management.setAutomaticChecked(false);
             		management.setAutomaticRunning(false);
-                	management.showErrorMessage();
-                }
-    			sleep(management.getSpeed());
+            		management.showErrorMessage();
+                }    			
+    			sleep(0);
             }
     		management.setAutomaticChecked(false);
     		management.setAutomaticRunning(false);

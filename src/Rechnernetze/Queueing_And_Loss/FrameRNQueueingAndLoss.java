@@ -13,10 +13,4 @@ public class FrameRNQueueingAndLoss extends FrameAbstract {
 		super("Queueing And Loss");
         initUI(new PanelRNQueueingAndLossMainImpl());
     }
-
-    public static void main(String[] args) {
-    	initToolTipManager();
-    	initLookAndFeel();
-    	baseMain(new FrameRNQueueingAndLoss());	
-    }
 }

@@ -14,7 +14,7 @@ public class Dijkstra extends MainAbstract {
 	}
 	
 	public static void main(String[] args) {
-    	initToolTipManager();
+		initToolTipManager();
     	initLookAndFeel();
     	baseMain(new FrameRNDijkstra());	
     }

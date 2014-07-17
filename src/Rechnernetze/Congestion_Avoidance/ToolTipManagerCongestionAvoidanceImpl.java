@@ -54,7 +54,7 @@ public class ToolTipManagerCongestionAvoidanceImpl extends ToolTipManagerAutomat
 	}
 
 	@Override
-	public String getToolTipSsThresh() {
+	public String getToolTipSSThresh() {
 		String tooltipSsThresh = ""
 			+ "<html>"
 			+ "<p>"
@@ -98,5 +98,35 @@ public class ToolTipManagerCongestionAvoidanceImpl extends ToolTipManagerAutomat
 			+ "</p>"
 			+ "</html>";		
 		return tooltipTrippleDuplAck;
+	}
+
+	@Override
+	public String getToolTipSSThreshTCPReno() {
+		String tooltipSSThresh = ""
+				+ "<html>"
+				+ "<p>"
+				+ ""
+				+ ""
+				+ ""
+				+ ""
+				+ ""
+				+ "</p>"
+				+ "</html>";		
+			return tooltipSSThresh;
+	}
+
+	@Override
+	public String getToolTipSSThreshTCPTahoe() {
+		String tooltipSSThresh = ""
+				+ "<html>"
+				+ "<p>"
+				+ ""
+				+ ""
+				+ ""
+				+ ""
+				+ ""
+				+ "</p>"
+				+ "</html>";		
+			return tooltipSSThresh;
 	}
 }

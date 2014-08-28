@@ -14,11 +14,12 @@ import Base.PanelModelDrawAbstract;
 public class PanelRNQueueingAndLossModelImpl extends PanelModelDrawAbstract {
 
 	public PanelRNQueueingAndLossModelImpl(ManagementQueueingAndLoss qal, ToolTipManagerQueueingAndLoss tooltip) {
-		super(qal, tooltip);		
-		this.initPanel();	
+		super(qal, tooltip);
 	}
 	
 	private ManagementQueueingAndLoss qal;
+	private Integer x = 300;
+	private Integer y = 20;
 	
 	private BufferedImage getRouterImage() throws Exception {
 		return ImageLoader.getBufferedImageRouter2();
@@ -26,20 +27,27 @@ public class PanelRNQueueingAndLossModelImpl extends PanelModelDrawAbstract {
 	
 	private void drawRouter() {		
 		try {
-			int x = 20;
-			int y = 20;
-			g2d.drawImage(getRouterImage(), x, y, null);
-			g2d.setColor(Color.BLACK);
-			g2d.drawRect(x+10, y+30, 20, 20);
+			g2d.drawImage(getRouterImage(), x, y, null);			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
 	
+	private void drawRect(int x, int y, Color color) {
+		g2d.setColor(Color.BLACK);
+		g2d.drawRect(x, y, 30, 30);
+		g2d.setColor(color);
+		g2d.fillRect(x+1, y+1, 29, 29);
+	}
+	
 	@Override
 	protected void doDrawing() {
 		drawRouter();
-		
+		int z = qal.getMaxRouter();
+		int yp = 120;
+		for (int i = 0; i < z; i++) {
+			drawRect(x+14+(i*30), y+yp, Color.WHITE);
+		}
 	}
 
 	@Override

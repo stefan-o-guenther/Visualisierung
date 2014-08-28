@@ -22,7 +22,6 @@ public class PanelRNQueueingAndLossMenuImpl extends PanelMenuAbstract {
 
 	public PanelRNQueueingAndLossMenuImpl(ManagementQueueingAndLoss qal, ToolTipManagerQueueingAndLoss tooltip) {
 		super(qal, tooltip);
-		this.initPanel();
 	}
 
 	private ManagementQueueingAndLoss qal;
@@ -38,14 +37,11 @@ public class PanelRNQueueingAndLossMenuImpl extends PanelMenuAbstract {
 	private ComboBoxProcessingTimeImpl cbProcessingTime;
 	
 	@Override
-	protected void initComponents() {
+	protected void initComponentsMenu() {
 		this.qal = (ManagementQueueingAndLoss) this.getManagement();
 		
-		btnStart = new JButton("ausf\u00FChren");
-		btnStart.addActionListener(actionStart);
-		
-		btnReset = new JButton("zur\u00FCcksetzen");
-		btnReset.addActionListener(actionReset);
+		btnStart = new JButton("ausf\u00FChren");		
+		btnReset = new JButton("zur\u00FCcksetzen");		
 		
 		lblTransferRate = new JLabel("\u00DCbertragungsrate Eingang:");
 		lblTransferRate.setIcon(new ImageIcon("C:\\Eclipse\\Workspace\\Visualisierung\\img\\16x16_help.png"));
@@ -141,26 +137,32 @@ public class PanelRNQueueingAndLossMenuImpl extends PanelMenuAbstract {
 	@Override
 	public Integer getHeightMenu() {
 		return 130;
+	}	
+
+	@Override
+	protected void initMethods() {
+		ActionListener actionStart = new ActionListener() {
+			public void actionPerformed (ActionEvent event) {
+				cbTransferRate.setEnabled(false);
+				cbProcessingTime.setEnabled(false);
+				btnStart.setEnabled(false);
+				btnReset.setEnabled(true);
+				qal.launchSim(cbTransferRate.getVal(), cbProcessingTime.getVal());
+			}
+				
+		};
+		
+		ActionListener actionReset = new ActionListener() {
+			public void actionPerformed (ActionEvent event) {
+				cbTransferRate.setEnabled(true);
+				cbProcessingTime.setEnabled(true);
+				btnStart.setEnabled(true);
+				btnReset.setEnabled(true);
+				qal.reset();
+			}
+		};
+		
+		btnStart.addActionListener(actionStart);
+		btnReset.addActionListener(actionReset);		
 	}
-	
-	private ActionListener actionStart = new ActionListener() {
-		public void actionPerformed (ActionEvent event) {
-			cbTransferRate.setEnabled(false);
-			cbProcessingTime.setEnabled(false);
-			btnStart.setEnabled(false);
-			btnReset.setEnabled(true);
-			qal.launchSim(cbTransferRate.getVal(), cbProcessingTime.getVal());
-		}
-			
-	};
-	
-	private ActionListener actionReset = new ActionListener() {
-		public void actionPerformed (ActionEvent event) {
-			cbTransferRate.setEnabled(true);
-			cbProcessingTime.setEnabled(true);
-			btnStart.setEnabled(true);
-			btnReset.setEnabled(true);
-			qal.reset();
-		}
-	};
 }

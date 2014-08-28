@@ -5,22 +5,18 @@
 
 package Base;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 
-public class PanelTitleImpl extends PanelAbstract implements PanelTitle {
+public class PanelTitleImpl extends PanelAbstract {
 	
 	public PanelTitleImpl(Management management, ToolTipManager tooltip) {
 		super(management, tooltip);
-		this.initPanel();
 	}
 	
 	@Override
@@ -33,30 +29,19 @@ public class PanelTitleImpl extends PanelAbstract implements PanelTitle {
 	protected JRadioButton rdbtnGray;	
 	protected JLabel lblTitle;	
 	
-	protected void updateColor() {
-		try {
-			if (management != null) {
-				management.setSurface(groupColor.getSelectedButton());
-			}			
-		} catch (Exception ex) {
-			throw ex;
-		}
-	}
-	
 	@Override
 	protected void initComponents() {
 		ImageIcon imgIconHelp = ImageLoader.getImageIconHelp22();	
 		
-		groupColor = new ButtonGroupColorImpl(actionColor);
-		rdbtnColored = groupColor.geRadioButtonColored();
-		rdbtnGray = groupColor.getRadioButtonGray();		
-				
+		groupColor = new ButtonGroupColorImpl(management);
+		rdbtnColored = groupColor.getRadioButtonColored();
+		rdbtnGray = groupColor.getRadioButtonGray();
+		groupColor.selectRadioButtonColored();
+		
 		lblTitle = new JLabel(management.getTitle());
 		lblTitle.setFont(lblTitle.getFont().deriveFont(36f));
 		lblTitle.setIcon(imgIconHelp);
 		lblTitle.setToolTipText(tooltip.getToolTipTitle());
-		
-		updateColor();
 	}
 	
 	@Override
@@ -85,10 +70,4 @@ public class PanelTitleImpl extends PanelAbstract implements PanelTitle {
 		);
 		setLayout(groupLayout);
 	}
-	
-	protected ActionListener actionColor = new ActionListener() {
-		public void actionPerformed (ActionEvent e) {
-			updateColor();
-		}	
-	};
 }

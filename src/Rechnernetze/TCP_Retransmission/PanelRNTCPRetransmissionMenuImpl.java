@@ -11,18 +11,23 @@ public class PanelRNTCPRetransmissionMenuImpl extends PanelMenuAbstract {
 
 	public PanelRNTCPRetransmissionMenuImpl(ManagementRetransmission retransmission, ToolTipManagerRetransmission tooltip) {
 		super(retransmission, tooltip);
-		this.initPanel();
 	}
 
 	private ManagementRetransmission retransmission;
 	
 	@Override
-	protected void initComponents() {
+	protected void initComponentsMenu() {
 		this.retransmission = (ManagementRetransmission) this.getManagement();
 	}
 	
 	@Override
 	protected void initLayout() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void initMethods() {
 		// TODO Auto-generated method stub
 		
 	}

@@ -1,13 +1,12 @@
 package Rechnernetze.TCP_Fairness;
 
-import Base.PanelMenuAutomaticBoxNormalAbstract;
-import Base.PanelMenuAutomaticMenuAbstract;
+import Base.PanelMenuBoxStandardAbstract;
+import Base.PanelMenuMenuAbstract;
 
-public class PanelRNTCPFairnessMenuAutomaticBoxImpl extends PanelMenuAutomaticBoxNormalAbstract {
+public class PanelRNTCPFairnessMenuAutomaticBoxImpl extends PanelMenuBoxStandardAbstract {
 
 	public PanelRNTCPFairnessMenuAutomaticBoxImpl(ManagementFairness fairness, ToolTipManagerFairness tooltip) {
 		super(fairness, tooltip);
-		this.initPanel();
 	}
 
 	private PanelRNTCPFairnessMenuAutomaticBoxImpl() {
@@ -18,7 +17,7 @@ public class PanelRNTCPFairnessMenuAutomaticBoxImpl extends PanelMenuAutomaticBo
 	}
 	
 	@Override
-	protected PanelMenuAutomaticMenuAbstract getNewPanelMenuAutomaticMenu() {
+	protected PanelMenuMenuAbstract getNewPanelMenuAutomaticMenu() {
 		ManagementFairness fairness = (ManagementFairness) this.getManagement();
 		ToolTipManagerFairness tooltip = (ToolTipManagerFairness) this.getToolTipManager();
 		return new PanelRNTCPFairnessMenuAutomaticMenuImpl(fairness, tooltip);

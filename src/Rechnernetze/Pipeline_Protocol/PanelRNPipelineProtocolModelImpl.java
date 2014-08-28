@@ -18,7 +18,6 @@ public class PanelRNPipelineProtocolModelImpl extends PanelModelDrawAbstract {
 
 	public PanelRNPipelineProtocolModelImpl(ManagementPipelineProtocol pipeline, ToolTipManagerPipelineProtocol tooltip) {
 		super(pipeline, tooltip);
-		this.initPanel();
 	}
 	
 	private ManagementPipelineProtocol pipeline;
@@ -75,8 +74,7 @@ public class PanelRNPipelineProtocolModelImpl extends PanelModelDrawAbstract {
 		this.addMouseListener(new HitTestAdapter());
 	}
 	
-	class HitTestAdapter extends MouseAdapter {
-	
+	class HitTestAdapter extends MouseAdapter {	
 		@Override
 		public void mousePressed(MouseEvent e) {
 			Boolean left = SwingUtilities.isLeftMouseButton(e);

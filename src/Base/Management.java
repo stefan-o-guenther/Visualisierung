@@ -9,7 +9,7 @@ public interface Management {
 	public EnumSurface getSurface();
 	public void setSurface(EnumSurface value);
 	public void setPanelMain(PanelMainAbstract panelMain);
-	public Boolean execute();
+	public void executeNormal();
 	public void reset();
 	public String getTitle();
 	public void updateAllPanels();
@@ -21,5 +21,23 @@ public interface Management {
 	public void setWidth(Integer width);
 	
 	public void setSize(Integer height, Integer width);
-	public void showErrorMessage();
+	
+	public EnumVisualizationStatus getStatus();
+	
+	// automatic
+	public Boolean isAutomaticChecked();
+	public void setAutomaticChecked(Boolean value);
+	public Boolean isAutomaticRunning();
+	public void setAutomaticRunning(Boolean value);
+	public Boolean isAutomaticPlay();
+	public void setAutomaticPlay(Boolean value);
+	public Boolean isAutomaticEnabled();
+	public Integer getSpeed();
+	public void setSpeed(Integer value);
+	public String getButtonAutomaticText();
+	public void switchAutomatic();
+	public void endThread();
+	public void executeThread();
+	
+	public Integer getAutomaticSpace();
 }

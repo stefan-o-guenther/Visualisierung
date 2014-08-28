@@ -5,6 +5,7 @@
 
 package Base;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 
@@ -12,21 +13,14 @@ import javax.swing.JRadioButton;
 
 public class ButtonGroupColorImpl extends ButtonGroupAbstract {
 
-	public ButtonGroupColorImpl(ActionListener actionColor) {
-		super();
+	public ButtonGroupColorImpl(Management management) {
+		super(management);
 		try {
-			if (actionColor == null) {
-				throw new NullPointerException();
-			}
-			this.setActionListener(actionColor);
-			this.setRadioButtons(arrayNames);
 			this.initMapColors();
 		} catch (Exception ex) {
 			throw ex;
 		}	
 	}
-	
-	private String[] arrayNames = {"farbig", "grau"};
 	
 	private HashMap<String, EnumSurface> mapColors;
 	
@@ -36,7 +30,12 @@ public class ButtonGroupColorImpl extends ButtonGroupAbstract {
 		mapColors.put(arrayNames[1], EnumSurface.GRAY);		
 	}
 	
-	public JRadioButton geRadioButtonColored() {
+	private EnumSurface getSelectedButtonEnum() {		
+		String actionCommand = this.getSelectedButtonString();
+		return mapColors.get(actionCommand);
+	}	
+	
+	public JRadioButton getRadioButtonColored() {
 		return this.getRadioButton(arrayNames[0]);
 	}
 	
@@ -44,8 +43,26 @@ public class ButtonGroupColorImpl extends ButtonGroupAbstract {
 		return this.getRadioButton(arrayNames[1]);
 	}
 	
-	public EnumSurface getSelectedButton() {		
-		String actionCommand = this.getSelectedButtonString();
-		return mapColors.get(actionCommand);
-	}	
+	public void selectRadioButtonColored() {
+		this.selectRadioButton(getRadioButtonColored());
+	}
+	
+	public void selectRadioButtonGray() {
+		this.selectRadioButton(getRadioButtonGray());
+	}
+
+	@Override
+	protected String[] getArrayNames() {
+		String[] arrayNames = {"farbig", "grau"};
+		return arrayNames;
+	}
+
+	@Override
+	protected ActionListener getActionListener() {
+		return new ActionListener() {
+			public void actionPerformed (ActionEvent e) {
+				management.setSurface(getSelectedButtonEnum());
+			}	
+		};
+	}
 }

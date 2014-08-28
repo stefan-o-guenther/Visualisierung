@@ -1,7 +1,7 @@
 package Rechnernetze.Queueing_And_Loss;
 
-import Base.ToolTipManagerAutomatic;
+import Base.ToolTipManager;
 
-public interface ToolTipManagerQueueingAndLoss extends ToolTipManagerAutomatic {
+public interface ToolTipManagerQueueingAndLoss extends ToolTipManager {
 
 }

@@ -9,17 +9,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import Base.EnumAutomaticChecked;
 import Base.EnumVisualizationStatus;
-import Base.ManagementAutomaticAbstract;
+import Base.ManagementAbstract;
 
-public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract implements ManagementDijkstraAlgorithm {
+public class ManagementDijkstraAlgorithmImpl extends ManagementAbstract implements ManagementDijkstraAlgorithm {
 	
 	public ManagementDijkstraAlgorithmImpl() {
 		super();
-		createNodes();		
-		putNodesInList();
-		putEdges();
-		initDijkstra();		
 	}
 	
 	private Node nodeU;
@@ -35,7 +32,8 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 	
 	private List<Edge> listEdges;
 	
-	private EnumDijkstraStatus status;
+	private EnumDijkstraStatus statusDijkstra;
+	private EnumVisualizationStatus status;
 	
 	private Node nodeFrom;
 	private Node nodeStart;
@@ -48,14 +46,60 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 	
 	private Integer indexNode = -1;
 	
-	private List<List<NodeOutput>> listlistNodeOutput = new ArrayList<List<NodeOutput>>();
-	private HashMap<String, Integer> mapIndex = new HashMap<String, Integer>();
+	private List<List<NodeOutput>> listlistNodeOutput;
+	private HashMap<String, Integer> mapIndex;
 	
 	private List<String> listRoute;
 	
 	private List<List<String>> listlistUsedNodes;
 	private List<MinOutput> listMin;
-		
+
+	@Override
+	protected void create() {
+		this.listlistNodeOutput = new ArrayList<List<NodeOutput>>();
+		this.mapIndex = new HashMap<String, Integer>();
+		this.createNodes();
+		this.putNodesInList();
+		this.putEdges();
+	}
+	
+	@Override
+	protected void initialize() {
+		status = EnumVisualizationStatus.RUN;
+		statusDijkstra = EnumDijkstraStatus.EXECUTE_START;		
+		setAutomaticChecked(false);
+		setAutomaticRunning(false);
+		initEdges();
+		initNodes();		
+		indexNode = -1;		
+		listlistUsedNodes = new ArrayList<List<String>>();
+		listMin = new ArrayList<MinOutput>();
+		listRoute = new ArrayList<String>();
+		listlistNodeOutput = new ArrayList<List<NodeOutput>>();
+		mapIndex = new HashMap<String, Integer>();
+		int size = listNodesTarget.size();
+		for (int i = 0; i < size; i++) {
+			listlistNodeOutput.add(new ArrayList<NodeOutput>());
+			Node node = listNodesTarget.get(i);
+			mapIndex.put(node.getName(), i);
+		}		
+	}
+	
+	private void initEdges() {
+		for (Edge edge : listEdges) {
+			edge.setStatus(EnumOutputStatus.NORMAL);
+		}
+	}
+	
+	private void initNodes() {
+		nodeU.initialize();
+		nodeV.initialize();
+		nodeW.initialize();
+		nodeX.initialize();
+		nodeY.initialize();
+		nodeZ.initialize();
+	}
+	
 	private void createNodes() {
 		Integer difX = 200;
 		Integer difY = 70;		
@@ -77,15 +121,6 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 		
 		nodeStart = nodeU;
 		nodeTarget = nodeZ;		
-	}
-	
-	private void initNodes() {
-		nodeU.initialize();
-		nodeV.initialize();
-		nodeW.initialize();
-		nodeX.initialize();
-		nodeY.initialize();
-		nodeZ.initialize();
 	}
 	
 	private void putNodesInList() {
@@ -122,31 +157,11 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 		listEdges.add(new EdgeImpl(nodeW, nodeZ, 5));
 		listEdges.add(new EdgeImpl(nodeX, nodeY, 1));
 		listEdges.add(new EdgeImpl(nodeY, nodeZ, 2));
-	}
-		
-	private void initDijkstra() {
-		status = EnumDijkstraStatus.START;
-		setAutomaticChecked(false);
-		setAutomaticRunning(false);
-		initEdges();
-		initNodes();		
-		indexNode = -1;		
-		listlistUsedNodes = new ArrayList<List<String>>();
-		listMin = new ArrayList<MinOutput>();
-		listRoute = new ArrayList<String>();
-		listlistNodeOutput = new ArrayList<List<NodeOutput>>();
-		mapIndex = new HashMap<String, Integer>();
-		int size = listNodesTarget.size();
-		for (int i = 0; i < size; i++) {
-			listlistNodeOutput.add(new ArrayList<NodeOutput>());
-			Node node = listNodesTarget.get(i);
-			mapIndex.put(node.getName(), i);
-		}		
-	}
+	}	
 	
 	private void executeStart() {
 		nodeFrom = nodeStart;
-		status = EnumDijkstraStatus.EXECUTE_NODE_CHAIN;
+		statusDijkstra = EnumDijkstraStatus.EXECUTE_NODE_CHAIN;
 		executeNodeChain();
 	}
 	
@@ -164,9 +179,9 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 		if (nodeFrom == nodeTarget) {
 			nodeRoute = nodeTarget.getPreviousNode();
 			nodeRouteNext = nodeTarget;	
-			status = EnumDijkstraStatus.ROUTE;
+			statusDijkstra = EnumDijkstraStatus.EXECUTE_ROUTE;
 		} else {
-			status = EnumDijkstraStatus.EXECUTE_NODE_DISTANCE;
+			statusDijkstra = EnumDijkstraStatus.EXECUTE_NODE_DISTANCE;
 		}		
 	}
 	
@@ -174,12 +189,6 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 		Integer x = indexNode + 1;
 		Integer size = listNodesTarget.size();
 		return (size.equals(x));
-	}
-	
-	private void initEdges() {
-		for (Edge edge : listEdges) {
-			edge.setStatus(EnumOutputStatus.NORMAL);
-		}
 	}
 	
 	private void executeNodeDistance() {
@@ -198,7 +207,7 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 					list.add(nodeOutput);
 					if (isLastIndex()) {
 						indexNode = -1;
-						status = EnumDijkstraStatus.EXECUTE_MIN_NORMAL;
+						statusDijkstra = EnumDijkstraStatus.EXECUTE_MIN_NORMAL;
 					}
 				} else {
 					nodePreviousOld = nodeTo.getPreviousNode();
@@ -223,10 +232,10 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 						NodeOutput nodeOutputB = listNodeOutput.get(sizeList - 1);
 						nodeOutputA.setStatus(EnumOutputStatus.ACTIVATED);
 						nodeOutputB.setStatus(EnumOutputStatus.ACTIVATED);
-						status = EnumDijkstraStatus.EXECUTE_COMPARE;
+						statusDijkstra = EnumDijkstraStatus.EXECUTE_COMPARE;
 					} else if (isLastIndex()) {
 						indexNode = -1;
-						status = EnumDijkstraStatus.EXECUTE_MIN_NORMAL;
+						statusDijkstra = EnumDijkstraStatus.EXECUTE_MIN_NORMAL;
 					}
 				}			
 			}			
@@ -277,9 +286,9 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 			}
 			if (isLastIndex()) {
 				indexNode = -1;
-				status = EnumDijkstraStatus.EXECUTE_MIN_NORMAL;
+				statusDijkstra = EnumDijkstraStatus.EXECUTE_MIN_NORMAL;
 			} else {
-				status = EnumDijkstraStatus.EXECUTE_NODE_DISTANCE;
+				statusDijkstra = EnumDijkstraStatus.EXECUTE_NODE_DISTANCE;
 			}
 		}
 	}
@@ -305,12 +314,12 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 		}
 		nodeFrom = nodeFound;
 		if (nodeFrom == null) {
-			status = EnumDijkstraStatus.EXECUTE_MIN_ROUTE;
+			statusDijkstra = EnumDijkstraStatus.EXECUTE_MIN_ROUTE;
 		} else {
 			String name = nodeFrom.getName();
 			MinOutput minOutput = new MinOutputNormalImpl(name);
 			listMin.add(minOutput);
-			status = EnumDijkstraStatus.EXECUTE_NODE_CHAIN;
+			statusDijkstra = EnumDijkstraStatus.EXECUTE_NODE_CHAIN;
 		}
 		
 	}
@@ -322,9 +331,7 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 			listMin.add(minOutput);
 			listRoute.add(nodeTarget.getName());
 		}
-		status = EnumDijkstraStatus.FINISHED;
-		setAutomaticChecked(false);
-		setAutomaticRunning(false);
+		this.executeFinish();
 	}
 	
 	
@@ -345,50 +352,54 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 			nodeRouteNext = nodeRoute;
 			nodeRoute  = nodeRoute.getPreviousNode();
 			if (nodeRoute == null) {
-				status = EnumDijkstraStatus.EXECUTE_MIN_ROUTE;
+				statusDijkstra = EnumDijkstraStatus.EXECUTE_MIN_ROUTE;
 			}
 		} else {
-			status = EnumDijkstraStatus.EXECUTE_MIN_ROUTE;
+			statusDijkstra = EnumDijkstraStatus.EXECUTE_MIN_ROUTE;
 		}
+	}
+	
+	private void executeFinish() {
+		status = EnumVisualizationStatus.FINISHED;
+		this.stopAutomatic();		
 	}
 		
 	@Override
-	protected Boolean executeAutomatic() {
-		switch (status) {
-			case START: {
-				executeStart();
-				break;
-			}
-			case EXECUTE_NODE_CHAIN: {
-				executeNodeChain();
-				break;
-			}
-			case EXECUTE_NODE_DISTANCE: {
-				executeNodeDistance();
-				break;
-			}
-			case EXECUTE_COMPARE: {
-				executeNodeCompare();
-				break;
-			}
-			case EXECUTE_MIN_NORMAL: {
-				executeMinNormal();
-				break;
-			}
-			case EXECUTE_MIN_ROUTE: {
-				executeMinRoute();
-				break;
-			}
-			case ROUTE: {
-				executeRoute();
-				break;
-			}
-			case FINISHED: {				
-				break;
-			}
-			default: {
-				break;
-			}
+	protected Boolean execute() {
+		if (status == EnumVisualizationStatus.RUN) {
+			switch (statusDijkstra) {
+				case EXECUTE_START: {
+					executeStart();
+					break;
+				}
+				case EXECUTE_NODE_CHAIN: {
+					executeNodeChain();
+					break;
+				}
+				case EXECUTE_NODE_DISTANCE: {
+					executeNodeDistance();
+					break;
+				}
+				case EXECUTE_COMPARE: {
+					executeNodeCompare();
+					break;
+				}
+				case EXECUTE_MIN_NORMAL: {
+					executeMinNormal();
+					break;
+				}
+				case EXECUTE_MIN_ROUTE: {
+					executeMinRoute();
+					break;
+				}
+				case EXECUTE_ROUTE: {
+					executeRoute();
+					break;
+				}
+				default: {
+					break;
+				}			
+			}		
 		}
 		updatePanelMain();
 		return true;
@@ -462,24 +473,9 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 		return false;
 	}
 
-	private EnumDijkstraStatus getDijkstraStatus() {
-		return status;
-	}
-	
 	@Override
 	public EnumVisualizationStatus getStatus() {
-		EnumDijkstraStatus status = this.getDijkstraStatus();
-		switch (status) {
-			case START: return EnumVisualizationStatus.START;
-			case EXECUTE_NODE_CHAIN: return EnumVisualizationStatus.RUN;
-			case EXECUTE_NODE_DISTANCE: return EnumVisualizationStatus.RUN;
-			case EXECUTE_MIN_NORMAL: return EnumVisualizationStatus.RUN;
-			case EXECUTE_MIN_ROUTE: return EnumVisualizationStatus.RUN;
-			case EXECUTE_COMPARE: return EnumVisualizationStatus.RUN;
-			case ROUTE: return EnumVisualizationStatus.RUN;
-			case FINISHED: return EnumVisualizationStatus.FINISHED;
-		default: return EnumVisualizationStatus.START;
-		}
+		return status;
 	}
 
 	@Override
@@ -487,12 +483,6 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 		return listNodes.size();
 	}
 	
-	@Override
-	public void reset() {
-		initDijkstra();
-		updatePanelMain();
-	}
-
 	@Override
 	public List<String> getListNodeNames() {
 		List<String> listNames = new ArrayList<String>();
@@ -528,12 +518,7 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 	}
 
 	@Override
-	public Boolean isAutomaticEnabled() {
-		return (this.getStatus() == EnumVisualizationStatus.RUN);
-	}
-
-	@Override
-	public void showErrorMessage() {
+	protected void showErrorMessage() {
 				
 	}
 
@@ -541,5 +526,15 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAutomaticAbstract
 	protected void updateSize() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	protected EnumAutomaticChecked keepAutomaticChecked() {
+		return EnumAutomaticChecked.CHOICE;
+	}
+
+	@Override
+	public Integer getAutomaticSpace() {
+		return 0;
 	}
 }

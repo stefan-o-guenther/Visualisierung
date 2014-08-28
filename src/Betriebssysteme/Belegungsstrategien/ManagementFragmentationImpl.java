@@ -8,29 +8,377 @@ package Betriebssysteme.Belegungsstrategien;
 import java.util.ArrayList;
 import java.util.List;
 
-import Base.ManagementAutomaticAbstract;
+import Base.EnumAutomaticChecked;
+import Base.EnumVisualizationStatus;
+import Base.ManagementAbstract;
 import Base.MessageBox;
 
-public class ManagementFragmentationImpl extends ManagementAutomaticAbstract implements ManagementFragmentation {
+public class ManagementFragmentationImpl extends ManagementAbstract implements ManagementFragmentation {
 
 	public ManagementFragmentationImpl() {
 		super();
-		init();
-		updatePanelMain();
-	}	
+	}		
 	
-	private MemoryStrategy memStrategy;
+	private final Integer START = 0;
+	
+	private List<Space> listSpaceWork;
+	private List<Space> listSpacePublic;
+	private Integer number;
 		
-	private void init() {
-		memStrategy = null;
-	}	
+	private Integer start;
+	private Integer position;
+	private Boolean isFirst;
+	
+	private Boolean executionOK;
+	
+	private EnumMemoryStrategy strategy;
+	
+	private EnumMemoryStatus statusMemory;
+	private EnumVisualizationStatus status;
+	
+	private Boolean suitable;
+	
+	private Integer zBestWorst;
+	private Integer pBestWorst;
+	
+	@Override
+	protected void initialize() {
+		status = EnumVisualizationStatus.START;
+		strategy = EnumMemoryStrategy.NULL;
+		number = 0;
+		start = START;
+		position = start;
+		isFirst = true;
+		executionOK = true;
+		zBestWorst = null;
+		pBestWorst = START;
+		suitable = false;
+		listSpaceWork = new ArrayList<Space>();
+		this.copyListSpace();		
+	}
+		
+	private void inputOK() {
+		if (strategy != EnumMemoryStrategy.NULL) {
+			if (strategy != EnumMemoryStrategy.NEXT_FIT) {
+				start = START;
+			}
+			position = start;
+			isFirst = true;
+		}
+	}
+	
+	private void finishNotFit() {
+		if (strategy != EnumMemoryStrategy.NULL) {
+			finishFit();
+			if (zBestWorst != null) {
+				executionOK = true;
+			} else {
+				executionOK = false;
+				finish();
+			}			
+		}
+	}
+	
+	private Integer getPos() {
+		if (strategy == EnumMemoryStrategy.NULL) {
+			throw new NullPointerException();
+		}
+		if (zBestWorst != null) {
+			return pBestWorst;
+		} else {
+			return position;
+		}
+	}
+		
+	private void finishChoose() {
+		if (strategy == EnumMemoryStrategy.NULL) {
+			throw new NullPointerException();
+		}
+		if (strategy == EnumMemoryStrategy.NEXT_FIT) {
+			start = position;
+		} else {
+			start = START;
+		}
+		position = start;
+		zBestWorst = null;
+		pBestWorst = START;
+	}
+	
+	private void checkIfBest(Integer value) {
+		try {
+			if (value == null) {
+				throw new NullPointerException();
+			}
+			int ival = value.intValue();
+			if (ival < 0) {
+				throw new IllegalArgumentException();
+			}
+			if ((zBestWorst == null) || (ival < zBestWorst.intValue())) {
+				zBestWorst = value;
+				pBestWorst = position;
+				
+			}
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+	private void checkIfWorst(Integer value) {
+		try {
+			if (value == null) {
+				throw new NullPointerException();
+			}
+			if (value < 0) {
+				throw new IllegalArgumentException();
+			}
+			if ((zBestWorst == null) || (value > zBestWorst)) {									
+				zBestWorst = value;
+				pBestWorst = position;
+			}
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+	private Boolean isSuitableSpace(Integer number, Integer value) {
+		try {
+			if ((number == null) || (value == null)) {
+				throw new NullPointerException();
+			}
+			int inumber = number.intValue();
+			int ivalue = value.intValue();
+			if ((inumber < 0) || (ivalue < 0)) {
+				throw new IllegalArgumentException();
+			}
+			if (ivalue >= inumber) {
+				if (ivalue == inumber) {
+					return true;									
+				} else {
+					return false;
+				}			
+			} else {
+				return false;
+			}
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+	private Boolean checkSpaceSuitability(Integer number, Integer value) {
+		if (strategy == EnumMemoryStrategy.NULL) {
+			throw new NullPointerException();
+		} else if (strategy == EnumMemoryStrategy.BEST_FIT) {
+			this.checkIfBest(value);
+			return this.isSuitableSpace(number, value);
+		} else if (strategy == EnumMemoryStrategy.WORST_FIT) {
+			this.checkIfWorst(value);
+			return false;
+		} else if (strategy == EnumMemoryStrategy.SCHNEIDERINNEN_BEST_FIT) {		
+			this.checkIfWorst(value);
+			if (this.isSuitableSpace(number, value)) {
+				this.checkIfBest(value);
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return true;
+		}
+	}
 	
 	@Override
 	public EnumMemoryStrategy getStrategy() {
-		if (memStrategy != null) {
-			return memStrategy.getStrategy();
+		return strategy;
+	}
+	
+	private void hideNegativeRestValues() {
+		if (listSpaceWork != null) {
+			for (Space space : listSpaceWork) {
+				if (space.getType() == EnumSpace.EMPTY) {
+					SpaceEmpty spaceE = (SpaceEmpty) space;
+					if (spaceE.getRestValue() < 0) {
+						spaceE.showRestValue(false);
+					}
+				}
+			}
+		}
+	}
+	
+	private void deactivateValues() {
+		if (listSpaceWork != null) {
+			for (Space space : listSpaceWork) {
+				if (space.getType() == EnumSpace.EMPTY) {
+					SpaceEmpty spaceE = (SpaceEmpty) space;
+					spaceE.activate(false);
+				}
+			}
+		}
+	}
+	
+	private void hideNewValues() {
+		if (listSpaceWork != null) {
+			for (Space space : listSpaceWork) {
+				if (space.getType() == EnumSpace.EMPTY) {
+					SpaceEmpty spaceE = (SpaceEmpty) space;
+					spaceE.showNewValue(false);
+				}				
+			}
+		}
+	}
+	
+	private void hideRestValues() {
+		if (listSpaceWork != null) {
+			for (Space space : listSpaceWork) {	
+				if (space.getType() == EnumSpace.EMPTY) {
+					SpaceEmpty spaceE = (SpaceEmpty) space;
+					spaceE.showRestValue(false);
+				}				
+			}
+		}
+	}
+	
+	private void search() {		
+		executionOK = false;
+		this.hideNewValues();
+		if ((number != null) && (number > 0)) {
+			if (suitable) {
+				executionOK = true;
+				suitable = false;
+				finishFit();
+			} else {
+				SpaceEmpty spaceE = this.findNextFreeSpace();
+				if (spaceE != null) {
+					spaceE.activate(true);
+					spaceE.showNewValue(true);
+					Integer value = spaceE.getCurrentValue();
+					spaceE.showRestValue(true);
+					suitable = checkSpace(number, value);
+					executionOK = true;				
+				} else {					
+					finishNotFit();										
+				}
+			}
 		} else {
-			return EnumMemoryStrategy.NULL;
+			executionOK = true;
+		}
+	}
+	
+	private Boolean checkSpace(Integer number, Integer value) {
+		try {
+			if ((number == null) || (value == null)) {
+				throw new NullPointerException();
+			}
+			int inumber = number.intValue();
+			int ivalue = value.intValue();
+			if ((inumber < 0) || (ivalue < 0)) {
+				throw new IllegalArgumentException();
+			}
+			if (inumber <= ivalue) {
+				return suitable = checkSpaceSuitability(number, value);
+			} else {
+				return false;
+			}
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+	private SpaceEmpty findNextFreeSpace() {
+		Space space = null;		
+		if (listSpaceWork != null) {
+			Integer size = listSpaceWork.size();
+			Boolean notFinished = true;		
+			while (notFinished) {
+				if (isFirst) {
+					isFirst = false;
+				} else {
+					position = (position + 1) % size;
+					if (position.equals(start)) {
+						notFinished = false;
+					}
+				}
+				if (notFinished) {
+					space = listSpaceWork.get(position);				
+					if (space.getType() != EnumSpace.EMPTY) {
+						space = null;
+					} else {
+						notFinished = false;
+					}
+				}				
+			}
+		}		
+		return (SpaceEmpty) space;
+	}
+	
+	private Boolean hasEmptySpace() {
+		if (listSpaceWork != null) {
+			for (Space space : listSpaceWork) {
+				if (space.getType() == EnumSpace.EMPTY) {
+					return true;
+				}
+			}
+			return false;			
+		} else {
+			return false;
+		}
+	}
+	
+	private void finish() {
+		if (hasEmptySpace()) {
+			status = EnumVisualizationStatus.NEXT;
+		} else {
+			status = EnumVisualizationStatus.FINISHED;	
+		}
+		this.stopAutomatic();
+	}
+	
+	private void finishFit() {
+		status = EnumVisualizationStatus.RUN;
+		statusMemory = EnumMemoryStatus.CHOOSE;
+		hideNegativeRestValues();
+	}
+	
+	private void choose() {		
+		this.hideRestValues();
+		if ((position != null) && (position >= 0) && (listSpaceWork != null)) {				
+			Integer pos = getPos();
+			Integer size = listSpaceWork.size();
+			if (pos < size) {
+				Space space = listSpaceWork.get(pos);
+				Integer value = space.getCurrentValue();		
+				if (space.getType() == EnumSpace.EMPTY) {
+					Space newSpace = new SpaceUsedImpl(number);
+					listSpaceWork.add(pos, newSpace);
+					if (value > number) {					
+						space.setCurrentValue(value - number);						
+					} else if (value.equals(number)) {
+						listSpaceWork.remove(space);
+					}
+				}			
+				finishChoose();
+				executionOK = true;
+				finish();
+			}					
+		}
+	}
+	
+	private void setNewValue(Integer newValue) {
+		try {
+			if (newValue == null) {
+				throw new NullPointerException();
+			}
+			if (listSpaceWork != null) {
+				for (Space space : listSpaceWork) {
+					if (space.getType() == EnumSpace.EMPTY) {
+						SpaceEmpty spaceE = (SpaceEmpty) space;
+						spaceE.setNewValue(newValue);
+						spaceE.showNewValue(false);
+						spaceE.showRestValue(false);
+					}		
+				}
+			}
+		} catch (Exception ex) {
+			throw ex;
 		}		
 	}
 
@@ -43,53 +391,53 @@ public class ManagementFragmentationImpl extends ManagementAutomaticAbstract imp
 			if (value <= 0) {
 				throw new IllegalArgumentException();
 			}
-			if ((memStrategy != null) && (memStrategy.getStatus() == EnumMemoryStatus.INPUT)) {
-				memStrategy.inputNumber(value);
-				this.setAutomaticChecked(false);
-				this.setAutomaticRunning(false);
-				isAutomaticChecked = false;
-				isAutomaticRunning = false;
+			if ((strategy != EnumMemoryStrategy.NULL) && (status == EnumVisualizationStatus.INPUT)) {
+				number = value;
+				inputOK();
+				this.setNewValue(value);
+				status = EnumVisualizationStatus.RUN;
+				statusMemory = EnumMemoryStatus.SEARCH;
 				updatePanelMain();
-			}
-			
+			}			
 		} catch (Exception ex) {
 			throw ex;
 		}
 	}
 
 	@Override
-	public EnumMemoryStatus getStatus() {
-		if (memStrategy != null) {
-			return memStrategy.getStatus();
-		} else {
-			return EnumMemoryStatus.START;
-		}		
+	public EnumVisualizationStatus getStatus() {
+		return status;	
 	}
 	
 	@Override
-	protected Boolean executeAutomatic() {
-		if (memStrategy != null) {
-			Boolean result = memStrategy.execute();
+	protected Boolean execute() {
+		if (strategy != EnumMemoryStrategy.NULL) {
+			if (listSpaceWork != null) {
+				this.deactivateValues();
+				if (status == EnumVisualizationStatus.RUN) {
+					if (statusMemory == EnumMemoryStatus.SEARCH) {				
+						search();
+					} else if (statusMemory == EnumMemoryStatus.CHOOSE) {
+						choose();
+					}
+				} else if (status == EnumVisualizationStatus.NEXT) {				
+					status = EnumVisualizationStatus.INPUT;
+					executionOK = true;
+				} else if (status == EnumVisualizationStatus.FINISHED) {
+					executionOK = true;
+				}
+			}
+			copyListSpace();
 			updatePanelMain();
-			return result;
+			return executionOK;			
 		} else {
 			return false;
 		}		
 	}
 	
 	@Override
-	public void reset() {		
-		init();
-		updatePanelMain();
-	}
-
-	@Override
 	public List<Space> getListSpace() {
-		if (memStrategy != null) {
-			return memStrategy.getListSpace();
-		} else {
-			return new ArrayList<Space>();
-		}
+		return new ArrayList<Space>(listSpacePublic);
 	}
 	
 	@Override
@@ -150,21 +498,9 @@ public class ManagementFragmentationImpl extends ManagementAutomaticAbstract imp
 	}
 
 	@Override
-	public void showErrorMessage() {
+	protected void showErrorMessage() {
 		MessageBox.showErrorMessage("Keinen passenden freien Speicher gefunden!");
-	}
-	
-	@Override
-	public Boolean isAutomaticEnabled() {
-		EnumMemoryStatus status = this.getStatus();
-		if (status == EnumMemoryStatus.SEARCH) {
-			return true;
-		} else if (status == EnumMemoryStatus.CHOOSE) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+	}	
 
 	@Override
 	protected void updateSize() {
@@ -197,17 +533,42 @@ public class ManagementFragmentationImpl extends ManagementAutomaticAbstract imp
 		}		
 		return listSpace;
 	}
-
+	
+	private void copyListSpace() {
+		listSpacePublic = new ArrayList<Space>(listSpaceWork);
+	}
+	
 	@Override
 	public void assume(EnumMemoryStrategy strategy, List<Integer> list) {
-		if ((strategy == null) || (list == null)) {
-			throw new NullPointerException();
+		try {
+			if ((strategy == null) || (list == null)) {
+				throw new NullPointerException();
+			}
+			if ((strategy == EnumMemoryStrategy.NULL) || (list.size() <= 0)) {
+				throw new IllegalArgumentException();
+			}
+			this.strategy = strategy;
+			this.listSpaceWork = this.getGeneralStorage(list);		
+			copyListSpace();
+			status = EnumVisualizationStatus.INPUT;			
+			updatePanelMain();			
+		} catch (Exception ex) {
+			throw ex;
 		}
-		if ((strategy == EnumMemoryStrategy.NULL) || (list.size() <= 0)) {
-			throw new IllegalArgumentException();
-		}
-		List<Space> listSpace = this.getGeneralStorage(list);		
-		memStrategy = MemoryStrategyFactory.getStrategy(strategy, listSpace);
-		updatePanelMain();
-	}		
+	}
+
+	@Override
+	protected void create() {
+		
+	}
+
+	@Override
+	protected EnumAutomaticChecked keepAutomaticChecked() {
+		return EnumAutomaticChecked.CHOICE;
+	}
+
+	@Override
+	public Integer getAutomaticSpace() {
+		return 5;
+	}
 }

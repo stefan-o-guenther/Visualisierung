@@ -13,18 +13,17 @@ public class PanelBSSeitenersetzungsstrategienMainImpl extends PanelMainAbstract
 	
 	public PanelBSSeitenersetzungsstrategienMainImpl() {
 		super(new ManagementPagingImpl(), new ToolTipManagerPagingImpl());
-		this.initPanel();
 	}
 	
 	@Override
-	public PanelMenuAbstract getNewPanelMenu() {
+	protected PanelMenuAbstract getNewPanelMenu() {
 		ManagementPaging paging = (ManagementPaging) this.getManagement();
 		ToolTipManagerPaging tooltip = (ToolTipManagerPaging) this.getToolTipManager();
-		return new PanelBSSeitenersetzungsstrategienMenuImpl(paging, tooltip);
+		return new PanelBSSeitenersetzungsstrategienMenuAutomaticBoxImpl(paging, tooltip);
 	}
 
 	@Override
-	public PanelModelAbstract getNewPanelModel() {
+	protected PanelModelAbstract getNewPanelModel() {
 		ManagementPaging paging = (ManagementPaging) this.getManagement();
 		ToolTipManagerPaging tooltip = (ToolTipManagerPaging) this.getToolTipManager();
 		return new PanelBSSeitenersetzungsstrategienModelImpl(paging, tooltip);

@@ -5,9 +5,9 @@
 
 package Betriebssysteme.Belegungsstrategien;
 
-import Base.ToolTipManagerAutomaticAbstract;
+import Base.ToolTipManagerAbstract;
 
-public class ToolTipManagerFragmentationImpl extends ToolTipManagerAutomaticAbstract implements ToolTipManagerFragmentation {
+public class ToolTipManagerFragmentationImpl extends ToolTipManagerAbstract implements ToolTipManagerFragmentation {
 
 	public String getToolTipTitle() {
 		String tooltipTitle = ""

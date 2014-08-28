@@ -9,22 +9,17 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import Base.CoordinateSystem;
-import Base.CoordinateSystemImpl;
+import Base.EnumAutomaticChecked;
 import Base.EnumCoordinateSystem;
 import Base.EnumVisualizationStatus;
-import Base.ManagementAutomaticAbstract;
+import Base.ManagementCoordinateSystemAbstract;
 
-public class ManagementCongestionAvoidanceImpl extends ManagementAutomaticAbstract implements ManagementCongestionAvoidance {
+public class ManagementCongestionAvoidanceImpl extends ManagementCoordinateSystemAbstract implements ManagementCongestionAvoidance {
 
 	public ManagementCongestionAvoidanceImpl() {
-		super();		
-		init();
-		initCoordinateSystem();
+		super();	
 	}
 
-	private CoordinateSystem cs;
-	
 	private Boolean reno;
 	private Boolean tahoe;
 	private EnumNetworkStrategy strategy = EnumNetworkStrategy.TIMEOUT;
@@ -37,21 +32,11 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAutomaticAbstra
 	
 	private List<Point> listPoints;	
 	
-	private void initCoordinateSystem() {
-		cs = new CoordinateSystemImpl(false, EnumCoordinateSystem.BOTTOM);
-		cs.setHeight(height);
-		cs.setWidth(width);
-		cs.setGapBetweenX(20);
-		cs.setGapBetweenY(20);
-		cs.setIntervalX(1);
-		cs.setIntervalY(1);
-		cs.setArrowLength(10);
-	}	
-	
-	private void init() {
+	@Override
+	protected void initialize() {
 		this.start = true;
-		this.isAutomaticChecked = false;
 		this.listPoints = new ArrayList<Point>();
+		initCoordinateSystem();
 	}
 	
 	private Integer increaseCwnd(Integer oldCwnd, Integer ssTresh) {
@@ -110,9 +95,9 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAutomaticAbstra
 		}
 		return result;
 	}
-	
+
 	@Override
-	protected Boolean executeAutomatic() {
+	protected Boolean execute() {
 		try {
 			if (((reno == true) || (tahoe == true)) && (this.getStatus() != EnumVisualizationStatus.FINISHED)) {
 				if (start) {				
@@ -160,13 +145,6 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAutomaticAbstra
 			ex.printStackTrace();
 		}	
 		return false;
-	}
-
-	@Override
-	public void reset() {
-		init();
-		updatePanelMain();
-		
 	}
 
 	@Override
@@ -235,12 +213,12 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAutomaticAbstra
 
 	@Override
 	public Integer getMaxTransmissionRound() {
-		return cs.getXMax();
+		return getXMax();
 	}
 
 	@Override
 	public Integer getMaxCwnd() {
-		return cs.getYMax();
+		return getYMax();
 	}
 
 	@Override
@@ -332,32 +310,90 @@ public class ManagementCongestionAvoidanceImpl extends ManagementAutomaticAbstra
 	}
 
 	@Override
-	public CoordinateSystem getCoordinateSystem() {
-		return this.cs;
-	}
-
-	@Override
-	public Boolean isAutomaticEnabled() {
-		return (this.getStatus() == EnumVisualizationStatus.RUN);
-	}
-
-	@Override
-	public void showErrorMessage() {
+	protected void showErrorMessage() {
 		
 	}
 
 	@Override
 	protected void updateSize() {
-		if (cs != null) {
-			int widthO = cs.getWidth().intValue();
-			int heightO = cs.getHeight().intValue();
-			int widthN = width.intValue();
-			int heightN = height.intValue();
-			if ((widthO != widthN) || (heightO != heightN)) {
-				cs.setHeight(height);
-				cs.setWidth(width);
-			}
-		}
+		int widthO = getWidth().intValue();
+		int heightO = getHeight().intValue();
+		int widthN = width.intValue();
+		int heightN = height.intValue();
+		if ((widthO != widthN) || (heightO != heightN)) {
+			setHeight(height);
+			setWidth(width);
+		}		
 		this.updatePanelMenu();
-	}	
+	}
+
+	@Override
+	protected void create() {
+		
+	}
+
+	@Override
+	protected EnumAutomaticChecked keepAutomaticChecked() {
+		return EnumAutomaticChecked.CHOICE;
+	}
+
+	@Override
+	public Integer getArrowLength() {
+		return 10;
+	}
+
+	@Override
+	public EnumCoordinateSystem getPosition() {
+		return EnumCoordinateSystem.BOTTOM;
+	}
+
+	@Override
+	public Integer getGapBetweenX() {
+		return 20;
+	}
+
+	@Override
+	public Integer getGapBetweenY() {
+		return 20;
+	}
+
+	@Override
+	public Integer getIntervalX() {
+		return 1;
+	}
+
+	@Override
+	public Integer getIntervalY() {
+		return 1;
+	}
+
+	@Override
+	public Boolean isSameLength() {
+		return false;
+	}
+
+	@Override
+	protected Integer getGapLeft() {
+		return 35;
+	}
+
+	@Override
+	protected Integer getGapRight() {
+		return 10;
+	}
+
+	@Override
+	protected Integer getGapTop() {
+		return 20;
+	}
+
+	@Override
+	protected Integer getGapBottom() {
+		return 50;
+	}
+
+	@Override
+	public Integer getAutomaticSpace() {
+		return 12;
+	}
 }

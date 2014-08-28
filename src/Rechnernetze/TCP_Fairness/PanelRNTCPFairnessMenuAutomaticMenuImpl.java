@@ -19,13 +19,13 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import Base.EnumVisualizationStatus;
 import Base.Labeling;
 import Base.MessageBox;
-import Base.PanelMenuAutomaticMenuAbstract;
+import Base.PanelMenuMenuAbstract;
+import Base.PanelMenuMenuButtonsAbstract;
 
-public class PanelRNTCPFairnessMenuAutomaticMenuImpl extends PanelMenuAutomaticMenuAbstract {
+public class PanelRNTCPFairnessMenuAutomaticMenuImpl extends PanelMenuMenuButtonsAbstract {
 	
 	public PanelRNTCPFairnessMenuAutomaticMenuImpl(ManagementFairness fairness, ToolTipManagerFairness tooltip) {
-		super(fairness, tooltip);		
-		this.initPanel();
+		super(fairness, tooltip);
 	}
 	
 	// only for Designer
@@ -52,12 +52,10 @@ public class PanelRNTCPFairnessMenuAutomaticMenuImpl extends PanelMenuAutomaticM
 	private JLabel lblDifferenceLabel;
 	private JLabel lblCwndContent1;
 	private JLabel lblCwndContent2;
-	private JLabel lblDifferenceContent;
-	private JButton btnAssumeStepStartStop;
-	private JButton btnReset;
+	private JLabel lblDifferenceContent;	
 	
 	@Override
-	protected void initComponents() {
+	protected void initComponentsMenuButtons() {
 		this.fairness = (ManagementFairness) this.getManagement();
 		this.tooltip = (ToolTipManagerFairness) this.getToolTipManager();
 		
@@ -98,12 +96,6 @@ public class PanelRNTCPFairnessMenuAutomaticMenuImpl extends PanelMenuAutomaticM
 		
 		lblDifferenceContent = new JLabel("0");
 		
-		btnAssumeStepStartStop = new JButton(Labeling.ASSUME);
-		btnAssumeStepStartStop.addActionListener(ActionAssumeStepStartStop);
-		
-		btnReset = new JButton(Labeling.RESET);
-		btnReset.addActionListener(ActionReset);
-		
 		lblMaxFlowRateLabel = new JLabel("maximale Durchflussleistung:");
 		lblMaxFlowRateLabel.setIcon(imgHelp);
 		lblMaxFlowRateLabel.setToolTipText(tooltip.getToolTipMaxFlowRate());
@@ -112,7 +104,7 @@ public class PanelRNTCPFairnessMenuAutomaticMenuImpl extends PanelMenuAutomaticM
 	}
 	
 	@Override
-	public void updatePanel() {
+	public void updatePanelMenuButtons() {
 		EnumVisualizationStatus status = fairness.getStatus();
 		Boolean isStart = (status == EnumVisualizationStatus.START);
 		String modus = fairness.getModus();
@@ -130,31 +122,6 @@ public class PanelRNTCPFairnessMenuAutomaticMenuImpl extends PanelMenuAutomaticM
 		this.tfConnection1.setEditable(isStart);
 		this.tfConnection2.setEnabled(isStart);		
 		this.tfConnection2.setEditable(isStart);
-		
-		switch (status) {
-			case START: {
-				this.btnReset.setEnabled(true);
-				this.btnAssumeStepStartStop.setEnabled(true);
-				this.btnAssumeStepStartStop.setText(Labeling.ASSUME);
-				break;
-			}
-			case RUN: {
-				this.btnReset.setEnabled(true);
-				this.btnAssumeStepStartStop.setEnabled(true);
-				this.btnAssumeStepStartStop.setText(fairness.getButtonAutomaticText());
-				break;
-			}
-			case FINISHED: {
-				this.btnReset.setEnabled(true);
-				this.btnAssumeStepStartStop.setEnabled(false);
-				this.btnAssumeStepStartStop.setText(Labeling.NEXT_STEP);
-				break;
-			}
-			default: {			
-				break;
-			}
-		
-		}
 	}	
 	
 	@Override
@@ -189,8 +156,8 @@ public class PanelRNTCPFairnessMenuAutomaticMenuImpl extends PanelMenuAutomaticM
 						.addComponent(lblCwndContent1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(btnAssumeStepStartStop, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnReset, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(this.btnAssumeExecute, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(this.btnExampleReset, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblModusLabel)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -206,14 +173,14 @@ public class PanelRNTCPFairnessMenuAutomaticMenuImpl extends PanelMenuAutomaticM
 						.addComponent(tfConnection1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblCwndLabel1)
 						.addComponent(lblCwndContent1)
-						.addComponent(btnAssumeStepStartStop))
+						.addComponent(this.btnAssumeExecute))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblConnection2)
 						.addComponent(tfConnection2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblCwndLabel2)
 						.addComponent(lblCwndContent2)
-						.addComponent(btnReset))
+						.addComponent(this.btnExampleReset))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblMaxFlowRateLabel)
@@ -225,6 +192,11 @@ public class PanelRNTCPFairnessMenuAutomaticMenuImpl extends PanelMenuAutomaticM
 					.addContainerGap(60, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
+	}
+
+	@Override
+	protected void initMethodsMenuButtons() {
+		
 	}
 
 	@Override
@@ -241,40 +213,38 @@ public class PanelRNTCPFairnessMenuAutomaticMenuImpl extends PanelMenuAutomaticM
 			MessageBox.showErrorMessage("falsche Verbindungen!");			
 			throw ex;
 		}
-	}
-	
-	private ActionListener ActionReset = new ActionListener() {
-		public void actionPerformed (ActionEvent e) {
-			try {	
-				tfConnection1.setText("");
-				tfConnection2.setText("");
-				fairness.reset();
-			} catch (Exception ex) {
-				
-			}
-			updatePanel();
-		}
-	};
-	
-	private ActionListener ActionAssumeStepStartStop = new ActionListener() {
-		public void actionPerformed (ActionEvent e) {
-			try {
-				EnumVisualizationStatus status = fairness.getStatus();
-				if (status != EnumVisualizationStatus.FINISHED) {
-					if (status == EnumVisualizationStatus.START) {
-						inputConnection();
-					}
-					executeManualAutomatic();
-				}				
-			} catch (Exception ex) {
-				
-			}
-			updatePanel();
-		}
-	};
+	}	
 
 	@Override
 	public Integer getLengthMenu() {
 		return 600;
+	}
+
+	@Override
+	protected void loadExample() {
+		tfConnection1.setText("28");
+		tfConnection2.setText("4");
+	}
+
+	@Override
+	protected void assume() {
+		try {
+			inputConnection();
+			fairness.executeNormal();
+		} catch (Exception e) {
+			
+		}		
+	}
+
+	@Override
+	protected void clearFields() {
+		tfConnection1.setText("");
+		tfConnection2.setText("");
+	}
+
+	@Override
+	protected void executeExtra() {
+		// TODO Auto-generated method stub
+		
 	}
 }

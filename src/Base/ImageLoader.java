@@ -122,7 +122,7 @@ public class ImageLoader {
 	
 	public static BufferedImage getBufferedImageRouter2() throws Exception {
 		if (imgRouter2 == null) {
-			imgRouter2 = loadImage("/Base/img/500px-Router.svg.png");
+			imgRouter2 = loadImage("/Base/img/300px-Router.svg.png");
 		}
 		return imgRouter2;
 	}

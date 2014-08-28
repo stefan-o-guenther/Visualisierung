@@ -20,7 +20,6 @@ public class PanelRNDijkstraAlgorithmModelImpl extends PanelModelDrawAbstract {
 
 	public PanelRNDijkstraAlgorithmModelImpl(ManagementDijkstraAlgorithm dijkstra, ToolTipManagerDijkstraAlgorithm tooltip) {
 		super(dijkstra, tooltip);
-		this.initPanel();
 	}
 	
 	private ManagementDijkstraAlgorithm dijkstra;

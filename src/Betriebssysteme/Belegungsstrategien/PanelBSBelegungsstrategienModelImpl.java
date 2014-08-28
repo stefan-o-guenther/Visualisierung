@@ -17,7 +17,6 @@ public class PanelBSBelegungsstrategienModelImpl extends PanelModelDrawAbstract 
 	
 	public PanelBSBelegungsstrategienModelImpl(ManagementFragmentation fragmentation, ToolTipManagerFragmentation tooltip) {
 		super(fragmentation, tooltip);
-		this.initPanel();		
 	}
 	
 	@Override

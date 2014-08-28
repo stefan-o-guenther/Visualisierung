@@ -14,12 +14,11 @@ import Base.PanelModelDrawAbstract;
 
 public class PanelBSBuddySystemeModelDrawImpl extends PanelModelDrawAbstract {
 
-	public PanelBSBuddySystemeModelDrawImpl(ManagerBuddyMemoryAllocation buddy, ToolTipManagerBuddyMemoryAllocation tooltip) {
+	public PanelBSBuddySystemeModelDrawImpl(ManagementBuddyMemoryAllocation buddy, ToolTipManagerBuddyMemoryAllocation tooltip) {
 		super(buddy, tooltip);
-		this.initPanel();
 	}
 
-	private ManagerBuddyMemoryAllocation buddy;
+	private ManagementBuddyMemoryAllocation buddy;
 	private List<BuddyOperation> list = new ArrayList<BuddyOperation>();	
 	
 	private final Integer WIDTH = 512;
@@ -73,10 +72,8 @@ public class PanelBSBuddySystemeModelDrawImpl extends PanelModelDrawAbstract {
 							if (type == EnumNode.SPACE) {
 								g2d.setColor(Color.BLACK);
 								g2d.drawString(ps.getName(), sum+GAP_X+2, i*(HEIGHT+GAP_Y)+GAP_Y+15);
-							}
-							
-							
-							sum += widthNode;	
+							}							
+							sum += widthNode;
 						}					
 					}
 					g2d.setColor(Color.BLACK);
@@ -93,6 +90,6 @@ public class PanelBSBuddySystemeModelDrawImpl extends PanelModelDrawAbstract {
 	
 	@Override
 	protected void initComponents() {
-		this.buddy = (ManagerBuddyMemoryAllocation) this.getManagement();
+		this.buddy = (ManagementBuddyMemoryAllocation) this.getManagement();
 	}
 }

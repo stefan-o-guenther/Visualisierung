@@ -21,8 +21,8 @@ public interface CacheBox {
 	public List<Cache> getRamCopy();
 	public List<Cache> getDiskCopy();
 	
-	public Boolean isActivate();
-	public void activate(Boolean value);
+	public Boolean isActivated();
+	public void setActivated(Boolean value);
 	
 	public void initializeRMPrevious();
 	public void initializeRMDisk();

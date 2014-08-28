@@ -7,7 +7,5 @@ import Base.EnumSurface;
 public interface Packet {
 
 	Color getColor(EnumSurface surface);
-	
-	Integer getPosition();
-	void setPosition(Integer position);
+	EnumPacketType getType();
 }

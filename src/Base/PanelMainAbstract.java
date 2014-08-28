@@ -8,13 +8,11 @@ package Base;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
-public abstract class PanelMainAbstract extends PanelAbstract implements PanelMain {
+public abstract class PanelMainAbstract extends PanelAbstract {
 
 	public PanelMainAbstract(Management management, ToolTipManager tooltip) {
 		super(management, tooltip);
 	}	
-	
-	private static final long serialVersionUID = 1L;
 	
 	protected PanelTitleImpl panelTitle;
 	protected PanelMenuAbstract panelMenu;

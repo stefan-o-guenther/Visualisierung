@@ -6,8 +6,7 @@
 package Rechnernetze.Dijkstra;
 
 import Base.ToolTipManager;
-import Base.ToolTipManagerAutomatic;
 
-public interface ToolTipManagerDijkstraAlgorithm extends ToolTipManagerAutomatic {
+public interface ToolTipManagerDijkstraAlgorithm extends ToolTipManager {
 
 }

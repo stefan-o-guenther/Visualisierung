@@ -5,9 +5,9 @@
 
 package Betriebssysteme.Buddy_Systeme;
 
-import Base.ToolTipManager;
+import Base.ToolTipManagerAbstract;
 
-public class ToolTipManagerBuddyMemoryAllocationImpl implements ToolTipManagerBuddyMemoryAllocation {
+public class ToolTipManagerBuddyMemoryAllocationImpl extends ToolTipManagerAbstract implements ToolTipManagerBuddyMemoryAllocation {
 
 	public String getToolTipTitle() {
 		String tooltipTitle = ""

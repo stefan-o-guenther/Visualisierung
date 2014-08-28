@@ -14,8 +14,7 @@ import Base.PanelModelDrawAbstract;
 public class PanelRNQueueingAndLossModelImpl extends PanelModelDrawAbstract {
 
 	public PanelRNQueueingAndLossModelImpl(ManagementQueueingAndLoss qal, ToolTipManagerQueueingAndLoss tooltip) {
-		super(qal, tooltip);		
-		this.initPanel();	
+		super(qal, tooltip);	
 	}
 	
 	private ManagementQueueingAndLoss qal;

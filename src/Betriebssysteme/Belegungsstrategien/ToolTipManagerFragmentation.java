@@ -5,9 +5,9 @@
 
 package Betriebssysteme.Belegungsstrategien;
 
-import Base.ToolTipManagerAutomatic;
+import Base.ToolTipManager;
 
-public interface ToolTipManagerFragmentation extends ToolTipManagerAutomatic {
+public interface ToolTipManagerFragmentation extends ToolTipManager {
 
 	public String getToolTipStratgy();
 	public String getToolTipSpeicher();

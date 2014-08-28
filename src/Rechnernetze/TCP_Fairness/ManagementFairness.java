@@ -9,10 +9,9 @@ import java.awt.Color;
 import java.util.List;
 
 import Base.EnumVisualizationStatus;
-import Base.ManagementAutomatic;
 import Base.ManagementCoordinateSystem;
 
-public interface ManagementFairness extends ManagementAutomatic, ManagementCoordinateSystem {
+public interface ManagementFairness extends ManagementCoordinateSystem {
 
 	public EnumVisualizationStatus getStatus();
 	

@@ -5,9 +5,9 @@
 
 package Rechnernetze.Congestion_Avoidance;
 
-import Base.ToolTipManagerAutomatic;
+import Base.ToolTipManager;
 
-public interface ToolTipManagerCongestionAvoidance extends ToolTipManagerAutomatic {
+public interface ToolTipManagerCongestionAvoidance extends ToolTipManager {
 
 	public String getToolTipTcpTahoe();
 	public String getToolTipTcpReno();

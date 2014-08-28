@@ -6,9 +6,10 @@
 package Base;
 
 import java.awt.Color;
+
 import javax.swing.JPanel;
 
-public abstract class PanelAbstract extends JPanel implements Panel {
+public abstract class PanelAbstract extends JPanel {
 
 	public PanelAbstract(Management management, ToolTipManager tooltip) {
 		try {
@@ -17,17 +18,20 @@ public abstract class PanelAbstract extends JPanel implements Panel {
 			}
 			this.management = management;
 			this.tooltip = tooltip;
-			setBackground(Color.WHITE);
+			setBackground(Color.WHITE);			
+			this.initPanel();			
 		} catch (Exception ex) {
 			throw ex;
 		}		
 	}
 	
+	public abstract void updatePanel();
+	
 	protected Management management;
 	protected ToolTipManager tooltip;
 	
 	protected abstract void initComponents();
-	protected abstract void initLayout();
+	protected abstract void initLayout();	
 	
 	protected void initPanel() {
 		this.initComponents();
@@ -35,12 +39,12 @@ public abstract class PanelAbstract extends JPanel implements Panel {
 		this.updatePanel();
 	}
 	
-	@Override
+	
 	public Management getManagement() {
 		return management;
 	}
 	
-	@Override
+	
 	public ToolTipManager getToolTipManager() {
 		return tooltip;
 	}

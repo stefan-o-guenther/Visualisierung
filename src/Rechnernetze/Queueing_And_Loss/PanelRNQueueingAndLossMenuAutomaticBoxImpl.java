@@ -1,14 +1,13 @@
 package Rechnernetze.Queueing_And_Loss;
 
-import Base.PanelMenuAutomaticBoxAbstract;
-import Base.PanelMenuAutomaticControlAbstract;
-import Base.PanelMenuAutomaticMenuAbstract;
+import Base.PanelMenuBoxAbstract;
+import Base.PanelMenuControlAbstract;
+import Base.PanelMenuMenuAbstract;
 
-public class PanelRNQueueingAndLossMenuAutomaticBoxImpl extends PanelMenuAutomaticBoxAbstract {
+public class PanelRNQueueingAndLossMenuAutomaticBoxImpl extends PanelMenuBoxAbstract {
 
 	public PanelRNQueueingAndLossMenuAutomaticBoxImpl(ManagementQueueingAndLoss qal, ToolTipManagerQueueingAndLoss tooltip) {
 		super(qal, tooltip);
-		this.initPanel();
 	}
 	
 	private PanelRNQueueingAndLossMenuAutomaticBoxImpl() {
@@ -18,16 +17,16 @@ public class PanelRNQueueingAndLossMenuAutomaticBoxImpl extends PanelMenuAutomat
 	}
 
 	@Override
-	protected PanelMenuAutomaticMenuAbstract getNewPanelMenuAutomaticMenu() {
+	protected PanelMenuMenuAbstract getNewPanelMenuAutomaticMenu() {
 		ManagementQueueingAndLoss qal = (ManagementQueueingAndLoss) this.getManagement();
 		ToolTipManagerQueueingAndLoss tooltip = (ToolTipManagerQueueingAndLoss) this.getToolTipManager();
 		return new PanelRNQueueingAndLossMenuAutomaticMenuImpl(qal, tooltip);
 	}
 
 	@Override
-	protected PanelMenuAutomaticControlAbstract getNewPanelAutomaticMenuControler() {
+	protected PanelMenuControlAbstract getNewPanelAutomaticMenuControler() {
 		ManagementQueueingAndLoss qal = (ManagementQueueingAndLoss) this.getManagement();
 		ToolTipManagerQueueingAndLoss tooltip = (ToolTipManagerQueueingAndLoss) this.getToolTipManager();
-		return new PanelRNQueueingAndLossMenuAutomaticControlImpl(qal, tooltip);
+		return new PanelRNQueueingAndLossMenuAutomaticControlBoxImpl(qal, tooltip);
 	}
 }

@@ -1,18 +1,16 @@
 package Rechnernetze.Congestion_Avoidance;
 
-import Base.PanelMenuAutomaticBoxNormalAbstract;
-import Base.PanelMenuAutomaticControlImpl;
-import Base.PanelMenuAutomaticMenuAbstract;
+import Base.PanelMenuBoxStandardAbstract;
+import Base.PanelMenuMenuAbstract;
 
-public class PanelRNCongestionAvoidanceMenuAutomaticBoxImpl extends PanelMenuAutomaticBoxNormalAbstract {
+public class PanelRNCongestionAvoidanceMenuAutomaticBoxImpl extends PanelMenuBoxStandardAbstract {
 
 	public PanelRNCongestionAvoidanceMenuAutomaticBoxImpl(ManagementCongestionAvoidance network, ToolTipManagerCongestionAvoidance tooltip) {
 		super(network, tooltip);
-		this.initPanel();
 	}
 
 	@Override
-	protected PanelMenuAutomaticMenuAbstract getNewPanelMenuAutomaticMenu() {
+	protected PanelMenuMenuAbstract getNewPanelMenuAutomaticMenu() {
 		ManagementCongestionAvoidance network = (ManagementCongestionAvoidance) this.getManagement();
 		ToolTipManagerCongestionAvoidance tooltip = (ToolTipManagerCongestionAvoidance) this.getToolTipManager();
 		return new PanelRNCongestionAvoidanceMenuAutomaticMenuImpl(network, tooltip);

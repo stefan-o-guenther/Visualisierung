@@ -7,57 +7,52 @@ package Rechnernetze.Queueing_And_Loss;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-import Base.ManagementAutomaticAbstract;
+import Base.EnumAutomaticChecked;
+import Base.EnumVisualizationStatus;
+import Base.ManagementAbstract;
 
-public class ManagementQueueingAndLossImpl extends ManagementAutomaticAbstract implements ManagementQueueingAndLoss {
+public class ManagementQueueingAndLossImpl extends ManagementAbstract implements ManagementQueueingAndLoss {
 
 	public ManagementQueueingAndLossImpl() {
 		super();
-		init();
 	}
+	
+	private Random random;
 	
 	private long termSpeed;
 	private long termError;
 	private long termProcessing;
-	private long termInterval;
 	
-	private List<Packet> listInput;
-	private List<Packet> listOutput;
-	private List<Packet> listError;
-	private List<Packet> listRouter;
+	private int interval;
+	
+	private Integer error = 0;
+	private Integer transfered = 0;
 	
 	private long timeInput;
 	private long timeOutput;
+	private long timeError;
 	
 	private long timeRouter;
-	private long timeNewPacket;
 	
 	private long timeCurrent;
 	
-	private int numberPacket;
-	
-	private void init() {
-		listInput = new ArrayList<Packet>();
-		listOutput = new ArrayList<Packet>();
-		listError = new ArrayList<Packet>();
-		listRouter = new ArrayList<Packet>();
-		numberPacket = 0;
-	}
-	
+	private List<Packet> listRouter;
+	private List<Packet> listInput;
+	private List<Packet> listOutput;
+	private List<Packet> listError;
 	
 	private int maxRouter = 10;
-	
-	public Boolean execute() {
-		
-		return true;
-	}
+	private int maxInput = 100;
+	private int maxOutput = 100;
+	private int maxError = 100;
 	
 	private void executeNewPacket() {
-		long termDif = timeCurrent - timeNewPacket;
-		if (termDif >= termInterval) {
+		long termDif = timeCurrent;// - timeNewPacket;
+		if (termDif >= interval) {
 			Packet packet = null;
-			switch (numberPacket) {
+			switch (random.nextInt(8)) {
 				case 0: {
 					packet = new PacketBlueImpl();
 				}
@@ -85,56 +80,55 @@ public class ManagementQueueingAndLossImpl extends ManagementAutomaticAbstract i
 				default: {
 					packet = new PacketBlueImpl();
 				}
-			}			
-			numberPacket = (numberPacket + 1) % 8;
+			}
 			listInput.add(packet);
-			timeNewPacket = timeCurrent;
+			//timeNewPacket = timeCurrent;
+			timeInput = timeCurrent;
+		}
+	}	
+	
+	private void executeInput() {
+		long timeDif = timeCurrent - timeInput;
+		if (timeDif >= termSpeed) {
+			timeInput = timeCurrent;
+			Packet packet = new PacketEmptyImpl();
+			listInput.add(0, packet);
+			while (this.listInput.size() > this.maxInput) {
+				
+			}
 		}
 	}
 	
-	
-	private void executeInput() {
-		
-	}
-	
-	
-	
 	private void executeRouter() {
-		int size = listRouter.size();
-		long termDif = timeCurrent - timeRouter;
-		if ((size > 0) && (termDif >= termProcessing)) {			
-			Packet packet = listRouter.remove(size-1);
-			packet.setPosition(0);
-			listOutput.add(packet);			
-			timeRouter = timeCurrent;
-		}		
+		
 	}
 	
-	
-	
-	
-	
-	@Override
-	protected Boolean executeAutomatic() {
-		timeCurrent = System.currentTimeMillis();
+	private void executeError() {
 		
+	}
+	
+	private void executeOutput() {
+		
+	}
+		
+	@Override
+	protected Boolean execute() {
+		timeCurrent = System.currentTimeMillis();
+		this.executeOutput();
+		this.executeError();
+		this.executeRouter();
+		this.executeInput();
+		this.executeNewPacket();
+		
+		
+		
+		
+		
+		error += 1;
+		this.updatePanelMain();
 		return true;
 	}
-
 	
-	
-	@Override
-	public Boolean isAutomaticEnabled() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void reset() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	@Override
 	public String getTitle() {
 		// TODO Auto-generated method stub
@@ -142,7 +136,7 @@ public class ManagementQueueingAndLossImpl extends ManagementAutomaticAbstract i
 	}
 
 	@Override
-	public void showErrorMessage() {
+	protected void showErrorMessage() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -179,9 +173,85 @@ public class ManagementQueueingAndLossImpl extends ManagementAutomaticAbstract i
 
 	@Override
 	public Integer getMaxRouter() {
+		return 9;
+	}
+
+	@Override
+	public Integer getCountLoss() {
+		return error;
+	}
+
+	@Override
+	public Integer getCountTransfered() {
+		return transfered;
+	}
+
+	@Override
+	public EnumVisualizationStatus getStatus() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	
+	@Override
+	protected void initialize() {
+		this.random = new Random();
+		this.timeCurrent = System.currentTimeMillis();
+		this.interval = 0;
+		this.timeInput = timeCurrent;
+		this.timeOutput = timeCurrent;
+		this.timeRouter = timeCurrent;
+		this.timeError = timeCurrent;		
+	}
+
+	@Override
+	protected void create() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected EnumAutomaticChecked keepAutomaticChecked() {
+		return EnumAutomaticChecked.ALWAYS;
+	}
+
+	@Override
+	public Integer getAutomaticSpace() {
+		return 0;
+	}
+
+	@Override
+	public Integer getTransferRate() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setTransferRate(Integer value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Integer getProcessingTime() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setProcessingTime(Integer value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Integer getPacketInterval() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setPacketInterval(Integer value) {
+		// TODO Auto-generated method stub
+		
+	}
 }

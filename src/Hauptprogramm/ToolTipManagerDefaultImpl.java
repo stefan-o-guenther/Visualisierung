@@ -5,7 +5,9 @@
 
 package Hauptprogramm;
 
-public class ToolTipManagerDefaultImpl implements ToolTipManagerDefault {
+import Base.ToolTipManagerAbstract;
+
+public class ToolTipManagerDefaultImpl extends ToolTipManagerAbstract implements ToolTipManagerDefault {
 
 	@Override
 	public String getToolTipTitle() {

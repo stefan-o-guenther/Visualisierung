@@ -3,22 +3,23 @@ package Rechnernetze.Queueing_And_Loss;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class PacketListAbstract implements PacketList {
-
-	protected List<Packet> listPacket;
-	protected long term;
-	protected long timestamp;
-	protected int max;
+public abstract class PacketListAbstract extends PacketGroupAbstract implements PacketList {
 	
-	public PacketListAbstract(long term, long timestamp, int max) {
+	protected abstract void putPacket(Packet packet);
+	
+	public PacketListAbstract(long term, long timestamp, Integer length) {
 		try {
-			if ((term < 0) || (timestamp < 0) || (max <= 0)) {
+			if (length == null) {
+				throw new NullPointerException();
+			}
+			int l = length.intValue();
+			if ((term < 0) || (timestamp < 0) || (l <= 0)) {
 				throw new IllegalArgumentException();
 			}
 			this.term = term;
 			this.timestamp = timestamp;
 			this.listPacket = new ArrayList<Packet>();
-			this.max = max;
+			this.length = length;
 		} catch (Exception ex) {
 			throw ex;
 		}		
@@ -34,9 +35,14 @@ public abstract class PacketListAbstract implements PacketList {
 			int size = listPacket.size();
 			if ((size > 0) && (termDif >= term)) {
 				timestamp = timeCurrent;
-				for (Packet packet : listPacket) {
-					int position = packet.getPosition() + 1;
-					packet.setPosition(position);
+				listPacket.add(new PacketEmptyImpl());
+				size = listPacket.size();
+				if (size > this.length) {
+					Packet packet = listPacket.get(size-1);
+					if (packet.getType() == EnumPacketType.FULL) {
+						this.putPacket(packet);
+					}
+					listPacket.remove(packet);
 				}
 			}
 		} catch (Exception ex) {
@@ -44,10 +50,7 @@ public abstract class PacketListAbstract implements PacketList {
 		}
 	}
 
-	@Override
-	public List<Packet> getList() {
-		return listPacket;
-	}
+	
 
 	@Override
 	public void addPacket(Packet packet, long timeCurrent) {
@@ -68,4 +71,23 @@ public abstract class PacketListAbstract implements PacketList {
 		}
 	}
 
+	@Override
+	public Integer getLength() {
+		return this.length;
+	}
+
+	@Override
+	public void setLength(Integer length) {
+		try {
+			if (length == null) {
+				throw new NullPointerException();
+			}
+			int l = length.intValue();
+			if (l <= 0) {
+				throw new IllegalArgumentException();
+			}
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
 }

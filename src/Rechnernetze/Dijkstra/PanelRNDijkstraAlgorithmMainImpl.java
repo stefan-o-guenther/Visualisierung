@@ -13,7 +13,6 @@ public class PanelRNDijkstraAlgorithmMainImpl extends PanelMainAbstract {
 
 	public PanelRNDijkstraAlgorithmMainImpl() {
 		super(new ManagementDijkstraAlgorithmImpl(), new ToolTipManagerDijkstraAlgorithmImpl());
-		this.initPanel();
 	}
 
 	@Override

@@ -11,14 +11,13 @@ import Base.EnumScrollbar;
 
 public class PanelBSBuddySystemeModelScrollImpl extends PanelModelScrollAbstract {
 
-	public PanelBSBuddySystemeModelScrollImpl(ManagerBuddyMemoryAllocation buddy, ToolTipManagerBuddyMemoryAllocation tooltip) {
+	public PanelBSBuddySystemeModelScrollImpl(ManagementBuddyMemoryAllocation buddy, ToolTipManagerBuddyMemoryAllocation tooltip) {
 		super(buddy, tooltip);
-		this.initPanel();
 	}
 
 	@Override
 	public PanelModelDrawAbstract getNewPanelModelDraw() {
-		ManagerBuddyMemoryAllocation buddy = (ManagerBuddyMemoryAllocation) this.getManagement();
+		ManagementBuddyMemoryAllocation buddy = (ManagementBuddyMemoryAllocation) this.getManagement();
 		ToolTipManagerBuddyMemoryAllocation tooltip = (ToolTipManagerBuddyMemoryAllocation) this.getToolTipManager();
 		return new PanelBSBuddySystemeModelDrawImpl(buddy, tooltip);
 	}
@@ -31,5 +30,5 @@ public class PanelBSBuddySystemeModelScrollImpl extends PanelModelScrollAbstract
 	@Override
 	public EnumScrollbar getScrollbarVertical() {
 		return EnumScrollbar.ALWAYS;
-	}	
+	}
 }

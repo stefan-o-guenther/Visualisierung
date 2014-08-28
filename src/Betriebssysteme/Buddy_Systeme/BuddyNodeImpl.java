@@ -12,18 +12,7 @@ public class BuddyNodeImpl implements BuddyNode {
 
 	public BuddyNodeImpl(Integer value) {
 		try {
-			if (value == null) {
-				throw new NullPointerException();
-			}
-			if (value < 0) {
-				throw new IllegalArgumentException();
-			}
-			if (value > 0) {
-				Integer x = BuddyHelper.getPotence(value);
-				size = (int) Math.pow(2, x);
-			} else {
-				size = 0;
-			}
+			this.calculateSize(value);
 			this.parent = null;
 		} catch (Exception ex) {
 			throw ex;
@@ -32,18 +21,10 @@ public class BuddyNodeImpl implements BuddyNode {
 	
 	public BuddyNodeImpl(Integer value, BuddyNode parent) {
 		try {
-			if ((value == null) || (parent == null)) {
+			if (parent == null) {
 				throw new NullPointerException();
 			}
-			if (value < 0) {
-				throw new IllegalArgumentException();
-			}
-			if (value > 0) {
-				Integer x = BuddyHelper.getPotence(value);
-				size = (int) Math.pow(2, x);
-			} else {
-				size = 0;
-			}
+			this.calculateSize(value);
 			this.parent = parent;
 		} catch (Exception ex) {
 			throw ex;
@@ -56,6 +37,25 @@ public class BuddyNodeImpl implements BuddyNode {
 	private BuddyNode parent = null;
 	private ProcessNode space = null;
 	private RestNode rest = null;
+	
+	private void calculateSize(Integer value) {
+		try {
+			if (value == null) {
+				throw new NullPointerException();
+			}
+			if (value < 0) {
+				throw new IllegalArgumentException();
+			}
+			if (value > 0) {
+				Integer x = BuddyHelper.getPotence(value);
+				size = (int) Math.pow(2, x);
+			} else {
+				size = 0;
+			}			
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
 	
 	@Override
 	public Integer getValue() {

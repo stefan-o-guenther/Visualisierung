@@ -5,7 +5,9 @@
 
 package Betriebssysteme.Seitenersetzungsstrategien;
 
-public class ToolTipManagerPagingImpl implements ToolTipManagerPaging {
+import Base.ToolTipManagerAbstract;
+
+public class ToolTipManagerPagingImpl extends ToolTipManagerAbstract implements ToolTipManagerPaging {
 
 	public String getToolTipTitle() {
 		String tooltipTitle = ""
@@ -122,5 +124,14 @@ public class ToolTipManagerPagingImpl implements ToolTipManagerPaging {
 		  	+ "Seite wurde geschrieben/ver&auml;ndert"
 		  	+ "</html>";
 		return tooltipM;
+	}
+
+	@Override
+	public String getToolTipOldStates() {
+		String tooltipOldStates = ""
+			+ "<html>"
+		  	+ "alte Zust&auml;nde von R und M werden angezeigt"
+		  	+ "</html>";
+		return tooltipOldStates;
 	}
 }

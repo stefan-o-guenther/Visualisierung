@@ -7,14 +7,12 @@ package Betriebssysteme.Belegungsstrategien;
 
 import java.util.List;
 
-import Base.ManagementAutomatic;
+import Base.Management;
 
-
-public interface ManagementFragmentation extends ManagementAutomatic {
+public interface ManagementFragmentation extends Management {
 
 	public EnumMemoryStrategy getStrategy();
 	public void inputNumber(Integer value);	
-	public EnumMemoryStatus getStatus();	
 	public List<Space> getListSpace();
 	public Integer getTotalSpace();
 	public Integer getFreeSpace();

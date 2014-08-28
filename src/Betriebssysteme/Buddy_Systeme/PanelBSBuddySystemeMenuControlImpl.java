@@ -17,22 +17,23 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import Base.EnumVisualizationStatus;
 import Base.Labeling;
+import Base.MessageBox;
 
 public class PanelBSBuddySystemeMenuControlImpl extends PanelBSBuddySystemeMenuAbstract {
 
-	public PanelBSBuddySystemeMenuControlImpl(ManagerBuddyMemoryAllocation buddy, ToolTipManagerBuddyMemoryAllocation tooltip) {
+	public PanelBSBuddySystemeMenuControlImpl(ManagementBuddyMemoryAllocation buddy, ToolTipManagerBuddyMemoryAllocation tooltip) {
 		super(buddy, tooltip);
-		this.initPanel();
 	}
 
 	private PanelBSBuddySystemeMenuControlImpl() {
-		super(new ManagerBuddyMemoryAllocationImpl(), new ToolTipManagerBuddyMemoryAllocationImpl());
+		super(new ManagementBuddyMemoryAllocationImpl(), new ToolTipManagerBuddyMemoryAllocationImpl());
 		this.initComponents();
 		this.initLayout();
 	}
 	
-	private ManagerBuddyMemoryAllocation buddy;
+	private ManagementBuddyMemoryAllocation buddy;
 	private ToolTipManagerBuddyMemoryAllocation tooltip;
 	
 	private JTextField tfSpace;
@@ -54,8 +55,8 @@ public class PanelBSBuddySystemeMenuControlImpl extends PanelBSBuddySystemeMenuA
 	private ButtonGroupProcessImpl groupProcess;
 	
 	@Override
-	protected void initComponents() {
-		buddy = (ManagerBuddyMemoryAllocation) this.getManagement();
+	protected void initComponentsMenu() {
+		buddy = (ManagementBuddyMemoryAllocation) this.getManagement();
 		tooltip = (ToolTipManagerBuddyMemoryAllocation) this.getToolTipManager();
 		
 		ImageIcon imgHelp = this.getImageIconHelp();		
@@ -73,19 +74,14 @@ public class PanelBSBuddySystemeMenuControlImpl extends PanelBSBuddySystemeMenuA
 		lblExampleTip.setIcon(imgHelp);
 		lblExampleTip.setToolTipText(tooltip.getToolTipLoadExample());
 		
-		groupProcess = new ButtonGroupProcessImpl(actionProcess);	
+		groupProcess = new ButtonGroupProcessImpl(buddy);	
 		rdbtnProcessStart = groupProcess.getRadioButtonStart();
 		rdbtnProcessStop = groupProcess.getRadioButtonStop();
-		//rdbtnProcessStart = new JRadioButton("starten");
-		//rdbtnProcessStop = new JRadioButton("stoppen");
-				
-		btnExecute1 = new JButton(Labeling.RESET);
-		btnExecute1.addActionListener(actionExecute1);
-		btnExecute2 = new JButton("Prozess beenden");
-		btnExecute2.addActionListener(actionExecute2);
-		btnExample = new JButton(Labeling.LOAD_EXAMPLE);
-		btnExample.addActionListener(actionDemo);
 		
+		btnExecute1 = new JButton(Labeling.RESET);		
+		btnExecute2 = new JButton("Prozess beenden");		
+		btnExample = new JButton(Labeling.LOAD_EXAMPLE);		
+				
 		tfSpace = new JTextField();
 		tfSpace.setColumns(10);
 		tfSpace.setText("");
@@ -167,7 +163,7 @@ public class PanelBSBuddySystemeMenuControlImpl extends PanelBSBuddySystemeMenuA
 		btnExecute2.setText(groupProcess.getSelectedButtonString());
 		
 		if (buddy != null) {
-			EnumBuddyMemoryAllocation status = buddy.getStatus();			
+			EnumVisualizationStatus status = buddy.getStatus();			
 			switch (status) {
 				case START: {					
 					tfSpace.setEnabled(true);
@@ -183,7 +179,7 @@ public class PanelBSBuddySystemeMenuControlImpl extends PanelBSBuddySystemeMenuA
 					btnExample.setEnabled(true);		
 					break;					
 				}
-				case EXECUTE: {					
+				case RUN: {					
 					tfSpace.setEnabled(false);
 					tfSpace.setEditable(false);
 					tfProcessName.setEnabled(true);
@@ -202,6 +198,44 @@ public class PanelBSBuddySystemeMenuControlImpl extends PanelBSBuddySystemeMenuA
 				}
 			}					
 		}
+	}
+
+	@Override
+	protected void initMethods() {
+		ActionListener actionExecuteTotalSpaceReset = new ActionListener() {
+			public void actionPerformed (ActionEvent e) {
+				executeTotalSpaceReset();
+			}
+		};		
+		
+		ActionListener actionExecuteProcessStartStop = new ActionListener() {
+			public void actionPerformed (ActionEvent e) {
+				executeProcessStartStop();
+			}
+		};
+		
+		ActionListener actionDemo = new ActionListener() {
+			public void actionPerformed (ActionEvent e) {
+				automaticTotalSpace(1024);			
+				automaticStartProcess("a", 400);			
+				automaticStartProcess("b", 200);
+				automaticStartProcess("c", 70);
+				automaticStopProcess("c");
+				automaticStartProcess("d", 100);
+				automaticStartProcess("e", 50);
+				automaticStopProcess("b");			
+				automaticStopProcess("d");						
+				automaticStopProcess("a");
+				automaticStartProcess("f", 50);
+				automaticStopProcess("e");
+				automaticStopProcess("f");
+				//updatePanel();
+			}
+		};
+		
+		btnExecute1.addActionListener(actionExecuteTotalSpaceReset);
+		btnExecute2.addActionListener(actionExecuteProcessStartStop);
+		btnExample.addActionListener(actionDemo);	
 	}
 		
 	private void inputTotalSpace() {
@@ -230,101 +264,123 @@ public class PanelBSBuddySystemeMenuControlImpl extends PanelBSBuddySystemeMenuA
 	}
 	
 	private Integer inputProcessSize() {
-		// Eingabe
-		Integer process = null;
-		String text = tfProcessSize.getText();			
+		// Eingabe					
 		try {
+			Integer process = null;
+			String text = tfProcessSize.getText();
+			if (text.length() == 0) {
+				throw new IllegalArgumentException();
+			}
 			process = new Integer(text);
+			return process;
 		} catch (Exception ex) {
-			
-		} finally {
-			
-		}
-		return process;
-	}
-
-	private ActionListener actionExecute1 = new ActionListener() {
-		public void actionPerformed (ActionEvent e) {
-			EnumBuddyMemoryAllocation status = buddy.getStatus();
-			switch (status) {
-				case START: {
-					inputTotalSpace();
-					break;
-				}
-				case EXECUTE: {
-					buddy.reset();
-					break;
-				}
-				default: {
-					break;
-				}
-			}
-		}
-	};
-	
-	private ActionListener actionExecute2 = new ActionListener() {
-		public void actionPerformed (ActionEvent e) {
-			EnumBuddyMemoryAllocation status = buddy.getStatus();
-			switch (status) {
-				case START: {					
-					break;
-				}
-				case EXECUTE: {
-					String processName = tfProcessName.getText();
-					if (processName != null) {
-						EnumProcess radioButton = groupProcess.getSelectedButtonEnum();
-						switch(radioButton) {
-							case PROCESS_START: {
-								Integer processSize = inputProcessSize();
-								buddy.startProcess(processName, processSize);							
-								break;
-							}
-							case PROCESS_STOP: {
-								buddy.stopProcess(processName);
-								break;
-							}
-							default: {
-								break;
-							}
-						}
-						tfProcessName.setText("");
-						tfProcessSize.setText("");
-					}					
-					break;
-				}
-				default: {
-					break;
-				}
-			}
-		}
-	};
-	
-	private ActionListener actionDemo = new ActionListener() {
-		public void actionPerformed (ActionEvent e) {			
-			tfSpace.setText("1024");
-			buddy.setTotalSpace(1024);				
-			buddy.startProcess("a", 400);			
-			buddy.startProcess("b", 200);
-			buddy.startProcess("c", 70);
-			buddy.stopProcess("c");
-			buddy.startProcess("d", 100);
-			buddy.startProcess("e", 50);
-			buddy.stopProcess("b");			
-			buddy.stopProcess("d");						
-			buddy.stopProcess("a");
-			buddy.startProcess("f", 50);
-			buddy.stopProcess("e");
-			buddy.stopProcess("f");
-			//updatePanel();
-		}
-	};
-	
-	private ActionListener actionProcess = new ActionListener() {
-		public void actionPerformed (ActionEvent e) {
-			updatePanel();
+			throw ex;
 		}	
-	};
-
+	}
+	
+	private void executeTotalSpaceReset() {
+		EnumVisualizationStatus status = buddy.getStatus();
+		switch (status) {
+			case START: {
+				inputTotalSpace();
+				break;
+			}
+			case RUN: {
+				buddy.reset();
+				break;
+			}
+			default: {
+				break;
+			}
+		}
+	}	
+	
+	private void automaticStartProcess(String name, Integer size) {
+		try {
+			if ((name == null) || (size == null)) {
+				throw new NullPointerException();
+			}
+			if ((name.length() == 0) || (size.intValue() < 0)) {
+				throw new IllegalArgumentException();
+			}
+			if (buddy.getStatus() == EnumVisualizationStatus.RUN) {
+				this.groupProcess.selectRadioButtonStart();
+				this.tfProcessName.setText(name);
+				this.tfProcessSize.setText(size.toString());
+				this.executeProcessStartStop();
+			}
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+	private void automaticStopProcess(String name) {
+		try {			
+			if (name == null) {
+				throw new NullPointerException();
+			}
+			if (name.length() == 0) {
+				throw new IllegalArgumentException();
+			}
+			if (buddy.getStatus() == EnumVisualizationStatus.RUN) {
+				this.groupProcess.selectRadioButtonStop();
+				this.tfProcessName.setText(name);
+				this.executeProcessStartStop();
+			}
+			
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+	private void automaticTotalSpace(Integer size) {
+		try {
+			if (size == null) {
+				throw new NullPointerException();
+			}
+			if (size.intValue() < 0) {
+				throw new IllegalArgumentException();
+			}
+			if (buddy.getStatus() == EnumVisualizationStatus.START) {
+				this.tfSpace.setText(size.toString());
+				this.executeTotalSpaceReset();
+			}
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+	
+	private void executeProcessStartStop() {
+		try {
+			EnumVisualizationStatus status = buddy.getStatus();
+			switch (status) {
+				case RUN: {
+					EnumProcess processOperation = buddy.getProcessOperation();
+					if ((processOperation == EnumProcess.PROCESS_START) || (processOperation == EnumProcess.PROCESS_STOP)) {
+						String processName = tfProcessName.getText();
+						if (processName.length() == 0) {
+							throw new IllegalArgumentException();
+						}
+						buddy.setProcessName(processName);
+						if (processOperation == EnumProcess.PROCESS_START) {
+							Integer processSize = inputProcessSize();
+							buddy.setProcessSize(processSize);
+						}
+						buddy.executeNormal();
+					}
+					tfProcessName.setText("");
+					tfProcessSize.setText("");										
+					break;
+				}
+				default: {
+					break;
+				}
+			}
+		} catch (Exception ex) {
+			MessageBox.showErrorMessage("falsche Eingabe");
+		}		
+	}	
+	
 	@Override
 	public Integer getHeightMenu() {
 		return 110;

@@ -8,8 +8,8 @@ package Rechnernetze.QAL_Old;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import javax.swing.JPanel;
-
+import Base.EnumAutomaticChecked;
+import Base.EnumVisualizationStatus;
 import Base.ManagementAbstract;
 
 public class ManagementQueueingAndLossImpl extends ManagementAbstract implements ManagementQueueingAndLoss {
@@ -26,20 +26,10 @@ public class ManagementQueueingAndLossImpl extends ManagementAbstract implements
 	public ManagementQueueingAndLossImpl(double tick) {
 		super();
 		tic = tick;
-		init();
+		this.initialize();
+		this.updatePanelMain();
 	}
 	
-	private void init() {
-		line1 = new Line(1E-2, new Rectangle(10,60,200,10));
-		sender1 = new Sender(1E-3,line1);
-		dropper1 = new Dropper(.6E-2, new Rectangle(200,70,10,60));
-		queue1 = new Queue(10, line1,dropper1, new Rectangle(210,40,100,50));
-		line2 = new Line(1E-2, new Rectangle(340,60,200,10));
-		proc1 = new Processor(2E-3, queue1, line2, new Rectangle(310,50,30,30));
-		time = 0;
-		runThread = false;
-	}
-
 	public void launchSim(double emitRate, double processorRate) {
 		sender1.setEmitInterval(emitRate);
 		proc1.setWrkLength(processorRate);
@@ -58,12 +48,6 @@ public class ManagementQueueingAndLossImpl extends ManagementAbstract implements
 		g.drawString(queue1.getDropStat(),10,125);
 	}
 
-	@Override
-	public void reset() {
-		init();
-		panelMain.updatePanelModel();
-	}
-	
 	private Boolean runThread = false;
 	
 	public class TimerThread extends Thread {
@@ -95,18 +79,12 @@ public class ManagementQueueingAndLossImpl extends ManagementAbstract implements
 	}
 
 	@Override
-	public Boolean execute() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public String getTitle() {
 		return "Queueing And Loss";
 	}
 
 	@Override
-	public void showErrorMessage() {
+	protected void showErrorMessage() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -115,5 +93,45 @@ public class ManagementQueueingAndLossImpl extends ManagementAbstract implements
 	protected void updateSize() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public EnumVisualizationStatus getStatus() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void initialize() {
+		line1 = new Line(1E-2, new Rectangle(10,60,200,10));
+		sender1 = new Sender(1E-3,line1);
+		dropper1 = new Dropper(.6E-2, new Rectangle(200,70,10,60));
+		queue1 = new Queue(10, line1,dropper1, new Rectangle(210,40,100,50));
+		line2 = new Line(1E-2, new Rectangle(340,60,200,10));
+		proc1 = new Processor(2E-3, queue1, line2, new Rectangle(310,50,30,30));
+		time = 0;
+		runThread = false;
+	}
+
+	@Override
+	protected Boolean execute() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void create() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected EnumAutomaticChecked keepAutomaticChecked() {
+		return EnumAutomaticChecked.NEVER;
+	}
+
+	@Override
+	public Integer getAutomaticSpace() {
+		return 0;
 	}
 }

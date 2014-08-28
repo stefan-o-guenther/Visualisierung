@@ -11,23 +11,21 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class PanelBSBuddySystemeMenuBoxImpl extends PanelBSBuddySystemeMenuAbstract {
 
-	public PanelBSBuddySystemeMenuBoxImpl(ManagerBuddyMemoryAllocation buddy, ToolTipManagerBuddyMemoryAllocation tooltip) {
+	public PanelBSBuddySystemeMenuBoxImpl(ManagementBuddyMemoryAllocation buddy, ToolTipManagerBuddyMemoryAllocation tooltip) {
 		super(buddy, tooltip);
-		this.initPanel();
 	}
 	
 	private PanelBSBuddySystemeMenuAbstract panelControl;
 	private PanelBSBuddySystemeMenuAbstract panelLabel;
 	
-	private ManagerBuddyMemoryAllocation buddy;
+	private ManagementBuddyMemoryAllocation buddy;
 	private ToolTipManagerBuddyMemoryAllocation tooltip;
 	
 	private PanelBSBuddySystemeMenuBoxImpl() {
-		super(new ManagerBuddyMemoryAllocationImpl(), new ToolTipManagerBuddyMemoryAllocationImpl());
+		super(new ManagementBuddyMemoryAllocationImpl(), new ToolTipManagerBuddyMemoryAllocationImpl());
 		this.initComponents();
 		this.initLayout();
-	}
-	
+	}	
 
 	@Override
 	public Integer getHeightMenu() {
@@ -45,8 +43,8 @@ public class PanelBSBuddySystemeMenuBoxImpl extends PanelBSBuddySystemeMenuAbstr
 	}
 
 	@Override
-	protected void initComponents() {
-		buddy = (ManagerBuddyMemoryAllocation) this.getManagement();
+	protected void initComponentsMenu() {
+		buddy = (ManagementBuddyMemoryAllocation) this.getManagement();
 		tooltip = (ToolTipManagerBuddyMemoryAllocation) this.getToolTipManager();		
 		this.panelControl = new PanelBSBuddySystemeMenuControlImpl(buddy, tooltip);
 		this.panelLabel = new PanelBSBuddySystemeMenuLabelImpl(buddy, tooltip);
@@ -68,5 +66,10 @@ public class PanelBSBuddySystemeMenuBoxImpl extends PanelBSBuddySystemeMenuAbstr
 				.addComponent(panelControl, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
 		);
 		setLayout(groupLayout);
+	}
+
+	@Override
+	protected void initMethods() {
+		// nothing
 	}	
 }

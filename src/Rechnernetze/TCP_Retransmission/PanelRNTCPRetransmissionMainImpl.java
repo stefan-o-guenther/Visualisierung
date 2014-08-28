@@ -13,7 +13,6 @@ public class PanelRNTCPRetransmissionMainImpl extends PanelMainAbstract {
 
 	public PanelRNTCPRetransmissionMainImpl() {
 		super(new ManagementRetransmissionImpl(), new ToolTipManagerRetransmissionImpl());
-		this.initPanel();
 	}
 	
 	@Override

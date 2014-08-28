@@ -7,10 +7,9 @@ package Rechnernetze.Dijkstra;
 
 import java.util.List;
 
-import Base.EnumVisualizationStatus;
-import Base.ManagementAutomatic;
+import Base.Management;
 
-public interface ManagementDijkstraAlgorithm extends ManagementAutomatic {
+public interface ManagementDijkstraAlgorithm extends Management {
 
 	public List<Node> getListNodes();
 	public List<Edge> getListEdges();
@@ -21,9 +20,7 @@ public interface ManagementDijkstraAlgorithm extends ManagementAutomatic {
 	public Boolean isConnected(String nameA, String nameB);
 	public Boolean isConnected(Node nodeA, Node nodeB);
 	
-	public Integer getMaxTableLines();
-	
-	public EnumVisualizationStatus getStatus();
+	public Integer getMaxTableLines();	
 	
 	public List<String> getListNodeNames();
 	public List<List<String>> getListUsedNodes();

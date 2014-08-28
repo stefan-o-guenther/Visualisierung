@@ -13,7 +13,6 @@ public class PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl extends PanelMenu
 
 	public PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl(ManagementPipelineProtocol pipeline, ToolTipManagerPipelineProtocol tooltip) {
 		super(pipeline, tooltip);
-		this.initPanel();
 	}
 	
 	private PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl() {
@@ -34,7 +33,7 @@ public class PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl extends PanelMenu
 	}
 
 	@Override
-	protected void initComponents() {
+	protected void initComponentsMenu() {
 		lblPacket = new JLabel("Paket");
 		lblPacket.setIcon(new ImageIcon(PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl.class.getResource("/Base/img/boxCyan.png")));
 		
@@ -94,7 +93,12 @@ public class PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl extends PanelMenu
 	}
 
 	@Override
+	protected void initMethods() {
+		// nothing
+	}	
+
+	@Override
 	public Integer getHeightMenu() {
 		return 125;
-	}	
+	}
 }

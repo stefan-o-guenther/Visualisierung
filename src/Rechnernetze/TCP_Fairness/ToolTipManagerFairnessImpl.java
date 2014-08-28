@@ -5,9 +5,9 @@
 
 package Rechnernetze.TCP_Fairness;
 
-import Base.ToolTipManagerAutomaticAbstract;
+import Base.ToolTipManagerAbstract;
 
-public class ToolTipManagerFairnessImpl extends ToolTipManagerAutomaticAbstract implements ToolTipManagerFairness {
+public class ToolTipManagerFairnessImpl extends ToolTipManagerAbstract implements ToolTipManagerFairness {
 	
 	public String getToolTipTitle() {
 		String tooltipTitle = ""

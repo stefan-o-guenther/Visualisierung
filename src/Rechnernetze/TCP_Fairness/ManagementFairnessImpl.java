@@ -9,41 +9,26 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import Base.CoordinateSystem;
-import Base.CoordinateSystemImpl;
+import Base.EnumAutomaticChecked;
 import Base.EnumCoordinateSystem;
 import Base.EnumSurface;
 import Base.EnumVisualizationStatus;
-import Base.ManagementAutomaticAbstract;
+import Base.ManagementCoordinateSystemAbstract;
 
-public class ManagementFairnessImpl extends ManagementAutomaticAbstract implements ManagementFairness {
+public class ManagementFairnessImpl extends ManagementCoordinateSystemAbstract implements ManagementFairness {
 
 	public ManagementFairnessImpl() {
-		super();		
-		initCoordinateSystem();
-		init();
+		super();
 	}
 	
-	private CoordinateSystem cs;	
 	private EnumVisualizationStatus status;	
 	private List<Point> listPoints;
 	private Integer maxFlowRate;
-	
-	private void init() {
+
+	@Override
+	protected void initialize() {
 		listPoints = new ArrayList<Point>();
 		status = EnumVisualizationStatus.START;
-		maxFlowRate = 0;
-	}	
-	
-	private void initCoordinateSystem() {
-		cs = new CoordinateSystemImpl(true, EnumCoordinateSystem.RIGHT);
-		cs.setHeight(height);
-		cs.setWidth(width);
-		cs.setGapBetweenX(7);
-		cs.setGapBetweenY(7);
-		cs.setIntervalX(4);
-		cs.setIntervalY(4);
-		cs.setArrowLength(10);
 		this.setMaxFlowRate();
 	}
 	
@@ -72,7 +57,7 @@ public class ManagementFairnessImpl extends ManagementAutomaticAbstract implemen
 	}	
 	
 	@Override
-	protected Boolean executeAutomatic() {
+	protected Boolean execute() {
 		try {
 			Boolean result = true;
 			if (listPoints != null) {
@@ -120,19 +105,8 @@ public class ManagementFairnessImpl extends ManagementAutomaticAbstract implemen
 	}
 
 	@Override
-	public void reset() {
-		init();
-		this.updatePanelMain();
-	}
-	
-	@Override
 	public String getTitle() {
 		return "TCP-Fairness";
-	}
-
-	@Override
-	public CoordinateSystem getCoordinateSystem() {
-		return cs;
 	}
 
 	@Override
@@ -141,17 +115,15 @@ public class ManagementFairnessImpl extends ManagementAutomaticAbstract implemen
 	}
 
 	private void setMaxFlowRate() {
-		if (cs != null) {
-			int xMax = cs.getXMax().intValue();
-			int yMax = cs.getYMax().intValue();
-			Integer max = 0;
-			if (yMax > xMax) {
-				max = xMax;
-			} else {
-				max = yMax;
-			}			
-			this.maxFlowRate = max; 
-		}		
+		int xMax = getXMax().intValue();
+		int yMax = getYMax().intValue();
+		Integer max = 0;
+		if (yMax > xMax) {
+			max = xMax;
+		} else {
+			max = yMax;
+		}			
+		this.maxFlowRate = max; 				
 	}
 	
 	@Override
@@ -179,8 +151,8 @@ public class ManagementFairnessImpl extends ManagementAutomaticAbstract implemen
 
 	@Override
 	public Integer getMaxConnnection() {
-		Integer maxX = cs.getXMax();
-		Integer maxY = cs.getYMax();
+		Integer maxX = getXMax();
+		Integer maxY = getYMax();
 		if (maxY > maxX) {
 			return maxX;
 		} else {
@@ -264,31 +236,95 @@ public class ManagementFairnessImpl extends ManagementAutomaticAbstract implemen
 	}
 
 	@Override
-	public Boolean isAutomaticEnabled() {
-		return (this.getStatus() == EnumVisualizationStatus.RUN);
-	}
-
-	@Override
-	public void showErrorMessage() {
-		// TODO Auto-generated method stub
+	protected void showErrorMessage() {
 		
 	}
 
 	@Override
 	protected void updateSize() {
-		if ((cs != null) && (status == EnumVisualizationStatus.START)) {
-			int widthO = cs.getWidth().intValue();
-			int heightO = cs.getHeight().intValue();
+		if ((status == EnumVisualizationStatus.START)) {
+			int widthO = getWidth().intValue();
+			int heightO = getHeight().intValue();
 			int widthN = width.intValue();
 			int heightN = height.intValue();
 			if ((widthO != widthN) || (heightO != heightN)) {
-				cs.setHeight(height);
-				cs.setWidth(width);
+				setHeight(height);
+				setWidth(width);
 			}
 			if (this.getStatus() == EnumVisualizationStatus.START) {
 				this.setMaxFlowRate();
 			}
 		}
 		this.updatePanelMenu();
+	}
+
+	@Override
+	protected void create() {
+		this.initCoordinateSystem();
+	}
+	
+	@Override
+	public Integer getGapBetweenX() {
+		return 7;
+	}
+	
+	@Override
+	public Integer getGapBetweenY() {
+		return 7;
+	}
+	
+	@Override
+	public Integer getIntervalX() {
+		return 4;
+	}
+	
+	@Override
+	public Integer getIntervalY() {
+		return 4;
+	}
+
+	@Override
+	public Integer getArrowLength() {
+		return 10;
+	}
+
+	@Override
+	protected EnumAutomaticChecked keepAutomaticChecked() {
+		return EnumAutomaticChecked.CHOICE;
+	}
+
+	@Override
+	public EnumCoordinateSystem getPosition() {
+		return EnumCoordinateSystem.RIGHT;
+	}
+
+	@Override
+	public Boolean isSameLength() {
+		return true;
+	}
+
+	@Override
+	protected Integer getGapLeft() {
+		return 35;
+	}
+
+	@Override
+	protected Integer getGapRight() {
+		return 10;
+	}
+
+	@Override
+	protected Integer getGapTop() {
+		return 20;
+	}
+
+	@Override
+	protected Integer getGapBottom() {
+		return 30;
+	}
+
+	@Override
+	public Integer getAutomaticSpace() {
+		return 0;
 	}
 }

@@ -14,18 +14,17 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class PanelBSBuddySystemeMenuLabelImpl extends PanelBSBuddySystemeMenuAbstract {
 
-	public PanelBSBuddySystemeMenuLabelImpl(ManagerBuddyMemoryAllocation buddy, ToolTipManagerBuddyMemoryAllocation tooltip) {
+	public PanelBSBuddySystemeMenuLabelImpl(ManagementBuddyMemoryAllocation buddy, ToolTipManagerBuddyMemoryAllocation tooltip) {
 		super(buddy, tooltip);
-		this.initPanel();
 	}
 	
 	private PanelBSBuddySystemeMenuLabelImpl() {
-		super(new ManagerBuddyMemoryAllocationImpl(), new ToolTipManagerBuddyMemoryAllocationImpl());
+		super(new ManagementBuddyMemoryAllocationImpl(), new ToolTipManagerBuddyMemoryAllocationImpl());
 		this.initComponents();
 		this.initLayout();
 	}
 		
-	private ManagerBuddyMemoryAllocation buddy;
+	private ManagementBuddyMemoryAllocation buddy;
 	private ToolTipManagerBuddyMemoryAllocation tooltip;
 	private JLabel lblProcessCountLabel;	
 	private JLabel lblProcessSpaceLabel;	
@@ -39,8 +38,8 @@ public class PanelBSBuddySystemeMenuLabelImpl extends PanelBSBuddySystemeMenuAbs
 	private ButtonGroupProcessImpl groupProcess;
 	
 	@Override
-	protected void initComponents() {
-		buddy = (ManagerBuddyMemoryAllocation) this.getManagement();
+	protected void initComponentsMenu() {
+		buddy = (ManagementBuddyMemoryAllocation) this.getManagement();
 		tooltip = (ToolTipManagerBuddyMemoryAllocation) this.getToolTipManager();
 		
 		//ImageIcon imgHelp = this.getImageIconHelp();
@@ -130,5 +129,10 @@ public class PanelBSBuddySystemeMenuLabelImpl extends PanelBSBuddySystemeMenuAbs
 	@Override
 	public Integer getHeightMenu() {
 		return 110;
+	}
+
+	@Override
+	protected void initMethods() {
+		// nothing
 	}
 }

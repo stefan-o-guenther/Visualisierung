@@ -7,6 +7,9 @@ package Base;
 
 public enum EnumVisualizationStatus {
 	START,
+	INPUT,
 	RUN,
-	FINISHED
+	NEXT,
+	FINISHED,
+	ERROR
 }

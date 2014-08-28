@@ -2,5 +2,8 @@ package Rechnernetze.Queueing_And_Loss;
 
 public interface PacketListInput extends PacketList {
 
-	void setPacketListError(PacketListError packetListError);
+	Router getRouter();
+	void setRouter(Router router);
+	
+	Integer getMinDistance();
 }

@@ -14,21 +14,18 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import Base.ImageLoader;
-import Base.ManagementAutomatic;
-import Base.ManagementAutomaticTestImpl;
-import Base.PanelMenuAutomaticControlAbstract;
-import Base.ToolTipManagerAutomatic;
-import Base.ToolTipManagerAutomaticTestImpl;
+import Base.ManagementTestImpl;
+import Base.PanelMenuControlAbstract;
+import Base.ToolTipManagerTestImpl;
 
-public class PanelRNPipelineProtocolMenuAutomaticControlImpl extends PanelMenuAutomaticControlAbstract {	
+public class PanelRNPipelineProtocolMenuAutomaticControlImpl extends PanelMenuControlAbstract {	
 	
 	public PanelRNPipelineProtocolMenuAutomaticControlImpl(ManagementPipelineProtocol management, ToolTipManagerPipelineProtocol tooltip) {
 		super(management, tooltip);
-		this.initPanel();
 	}
 	
 	private PanelRNPipelineProtocolMenuAutomaticControlImpl() {
-		super(new ManagementAutomaticTestImpl(), new ToolTipManagerAutomaticTestImpl());
+		super(new ManagementTestImpl(), new ToolTipManagerTestImpl());
 		this.initComponents();
 		this.initLayout();
 	}
@@ -46,36 +43,38 @@ public class PanelRNPipelineProtocolMenuAutomaticControlImpl extends PanelMenuAu
 	private ManagementPipelineProtocol management;
 	private ToolTipManagerPipelineProtocol tooltip;
 	
-	private Integer maxWait = 2000;
-	private Integer minWait = 125;
-	private Integer step = 125;
-	private Integer initWait = 1000;	
 	
-	protected void initComponents() {
+	
+	protected void initComponentsMenu() {
 		this.management = (ManagementPipelineProtocol) this.getManagement();
 		this.tooltip = (ToolTipManagerPipelineProtocol) this.getToolTipManager();
 		
+		Integer maxWait = 2000;
+		Integer minWait = 125;
+		Integer step = 125;
+		Integer initWait = 1000;	
+		
 		lblToolTip = new JLabel(" ");
 		lblToolTip.setIcon(ImageLoader.getImageIconHelp16());
-		lblToolTip.setToolTipText(tooltip.getToolTipSpeed());
+		lblToolTip.setToolTipText(tooltip.getToolTipAutomaticCheckbox());
 		
 		lblRabbit = new JLabel("");
 		lblRabbit.setIcon(ImageLoader.getImageIconRabbit());
 		
 		sliderSpeed = new JSlider();
-		sliderSpeed.setMinimum(this.minWait);
-		sliderSpeed.setMaximum(this.maxWait);
+		sliderSpeed.setMinimum(minWait);
+		sliderSpeed.setMaximum(maxWait);
 		sliderSpeed.setInverted(true);
-		sliderSpeed.setValue(this.initWait);
+		sliderSpeed.setValue(initWait);
 		
-		sliderSpeed.setMajorTickSpacing(this.step); //Abst‰nde im Groﬂraster
+		sliderSpeed.setMajorTickSpacing(step); //Abst‰nde im Groﬂraster
 		sliderSpeed.setBackground(background);
 		sliderSpeed.setPaintTicks(true);
 		sliderSpeed.setSnapToTicks(true);
 		sliderSpeed.setPaintLabels(false);
 		//sliderSpeed.setMinorTickSpacing(10); //Abst‰nde im Feinraster
     	
-    	sliderSpeed.addChangeListener(changeSpeed);
+    	
     	
     	setSpeed();    	
 	}
@@ -138,7 +137,29 @@ public class PanelRNPipelineProtocolMenuAutomaticControlImpl extends PanelMenuAu
 					.addGap(346))
 		);
 		setLayout(groupLayout);
-	}		
+	}	
+	
+	@Override
+	protected void initMethods() {
+		
+		ActionListener actionAuto = new ActionListener() {
+			public void actionPerformed (ActionEvent e) {
+				if (management != null) {
+					management.setAutomaticChecked(isAutomaticChecked());
+				}
+				updateAutomatic();
+			}
+		};
+		
+		ChangeListener changeSpeed = new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				setSpeed();
+				updateAutomatic();
+			}
+		};
+		
+		sliderSpeed.addChangeListener(changeSpeed);		
+	}
 	
 	private void updateAutomatic() {
 		updatePanel();
@@ -162,30 +183,10 @@ public class PanelRNPipelineProtocolMenuAutomaticControlImpl extends PanelMenuAu
 			Boolean autoChe = management.isAutomaticChecked();
 			sliderSpeed.setEnabled(autoChe);
 		}
-	}
-	
-
-	
-	private ActionListener actionAuto = new ActionListener() {
-		public void actionPerformed (ActionEvent e) {
-			if (management != null) {
-				management.setAutomaticChecked(isAutomaticChecked());
-			}
-			updateAutomatic();
-		}
-	};
-	
-	private ChangeListener changeSpeed = new ChangeListener() {
-		public void stateChanged(ChangeEvent arg0) {
-			setSpeed();
-			updateAutomatic();
-		}
-	};
-	
-	
+	}	
 
 	@Override
 	public Integer getHeightMenu() {
 		return 10;
-	}
+	}	
 }

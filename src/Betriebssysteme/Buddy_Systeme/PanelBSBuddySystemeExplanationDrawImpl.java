@@ -12,12 +12,11 @@ import Base.PanelModelDrawAbstract;
 
 public class PanelBSBuddySystemeExplanationDrawImpl extends PanelModelDrawAbstract {
 
-	public PanelBSBuddySystemeExplanationDrawImpl(ManagerBuddyMemoryAllocation buddy, ToolTipManagerBuddyMemoryAllocation tooltip) {
+	public PanelBSBuddySystemeExplanationDrawImpl(ManagementBuddyMemoryAllocation buddy, ToolTipManagerBuddyMemoryAllocation tooltip) {
 		super(buddy, tooltip);
-		this.initPanel();		
 	}
 
-	private ManagerBuddyMemoryAllocation buddy;	
+	private ManagementBuddyMemoryAllocation buddy;	
 	private final Integer LENGTH = 15;
 	
 	private void drawLine(String text, Color color, Integer line) {
@@ -55,6 +54,6 @@ public class PanelBSBuddySystemeExplanationDrawImpl extends PanelModelDrawAbstra
 	
 	@Override
 	protected void initComponents() {
-		buddy = (ManagerBuddyMemoryAllocation) this.getManagement();
+		buddy = (ManagementBuddyMemoryAllocation) this.getManagement();
 	}
 }

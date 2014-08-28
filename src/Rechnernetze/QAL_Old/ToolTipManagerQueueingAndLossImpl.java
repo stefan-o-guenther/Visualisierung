@@ -5,7 +5,9 @@
 
 package Rechnernetze.QAL_Old;
 
-public class ToolTipManagerQueueingAndLossImpl implements ToolTipManagerQueueingAndLoss {
+import Base.ToolTipManagerAbstract;
+
+public class ToolTipManagerQueueingAndLossImpl extends ToolTipManagerAbstract implements ToolTipManagerQueueingAndLoss {
 	
 	public String getToolTipTitle() {
 		String tooltipTitle = ""

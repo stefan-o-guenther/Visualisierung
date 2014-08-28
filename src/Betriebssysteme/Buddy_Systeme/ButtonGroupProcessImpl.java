@@ -5,6 +5,7 @@
 
 package Betriebssysteme.Buddy_Systeme;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 
@@ -14,14 +15,14 @@ import Base.ButtonGroupAbstract;
 
 public class ButtonGroupProcessImpl extends ButtonGroupAbstract {
 
-	public ButtonGroupProcessImpl(ActionListener actionProcess) {
-		super();		
-		this.setActionListener(actionProcess);
-		this.setRadioButtons(arrayNames);
-		this.initMapProcess();
+	public ButtonGroupProcessImpl(ManagementBuddyMemoryAllocation buddy) {
+		super(buddy);
+		try {
+			this.initMapProcess();
+		} catch (Exception ex) {
+			throw ex;
+		}		
 	}
-	
-	private String[] arrayNames = {"Prozess starten", "Prozess beenden"};
 	
 	private HashMap<String, EnumProcess> mapProcess;
 	
@@ -42,5 +43,29 @@ public class ButtonGroupProcessImpl extends ButtonGroupAbstract {
 	public EnumProcess getSelectedButtonEnum() {		
 		String actionCommand = this.getSelectedButtonString();
 		return mapProcess.get(actionCommand);
+	}
+	
+	public void selectRadioButtonStart() {
+		this.selectRadioButton(getRadioButtonStart());
+	}
+	
+	public void selectRadioButtonStop() {
+		this.selectRadioButton(getRadioButtonStop());
+	}
+
+	@Override
+	protected String[] getArrayNames() {
+		String[] arrayNames = {"Prozess starten", "Prozess beenden"};
+		return arrayNames;
+	}
+
+	@Override
+	protected ActionListener getActionListener() {
+		return new ActionListener() {
+			public void actionPerformed (ActionEvent e) {
+				ManagementBuddyMemoryAllocation buddy = (ManagementBuddyMemoryAllocation) getManagement();
+				buddy.setProcessOperation(getSelectedButtonEnum());
+			}	
+		};
 	}
 }

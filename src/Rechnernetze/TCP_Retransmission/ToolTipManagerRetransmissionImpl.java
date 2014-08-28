@@ -5,7 +5,9 @@
 
 package Rechnernetze.TCP_Retransmission;
 
-public class ToolTipManagerRetransmissionImpl implements ToolTipManagerRetransmission {
+import Base.ToolTipManagerAbstract;
+
+public class ToolTipManagerRetransmissionImpl extends ToolTipManagerAbstract implements ToolTipManagerRetransmission {
 	
 	public String getToolTipTitle() {
 		String tooltipTitle = ""

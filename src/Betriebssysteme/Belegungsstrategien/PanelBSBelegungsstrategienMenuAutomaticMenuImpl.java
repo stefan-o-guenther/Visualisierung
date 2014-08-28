@@ -19,15 +19,15 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import Base.EnumVisualizationStatus;
 import Base.Labeling;
 import Base.MessageBox;
-import Base.PanelMenuAutomaticMenuAbstract;
+import Base.PanelMenuMenuAbstract;
 
-public class PanelBSBelegungsstrategienMenuAutomaticMenuImpl extends PanelMenuAutomaticMenuAbstract {
+public class PanelBSBelegungsstrategienMenuAutomaticMenuImpl extends PanelMenuMenuAbstract {
 
 	public PanelBSBelegungsstrategienMenuAutomaticMenuImpl(ManagementFragmentation fragmentation, ToolTipManagerFragmentation tooltip) {
 		super(fragmentation, tooltip);
-		this.initPanel();
 	}
 	
 	private PanelBSBelegungsstrategienMenuAutomaticMenuImpl() {
@@ -62,6 +62,32 @@ public class PanelBSBelegungsstrategienMenuAutomaticMenuImpl extends PanelMenuAu
 	private JTextField tfSpace;
 	private JTextField tfGeneralStorage;
 	
+	private void inputNumber() {
+		try {
+			String text = tfSpace.getText();
+			Integer space = new Integer(text);
+			fragmentation.inputNumber(space);	
+		} catch (Exception ex) {
+			tfSpace.setText("");
+			MessageBox.showErrorMessage("Keine ganze Zahl eingebeben!");
+		}
+	}
+	
+	private List<Integer> getGeneralStorage() {
+		List<Integer> listGeneralStorage = new ArrayList<Integer>();
+		try {			
+			String storage = tfGeneralStorage.getText();
+			String[] arrayStorage = storage.split(",");
+			for (String s : arrayStorage) {
+				Integer space = new Integer(s);
+				listGeneralStorage.add(space);
+			}			
+		} catch (Exception ex) {
+			MessageBox.showErrorMessage("Hauptspeicher ist falsch");
+		}	
+		return listGeneralStorage;
+	}
+	
 	@Override
 	public void updatePanel() {
 		lblTotalSpaceLabel.setEnabled(true);
@@ -75,7 +101,7 @@ public class PanelBSBelegungsstrategienMenuAutomaticMenuImpl extends PanelMenuAu
     	lblStrategy.setEnabled(true);
     	lblSpace.setEnabled(true);
     	
-    	EnumMemoryStatus status = fragmentation.getStatus();    	
+    	EnumVisualizationStatus status = fragmentation.getStatus();    	
     	switch (status) {
 	    	case START: {
 	    		tfGeneralStorage.setEnabled(true);
@@ -89,8 +115,7 @@ public class PanelBSBelegungsstrategienMenuAutomaticMenuImpl extends PanelMenuAu
 	        	btnAssumeReset.setText(Labeling.ASSUME);
 	        	btnSaveStepStartStop.setEnabled(false);
 	        	btnSaveStepStartStop.setText(Labeling.SAVE);	        	
-	        	fragmentation.setAutomaticChecked(false);
-	    		break;
+	        	break;
 	    	}
 	    	case INPUT: {
 	    		tfGeneralStorage.setEnabled(false);
@@ -103,11 +128,9 @@ public class PanelBSBelegungsstrategienMenuAutomaticMenuImpl extends PanelMenuAu
 	        	btnAssumeReset.setText(Labeling.RESET);
 	        	btnSaveStepStartStop.setEnabled(true);
 	        	btnSaveStepStartStop.setText(Labeling.SAVE);
-	        	fragmentation.setAutomaticChecked(false);
-	    		break;
+	        	break;
 	    	}
-	    	case SEARCH:
-	    	case CHOOSE: {
+	    	case RUN: {
 	    		tfGeneralStorage.setEnabled(false);
 	    		tfGeneralStorage.setEditable(false);
 	    		btnExample.setEnabled(false);
@@ -120,6 +143,20 @@ public class PanelBSBelegungsstrategienMenuAutomaticMenuImpl extends PanelMenuAu
 	        	btnSaveStepStartStop.setText(fragmentation.getButtonAutomaticText());
 	        	break;
 	    	}
+	    	case NEXT: {
+	    		tfGeneralStorage.setEnabled(false);
+	    		tfGeneralStorage.setEditable(false);
+	    		btnExample.setEnabled(false);
+	    		cbStrategy.setEnabled(false);
+	        	tfSpace.setEnabled(false);
+	        	tfSpace.setEditable(false);
+	        	tfSpace.setText("");
+	        	btnAssumeReset.setEnabled(true);
+	        	btnAssumeReset.setText(Labeling.RESET);
+	        	btnSaveStepStartStop.setEnabled(true);
+	        	btnSaveStepStartStop.setText(Labeling.NEXT_STEP);
+	        	break;
+	    	}
 	    	case FINISHED: {
 	    		tfGeneralStorage.setEnabled(false);
 	    		tfGeneralStorage.setEditable(false);
@@ -130,7 +167,7 @@ public class PanelBSBelegungsstrategienMenuAutomaticMenuImpl extends PanelMenuAu
 	        	tfSpace.setText("");
 	        	btnAssumeReset.setEnabled(true);
 	        	btnAssumeReset.setText(Labeling.RESET);
-	        	btnSaveStepStartStop.setEnabled(!(fragmentation.isAutomaticChecked()));
+	        	btnSaveStepStartStop.setEnabled(false);
 	        	btnSaveStepStartStop.setText(Labeling.NEXT_STEP);
 	        	break;
 	    	}
@@ -146,7 +183,7 @@ public class PanelBSBelegungsstrategienMenuAutomaticMenuImpl extends PanelMenuAu
 	}	
 	
 	@Override
-	protected void initComponents() {
+	protected void initComponentsMenu() {
 		this.fragmentation = (ManagementFragmentation) getManagement();
 		this.tooltip = (ToolTipManagerFragmentation) getToolTipManager();
 		
@@ -176,14 +213,12 @@ public class PanelBSBelegungsstrategienMenuAutomaticMenuImpl extends PanelMenuAu
 		tfGeneralStorage.setColumns(10);
 		tfGeneralStorage.setText("");
 		
-		btnAssumeReset = new JButton(Labeling.RESET);
-		btnAssumeReset.addActionListener(ActionAssumeReset);
+		btnAssumeReset = new JButton(Labeling.RESET);		
 					
-		btnSaveStepStartStop = new JButton(Labeling.ASSUME);
-		btnSaveStepStartStop.addActionListener(ActionSaveStartStop);
+		btnSaveStepStartStop = new JButton(Labeling.ASSUME);		
 		
 		btnExample = new JButton("Fragmentierung laden");
-		btnExample.addActionListener(ActionExample);
+		
     	
     	lblTotalSpaceLabel = new JLabel(Labeling.WHOLE_SPACE+":");		
 		lblTotalSpaceOutput = new JLabel("");		
@@ -279,6 +314,67 @@ public class PanelBSBelegungsstrategienMenuAutomaticMenuImpl extends PanelMenuAu
 	}
 	
 	@Override
+	protected void initMethods() {
+		ActionListener ActionSaveStartStop = new ActionListener() {
+			public void actionPerformed (ActionEvent e) {
+				try {
+					EnumVisualizationStatus status = fragmentation.getStatus();
+					switch (status) {
+						case INPUT: {
+							inputNumber();
+							break;
+						}
+						case RUN:
+						case NEXT: {
+							fragmentation.executeNormal();
+							break;
+						}
+						default: {
+							break;
+						}
+					}				
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		};		
+		
+		ActionListener ActionExample = new ActionListener() {
+			public void actionPerformed (ActionEvent e) {
+				try {
+					tfGeneralStorage.setText("10,4,20,18,7,9,12,15");				
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		};
+		
+		ActionListener ActionAssumeReset = new ActionListener() {
+			public void actionPerformed (ActionEvent e) {
+				try {
+					if (fragmentation.getStatus() == EnumVisualizationStatus.START) {
+						List<Integer> listGeneralStorage = getGeneralStorage();
+						if ((listGeneralStorage != null) && (listGeneralStorage.size() > 0)) {						
+							// Strategie festlegen
+							fragmentation.assume(cbStrategy.getStrategy(), getGeneralStorage());
+						}						
+					} else {
+						// zurücksetzen
+						fragmentation.reset();
+						tfSpace.setText("");
+					}
+				} catch (Exception ex) {
+					// nothing
+				}
+			}
+		};
+		
+		btnAssumeReset.addActionListener(ActionAssumeReset);
+		btnSaveStepStartStop.addActionListener(ActionSaveStartStop);
+		btnExample.addActionListener(ActionExample);
+	}
+	
+	@Override
 	public Integer getHeightMenu() {
 		return 200;
 	}	
@@ -286,89 +382,5 @@ public class PanelBSBelegungsstrategienMenuAutomaticMenuImpl extends PanelMenuAu
 	@Override
 	public Integer getLengthMenu() {
 		return 460;
-	}
-	
-	private ActionListener ActionAssumeReset = new ActionListener() {
-		public void actionPerformed (ActionEvent e) {
-			try {
-				if (fragmentation.getStatus() == EnumMemoryStatus.START) {
-					List<Integer> listGeneralStorage = getGeneralStorage();
-					if ((listGeneralStorage != null) && (listGeneralStorage.size() > 0)) {						
-						// Strategie festlegen
-						fragmentation.assume(cbStrategy.getStrategy(), getGeneralStorage());
-					}						
-				} else {
-					// zurücksetzen
-					fragmentation.stopAutomatic();
-					fragmentation.reset();
-					tfSpace.setText("");
-				}
-			} catch (Exception ex) {
-				// nothing
-			}
-		}
-	};
-	
-	private void inputNumber() {
-		try {
-			String text = tfSpace.getText();
-			Integer space = new Integer(text);
-			fragmentation.inputNumber(space);	
-		} catch (Exception ex) {
-			tfSpace.setText("");
-			MessageBox.showErrorMessage("Keine ganze Zahl eingebeben!");
-		}
-	}
-	
-	private ActionListener ActionSaveStartStop = new ActionListener() {
-		public void actionPerformed (ActionEvent e) {
-			try {
-				EnumMemoryStatus status = fragmentation.getStatus();
-				switch (status) {
-					case INPUT: {
-						inputNumber();
-						break;
-					}
-					case SEARCH:
-					case CHOOSE:
-					case FINISHED: {
-						if (!(executeManualAutomatic())) {
-							fragmentation.showErrorMessage();
-						}
-						break;
-					}
-					default: {
-						break;
-					}
-				}				
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-	};	
-	
-	private List<Integer> getGeneralStorage() {
-		List<Integer> listGeneralStorage = new ArrayList<Integer>();
-		try {			
-			String storage = tfGeneralStorage.getText();
-			String[] arrayStorage = storage.split(",");
-			for (String s : arrayStorage) {
-				Integer space = new Integer(s);
-				listGeneralStorage.add(space);
-			}			
-		} catch (Exception ex) {
-			MessageBox.showErrorMessage("Hauptspeicher ist falsch");
-		}	
-		return listGeneralStorage;
-	}
-	
-	private ActionListener ActionExample = new ActionListener() {
-		public void actionPerformed (ActionEvent e) {
-			try {
-				tfGeneralStorage.setText("10,4,20,18,7,9,12,15");				
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-		}
-	};
+	}	
 }

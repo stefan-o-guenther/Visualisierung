@@ -15,32 +15,22 @@ public class PanelBSSeitenersetzungsstrategienModelImpl extends PanelModelDrawAb
 	
 	public PanelBSSeitenersetzungsstrategienModelImpl(ManagementPaging paging, ToolTipManagerPaging tooltip) {
 		super(paging, tooltip);
-		this.initPanel();
 	}
 	
-	private Integer HEIGHT_BOX = 35;
-	private Integer WIDTH_BOX = 35;
-	private Integer WIDTH_LABEL = 80;
-	private Integer X_FIRST = 5;
-	private Integer Y_FIRST = 0;	
-	private Integer GAP = 5;
-	private Integer X_NUMBER = 19;
-	private Integer Y_NUMBER = 25;
+	private final int HEIGHT_BOX = 35;
+	private final int WIDTH_BOX = 35;
+	private final int WIDTH_LABEL = 80;
+	private final int X_FIRST = 5;
+	private final int Y_FIRST = 0;	
+	private final int GAP = 5;
+	private final int X_NUMBER = 19;
+	private final int Y_NUMBER = 25;
 		
 	private ManagementPaging paging;
 	
 	@Override
 	public void initComponents() {
 		this.paging = (ManagementPaging) getManagement();
-		
-		HEIGHT_BOX = 35;
-		WIDTH_BOX = 35;
-		WIDTH_LABEL = 80;
-		X_FIRST = 5;
-		Y_FIRST = 0;	
-		GAP = 5;
-		X_NUMBER = 19;
-		Y_NUMBER = 25;
 	}
 	
 	private void labelNames(String text, Integer countY, Boolean gapY) {		
@@ -55,7 +45,7 @@ public class PanelBSSeitenersetzungsstrategienModelImpl extends PanelModelDrawAb
 		g2d.setFont(new Font(font.getFontName(), Font.BOLD, 18));        
 		g2d.drawString(text, x+10, y+Y_NUMBER);
 		    
-		if (paging.useRM()) {
+		if (paging.isRmVisible()) {
 			g2d.setFont(new Font(font.getFontName(), Font.BOLD, 10));
 			g2d.drawString("R", x+w-15, y+12);
 			g2d.drawString("M", x+w-15, y+h-3);
@@ -80,14 +70,14 @@ public class PanelBSSeitenersetzungsstrategienModelImpl extends PanelModelDrawAb
 	}	
 	
 	private void printRM(Cache cache, Integer countX, Integer countY, Boolean gapX, Boolean gapY) {		
-		if ((!(gapY)) && (paging.useRM())) {
+		if ((!(gapY)) && (paging.isRmVisible())) {
 			Integer x = getX(countX, gapX);			
 			Integer y = getY(countY, gapY);
 			String r = "";
 			String m = "";
 			
 			
-			if (paging.canViewOldStates()) {
+			if (paging.isViewOldStatesEnabled()) {
 				List<Integer> listRPrevious = cache.getRPrevious();
 				List<Integer> listMPrevious = cache.getMPrevious();
 				Integer sizeRPrevious = listRPrevious.size();
@@ -138,14 +128,14 @@ public class PanelBSSeitenersetzungsstrategienModelImpl extends PanelModelDrawAb
 		return x + WIDTH_BOX - X_NUMBER;
 	}
 	
-	private void printNumber(Integer number, Integer countX, Integer countY, Boolean gapX, Boolean gapY) {
+	private void printNumber(Integer number, Integer countX, Integer countY, Boolean gapX, Boolean gapY, Color color) {
 		Integer x = getX(countX, gapX);			
 		Integer y = getY(countY, gapY);		
 		String sNumber = "";
 		if (number >= 0) {
 			sNumber = number.toString();
 		}
-		g2d.setColor(Color.BLACK);
+		g2d.setColor(color);
 		g2d.setFont(new Font(g2d.getFont().getFontName(), Font.BOLD, 18));
 		g2d.drawString(sNumber, getXNumber(x), y+Y_NUMBER);
 	}
@@ -209,12 +199,16 @@ public class PanelBSSeitenersetzungsstrategienModelImpl extends PanelModelDrawAb
 						}						
 					}
 					if (cache != null) {
-						printNumber(cache.getNumber(), indexX, indexY, gapX, gapY);
+						printNumber(cache.getNumber(), indexX, indexY, gapX, gapY, Color.BLACK);
 					}					
 				} else {
 					// Beschriftung auf X-Achse
-					Integer number = cacheBox.getNumber();					
-					printNumber(number, indexX, 0, gapX, false);
+					Integer number = cacheBox.getNumber();
+					Color color = Color.BLACK;
+					if (cacheBox.isActivated()) {
+						color = paging.getColor();
+					}
+					printNumber(number, indexX, 0, gapX, false, color);
 				}
 			}
 		}

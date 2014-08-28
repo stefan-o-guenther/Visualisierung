@@ -9,10 +9,10 @@ import java.awt.Color;
 import java.util.List;
 
 import Base.EnumVisualizationStatus;
-import Base.ManagementAutomatic;
+import Base.Management;
 import Base.ManagementCoordinateSystem;
 
-public interface ManagementCongestionAvoidance extends ManagementAutomatic, ManagementCoordinateSystem {
+public interface ManagementCongestionAvoidance extends Management, ManagementCoordinateSystem {
 
 	public Boolean isTcpReno();
 	public void setTcpReno(Boolean reno);

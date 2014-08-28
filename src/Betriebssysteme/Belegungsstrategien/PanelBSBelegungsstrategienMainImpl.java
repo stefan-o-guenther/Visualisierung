@@ -13,10 +13,7 @@ public class PanelBSBelegungsstrategienMainImpl extends PanelMainAbstract {
 		
 	public PanelBSBelegungsstrategienMainImpl() {
 		super(new ManagementFragmentationImpl(), new ToolTipManagerFragmentationImpl());
-		this.initPanel();
 	}
-	
-	private static final long serialVersionUID = 1L;
 	
 	@Override
 	protected PanelMenuAbstract getNewPanelMenu() {

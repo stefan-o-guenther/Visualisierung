@@ -3,15 +3,13 @@ package Rechnernetze.Pipeline_Protocol;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
-import Base.PanelAbstract;
 import Base.PanelMenuAbstract;
-import Base.PanelMenuAutomaticMenuAbstract;
+import Base.PanelMenuMenuAbstract;
 
-public class PanelRNPipelineProtocolMenuAutomaticMenuBoxImpl extends PanelMenuAutomaticMenuAbstract {
+public class PanelRNPipelineProtocolMenuAutomaticMenuBoxImpl extends PanelMenuMenuAbstract {
 
 	public PanelRNPipelineProtocolMenuAutomaticMenuBoxImpl(ManagementPipelineProtocol pipeline, ToolTipManagerPipelineProtocol tooltip) {
 		super(pipeline, tooltip);
-		this.initPanel();
 	}
 	
 	private PanelRNPipelineProtocolMenuAutomaticMenuBoxImpl() {
@@ -20,7 +18,7 @@ public class PanelRNPipelineProtocolMenuAutomaticMenuBoxImpl extends PanelMenuAu
 		this.initLayout();
 	}
 	
-	private PanelMenuAutomaticMenuAbstract panelMenu;		
+	private PanelMenuMenuAbstract panelMenu;		
 	private PanelMenuAbstract panelLabel;
 	
 	@Override
@@ -58,7 +56,7 @@ public class PanelRNPipelineProtocolMenuAutomaticMenuBoxImpl extends PanelMenuAu
 	}
 
 	@Override
-	protected void initComponents() {
+	protected void initComponentsMenu() {
 		ManagementPipelineProtocol pipeline = (ManagementPipelineProtocol) this.getManagement();
 		ToolTipManagerPipelineProtocol tooltip = (ToolTipManagerPipelineProtocol) this.getToolTipManager();		
 		panelMenu = new PanelRNPipelineProtocolMenuAutomaticMenuMenuImpl(pipeline, tooltip);		
@@ -81,5 +79,10 @@ public class PanelRNPipelineProtocolMenuAutomaticMenuBoxImpl extends PanelMenuAu
 				.addComponent(panelLabel, GroupLayout.DEFAULT_SIZE, heightMenu, Short.MAX_VALUE)
 		);
 		setLayout(groupLayout);
+	}
+
+	@Override
+	protected void initMethods() {
+		// nothing
 	}
 }

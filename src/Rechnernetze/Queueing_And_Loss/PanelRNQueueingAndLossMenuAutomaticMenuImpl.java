@@ -14,13 +14,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import Base.PanelMenuAutomaticMenuAbstract;
+import Base.PanelMenuMenuAbstract;
 
-public class PanelRNQueueingAndLossMenuAutomaticMenuImpl extends PanelMenuAutomaticMenuAbstract {
+public class PanelRNQueueingAndLossMenuAutomaticMenuImpl extends PanelMenuMenuAbstract {
 
 	public PanelRNQueueingAndLossMenuAutomaticMenuImpl(ManagementQueueingAndLoss qal, ToolTipManagerQueueingAndLoss tooltip) {
 		super(qal, tooltip);
-		this.initPanel();
 	}
 
 	private PanelRNQueueingAndLossMenuAutomaticMenuImpl() {
@@ -38,11 +37,10 @@ public class PanelRNQueueingAndLossMenuAutomaticMenuImpl extends PanelMenuAutoma
 	private JLabel lblLossContent;
 	
 	@Override
-	protected void initComponents() {
+	protected void initComponentsMenu() {
 		this.qal = (ManagementQueueingAndLoss) this.getManagement();
 		
 		btnStart = new JButton("ausf\u00FChren");
-		btnStart.addActionListener(actionStart);		
 		lblTransfersLabel = new JLabel("\u00DCbertragungen:");		
 		lblTransfersContent = new JLabel("00");		
 		lblLossLabel = new JLabel("Verlust:");		
@@ -85,27 +83,33 @@ public class PanelRNQueueingAndLossMenuAutomaticMenuImpl extends PanelMenuAutoma
 		);
 		setLayout(groupLayout);
 	}
+	
+	@Override
+	protected void initMethods() {
+		
+		ActionListener actionStart = new ActionListener() {
+			public void actionPerformed (ActionEvent event) {
+				qal.executeNormal();
+			}
+				
+		};
+		
+		btnStart.addActionListener(actionStart);		
+	}
 
 	@Override
 	public void updatePanel() {
-		// TODO Auto-generated method stub
-		
+		this.lblLossContent.setText(qal.getCountLoss().toString());
+		this.lblTransfersContent.setText(qal.getCountTransfered().toString());
 	}
 
 	@Override
 	public Integer getHeightMenu() {
 		return 130;
-	}
-	
-	private ActionListener actionStart = new ActionListener() {
-		public void actionPerformed (ActionEvent event) {
-			qal.execute();
-		}
-			
-	};
+	}	
 
 	@Override
 	public Integer getLengthMenu() {
 		return 160;
-	}	
+	}		
 }

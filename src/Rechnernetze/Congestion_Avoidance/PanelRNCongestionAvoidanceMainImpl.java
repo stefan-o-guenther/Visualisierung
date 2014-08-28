@@ -13,7 +13,6 @@ public class PanelRNCongestionAvoidanceMainImpl extends PanelMainAbstract {
 
 	public PanelRNCongestionAvoidanceMainImpl() {
 		super(new ManagementCongestionAvoidanceImpl(), new ToolTipManagerCongestionAvoidanceImpl());
-		this.initPanel();
 	}
 
 	@Override

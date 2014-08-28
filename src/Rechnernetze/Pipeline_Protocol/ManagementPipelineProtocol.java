@@ -7,9 +7,9 @@ package Rechnernetze.Pipeline_Protocol;
 
 import java.util.List;
 
-import Base.ManagementAutomatic;
+import Base.ManagementGeometry;
 
-public interface ManagementPipelineProtocol extends ManagementAutomatic {
+public interface ManagementPipelineProtocol extends ManagementGeometry {
 
 	List<Packet> getListPacket();
 	Integer getPositionStart();

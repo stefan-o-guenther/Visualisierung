@@ -12,7 +12,6 @@ public class PanelDefaultModelImpl extends PanelModelDrawAbstract {
 
 	public PanelDefaultModelImpl(ManagementDefault main, ToolTipManagerDefault tooltip) {
 		super(main, tooltip);
-		this.initPanel();
 	}
 	
 	protected void doDrawing() {

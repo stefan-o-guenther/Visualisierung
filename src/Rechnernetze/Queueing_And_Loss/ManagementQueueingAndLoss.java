@@ -7,13 +7,24 @@ package Rechnernetze.Queueing_And_Loss;
 
 import java.util.List;
 
-import Base.ManagementAutomatic;
+import Base.Management;
 
-public interface ManagementQueueingAndLoss extends ManagementAutomatic {
+public interface ManagementQueueingAndLoss extends Management {
 
-	List<Packet> getListInput();
-	List<Packet> getListOutput();
-	List<Packet> getListError();
-	List<Packet> getListRouter();
-	Integer getMaxRouter();
+	public List<Packet> getListInput();
+	public List<Packet> getListOutput();
+	public List<Packet> getListError();
+	public List<Packet> getListRouter();
+	public Integer getMaxRouter();
+	public Integer getCountLoss();
+	public Integer getCountTransfered();
+	
+	public Integer getTransferRate();
+	public void setTransferRate(Integer value);
+	
+	public Integer getProcessingTime();
+	public void setProcessingTime(Integer value);
+	
+	public Integer getPacketInterval();
+	public void setPacketInterval(Integer value);
 }

@@ -11,7 +11,6 @@ public class PanelRNTCPRetransmissionModelImpl extends PanelModelDrawAbstract {
 
 	public PanelRNTCPRetransmissionModelImpl(ManagementRetransmission retransmission, ToolTipManagerRetransmission tooltip) {
 		super(retransmission, tooltip);
-		this.initPanel();
 	}
 	
 	private ManagementRetransmission retransmission;

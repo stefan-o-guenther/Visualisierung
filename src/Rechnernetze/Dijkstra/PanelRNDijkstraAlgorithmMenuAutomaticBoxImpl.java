@@ -1,17 +1,16 @@
 package Rechnernetze.Dijkstra;
 
-import Base.PanelMenuAutomaticBoxNormalAbstract;
-import Base.PanelMenuAutomaticMenuAbstract;
+import Base.PanelMenuBoxStandardAbstract;
+import Base.PanelMenuMenuAbstract;
 
-public class PanelRNDijkstraAlgorithmMenuAutomaticBoxImpl extends PanelMenuAutomaticBoxNormalAbstract {
+public class PanelRNDijkstraAlgorithmMenuAutomaticBoxImpl extends PanelMenuBoxStandardAbstract {
 
 	public PanelRNDijkstraAlgorithmMenuAutomaticBoxImpl(ManagementDijkstraAlgorithm dijkstra, ToolTipManagerDijkstraAlgorithm tooltip) {
 		super(dijkstra, tooltip);
-		this.initPanel();
 	}
 
 	@Override
-	protected PanelMenuAutomaticMenuAbstract getNewPanelMenuAutomaticMenu() {
+	protected PanelMenuMenuAbstract getNewPanelMenuAutomaticMenu() {
 		ManagementDijkstraAlgorithm dijkstra = (ManagementDijkstraAlgorithm) this.getManagement();
 		ToolTipManagerDijkstraAlgorithm tooltip = (ToolTipManagerDijkstraAlgorithm) this.getToolTipManager();
 		return new PanelRNDijkstraAlgorithmMenuAutomaticMenuImpl(dijkstra, tooltip);

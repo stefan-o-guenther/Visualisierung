@@ -8,4 +8,6 @@ package Base;
 public interface ToolTipManager {
 
 	String getToolTipTitle();
+	String getToolTipAutomaticCheckbox();
+	String getToolTipAutomaticSlider();
 }

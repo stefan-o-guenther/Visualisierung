@@ -1,20 +1,19 @@
 package Rechnernetze.Pipeline_Protocol;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import Base.PanelMenuAutomaticMenuAbstract;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import Base.PanelMenuMenuAbstract;
 
-public class PanelRNPipelineProtocolMenuAutomaticMenuMenuImpl extends PanelMenuAutomaticMenuAbstract {
+public class PanelRNPipelineProtocolMenuAutomaticMenuMenuImpl extends PanelMenuMenuAbstract {
 
 	public PanelRNPipelineProtocolMenuAutomaticMenuMenuImpl(ManagementPipelineProtocol pipeline, ToolTipManagerPipelineProtocol tooltip) {
 		super(pipeline, tooltip);
-		this.initPanel();
 	}
 
 	private PanelRNPipelineProtocolMenuAutomaticMenuMenuImpl() {
@@ -44,10 +43,9 @@ public class PanelRNPipelineProtocolMenuAutomaticMenuMenuImpl extends PanelMenuA
 	private ManagementPipelineProtocol pipeline;
 
 	@Override
-	protected void initComponents() {
+	protected void initComponentsMenu() {
 		pipeline = (ManagementPipelineProtocol) this.getManagement();
-		btn1 = new JButton("test");	
-		btn1.addActionListener(ActionExecute);
+		btn1 = new JButton("test");		
 		btn2 = new JButton("New button");		
 	}
 
@@ -80,15 +78,22 @@ public class PanelRNPipelineProtocolMenuAutomaticMenuMenuImpl extends PanelMenuA
 		setLayout(groupLayout);
 	}
 	
-	private ActionListener ActionExecute = new ActionListener() {
-		public void actionPerformed (ActionEvent e) {
-			try {
-				if (pipeline != null) {
-					pipeline.execute();
+	
+
+	@Override
+	protected void initMethods() {
+		ActionListener ActionExecute = new ActionListener() {
+			public void actionPerformed (ActionEvent e) {
+				try {
+					if (pipeline != null) {
+						pipeline.executeNormal();
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
 				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
 			}
-		}
-	};
+		};
+		
+		btn1.addActionListener(ActionExecute);
+	}
 }

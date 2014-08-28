@@ -5,6 +5,7 @@
 
 package Rechnernetze.Congestion_Avoidance;
 
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 
@@ -14,14 +15,10 @@ import Base.ButtonGroupAbstract;
 
 public class ButtonGroupNetworkStrategyImpl extends ButtonGroupAbstract {
 
-	public ButtonGroupNetworkStrategyImpl(ActionListener actionStrategy) {
-		super();
-		this.setActionListener(actionStrategy);
-		this.setRadioButtons(arrayNames);
+	public ButtonGroupNetworkStrategyImpl(ManagementCongestionAvoidance network) {
+		super(network);
 		this.initMapColors();
 	}
-	
-	private String[] arrayNames = {"timeout", "tripple dupl. ACK"};
 	
 	private HashMap<String, EnumNetworkStrategy> mapStrategy;
 	
@@ -31,7 +28,7 @@ public class ButtonGroupNetworkStrategyImpl extends ButtonGroupAbstract {
 		mapStrategy.put(arrayNames[1], EnumNetworkStrategy.TRIPPLE_DUBL_ACK);		
 	}
 	
-	public JRadioButton geRadioButtonTimout() {
+	public JRadioButton getRadioButtonTimout() {
 		return this.getRadioButton(arrayNames[0]);
 	}
 	
@@ -43,4 +40,28 @@ public class ButtonGroupNetworkStrategyImpl extends ButtonGroupAbstract {
 		String actionCommand = this.getSelectedButtonString();
 		return mapStrategy.get(actionCommand);
 	}	
+	
+	public void selectRadioButtonTimeout() {
+		this.selectRadioButton(this.getRadioButtonTimout());
+	}
+	
+	public void selectRadioButtonTrippleDublACK() {
+		this.selectRadioButton(getRadioButtonTrippleDublACK());
+	}
+
+	@Override
+	protected String[] getArrayNames() {
+		String[] arrayNames = {"timeout", "tripple dupl. ACK"};
+		return arrayNames;
+	}
+		
+	@Override
+	protected ActionListener getActionListener() {
+		return new ActionListener() {
+			public void actionPerformed (ActionEvent e) {
+				ManagementCongestionAvoidance network = (ManagementCongestionAvoidance) getManagement();
+				network.setNetworkStrategy(getSelectedButton());					
+			}
+		};
+	}
 }

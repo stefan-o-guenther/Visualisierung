@@ -1,6 +1,6 @@
 package Rechnernetze.Queueing_And_Loss;
 
-import Base.PanelMenuAutomaticControlAbstract;
+import Base.PanelMenuControlAbstract;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
@@ -8,7 +8,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JSlider;
 import javax.swing.ImageIcon;
 
-public class PanelRNQueueingAndLossMenuAutomaticControlImpl extends PanelMenuAutomaticControlAbstract {
+public class PanelRNQueueingAndLossMenuAutomaticControlImpl extends PanelMenuControlAbstract {
 	
 	private JLabel lblTransferRateLabel;
 	private JLabel lblProcessingTimeLabel;
@@ -23,10 +23,7 @@ public class PanelRNQueueingAndLossMenuAutomaticControlImpl extends PanelMenuAut
 	private JLabel lblProcessingTimeIcon2;
 	private JLabel lblArrivalRateIcon;
 	
-	private Integer maxWait = 2000;
-	private Integer minWait = 125;
-	private Integer step = 125;
-	private Integer initWait = 1000;
+	
 
 	public PanelRNQueueingAndLossMenuAutomaticControlImpl(ManagementQueueingAndLoss qal, ToolTipManagerQueueingAndLoss tooltip) {
 		super(qal, tooltip);
@@ -52,7 +49,12 @@ public class PanelRNQueueingAndLossMenuAutomaticControlImpl extends PanelMenuAut
 	
 	
 	@Override
-	protected void initComponents() {
+	protected void initComponentsMenu() {
+		Integer maxWait = 2000;
+		Integer minWait = 125;
+		Integer step = 125;
+		Integer initWait = 1000;
+		
 		lblTransferRateLabel = new JLabel("\u00DCbertragungsrate Eingang:");
 		lblTransferRateLabel.setIcon(new ImageIcon(PanelRNQueueingAndLossMenuAutomaticControlImpl.class.getResource("/Base/img/16x16_help.png")));
 		
@@ -72,37 +74,37 @@ public class PanelRNQueueingAndLossMenuAutomaticControlImpl extends PanelMenuAut
 		lblArrivalRateIcon1.setIcon(new ImageIcon(PanelRNQueueingAndLossMenuAutomaticControlImpl.class.getResource("/Base/img/timeout01.png")));
 		
 		sliderTransferRateIcon = new JSlider();
-		sliderTransferRateIcon.setMinimum(this.minWait);
-		sliderTransferRateIcon.setMaximum(this.maxWait);
+		sliderTransferRateIcon.setMinimum(minWait);
+		sliderTransferRateIcon.setMaximum(maxWait);
 		sliderTransferRateIcon.setInverted(true);
-		sliderTransferRateIcon.setValue(this.initWait);
+		sliderTransferRateIcon.setValue(initWait);
 		
-		sliderTransferRateIcon.setMajorTickSpacing(this.step); //Abst‰nde im Groﬂraster
-		sliderTransferRateIcon.setBackground(background);
+		sliderTransferRateIcon.setMajorTickSpacing(step); //Abst‰nde im Groﬂraster
+		sliderTransferRateIcon.setBackground(this.getBackground());
 		sliderTransferRateIcon.setPaintTicks(true);
 		sliderTransferRateIcon.setSnapToTicks(true);
 		sliderTransferRateIcon.setPaintLabels(false);		
 		
 		sliderProcessingTime = new JSlider();
-		sliderProcessingTime.setMinimum(this.minWait);
-		sliderProcessingTime.setMaximum(this.maxWait);
+		sliderProcessingTime.setMinimum(minWait);
+		sliderProcessingTime.setMaximum(maxWait);
 		sliderProcessingTime.setInverted(true);
-		sliderProcessingTime.setValue(this.initWait);
+		sliderProcessingTime.setValue(initWait);
 		
-		sliderProcessingTime.setMajorTickSpacing(this.step); //Abst‰nde im Groﬂraster
-		sliderProcessingTime.setBackground(background);
+		sliderProcessingTime.setMajorTickSpacing(step); //Abst‰nde im Groﬂraster
+		sliderProcessingTime.setBackground(this.getBackground());
 		sliderProcessingTime.setPaintTicks(true);
 		sliderProcessingTime.setSnapToTicks(true);
 		sliderProcessingTime.setPaintLabels(false);		
 		
 		sliderArrivalRate = new JSlider();
-		sliderArrivalRate.setMinimum(this.minWait);
-		sliderArrivalRate.setMaximum(this.maxWait);
+		sliderArrivalRate.setMinimum(minWait);
+		sliderArrivalRate.setMaximum(maxWait);
 		sliderArrivalRate.setInverted(true);
-		sliderArrivalRate.setValue(this.initWait);
+		sliderArrivalRate.setValue(initWait);
 		
-		sliderArrivalRate.setMajorTickSpacing(this.step); //Abst‰nde im Groﬂraster
-		sliderArrivalRate.setBackground(background);
+		sliderArrivalRate.setMajorTickSpacing(step); //Abst‰nde im Groﬂraster
+		sliderArrivalRate.setBackground(this.getBackground());
 		sliderArrivalRate.setPaintTicks(true);
 		sliderArrivalRate.setSnapToTicks(true);
 		sliderArrivalRate.setPaintLabels(false);
@@ -175,7 +177,7 @@ public class PanelRNQueueingAndLossMenuAutomaticControlImpl extends PanelMenuAut
 	}
 
 	@Override
-	protected Boolean isAutomaticChecked() {
-		return true;
+	protected void initMethods() {		
+		// nothing
 	}
 }

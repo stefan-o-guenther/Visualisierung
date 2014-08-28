@@ -6,7 +6,6 @@
 package Rechnernetze.TCP_Fairness;
 
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Polygon;
 import java.util.List;
 
@@ -16,7 +15,6 @@ public class PanelRNTCPFairnessModelImpl extends PanelModelDrawCoordinateSystemA
 	
 	public PanelRNTCPFairnessModelImpl(ManagementFairness fairness, ToolTipManagerFairness tooltip) {
 		super(fairness, tooltip);
-		this.initPanel();
 	}
 	
 	private ManagementFairness fairness;
@@ -29,10 +27,10 @@ public class PanelRNTCPFairnessModelImpl extends PanelModelDrawCoordinateSystemA
 		for (Integer i = 1; i < size; i++) {
 			Point point1 = listPoints.get(i-1);
 			Point point2 = listPoints.get(i);
-			Integer x1 = cs.XToPositionX(point1.getConnection1());
-			Integer y1 = cs.YToPositionY(point1.getConnection2());
-			Integer x2 = cs.XToPositionX(point2.getConnection1());
-			Integer y2 = cs.YToPositionY(point2.getConnection2());
+			Integer x1 = fairness.XToPositionX(point1.getConnection1());
+			Integer y1 = fairness.YToPositionY(point1.getConnection2());
+			Integer x2 = fairness.XToPositionX(point2.getConnection1());
+			Integer y2 = fairness.YToPositionY(point2.getConnection2());
 			g2d.drawLine(x1, y1, x2, y2);
 		}
 	}
@@ -43,10 +41,10 @@ public class PanelRNTCPFairnessModelImpl extends PanelModelDrawCoordinateSystemA
 		//BasicStroke bs = new BasicStroke(1, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_ROUND, 1.0f, dash, 2f);
 		g2d.setStroke(bs);
 		Integer mfr = fairness.getMaxFlowRate();
-		Integer x1 = cs.XToPositionX(mfr);
-		Integer y1 = cs.YToPositionY(0);
-		Integer x2 = cs.XToPositionX(0);
-		Integer y2 = cs.YToPositionY(mfr);
+		Integer x1 = fairness.XToPositionX(mfr);
+		Integer y1 = fairness.YToPositionY(0);
+		Integer x2 = fairness.XToPositionX(0);
+		Integer y2 = fairness.YToPositionY(mfr);
 		g2d.setColor(fairness.getColorMaxFlowRate());
 		g2d.drawLine(x1, y1, x2, y2);		
 	}
@@ -54,25 +52,25 @@ public class PanelRNTCPFairnessModelImpl extends PanelModelDrawCoordinateSystemA
 	private void printFairnessLine() {
 		BasicStroke bs = new BasicStroke(3, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL);
 		g2d.setStroke(bs);
-		int xMax = cs.getXMax().intValue();
-		int yMax = cs.getYMax().intValue();
+		int xMax = fairness.getXMax().intValue();
+		int yMax = fairness.getYMax().intValue();
 		Integer max = 0;
 		if (xMax > yMax) {
 			max = yMax;
 		} else {
 			max = xMax;
 		}
-		Integer x1 = cs.XToPositionX(0);
-		Integer y1 = cs.YToPositionY(0);
-		Integer x2 = cs.XToPositionX(max);
-		Integer y2 = cs.YToPositionY(max);
+		Integer x1 = fairness.XToPositionX(0);
+		Integer y1 = fairness.YToPositionY(0);
+		Integer x2 = fairness.XToPositionX(max);
+		Integer y2 = fairness.YToPositionY(max);
 		g2d.setColor(fairness.getColorFairness());
 		g2d.drawLine(x1, y1, x2, y2);
 		
 		// Pfeil bei Fairness
 		
 		
-		Integer arrow = cs.getArrowLength() * 2;
+		Integer arrow = fairness.getArrowLength() * 2;
 		Integer a = arrow / 2;
 		Integer b = a / 2;		
 		
@@ -95,8 +93,8 @@ public class PanelRNTCPFairnessModelImpl extends PanelModelDrawCoordinateSystemA
 		List<Point> listPoints = fairness.getListPoints();
 		for (Point point : listPoints) {
 			if (point.getType() != EnumPoint.ROUTE) {
-				Integer x = cs.XToPositionX(point.getConnection1());
-				Integer y = cs.YToPositionY(point.getConnection2());
+				Integer x = fairness.XToPositionX(point.getConnection1());
+				Integer y = fairness.YToPositionY(point.getConnection2());
 				g2d.setColor(point.getColor());
 				g2d.fillOval(x-5, y-5, 10, 10);
 			}			

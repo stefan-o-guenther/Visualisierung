@@ -13,7 +13,6 @@ public class PanelRNQueueingAndLossMainImpl extends PanelMainAbstract {
 
 	public PanelRNQueueingAndLossMainImpl() {
 		super(new ManagementQueueingAndLossImpl(1E-4), new ToolTipManagerQueueingAndLossImpl());
-		this.initPanel();
 	}
 
 	@Override

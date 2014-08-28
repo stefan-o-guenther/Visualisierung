@@ -80,12 +80,12 @@ public class CacheBoxImpl implements CacheBox {
 	}
 
 	@Override
-	public Boolean isActivate() {
+	public Boolean isActivated() {
 		return activated;
 	}
 
 	@Override
-	public void activate(Boolean value) {
+	public void setActivated(Boolean value) {
 		if (value != null) {
 			activated = value;
 		}

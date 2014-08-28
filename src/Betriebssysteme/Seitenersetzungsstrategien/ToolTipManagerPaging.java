@@ -16,4 +16,5 @@ public interface ToolTipManagerPaging extends ToolTipManager {
 	String getToolTipPagingError();
 	String getToolTipR();
 	String getToolTipM();
+	String getToolTipOldStates();
 }

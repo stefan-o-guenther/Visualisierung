@@ -18,12 +18,11 @@ public interface ManagementPaging extends Management {
 	public Integer getMaxDisk();		
 	public Boolean resetRBits();	
 	public Boolean setMBit();	
-	public EnumPagingStatus getStatus();	
 	public List<CacheBox> getListCache();	
-	public Boolean useRM();	
+	public Boolean isRmVisible();	
 	public Integer getErrorCount();	
 	public Color getColor();
-	public Boolean canViewOldStates();
-	public void setViewOldStates(Boolean value);
-	public Boolean canUseRM();
+	public Boolean isViewOldStatesEnabled();
+	public void setViewOldStatesEnabled(Boolean value);
+	public Boolean isRmEnabled();
 }

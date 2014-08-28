@@ -1,6 +1,5 @@
 package Rechnernetze.Queueing_And_Loss;
 
-import java.util.List;
 
 public class PacketListErrorImpl extends PacketListAbstract implements PacketListError {
 
@@ -10,21 +9,7 @@ public class PacketListErrorImpl extends PacketListAbstract implements PacketLis
 	}
 
 	@Override
-	public void execute(long timeCurrent) {
-		// TODO Auto-generated method stub
-
+	protected void putPacket(Packet packet) {
+		// nothing
 	}
-
-	@Override
-	public List<Packet> getList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addPacket(Packet packet, long timeCurrent) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

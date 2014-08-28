@@ -5,9 +5,9 @@
 
 package Rechnernetze.Pipeline_Protocol;
 
-import Base.ToolTipManagerAutomaticAbstract;
+import Base.ToolTipManagerAbstract;
 
-public class ToolTipManagerPipelineProtocolImpl extends ToolTipManagerAutomaticAbstract implements ToolTipManagerPipelineProtocol {
+public class ToolTipManagerPipelineProtocolImpl extends ToolTipManagerAbstract implements ToolTipManagerPipelineProtocol {
 	
 	public String getToolTipTitle() {
 		String tooltipTitle = ""

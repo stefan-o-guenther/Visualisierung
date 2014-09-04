@@ -9,8 +9,10 @@ import Base.PanelMenuAbstract;
 
 public class PanelRNTCPRetransmissionMenuImpl extends PanelMenuAbstract {
 
-	public PanelRNTCPRetransmissionMenuImpl(ManagementRetransmission retransmission, ToolTipManagerRetransmission tooltip) {
-		super(retransmission, tooltip);
+	private static final long serialVersionUID = 1L;
+	
+	public PanelRNTCPRetransmissionMenuImpl(ManagementRetransmission retransmission) {
+		super(retransmission);
 	}
 
 	private ManagementRetransmission retransmission;
@@ -39,7 +41,13 @@ public class PanelRNTCPRetransmissionMenuImpl extends PanelMenuAbstract {
 	}
 
 	@Override
-	public Integer getHeightMenu() {
+	public Integer getPanelHeight() {
 		return 200;
+	}
+
+	@Override
+	public Integer getPanelWidth() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

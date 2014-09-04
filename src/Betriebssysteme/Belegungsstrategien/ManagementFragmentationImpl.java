@@ -12,6 +12,8 @@ import Base.EnumAutomaticChecked;
 import Base.EnumVisualizationStatus;
 import Base.ManagementAbstract;
 import Base.MessageBox;
+import Base.PanelAbstract;
+import Base.PanelMenuControlBoxImpl;
 
 public class ManagementFragmentationImpl extends ManagementAbstract implements ManagementFragmentation {
 
@@ -397,7 +399,7 @@ public class ManagementFragmentationImpl extends ManagementAbstract implements M
 				this.setNewValue(value);
 				status = EnumVisualizationStatus.RUN;
 				statusMemory = EnumMemoryStatus.SEARCH;
-				updatePanelMain();
+				this.updateAllPanels();
 			}			
 		} catch (Exception ex) {
 			throw ex;
@@ -428,7 +430,7 @@ public class ManagementFragmentationImpl extends ManagementAbstract implements M
 				}
 			}
 			copyListSpace();
-			updatePanelMain();
+			this.updateAllPanels();
 			return executionOK;			
 		} else {
 			return false;
@@ -551,7 +553,7 @@ public class ManagementFragmentationImpl extends ManagementAbstract implements M
 			this.listSpaceWork = this.getGeneralStorage(list);		
 			copyListSpace();
 			status = EnumVisualizationStatus.INPUT;			
-			updatePanelMain();			
+			this.updateAllPanels();		
 		} catch (Exception ex) {
 			throw ex;
 		}
@@ -570,5 +572,22 @@ public class ManagementFragmentationImpl extends ManagementAbstract implements M
 	@Override
 	public Integer getAutomaticSpace() {
 		return 5;
+	}
+	
+	@Override
+	protected void createPanelMenu() {
+		PanelAbstract panelLeft = new PanelBSBelegungsstrategienMenuImpl(this);
+		PanelAbstract panelRight = new PanelMenuControlBoxImpl(this);
+		panelMenu = this.getPanelCouple(panelLeft, panelRight);
+	}
+
+	@Override
+	protected void createPanelModel() {
+		panelModel = new PanelBSBelegungsstrategienModelImpl(this);
+	}
+
+	@Override
+	protected void createToolTipManager() {
+		tooltip = new ToolTipManagerFragmentationImpl();
 	}
 }

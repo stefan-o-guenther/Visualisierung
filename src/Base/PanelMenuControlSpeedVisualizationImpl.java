@@ -4,12 +4,14 @@ import javax.swing.ImageIcon;
 
 public class PanelMenuControlSpeedVisualizationImpl extends PanelMenuControlSliderAbstract {
 
-	public PanelMenuControlSpeedVisualizationImpl(Management management, ToolTipManager tooltip) {
-		super(management, tooltip);
+	private static final long serialVersionUID = 1L;
+	
+	public PanelMenuControlSpeedVisualizationImpl(Management management) {
+		super(management);
 	}
 	
 	public PanelMenuControlSpeedVisualizationImpl() {
-		super(new ManagementTestImpl(), new ToolTipManagerTestImpl());
+		super(new ManagementTestImpl());
 	}	
 
 	@Override
@@ -61,6 +63,7 @@ public class PanelMenuControlSpeedVisualizationImpl extends PanelMenuControlSlid
 
 	@Override
 	protected String getToolTip() {
+		ToolTipManager tooltip = management.getToolTipManager();
 		return tooltip.getToolTipAutomaticSlider();
 	}
 }

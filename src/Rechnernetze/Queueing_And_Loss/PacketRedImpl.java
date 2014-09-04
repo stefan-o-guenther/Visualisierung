@@ -2,14 +2,23 @@ package Rechnernetze.Queueing_And_Loss;
 
 import java.awt.Color;
 
-import Base.EnumSurface;
-
 public class PacketRedImpl extends PacketAbstract implements PacketRed {
 
-	@Override
-	public Color getColor(EnumSurface surface) {
-		// TODO Auto-generated method stub
-		return null;
+	public PacketRedImpl() {
+		super(0);
 	}
 
+	public PacketRedImpl(Integer position) {
+		super(position);
+	}
+
+	@Override
+	protected Color getColoredColor() {
+		return Color.RED;
+	}
+
+	@Override
+	public Packet getClone() {
+		return new PacketRedImpl(this.getPosition());
+	}	
 }

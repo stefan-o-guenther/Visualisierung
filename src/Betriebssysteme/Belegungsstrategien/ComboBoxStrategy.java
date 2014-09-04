@@ -7,7 +7,9 @@ package Betriebssysteme.Belegungsstrategien;
 
 import javax.swing.JComboBox;
 
-public class ComboBoxStrategy extends JComboBox {
+public class ComboBoxStrategy extends JComboBox<Object> {
+
+	private static final long serialVersionUID = 1L;
 
 	public ComboBoxStrategy() {
 		super(strategies);		
@@ -17,6 +19,6 @@ public class ComboBoxStrategy extends JComboBox {
 	private static EnumMemoryStrategy[] vals = {EnumMemoryStrategy.FIRST_FIT, EnumMemoryStrategy.NEXT_FIT, EnumMemoryStrategy.BEST_FIT, EnumMemoryStrategy.WORST_FIT, EnumMemoryStrategy.SCHNEIDERINNEN_BEST_FIT};
 		
 	public EnumMemoryStrategy getStrategy() {
-		return  vals[super.getSelectedIndex()];
+		return vals[super.getSelectedIndex()];
 	}
 }

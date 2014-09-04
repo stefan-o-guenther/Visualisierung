@@ -15,8 +15,10 @@ import Base.PanelModelDrawAbstract;
 
 public class PanelBSBelegungsstrategienModelImpl extends PanelModelDrawAbstract {
 	
-	public PanelBSBelegungsstrategienModelImpl(ManagementFragmentation fragmentation, ToolTipManagerFragmentation tooltip) {
-		super(fragmentation, tooltip);
+	private static final long serialVersionUID = 1L;
+	
+	public PanelBSBelegungsstrategienModelImpl(ManagementFragmentation fragmentation) {
+		super(fragmentation);
 	}
 	
 	@Override
@@ -141,4 +143,9 @@ public class PanelBSBelegungsstrategienModelImpl extends PanelModelDrawAbstract 
 			ex.printStackTrace();
 		}
     }
+
+	@Override
+	public Integer getPanelHeight() {
+		return 700;
+	}
 }

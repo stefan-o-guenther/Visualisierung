@@ -11,9 +11,12 @@ import java.util.HashMap;
 import java.util.List;
 
 import Base.EnumAutomaticChecked;
+import Base.EnumScrollbar;
 import Base.EnumSurface;
 import Base.EnumVisualizationStatus;
 import Base.ManagementAbstract;
+import Base.PanelAbstract;
+import Base.PanelScrollImpl;
 
 public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract implements ManagementBuddyMemoryAllocation {
 
@@ -44,8 +47,6 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 		processSize = 0;
 		initColors();
 	}
-	
-
 
 	@Override
 	protected void create() {
@@ -170,7 +171,7 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 		} catch (Exception ex) {
 			throw ex;
 		}
-		updatePanelMain();
+		this.updateAllPanels();
 	}
 
 	private void stopProcess() {
@@ -196,7 +197,7 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 		} catch (Exception ex) {
 			throw ex;
 		}
-		updatePanelMain();
+		this.updateAllPanels();
 	}
 
 	@Override
@@ -211,7 +212,7 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 			root = new BuddyNodeImpl(value);
 			status = EnumVisualizationStatus.RUN;	
 			updateList("Hauptspeicher initialisiert.");
-			updatePanelMain();
+			this.updateAllPanels();
 		} catch (Exception ex) {
 			throw ex;
 		}	
@@ -428,7 +429,6 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 
 	@Override
 	protected void updateSize() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -444,7 +444,7 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 				throw new NullPointerException();
 			}
 			this.processOperation = type;
-			this.updatePanelMain();
+			this.updateAllPanels();
 		} catch (Exception ex) {
 			throw ex;
 		}
@@ -489,5 +489,25 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 	@Override
 	public Integer getAutomaticSpace() {
 		return 0;
+	}
+
+	@Override
+	protected void createPanelMenu() {
+		PanelAbstract panelLeft = new PanelBSBuddySystemeMenuImpl(this);
+		PanelAbstract panelRightLeft = new PanelBSBuddySystemeTableImpl(this);
+		PanelAbstract panelRightRight = new PanelBSBuddySystemeLabelImpl(this);
+		PanelAbstract panelRight = this.getPanelCouple(panelRightLeft, panelRightRight);
+		panelMenu = this.getPanelCouple(panelLeft, panelRight);
+	}
+
+	@Override
+	protected void createPanelModel() {
+		PanelAbstract panel = new PanelBSBuddySystemeModelImpl(this);
+		this.panelModel = new PanelScrollImpl(this, panel, EnumScrollbar.NEVER, EnumScrollbar.ALWAYS);
+	}
+
+	@Override
+	protected void createToolTipManager() {
+		this.tooltip = new ToolTipManagerBuddyMemoryAllocationImpl();
 	}
 }

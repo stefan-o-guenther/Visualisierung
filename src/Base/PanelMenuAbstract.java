@@ -7,17 +7,17 @@ package Base;
 
 import javax.swing.ImageIcon;
 
-public abstract class PanelMenuAbstract extends PanelAbstract {
+public abstract class PanelMenuAbstract extends PanelInitAbstract {
 
-	public PanelMenuAbstract(Management management, ToolTipManager tooltip) {
-		super(management, tooltip);
+	private static final long serialVersionUID = 1L;
+	
+	public PanelMenuAbstract(Management management) {
+		super(management);
 	}
 	
 	protected ImageIcon getImageIconHelp() {
 		return ImageLoader.getImageIconHelp16();
 	}
-	
-	public abstract Integer getHeightMenu();
 	
 	protected abstract void initComponentsMenu();
 	protected abstract void initMethods();

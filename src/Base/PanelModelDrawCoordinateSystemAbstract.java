@@ -12,9 +12,10 @@ import java.awt.Polygon;
 
 public abstract class PanelModelDrawCoordinateSystemAbstract extends PanelModelDrawAbstract {
 
-	public PanelModelDrawCoordinateSystemAbstract(ManagementCoordinateSystem management, ToolTipManager tooltip) {
-		super(management, tooltip);
-		
+	private static final long serialVersionUID = 1L;
+	
+	public PanelModelDrawCoordinateSystemAbstract(ManagementCoordinateSystem management) {
+		super(management);		
 	}
 	
 	// coordinate system

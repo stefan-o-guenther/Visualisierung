@@ -39,6 +39,7 @@ public class ImageLoader {
 		}
 	}	
 	
+	/*
 	private static ImageIcon loadImageIconAsStream(String path) throws Exception {
 		try {
 			if (path == null) {
@@ -55,6 +56,7 @@ public class ImageLoader {
 			throw ex;
 		}
 	}
+	*/
 	
 	private static ImageIcon loadImageIconDirectly(String path) {
 		try {

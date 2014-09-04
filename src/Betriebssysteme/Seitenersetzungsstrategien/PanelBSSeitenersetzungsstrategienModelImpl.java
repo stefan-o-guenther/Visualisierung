@@ -13,8 +13,10 @@ import Base.PanelModelDrawAbstract;
 
 public class PanelBSSeitenersetzungsstrategienModelImpl extends PanelModelDrawAbstract {
 	
-	public PanelBSSeitenersetzungsstrategienModelImpl(ManagementPaging paging, ToolTipManagerPaging tooltip) {
-		super(paging, tooltip);
+	private static final long serialVersionUID = 1L;
+
+	public PanelBSSeitenersetzungsstrategienModelImpl(ManagementPaging paging) {
+		super(paging);
 	}
 	
 	private final int HEIGHT_BOX = 35;

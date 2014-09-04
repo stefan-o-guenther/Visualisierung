@@ -25,7 +25,7 @@ public class EdgeImpl extends OutputAbstract implements Edge {
 	private Node nodeA;
 	private Node nodeB;
 	private Integer weight;
-	private EnumOutputStatus status = EnumOutputStatus.NORMAL;
+	//private EnumOutputStatus status = EnumOutputStatus.NORMAL;
 	
 	@Override
 	public Integer getWeight() {

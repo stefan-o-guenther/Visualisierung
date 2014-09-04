@@ -10,19 +10,40 @@ public abstract class ManagementAbstract implements Management {
 
 	public ManagementAbstract() {
 		super();
-		this.init();
 		this.createManagement();
 		this.initializeManagement();
-		this.updatePanelMain();
+		this.createToolTipManager();
+		this.createPanels();
+		this.updateAllPanels();
 	}
 	
-	private void init() {
+	private void createManagement() {
 		surface = EnumSurface.COLORED;
 		height = 0;
 		width = 0;
+		this.isAutomaticRunning = false;
+		this.speed = 0;	
+		this.create();
 	}
 	
-	protected PanelMainAbstract panelMain;
+	private void initializeManagement() {
+		this.time = System.currentTimeMillis();
+		this.resetAutomatic();
+		this.initialize();
+	}
+	
+	private void createPanels() {
+		this.createPanelModel();
+		this.createPanelMenu();
+		this.createPanelTitle();
+	}
+	
+	protected PanelAbstract panelTitle;
+	protected PanelAbstract panelMenu;
+	protected PanelAbstract panelModel;
+	
+	protected ToolTipManager tooltip;
+	
 	protected EnumSurface surface;
 	protected Integer height;
 	protected Integer width;
@@ -41,40 +62,37 @@ public abstract class ManagementAbstract implements Management {
 	protected abstract void showErrorMessage();
 	protected abstract EnumAutomaticChecked keepAutomaticChecked();
 	
+	protected abstract void createPanelMenu();
+	protected abstract void createPanelModel();
+	
+	protected abstract void createToolTipManager();
+	
+	protected void createPanelTitle() {
+		panelTitle = new PanelTitleImpl(this);
+	}	
+	
 	protected void executeWithCheck() {
 		if (!(this.execute())) {
 			this.showErrorMessage();
 		}
 	}
 	
-	protected void updatePanelMain() {
-		if (panelMain != null) {
-			panelMain.updatePanel();
-		}		
-	}
-	
-	protected void updatePanelTitle() {
-		if (panelMain != null) {
-			panelMain.updatePanelTitle();
-		}		
-	}
-	
-	protected void updatePanelMenu() {
-		if (panelMain != null) {
-			panelMain.updatePanelMenu();
-		}		
-	}
-	
-	protected void updatePanelModel() {
-		if (panelMain != null) {
-			panelMain.updatePanelModel();
-		}		
+	protected PanelCoupleImpl getPanelCouple(PanelAbstract panelLeft, PanelAbstract panelRight) {
+		try {
+			if ((panelLeft == null) || (panelRight == null)) {
+				throw new NullPointerException();
+			}
+			PanelCoupleImpl panelCouple = new PanelCoupleImpl(this, panelLeft, panelRight);
+			return panelCouple;
+		} catch (Exception ex) {
+			throw ex;
+		}
 	}
 	
 	@Override
 	public void reset() {
 		initializeManagement();
-		updatePanelMain();
+		this.updateAllPanels();
 	}
 	
 	@Override
@@ -89,27 +107,23 @@ public abstract class ManagementAbstract implements Management {
 				throw new NullPointerException();
 			}
 			this.surface = surface;
-			updatePanelMain();
+			this.updateAllPanels();
 		} catch (Exception ex) {
 			throw ex;
 		}
 	}
 
 	@Override
-	public void setPanelMain(PanelMainAbstract panelMain) {
-		try {
-			if (panelMain == null) {
-				throw new NullPointerException();
-			}
-			this.panelMain = panelMain;
-		} catch (Exception ex) {
-			throw ex;
-		}
-	}	
-	
-	@Override
 	public void updateAllPanels() {
-		this.updatePanelMain();
+		if (this.panelTitle != null) {
+			this.panelTitle.updatePanel();
+		}
+		if (this.panelMenu != null) {
+			this.panelMenu.updatePanel();
+		}
+		if (this.panelModel != null) {
+			this.panelModel.updatePanel();
+		}
 	}
 	
 	@Override
@@ -179,18 +193,6 @@ public abstract class ManagementAbstract implements Management {
 		}
 	}
 	
-	private void createManagement() {
-		this.isAutomaticRunning = false;
-		this.speed = 0;	
-		this.create();
-	}
-	
-	private void initializeManagement() {
-		this.time = System.currentTimeMillis();
-		this.resetAutomatic();
-		this.initialize();
-	}
-	
 	@Override
 	public Boolean isAutomaticEnabled() {
 		EnumVisualizationStatus status = this.getStatus();
@@ -208,7 +210,7 @@ public abstract class ManagementAbstract implements Management {
 		if (isAutomaticChecked() && isAutomaticPlay() && (timeDif >= this.getSpeed())) {
 			time = timeCurrent;
 			this.executeWithCheck();
-			updatePanelMain();
+			this.updateAllPanels();
 		}
 	}
 	
@@ -219,7 +221,7 @@ public abstract class ManagementAbstract implements Management {
 		} else {
 			this.executeWithCheck();
 		}
-		this.updatePanelMain();	
+		this.updateAllPanels();	
 	}
 	
 	@Override
@@ -327,7 +329,7 @@ public abstract class ManagementAbstract implements Management {
 			tAuto = new ThreadAutomatic(this);
 			tAuto.start();
 		}
-		this.updatePanelMain();
+		this.updateAllPanels();
 	}
 	
 	
@@ -340,7 +342,7 @@ public abstract class ManagementAbstract implements Management {
 		if (isAutomaticRunning()) {
 			this.resetAutomatic();
 		}
-		updatePanelMain();
+		this.updateAllPanels();
 	}
 	
 	@Override
@@ -350,13 +352,33 @@ public abstract class ManagementAbstract implements Management {
 		} else {
 			startAutomatic();
 		}
-		updatePanelMain();
+		this.updateAllPanels();
 	}
 	
 	@Override
 	public void endThread() {
 		this.setAutomaticChecked(false);
 		this.setAutomaticPlay(false);
-		this.updatePanelMain();
+		this.updateAllPanels();
+	}	
+	
+	@Override
+	public PanelAbstract getPanelTitle() {
+		return this.panelTitle;
+	}
+	
+	@Override
+	public PanelAbstract getPanelMenu() {
+		return this.panelMenu;
+	}
+	
+	@Override
+	public PanelAbstract getPanelModel() {
+		return this.panelModel;
+	}
+	
+	@Override
+	public ToolTipManager getToolTipManager() {
+		return this.tooltip;
 	}
 }

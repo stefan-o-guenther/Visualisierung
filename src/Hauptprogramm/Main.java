@@ -5,6 +5,7 @@
 
 package Hauptprogramm;
 
+import Base.FrameMainImpl;
 import Base.MainAbstract;
 
 public class Main extends MainAbstract {
@@ -16,6 +17,6 @@ public class Main extends MainAbstract {
 	public static void main(String[] args) {
 		initToolTipManager();
     	initLookAndFeel();
-    	baseMain(new FrameMainImpl());	
+    	baseMain(new FrameMainImpl(new ManagementDefaultImpl()));	
 	}
 }

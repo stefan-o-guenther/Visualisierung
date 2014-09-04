@@ -16,12 +16,14 @@ import javax.swing.event.ChangeListener;
 
 public abstract class PanelMenuControlSliderAbstract extends PanelMenuControlAbstract {	
 		
-	public PanelMenuControlSliderAbstract(Management management, ToolTipManager tooltip) {
-		super(management, tooltip);
+	private static final long serialVersionUID = 1L;
+	
+	public PanelMenuControlSliderAbstract(Management management) {
+		super(management);
 	}
 	
 	private PanelMenuControlSliderAbstract() {
-		super(new ManagementTestImpl(), new ToolTipManagerTestImpl());		
+		super(new ManagementTestImpl());		
 	}
 	
 	private JLabel lblImageIconLeft;
@@ -126,7 +128,7 @@ public abstract class PanelMenuControlSliderAbstract extends PanelMenuControlAbs
 	}
 	
 	@Override
-	public Integer getHeightMenu() {
+	public Integer getPanelHeight() {
 		return 30;
 	}
 }

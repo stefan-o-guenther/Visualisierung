@@ -12,6 +12,7 @@ import java.util.Random;
 import Base.EnumAutomaticChecked;
 import Base.EnumVisualizationStatus;
 import Base.ManagementAbstract;
+import Base.PanelAbstract;
 
 public class ManagementQueueingAndLossImpl extends ManagementAbstract implements ManagementQueueingAndLoss {
 
@@ -21,14 +22,13 @@ public class ManagementQueueingAndLossImpl extends ManagementAbstract implements
 	
 	private Random random;
 	
-	private long termSpeed;
-	private long termError;
-	private long termProcessing;
+	private int termSpeed;
+	private int termProcessing;
 	
-	private int interval;
+	private int interval;	
 	
-	private Integer error = 0;
-	private Integer transfered = 0;
+	private Integer error;
+	private Integer transfered;
 	
 	private long timeInput;
 	private long timeOutput;
@@ -38,107 +38,224 @@ public class ManagementQueueingAndLossImpl extends ManagementAbstract implements
 	
 	private long timeCurrent;
 	
-	private List<Packet> listRouter;
-	private List<Packet> listInput;
-	private List<Packet> listOutput;
-	private List<Packet> listError;
+	private List<Packet> listRouterWork;
+	private List<Packet> listInputWork;
+	private List<Packet> listOutputWork;
+	private List<Packet> listErrorWork;
 	
-	private int maxRouter = 10;
-	private int maxInput = 100;
-	private int maxOutput = 100;
-	private int maxError = 100;
+	private List<Packet> listRouterShow;
+	private List<Packet> listInputShow;
+	private List<Packet> listOutputShow;
+	private List<Packet> listErrorShow;
+	
+	private int maxRouter;
+	private int maxInput;
+	private int maxOutput;
+	private int maxError;		
+	
+	private void updateCurrentTime() {
+		this.timeCurrent = System.currentTimeMillis();
+	}
+	
+	private Packet getNewPacket() {
+		Packet packet = null;
+		int i = random.nextInt(8);
+		switch (i) {			
+			case 0: {
+				packet = new PacketBlueImpl();
+				break;
+			}
+			case 1: {
+				packet = new PacketCyanImpl();
+				break;
+			}
+			case 2: {
+				packet = new PacketGreenImpl();
+				break;
+			}
+			case 3: {
+				packet = new PacketMagentaImpl();
+				break;
+			}
+			case 4: {
+				packet = new PacketOrangeImpl();
+				break;
+			}
+			case 5: {
+				packet = new PacketPinkImpl();
+				break;
+			}
+			case 6: {
+				packet = new PacketRedImpl();
+				break;
+			}
+			case 7: {
+				packet = new PacketYellowImpl();
+				break;
+			}
+			default: {
+				packet = new PacketBlueImpl();
+				break;
+			}
+		}
+		return packet;
+	}
+	
+	private Integer getMinPositionOfInput() {
+		Integer minPos = null;
+		for (Packet packet : listInputWork) {
+			int pos = packet.getPosition();
+			if ((minPos == null) || (minPos > pos)) {
+				minPos = pos;
+			}
+		}
+		return minPos;
+	}
+	
+	private void copyLists() {
+		this.listInputShow = this.getCloneOfList(this.listInputWork);
+		this.listOutputShow = this.getCloneOfList(this.listOutputWork);
+		this.listErrorShow = this.getCloneOfList(this.listErrorWork);
+		this.listRouterShow = this.getCloneOfList(this.listRouterWork);
+	}
 	
 	private void executeNewPacket() {
-		long termDif = timeCurrent;// - timeNewPacket;
-		if (termDif >= interval) {
-			Packet packet = null;
-			switch (random.nextInt(8)) {
-				case 0: {
-					packet = new PacketBlueImpl();
-				}
-				case 1: {
-					packet = new PacketCyanImpl();
-				}
-				case 2: {
-					packet = new PacketGreenImpl();
-				}
-				case 3: {
-					packet = new PacketMagentaImpl();
-				}
-				case 4: {
-					packet = new PacketOrangeImpl();
-				}
-				case 5: {
-					packet = new PacketPinkImpl();
-				}
-				case 6: {
-					packet = new PacketRedImpl();
-				}
-				case 7: {
-					packet = new PacketYellowImpl();
-				}
-				default: {
-					packet = new PacketBlueImpl();
+		Integer min = this.getMinPositionOfInput();
+		if ((min == null) || (min >= interval)) {			
+			if (listInputWork.size() == 0) {
+				timeInput = timeCurrent;
+			}			
+			listInputWork.add(this.getNewPacket());			
+		}
+	}
+	
+	private Packet getOutOfListPacket(List<Packet> list, Integer max) {
+		try {
+			if ((list == null) || (max == null)) {
+				throw new NullPointerException();
+			}
+			if ((list.size() < 0) || (max.intValue() <= 0)) {
+				throw new IllegalArgumentException();
+			}
+			int m = 0;
+			Packet packet = null;;
+			for (Packet p : list) {
+				int x = p.getPosition();
+				if ((x > max) && (x > m)) {
+					packet = p;
+					m = x;
 				}
 			}
-			listInput.add(packet);
-			//timeNewPacket = timeCurrent;
-			timeInput = timeCurrent;
+			return packet;
+		} catch (Exception ex) {
+			throw ex;
 		}
-	}	
+	}
 	
 	private void executeInput() {
 		long timeDif = timeCurrent - timeInput;
-		if (timeDif >= termSpeed) {
+		if ((timeDif >= termSpeed) && (listInputWork.size() > 0)) {
 			timeInput = timeCurrent;
-			Packet packet = new PacketEmptyImpl();
-			listInput.add(0, packet);
-			while (this.listInput.size() > this.maxInput) {
-				
+			for (Packet packet : listInputWork) {
+				packet.incPosition();
 			}
+			Packet packet = null;
+			do {
+				packet = this.getOutOfListPacket(listInputWork, maxInput);
+				if (packet != null) {
+					listInputWork.remove(packet);
+					this.putPacketToRouter(packet);
+				}
+			} while (packet != null);			
+		}
+	}
+	
+	private void putPacketToRouter(Packet packet) {
+		try {
+			if (packet == null) {
+				throw new NullPointerException();
+			}
+			packet.setPosition(0);
+			if (this.listRouterWork.size() < this.maxRouter) {
+				if (listRouterWork.size() == 0) {
+					this.timeRouter = this.timeCurrent;
+				}
+				this.listRouterWork.add(packet);				
+			} else {
+				this.listErrorWork.add(packet);
+				this.error += 1;
+			}
+		} catch (Exception ex) {
+			throw ex;
 		}
 	}
 	
 	private void executeRouter() {
-		
+		long timeDif = timeCurrent - timeRouter;
+		if ((timeDif >= termProcessing) && (listRouterWork.size() > 0)) {
+			timeRouter = timeCurrent;
+			Packet packet = listRouterWork.remove(0);
+			packet.setPosition(0);
+			listOutputWork.add(packet);
+			this.transfered += 1;
+		}
 	}
 	
 	private void executeError() {
-		
+		long timeDif = timeCurrent - timeError;
+		if ((timeDif >= termSpeed) && (listErrorWork.size() > 0)) {
+			timeError = timeCurrent;
+			for (Packet packet : listErrorWork) {
+				packet.incPosition();
+			}
+			Packet packet = null;
+			do {
+				packet = this.getOutOfListPacket(listErrorWork, maxError);
+				if (packet != null) {
+					listErrorWork.remove(packet);
+				}
+			} while (packet != null);			
+		}
 	}
 	
 	private void executeOutput() {
-		
+		long timeDif = timeCurrent - timeOutput;
+		if ((timeDif >= termSpeed) && (listOutputWork.size() > 0)) {
+			timeOutput = timeCurrent;
+			for (Packet packet : listOutputWork) {
+				packet.incPosition();
+			}
+			Packet packet = null;
+			do {
+				packet = this.getOutOfListPacket(listOutputWork, maxOutput);
+				if (packet != null) {
+					listOutputWork.remove(packet);
+				}
+			} while (packet != null);			
+		}
 	}
 		
 	@Override
 	protected Boolean execute() {
-		timeCurrent = System.currentTimeMillis();
+		updateCurrentTime();
 		this.executeOutput();
 		this.executeError();
 		this.executeRouter();
 		this.executeInput();
 		this.executeNewPacket();
-		
-		
-		
-		
-		
-		error += 1;
-		this.updatePanelMain();
+		copyLists();
+		this.updateAllPanels();
 		return true;
 	}
 	
 	@Override
 	public String getTitle() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Queueing And Loss";
 	}
 
 	@Override
 	protected void showErrorMessage() {
-		// TODO Auto-generated method stub
-		
+		// nothing
 	}
 
 	@Override
@@ -146,34 +263,43 @@ public class ManagementQueueingAndLossImpl extends ManagementAbstract implements
 		// TODO Auto-generated method stub
 		
 	}
+	
+	private List<Packet> getCloneOfList(List<Packet> list) {
+		try {
+			List<Packet> result = new ArrayList<Packet>();
+			for (Packet packet : list) {
+				Packet packetNew = packet.getClone();
+				result.add(packetNew);
+			}
+			return result;
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
 
 	@Override
 	public List<Packet> getListInput() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Packet>(this.listInputShow);
 	}
 
 	@Override
 	public List<Packet> getListOutput() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Packet>(this.listOutputShow);
 	}
 
 	@Override
 	public List<Packet> getListError() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Packet>(this.listErrorShow);
 	}
 
 	@Override
 	public List<Packet> getListRouter() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Packet>(this.listRouterShow);
 	}
 
 	@Override
 	public Integer getMaxRouter() {
-		return 9;
+		return this.maxRouter;
 	}
 
 	@Override
@@ -188,25 +314,36 @@ public class ManagementQueueingAndLossImpl extends ManagementAbstract implements
 
 	@Override
 	public EnumVisualizationStatus getStatus() {
-		// TODO Auto-generated method stub
-		return null;
+		return EnumVisualizationStatus.RUN;
 	}
 
 	@Override
 	protected void initialize() {
 		this.random = new Random();
-		this.timeCurrent = System.currentTimeMillis();
+		updateCurrentTime();
 		this.interval = 0;
 		this.timeInput = timeCurrent;
 		this.timeOutput = timeCurrent;
 		this.timeRouter = timeCurrent;
-		this.timeError = timeCurrent;		
+		this.timeError = timeCurrent;
+		this.error = 0;
+		this.transfered = 0;
+		maxRouter = 10;
+		maxInput = 200;
+		maxOutput = 100;
+		maxError = 100;
+		this.listErrorWork = new ArrayList<Packet>();
+		this.listInputWork = new ArrayList<Packet>();
+		this.listOutputWork = new ArrayList<Packet>();
+		this.listRouterWork = new ArrayList<Packet>();
+		this.copyLists();		
 	}
 
 	@Override
 	protected void create() {
-		// TODO Auto-generated method stub
-		
+		this.termSpeed = 0;	// 1 - 30
+		this.interval = 0;	// 30 - 100
+		this.termProcessing = 0;
 	}
 
 	@Override
@@ -221,37 +358,78 @@ public class ManagementQueueingAndLossImpl extends ManagementAbstract implements
 
 	@Override
 	public Integer getTransferRate() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.termSpeed;
 	}
 
 	@Override
 	public void setTransferRate(Integer value) {
-		// TODO Auto-generated method stub
-		
+		try {
+			if (value == null) {
+				throw new NullPointerException();
+			}
+			if (value.intValue() < 0) {
+				throw new IllegalArgumentException();
+			}
+			this.termSpeed = value;
+		} catch (Exception ex) {
+			throw ex;
+		}
 	}
 
 	@Override
 	public Integer getProcessingTime() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.termProcessing;
 	}
 
 	@Override
 	public void setProcessingTime(Integer value) {
-		// TODO Auto-generated method stub
-		
+		try {
+			if (value == null) {
+				throw new NullPointerException();
+			}
+			if (value.intValue() < 0) {
+				throw new IllegalArgumentException();
+			}
+			this.termProcessing = value;
+		} catch (Exception ex) {
+			throw ex;
+		}
 	}
 
 	@Override
 	public Integer getPacketInterval() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.interval;
 	}
 
 	@Override
 	public void setPacketInterval(Integer value) {
-		// TODO Auto-generated method stub
-		
+		try {
+			if (value == null) {
+				throw new NullPointerException();
+			}
+			if (value.intValue() < 0) {
+				throw new IllegalArgumentException();
+			}
+			this.interval = value;
+		} catch (Exception ex) {
+			throw ex;
+		}
+	}
+
+	@Override
+	protected void createPanelMenu() {
+		PanelAbstract panelLeft = new PanelRNQueueingAndLossMenuImpl(this);
+		PanelAbstract panelRight = new PanelRNQueueingAndLossControlBoxImpl(this);
+		this.panelMenu = this.getPanelCouple(panelLeft, panelRight);
+	}
+
+	@Override
+	protected void createPanelModel() {
+		this.panelModel = new PanelRNQueueingAndLossModelImpl(this);
+	}
+
+	@Override
+	protected void createToolTipManager() {
+		this.tooltip = new ToolTipManagerQueueingAndLossImpl();
 	}
 }

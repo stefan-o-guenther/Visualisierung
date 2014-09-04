@@ -13,8 +13,10 @@ import Base.PanelModelDrawCoordinateSystemAbstract;
 
 public class PanelRNTCPFairnessModelImpl extends PanelModelDrawCoordinateSystemAbstract {
 	
-	public PanelRNTCPFairnessModelImpl(ManagementFairness fairness, ToolTipManagerFairness tooltip) {
-		super(fairness, tooltip);
+	private static final long serialVersionUID = 1L;
+	
+	public PanelRNTCPFairnessModelImpl(ManagementFairness fairness) {
+		super(fairness);
 	}
 	
 	private ManagementFairness fairness;

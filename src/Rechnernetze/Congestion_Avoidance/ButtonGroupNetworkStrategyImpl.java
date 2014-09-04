@@ -15,6 +15,8 @@ import Base.ButtonGroupAbstract;
 
 public class ButtonGroupNetworkStrategyImpl extends ButtonGroupAbstract {
 
+	private static final long serialVersionUID = 1L;
+
 	public ButtonGroupNetworkStrategyImpl(ManagementCongestionAvoidance network) {
 		super(network);
 		this.initMapColors();

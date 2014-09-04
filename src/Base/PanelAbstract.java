@@ -1,8 +1,3 @@
-/**
- * @author:	Stefan Otto Günther
- * @date:	18.02.2014
- */
-
 package Base;
 
 import java.awt.Color;
@@ -11,41 +6,36 @@ import javax.swing.JPanel;
 
 public abstract class PanelAbstract extends JPanel {
 
-	public PanelAbstract(Management management, ToolTipManager tooltip) {
+	private static final long serialVersionUID = 1L;
+	
+	public PanelAbstract(Management management) {
 		try {
-			if ((management == null) || (tooltip == null)) {
+			if (management == null) {
 				throw new NullPointerException();
 			}
 			this.management = management;
-			this.tooltip = tooltip;
-			setBackground(Color.WHITE);			
-			this.initPanel();			
+			setBackground(Color.WHITE);					
 		} catch (Exception ex) {
 			throw ex;
-		}		
-	}
+		}
+	}	
 	
 	public abstract void updatePanel();
-	
-	protected Management management;
-	protected ToolTipManager tooltip;
+	public abstract Integer getPanelHeight();
+	public abstract Integer getPanelWidth();
 	
 	protected abstract void initComponents();
 	protected abstract void initLayout();	
 	
-	protected void initPanel() {
-		this.initComponents();
-		this.initLayout();
-		this.updatePanel();
-	}
-	
+	protected Management management;
 	
 	public Management getManagement() {
 		return management;
 	}
 	
-	
-	public ToolTipManager getToolTipManager() {
-		return tooltip;
+	protected void initPanel() {
+		this.initComponents();
+		this.initLayout();
+		this.updatePanel();
 	}
 }

@@ -5,10 +5,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public abstract class PanelMenuMenuButtonsAbstract extends PanelMenuMenuAbstract {
+public abstract class PanelMenuMenuButtonsAbstract extends PanelMenuAbstract {
 
-	public PanelMenuMenuButtonsAbstract(Management management,	ToolTipManager tooltip) {
-		super(management, tooltip);
+	private static final long serialVersionUID = 1L;
+	
+	public PanelMenuMenuButtonsAbstract(Management management) {
+		super(management);
 	}
 
 	protected JButton btnExampleReset;

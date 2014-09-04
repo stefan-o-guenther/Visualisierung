@@ -8,27 +8,27 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import Base.PanelMenuMenuAbstract;
+import Base.PanelMenuAbstract;
 
-public class PanelRNPipelineProtocolMenuAutomaticMenuMenuImpl extends PanelMenuMenuAbstract {
+public class PanelRNPipelineProtocolMenuAutomaticMenuMenuImpl extends PanelMenuAbstract {
 
-	public PanelRNPipelineProtocolMenuAutomaticMenuMenuImpl(ManagementPipelineProtocol pipeline, ToolTipManagerPipelineProtocol tooltip) {
-		super(pipeline, tooltip);
+	public PanelRNPipelineProtocolMenuAutomaticMenuMenuImpl(ManagementPipelineProtocol pipeline) {
+		super(pipeline);
 	}
 
 	private PanelRNPipelineProtocolMenuAutomaticMenuMenuImpl() {
-		super(new ManagementPipelineProtocolImpl(), new ToolTipManagerPipelineProtocolImpl());		
+		super(new ManagementPipelineProtocolImpl());		
 		this.initComponents();
 		this.initLayout();
 	}
 	
 	@Override
-	public Integer getLengthMenu() {
+	public Integer getPanelWidth() {
 		return 400;
 	}
 
 	@Override
-	public Integer getHeightMenu() {
+	public Integer getPanelHeight() {
 		return 100;
 	}
 

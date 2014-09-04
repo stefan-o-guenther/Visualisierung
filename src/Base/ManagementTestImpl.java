@@ -18,7 +18,7 @@ public class ManagementTestImpl extends ManagementAbstract implements Management
 
 	@Override
 	public String getTitle() {
-		return "";
+		return "Test";
 	}
 
 	@Override
@@ -56,5 +56,20 @@ public class ManagementTestImpl extends ManagementAbstract implements Management
 	@Override
 	public Integer getAutomaticSpace() {
 		return 0;
+	}
+
+	@Override
+	protected void createPanelMenu() {
+		this.panelMenu = new PanelTestImpl(this);
+	}
+
+	@Override
+	protected void createPanelModel() {
+		this.panelModel = new PanelTestImpl(this);
+	}
+
+	@Override
+	protected void createToolTipManager() {
+		this.tooltip = new ToolTipManagerTestImpl();
 	}
 }

@@ -9,8 +9,10 @@ import Base.PanelMenuAbstract;
 
 public class PanelDefaultMenuImpl extends PanelMenuAbstract {
 	
-	public PanelDefaultMenuImpl(ManagementDefault main, ToolTipManagerDefault tooltip) {
-		super(main, tooltip);
+	private static final long serialVersionUID = 1L;
+
+	public PanelDefaultMenuImpl(ManagementDefault main) {
+		super(main);
 	}
 	
 	@Override
@@ -29,7 +31,7 @@ public class PanelDefaultMenuImpl extends PanelMenuAbstract {
 	}
 
 	@Override
-	public Integer getHeightMenu() {
+	public Integer getPanelHeight() {
 		return 200;
 	}
 
@@ -37,5 +39,11 @@ public class PanelDefaultMenuImpl extends PanelMenuAbstract {
 	protected void initMethods() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Integer getPanelWidth() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

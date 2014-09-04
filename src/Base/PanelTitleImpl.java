@@ -13,10 +13,12 @@ import javax.swing.JRadioButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 
-public class PanelTitleImpl extends PanelAbstract {
+public class PanelTitleImpl extends PanelInitAbstract {
 	
-	public PanelTitleImpl(Management management, ToolTipManager tooltip) {
-		super(management, tooltip);
+	private static final long serialVersionUID = 1L;
+
+	public PanelTitleImpl(Management management) {
+		super(management);
 	}
 	
 	@Override
@@ -31,7 +33,8 @@ public class PanelTitleImpl extends PanelAbstract {
 	
 	@Override
 	protected void initComponents() {
-		ImageIcon imgIconHelp = ImageLoader.getImageIconHelp22();	
+		ImageIcon imgIconHelp = ImageLoader.getImageIconHelp22();		
+		ToolTipManager tooltip = management.getToolTipManager();
 		
 		groupColor = new ButtonGroupColorImpl(management);
 		rdbtnColored = groupColor.getRadioButtonColored();
@@ -69,5 +72,15 @@ public class PanelTitleImpl extends PanelAbstract {
 						.addComponent(lblTitle)))
 		);
 		setLayout(groupLayout);
+	}
+
+	@Override
+	public Integer getPanelHeight() {
+		return 50;
+	}
+
+	@Override
+	public Integer getPanelWidth() {
+		return 0;
 	}
 }

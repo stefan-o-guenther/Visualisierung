@@ -9,8 +9,10 @@ import Base.PanelModelDrawAbstract;
 
 public class PanelRNTCPRetransmissionModelImpl extends PanelModelDrawAbstract {
 
-	public PanelRNTCPRetransmissionModelImpl(ManagementRetransmission retransmission, ToolTipManagerRetransmission tooltip) {
-		super(retransmission, tooltip);
+	private static final long serialVersionUID = 1L;
+
+	public PanelRNTCPRetransmissionModelImpl(ManagementRetransmission retransmission) {
+		super(retransmission);
 	}
 	
 	private ManagementRetransmission retransmission;

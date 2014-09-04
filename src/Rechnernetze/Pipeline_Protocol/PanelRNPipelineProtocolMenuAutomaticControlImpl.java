@@ -16,16 +16,15 @@ import javax.swing.event.ChangeListener;
 import Base.ImageLoader;
 import Base.ManagementTestImpl;
 import Base.PanelMenuControlAbstract;
-import Base.ToolTipManagerTestImpl;
 
 public class PanelRNPipelineProtocolMenuAutomaticControlImpl extends PanelMenuControlAbstract {	
 	
-	public PanelRNPipelineProtocolMenuAutomaticControlImpl(ManagementPipelineProtocol management, ToolTipManagerPipelineProtocol tooltip) {
-		super(management, tooltip);
+	public PanelRNPipelineProtocolMenuAutomaticControlImpl(ManagementPipelineProtocol management) {
+		super(management);
 	}
 	
 	private PanelRNPipelineProtocolMenuAutomaticControlImpl() {
-		super(new ManagementTestImpl(), new ToolTipManagerTestImpl());
+		super(new ManagementTestImpl());
 		this.initComponents();
 		this.initLayout();
 	}
@@ -47,7 +46,7 @@ public class PanelRNPipelineProtocolMenuAutomaticControlImpl extends PanelMenuCo
 	
 	protected void initComponentsMenu() {
 		this.management = (ManagementPipelineProtocol) this.getManagement();
-		this.tooltip = (ToolTipManagerPipelineProtocol) this.getToolTipManager();
+		this.tooltip = (ToolTipManagerPipelineProtocol) management.getToolTipManager();
 		
 		Integer maxWait = 2000;
 		Integer minWait = 125;
@@ -186,7 +185,7 @@ public class PanelRNPipelineProtocolMenuAutomaticControlImpl extends PanelMenuCo
 	}	
 
 	@Override
-	public Integer getHeightMenu() {
+	public Integer getPanelHeight() {
 		return 10;
 	}	
 }

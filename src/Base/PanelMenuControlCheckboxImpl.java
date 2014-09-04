@@ -16,18 +16,21 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class PanelMenuControlCheckboxImpl extends PanelMenuControlAbstract {	
 		
-	public PanelMenuControlCheckboxImpl(Management management, ToolTipManager tooltip) {
-		super(management, tooltip);
+	private static final long serialVersionUID = 1L;
+	
+	public PanelMenuControlCheckboxImpl(Management management) {
+		super(management);
 	}
 	
 	private PanelMenuControlCheckboxImpl() {
-		super(new ManagementTestImpl(), new ToolTipManagerTestImpl());
+		super(new ManagementTestImpl());
 	}
 	
 	private JCheckBox chckbxAutomatic;	
 	private JLabel lblToolTip;
 	
-	protected void initComponentsMenu() {		
+	protected void initComponentsMenu() {	
+		ToolTipManager tooltip = management.getToolTipManager();
 		lblToolTip = new JLabel(" ");
 		lblToolTip.setIcon(ImageLoader.getImageIconHelp16());
 		lblToolTip.setToolTipText(tooltip.getToolTipAutomaticCheckbox());
@@ -92,7 +95,7 @@ public class PanelMenuControlCheckboxImpl extends PanelMenuControlAbstract {
 	}	
 
 	@Override
-	public Integer getHeightMenu() {
+	public Integer getPanelHeight() {
 		return 25;
 	}
 }

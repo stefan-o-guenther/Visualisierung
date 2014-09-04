@@ -13,6 +13,8 @@ import Base.EnumAutomaticChecked;
 import Base.EnumCoordinateSystem;
 import Base.EnumVisualizationStatus;
 import Base.ManagementCoordinateSystemAbstract;
+import Base.PanelAbstract;
+import Base.PanelMenuControlBoxImpl;
 
 public class ManagementCongestionAvoidanceImpl extends ManagementCoordinateSystemAbstract implements ManagementCongestionAvoidance {
 
@@ -134,7 +136,7 @@ public class ManagementCongestionAvoidanceImpl extends ManagementCoordinateSyste
 						listPoints.add(newPoint);
 					}					
 				}
-				updatePanelMain();
+				this.updateAllPanels();
 				return true;
 			} else {
 				setAutomaticChecked(false);
@@ -324,7 +326,7 @@ public class ManagementCongestionAvoidanceImpl extends ManagementCoordinateSyste
 			setHeight(height);
 			setWidth(width);
 		}		
-		this.updatePanelMenu();
+		this.updateAllPanels();
 	}
 
 	@Override
@@ -395,5 +397,22 @@ public class ManagementCongestionAvoidanceImpl extends ManagementCoordinateSyste
 	@Override
 	public Integer getAutomaticSpace() {
 		return 12;
+	}
+
+	@Override
+	protected void createPanelMenu() {
+		PanelAbstract panelLeft = new PanelRNCongestionAvoidanceMenuImpl(this);
+		PanelAbstract panelRight = new PanelMenuControlBoxImpl(this);
+		this.panelMenu = this.getPanelCouple(panelLeft, panelRight);
+	}
+
+	@Override
+	protected void createPanelModel() {
+		panelModel = new PanelRNCongestionAvoidanceModelImpl(this);
+	}
+
+	@Override
+	protected void createToolTipManager() {
+		tooltip = new ToolTipManagerCongestionAvoidanceImpl();
 	}
 }

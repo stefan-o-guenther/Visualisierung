@@ -13,6 +13,8 @@ import javax.swing.JRadioButton;
 
 public class ButtonGroupColorImpl extends ButtonGroupAbstract {
 
+	private static final long serialVersionUID = 1L;
+	
 	public ButtonGroupColorImpl(Management management) {
 		super(management);
 		try {
@@ -61,7 +63,9 @@ public class ButtonGroupColorImpl extends ButtonGroupAbstract {
 	protected ActionListener getActionListener() {
 		return new ActionListener() {
 			public void actionPerformed (ActionEvent e) {
-				management.setSurface(getSelectedButtonEnum());
+				if (management != null) {
+					management.setSurface(getSelectedButtonEnum());
+				}				
 			}	
 		};
 	}

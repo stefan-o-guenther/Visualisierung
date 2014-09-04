@@ -6,17 +6,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import Base.PanelAbstract;
+import Base.PanelInitAbstract;
 import Base.PanelMenuAbstract;
 
 public class PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl extends PanelMenuAbstract {
 
-	public PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl(ManagementPipelineProtocol pipeline, ToolTipManagerPipelineProtocol tooltip) {
-		super(pipeline, tooltip);
+	public PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl(ManagementPipelineProtocol pipeline) {
+		super(pipeline);
 	}
 	
 	private PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl() {
-		super(new ManagementPipelineProtocolImpl(), new ToolTipManagerPipelineProtocolImpl());
+		super(new ManagementPipelineProtocolImpl());
 		this.initComponents();
 		this.initLayout();
 	}
@@ -98,7 +98,13 @@ public class PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl extends PanelMenu
 	}	
 
 	@Override
-	public Integer getHeightMenu() {
+	public Integer getPanelHeight() {
 		return 125;
+	}
+
+	@Override
+	public Integer getPanelWidth() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

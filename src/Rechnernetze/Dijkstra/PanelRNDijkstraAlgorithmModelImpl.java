@@ -18,8 +18,10 @@ import Base.PanelModelDrawAbstract;
 
 public class PanelRNDijkstraAlgorithmModelImpl extends PanelModelDrawAbstract {
 
-	public PanelRNDijkstraAlgorithmModelImpl(ManagementDijkstraAlgorithm dijkstra, ToolTipManagerDijkstraAlgorithm tooltip) {
-		super(dijkstra, tooltip);
+	private static final long serialVersionUID = 1L;
+	
+	public PanelRNDijkstraAlgorithmModelImpl(ManagementDijkstraAlgorithm dijkstra) {
+		super(dijkstra);
 	}
 	
 	private ManagementDijkstraAlgorithm dijkstra;
@@ -341,6 +343,7 @@ public class PanelRNDijkstraAlgorithmModelImpl extends PanelModelDrawAbstract {
 		drawMin();
 	}	
 	
+	/*
 	private void drawRoute() {
 		BasicStroke bs = new BasicStroke(5, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_BEVEL);
         g2d.setStroke(bs);
@@ -357,7 +360,8 @@ public class PanelRNDijkstraAlgorithmModelImpl extends PanelModelDrawAbstract {
 			}
 		}
 		g2d.drawString(text, 20, 500);
-	}	
+	}
+	*/	
 	
 	@Override
 	protected void doDrawing() {

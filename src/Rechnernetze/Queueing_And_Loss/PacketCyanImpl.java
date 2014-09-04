@@ -2,14 +2,23 @@ package Rechnernetze.Queueing_And_Loss;
 
 import java.awt.Color;
 
-import Base.EnumSurface;
-
 public class PacketCyanImpl extends PacketAbstract implements PacketCyan {
 
+	public PacketCyanImpl() {
+		super(0);
+	}
+	
+	public PacketCyanImpl(Integer position) {
+		super(position);
+	}
+	
 	@Override
-	public Color getColor(EnumSurface surface) {
-		// TODO Auto-generated method stub
-		return null;
+	protected Color getColoredColor() {
+		return Color.CYAN;
 	}
 
+	@Override
+	public Packet getClone() {
+		return new PacketCyanImpl(this.getPosition());
+	}
 }

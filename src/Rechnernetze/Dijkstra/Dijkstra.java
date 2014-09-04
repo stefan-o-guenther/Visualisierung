@@ -5,6 +5,7 @@
 
 package Rechnernetze.Dijkstra;
 
+import Base.FrameMainImpl;
 import Base.MainAbstract;
 
 public class Dijkstra extends MainAbstract {
@@ -16,6 +17,6 @@ public class Dijkstra extends MainAbstract {
 	public static void main(String[] args) {
 		initToolTipManager();
     	initLookAndFeel();
-    	baseMain(new FrameRNDijkstra());	
+    	baseMain(new FrameMainImpl(new ManagementDijkstraAlgorithmImpl()));	
     }
 }

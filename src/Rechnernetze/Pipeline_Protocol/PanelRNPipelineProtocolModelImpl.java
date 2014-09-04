@@ -16,8 +16,8 @@ import Base.PanelModelDrawAbstract;
 
 public class PanelRNPipelineProtocolModelImpl extends PanelModelDrawAbstract {
 
-	public PanelRNPipelineProtocolModelImpl(ManagementPipelineProtocol pipeline, ToolTipManagerPipelineProtocol tooltip) {
-		super(pipeline, tooltip);
+	public PanelRNPipelineProtocolModelImpl(ManagementPipelineProtocol pipeline) {
+		super(pipeline);
 	}
 	
 	private ManagementPipelineProtocol pipeline;

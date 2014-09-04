@@ -7,7 +7,9 @@ package Betriebssysteme.Seitenersetzungsstrategien;
 
 import javax.swing.JComboBox;
 
-public class ComboBoxStrategyImpl extends JComboBox {
+public class ComboBoxStrategyImpl extends JComboBox<Object> {
+
+	private static final long serialVersionUID = 1L;
 
 	public ComboBoxStrategyImpl() {
 		super(strategies);		

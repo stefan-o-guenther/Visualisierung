@@ -64,4 +64,22 @@ public class ManagementDefaultImpl extends ManagementAbstract implements Managem
 	public Integer getAutomaticSpace() {
 		return 0;
 	}
+
+	@Override
+	protected void createPanelMenu() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void createPanelModel() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void createToolTipManager() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -10,8 +10,10 @@ import java.awt.Graphics2D;
 
 public abstract class PanelModelDrawAbstract extends PanelModelAbstract {	
 	
-	public PanelModelDrawAbstract(Management management, ToolTipManager tooltip) {
-		super(management, tooltip);
+	private static final long serialVersionUID = 1L;
+	
+	public PanelModelDrawAbstract(Management management) {
+		super(management);
 	}
 	
 	protected abstract void doDrawing();	

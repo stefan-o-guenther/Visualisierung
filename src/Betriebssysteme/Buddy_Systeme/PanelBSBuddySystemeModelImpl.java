@@ -5,53 +5,93 @@
 
 package Betriebssysteme.Buddy_Systeme;
 
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
 
-import Base.PanelModelAbstract;
+import Base.PanelModelDrawAbstract;
 
-public class PanelBSBuddySystemeModelImpl extends PanelModelAbstract {
+public class PanelBSBuddySystemeModelImpl extends PanelModelDrawAbstract {
 
-	public PanelBSBuddySystemeModelImpl(ManagementBuddyMemoryAllocation buddy, ToolTipManagerBuddyMemoryAllocation tooltip) {
-		super(buddy, tooltip);
+	private static final long serialVersionUID = 1L;
+
+	public PanelBSBuddySystemeModelImpl(ManagementBuddyMemoryAllocation buddy) {
+		super(buddy);
+	}
+
+	private ManagementBuddyMemoryAllocation buddy;
+	private List<BuddyOperation> list = new ArrayList<BuddyOperation>();	
+	
+	private final Integer WIDTH = 512;
+	private final Integer HEIGHT = 20;
+	private final Integer GAP_X = 10;
+	private final Integer GAP_Y = 10;	
+	
+	@Override
+	protected void doDrawing() {
+		Integer height = 0;
+		Integer size = buddy.getTotalSpace();					
+		if (size > 0) {
+			list = buddy.getNodeList();
+			Integer length = list.size();			
+			for (Integer i = 0; i < length; i++) {
+				BuddyOperation operation = list.get(i);				
+				List<BuddySpace> listps = operation.getBuddyList();
+				if (listps != null) {
+					Integer sum = 0;
+					for (BuddySpace ps : listps) {
+						Integer widthNode = (ps.getSize() * WIDTH) / size;;						
+						g2d.setColor(Color.BLACK);
+						g2d.drawRect(sum+GAP_X, i*(HEIGHT+GAP_Y)+GAP_Y, widthNode, HEIGHT);
+						EnumNode type = ps.getType();
+						if (type != null) {
+							Color color = null;
+							switch (type) {
+								case BUDDY: {
+									color = buddy.getBuddyColor();
+									break;
+								}
+								case SPACE: {									
+									color = buddy.getProcessNodeColor(ps.getName());
+									break;
+								}
+								case REST: {
+									color = buddy.getRestColor();
+									break;
+								}
+								case USED: {
+									color = buddy.getUsedColor();
+									break;
+								}
+								default: {
+									color = Color.WHITE;
+									break;
+								}
+							}
+							g2d.setColor(color);
+							g2d.fillRect(sum+GAP_X+1, i*(HEIGHT+GAP_Y)+GAP_Y+1, widthNode-1, HEIGHT-1);
+							if (type == EnumNode.SPACE) {
+								g2d.setColor(Color.BLACK);
+								g2d.drawString(ps.getName(), sum+GAP_X+2, i*(HEIGHT+GAP_Y)+GAP_Y+15);
+							}							
+							sum += widthNode;
+						}					
+					}
+					g2d.setColor(Color.BLACK);
+					g2d.drawString(operation.getMessage(), WIDTH+20, i*(HEIGHT+GAP_Y)+GAP_Y+5+(HEIGHT/2));
+				}				
+			}
+			height = (length-1)*(HEIGHT+GAP_Y)+GAP_Y+HEIGHT+GAP_Y;
+		}
+		Dimension area = new Dimension(0,0);		
+		area.height = height;											                
+        setPreferredSize(area);
+        revalidate();
 	}
 	
-	private PanelBSBuddySystemeModelImpl() {
-		super(new ManagementBuddyMemoryAllocationImpl(), new ToolTipManagerBuddyMemoryAllocationImpl());
-		this.initComponents();
-		this.initLayout();
-	}
-	
-	private PanelModelAbstract panelDraw;
-	private PanelModelAbstract panelExplanation;
-	
+	@Override
 	protected void initComponents() {
-		ManagementBuddyMemoryAllocation buddy = (ManagementBuddyMemoryAllocation) this.getManagement();
-		ToolTipManagerBuddyMemoryAllocation tooltip = (ToolTipManagerBuddyMemoryAllocation) this.getToolTipManager();		
-		panelDraw = new PanelBSBuddySystemeModelScrollImpl(buddy, tooltip);
-		panelExplanation = new PanelBSBuddySystemeExplanationScrollImpl(buddy, tooltip);
-	}
-
-	@Override
-	protected void initLayout() {
-		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(panelDraw, GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
-					.addComponent(panelExplanation, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addComponent(panelExplanation, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-				.addComponent(panelDraw, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-		);
-		setLayout(groupLayout);		
-	}	
-	
-	@Override
-	public void updatePanel() {
-		panelDraw.updatePanel();
-		panelExplanation.updatePanel();
+		this.buddy = (ManagementBuddyMemoryAllocation) this.getManagement();
 	}
 }

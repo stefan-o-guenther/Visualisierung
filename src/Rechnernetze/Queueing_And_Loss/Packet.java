@@ -6,6 +6,12 @@ import Base.EnumSurface;
 
 public interface Packet {
 
-	Color getColor(EnumSurface surface);
-	EnumPacketType getType();
+	public Color getColor(EnumSurface surface);
+	
+	public Integer getPosition();
+	public void setPosition(Integer position);
+	
+	public void incPosition();
+	
+	public Packet getClone();
 }

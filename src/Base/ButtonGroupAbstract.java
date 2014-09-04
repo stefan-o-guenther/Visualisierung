@@ -14,6 +14,8 @@ import javax.swing.JRadioButton;
 
 public abstract class ButtonGroupAbstract extends ButtonGroup {
 
+	private static final long serialVersionUID = 1L;
+	
 	public ButtonGroupAbstract(Management management) {
 		super();
 		try {

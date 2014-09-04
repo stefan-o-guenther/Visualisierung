@@ -15,6 +15,8 @@ import Base.ButtonGroupAbstract;
 
 public class ButtonGroupProcessImpl extends ButtonGroupAbstract {
 
+	private static final long serialVersionUID = 1L;
+
 	public ButtonGroupProcessImpl(ManagementBuddyMemoryAllocation buddy) {
 		super(buddy);
 		try {

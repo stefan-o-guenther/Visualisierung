@@ -13,8 +13,10 @@ import Base.PanelModelDrawCoordinateSystemAbstract;
 
 public class PanelRNCongestionAvoidanceModelImpl extends PanelModelDrawCoordinateSystemAbstract {
 
-	public PanelRNCongestionAvoidanceModelImpl(ManagementCongestionAvoidance network, ToolTipManagerCongestionAvoidance tooltip) {
-		super(network, tooltip);
+	private static final long serialVersionUID = 1L;
+
+	public PanelRNCongestionAvoidanceModelImpl(ManagementCongestionAvoidance network) {
+		super(network);
 	}
 
 	private ManagementCongestionAvoidance network;

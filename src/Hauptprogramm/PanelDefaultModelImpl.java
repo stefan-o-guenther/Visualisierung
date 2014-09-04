@@ -10,8 +10,10 @@ import Base.PanelModelDrawAbstract;
 
 public class PanelDefaultModelImpl extends PanelModelDrawAbstract {
 
-	public PanelDefaultModelImpl(ManagementDefault main, ToolTipManagerDefault tooltip) {
-		super(main, tooltip);
+	private static final long serialVersionUID = 1L;
+
+	public PanelDefaultModelImpl(ManagementDefault main) {
+		super(main);
 	}
 	
 	protected void doDrawing() {

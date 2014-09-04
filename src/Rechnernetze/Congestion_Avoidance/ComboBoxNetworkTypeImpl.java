@@ -7,7 +7,9 @@ package Rechnernetze.Congestion_Avoidance;
 
 import javax.swing.JComboBox;
 
-public class ComboBoxNetworkTypeImpl extends JComboBox {
+public class ComboBoxNetworkTypeImpl extends JComboBox<Object> {
+
+	private static final long serialVersionUID = 1L;
 
 	public ComboBoxNetworkTypeImpl() {
 		super(types);		

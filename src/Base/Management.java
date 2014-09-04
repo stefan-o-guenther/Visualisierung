@@ -8,7 +8,6 @@ package Base;
 public interface Management {
 	public EnumSurface getSurface();
 	public void setSurface(EnumSurface value);
-	public void setPanelMain(PanelMainAbstract panelMain);
 	public void executeNormal();
 	public void reset();
 	public String getTitle();
@@ -40,4 +39,9 @@ public interface Management {
 	public void executeThread();
 	
 	public Integer getAutomaticSpace();
+	
+	public ToolTipManager getToolTipManager();
+	public PanelAbstract getPanelTitle();
+	public PanelAbstract getPanelMenu();
+	public PanelAbstract getPanelModel();
 }

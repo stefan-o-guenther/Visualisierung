@@ -111,7 +111,7 @@ public abstract class PanelMenuControlSliderAbstract extends PanelMenuControlAbs
 	}
 	
 	private void updateAutomatic() {
-		management.updateAllPanels();
+		management.updateViews();
 	}	
 	
 	private void updateSliderValue() {
@@ -129,6 +129,11 @@ public abstract class PanelMenuControlSliderAbstract extends PanelMenuControlAbs
 	
 	@Override
 	public Integer getPanelHeight() {
+		return 30;
+	}
+	
+	@Override
+	public Integer getPanelWidth() {
 		return 30;
 	}
 }

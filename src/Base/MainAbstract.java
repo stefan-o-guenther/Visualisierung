@@ -16,6 +16,13 @@ public abstract class MainAbstract {
 		super();
 	}
 	
+	protected static void initialize() {
+		initToolTipManager();
+		initLookAndFeel();
+	}
+	
+	protected static PanelMainAbstract panelMain;
+	
 	protected static void initToolTipManager() {
 		ToolTipManager.sharedInstance().setDismissDelay(2147483647);
 		ToolTipManager.sharedInstance().setInitialDelay(0);
@@ -39,8 +46,16 @@ public abstract class MainAbstract {
 		}
 	}
 	
-	protected static void baseMain(final JFrame frame) {		
-		/* Create and display the form */
-		SwingUtilities.invokeLater(new RunnableImpl(frame));	
+	protected static void baseMain() {
+		try {
+			if (panelMain == null) {
+				throw new NullPointerException();
+			}
+			panelMain.updatePanel();
+			JFrame frame = new FrameMainImpl(panelMain);
+			SwingUtilities.invokeLater(new RunnableImpl(frame));	
+		} catch (Exception ex) {
+			throw ex;
+		}		
 	}
 }

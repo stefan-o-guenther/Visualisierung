@@ -12,10 +12,10 @@ import javax.swing.JFrame;
 
 public class FrameMainImpl extends JFrame {
 	
-	public FrameMainImpl(Management management) {
+	public FrameMainImpl(PanelMainAbstract panelMain) {
 		super();
-		try {		
-			if (management == null) {
+		try {
+			if (panelMain == null) {
 				throw new NullPointerException();
 			}
 			Rectangle maxBounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
@@ -26,7 +26,7 @@ public class FrameMainImpl extends JFrame {
 			if (height > maxBounds.height) {
 				height = maxBounds.height;
 			}
-			initUI(management);
+			initUI(panelMain);
 		} catch (Exception ex) {
 			throw ex;
 		}		
@@ -59,13 +59,14 @@ public class FrameMainImpl extends JFrame {
         setLocation(xWindow, yWindow); 
 	}
 	
-	protected void initUI(Management management) {
+	protected void initUI(PanelMainAbstract panelMain) {
+		Management management = panelMain.getManagement();
 		setTitle(management.getTitle());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		initWindowSize();
 		showWindowCenterScreen();
-		add(new PanelMainImpl(management));
+		add(panelMain);
 	}
 	
 	protected void initWindowSize() {	

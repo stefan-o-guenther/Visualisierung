@@ -5,7 +5,6 @@
 
 package Rechnernetze.Congestion_Avoidance;
 
-import Base.FrameMainImpl;
 import Base.MainAbstract;
 
 public class Congestion_Avoidance extends MainAbstract {
@@ -15,8 +14,9 @@ public class Congestion_Avoidance extends MainAbstract {
 	}
 	
 	public static void main(String[] args) {
-		initToolTipManager();
-    	initLookAndFeel();
-    	baseMain(new FrameMainImpl(new ManagementCongestionAvoidanceImpl()));	
+		ManagementCongestionAvoidance ca = new ManagementCongestionAvoidanceImpl();
+		initialize();
+		panelMain = new PanelRNCongestionAvoidanceMainImpl(ca);
+		baseMain();	
     }
 }

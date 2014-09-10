@@ -1,30 +1,37 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	09.09.2014
+ */
+
 package Betriebssysteme.Buddy_Systeme;
 
 import Base.EnumScrollbar;
 import Base.PanelAbstract;
-import Base.PanelBuilderAbstract;
+import Base.PanelMainAbstract;
 import Base.PanelScrollImpl;
 
-public class PanelBuilderBuddyMemoryAllocationImpl extends PanelBuilderAbstract	implements PanelBuilderBuddyMemoryAllocation {
+public class PanelBSBuddySystemeMainImpl extends PanelMainAbstract {
 
-	public PanelBuilderBuddyMemoryAllocationImpl(ManagementBuddyMemoryAllocation buddy) {
+	private static final long serialVersionUID = 1L;
+
+	public PanelBSBuddySystemeMainImpl(ManagementBuddyMemoryAllocation buddy) {
 		super(buddy);
 	}
 
 	@Override
-	protected void createPanelMenu() {
+	protected PanelAbstract getNewPanelMenu() {
 		ManagementBuddyMemoryAllocation buddy = (ManagementBuddyMemoryAllocation) management;
 		PanelAbstract panelLeft = new PanelBSBuddySystemeMenuImpl(buddy);
 		PanelAbstract panelRightLeft = new PanelBSBuddySystemeTableImpl(buddy);
 		PanelAbstract panelRightRight = new PanelBSBuddySystemeLabelImpl(buddy);
-		PanelAbstract panelRight = this.getPanelCouple(panelRightLeft, panelRightRight);
-		panelMenu = this.getPanelCouple(panelLeft, panelRight);
+		PanelAbstract panelRight = this.getPanelCoupleHorizontal(panelRightLeft, panelRightRight);
+		return this.getPanelCoupleHorizontal(panelLeft, panelRight);
 	}
 
 	@Override
-	protected void createPanelModel() {
+	protected PanelAbstract getNewPanelModel() {
 		ManagementBuddyMemoryAllocation buddy = (ManagementBuddyMemoryAllocation) management;
 		PanelAbstract panel = new PanelBSBuddySystemeModelImpl(buddy);
-		this.panelModel = new PanelScrollImpl(buddy, panel, EnumScrollbar.NEVER, EnumScrollbar.ALWAYS);
+		return new PanelScrollImpl(buddy, panel, EnumScrollbar.NEVER, EnumScrollbar.ALWAYS);
 	}
 }

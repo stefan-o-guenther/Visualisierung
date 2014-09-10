@@ -5,7 +5,6 @@
 
 package Rechnernetze.TCP_Retransmission;
 
-import Base.FrameMainImpl;
 import Base.MainAbstract;
 
 public class TCP_Retransmission extends MainAbstract {
@@ -15,8 +14,9 @@ public class TCP_Retransmission extends MainAbstract {
 	}
 	
 	public static void main(String[] args) {
-		initToolTipManager();
-    	initLookAndFeel();
-    	baseMain(new FrameMainImpl(new ManagementRetransmissionImpl()));	
+		ManagementRetransmission retransmission = new ManagementRetransmissionImpl();
+		initialize();
+		panelMain = new PanelRNTCPRetransmissionMainImpl(retransmission);
+		baseMain();	
     }
 }

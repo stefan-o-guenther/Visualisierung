@@ -25,5 +25,41 @@ public class ToolTipManagerQueueingAndLossImpl extends ToolTipManagerAbstract im
 	        + "</p>"
 	        + "</html>";
 		return tooltipTitle;
+	}	
+	
+	@Override
+	public String getToolTipTransferRate() {
+		String tooltipTransferRate = ""
+		        + "<html>"
+		        + "<p>"
+		        + "Mit diesen Geschwindigkeitsregelern können Sie einstellen,<br/>"
+		        + "mit welcher Geschwindigkeit sich die Pakete bewegen sollen.<br/>"
+		        + "</p>"
+		        + "</html>";
+			return tooltipTransferRate;
+	}
+
+	@Override
+	public String getToolTipProcessing() {
+		String tooltipProcessing = ""
+				+ "<html>"
+		        + "<p>"
+		        + "Mit diesen Geschwindigkeitsregelern können Sie einstellen,<br/>"
+		        + "wie lange ein einzelnes Paket im Speicher bleiben soll.<br/>"
+		        + "</p>"
+		        + "</html>";
+			return tooltipProcessing;
+	}
+
+	@Override
+	public String getToolTipInterval() {
+		String tooltipInterval = ""
+				+ "<html>"
+		        + "<p>"
+		        + "Mit diesen Geschwindigkeitsregelern können Sie einstellen,<br/>"
+		        + "in welchen Abständen die Pakete ankommen sollen.<br/>"
+		        + "</p>"
+		        + "</html>";
+			return tooltipInterval;
 	}
 }

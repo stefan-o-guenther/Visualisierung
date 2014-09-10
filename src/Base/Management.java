@@ -11,7 +11,7 @@ public interface Management {
 	public void executeNormal();
 	public void reset();
 	public String getTitle();
-	public void updateAllPanels();
+	public void updateViews();
 	
 	public Integer getHeight();
 	public void setHeight(Integer height);
@@ -38,10 +38,5 @@ public interface Management {
 	public void endThread();
 	public void executeThread();
 	
-	public Integer getAutomaticSpace();
-	
 	public ToolTipManager getToolTipManager();
-	public PanelAbstract getPanelTitle();
-	public PanelAbstract getPanelMenu();
-	public PanelAbstract getPanelModel();
 }

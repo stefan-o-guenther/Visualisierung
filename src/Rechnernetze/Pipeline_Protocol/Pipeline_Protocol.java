@@ -5,7 +5,6 @@
 
 package Rechnernetze.Pipeline_Protocol;
 
-import Base.FrameMainImpl;
 import Base.MainAbstract;
 
 public class Pipeline_Protocol extends MainAbstract {
@@ -15,8 +14,9 @@ public class Pipeline_Protocol extends MainAbstract {
 	}
 	
 	public static void main(String[] args) {
-		initToolTipManager();
-    	initLookAndFeel();
-    	baseMain(new FrameMainImpl(new ManagementPipelineProtocolImpl()));	
+		ManagementPipelineProtocol pipeline = new ManagementPipelineProtocolImpl();
+		initialize();
+		panelMain = new PanelRNPipelineProtocolMainImpl(pipeline);
+		baseMain();	
     }
 }

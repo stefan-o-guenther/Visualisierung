@@ -16,6 +16,8 @@ import Base.PanelModelDrawAbstract;
 
 public class PanelRNPipelineProtocolModelImpl extends PanelModelDrawAbstract {
 
+	private static final long serialVersionUID = 1L;
+
 	public PanelRNPipelineProtocolModelImpl(ManagementPipelineProtocol pipeline) {
 		super(pipeline);
 	}

@@ -13,8 +13,6 @@ import Base.EnumAutomaticChecked;
 import Base.EnumSurface;
 import Base.EnumVisualizationStatus;
 import Base.ManagementAbstract;
-import Base.PanelAbstract;
-import Base.PanelMenuControlBoxImpl;
 
 public class ManagementPagingImpl extends ManagementAbstract implements ManagementPaging {	
 	
@@ -193,7 +191,7 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 			status = EnumVisualizationStatus.RUN;
 			this.deactivateCacheBoxes();
 			this.activateCacheBox();
-			this.updateAllPanels();
+			this.updateViews();
 		} catch (Exception ex) {
 			throw ex;
 		}
@@ -283,7 +281,7 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 					}				
 				}
 			}			
-			this.updateAllPanels();
+			this.updateViews();
 			return true;
 		} else {
 			return false;
@@ -321,7 +319,7 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 				cache.addRPrevious(cache.getR());
 				cache.setR(0);
 			}
-			this.updateAllPanels();
+			this.updateViews();
 			return true;
 		} else {
 			return false;
@@ -337,7 +335,7 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 				cache.setR(1);
 				cache.setM(1);
 			}
-			this.updateAllPanels();
+			this.updateViews();
 			return true;
 		} else {
 			return false;
@@ -394,7 +392,7 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 	public void setViewOldStatesEnabled(Boolean value) {
 		if (value != null) {
 			oldStates = value;
-			this.updateAllPanels();
+			this.updateViews();
 		}
 	}	
 
@@ -421,23 +419,6 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 	@Override
 	protected EnumAutomaticChecked keepAutomaticChecked() {
 		return EnumAutomaticChecked.CHOICE;
-	}
-
-	@Override
-	public Integer getAutomaticSpace() {
-		return 5;
-	}
-
-	@Override
-	protected void createPanelMenu() {
-		PanelAbstract panelLeft = new PanelBSSeitenersetzungsstrategienMenuImpl(this);
-		PanelAbstract panelRight = new PanelMenuControlBoxImpl(this);
-		this.panelMenu = this.getPanelCouple(panelLeft, panelRight);
-	}
-
-	@Override
-	protected void createPanelModel() {
-		this.panelModel = new PanelBSSeitenersetzungsstrategienModelImpl(this);
 	}
 
 	@Override

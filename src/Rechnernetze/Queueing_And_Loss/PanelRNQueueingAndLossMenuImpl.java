@@ -15,6 +15,8 @@ import Base.PanelMenuMenuButtonsAbstract;
 
 public class PanelRNQueueingAndLossMenuImpl extends PanelMenuMenuButtonsAbstract {
 
+	private static final long serialVersionUID = 1L;	
+
 	public PanelRNQueueingAndLossMenuImpl(ManagementQueueingAndLoss qal) {
 		super(qal);
 	}

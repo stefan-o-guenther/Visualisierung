@@ -1,5 +1,9 @@
-package Rechnernetze.TCP_Fairness;
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	09.09.2014
+ */
 
+package Rechnernetze.TCP_Fairness;
 
 public abstract class PointAbstract implements Point {
 

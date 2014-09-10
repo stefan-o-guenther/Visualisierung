@@ -78,7 +78,7 @@ public class PanelMenuControlCheckboxImpl extends PanelMenuControlAbstract {
 	}
 	
 	private void updateAutomatic() {
-		management.updateAllPanels();
+		management.updateViews();
 	}	
 	
 	private Boolean isAutomaticChecked() {
@@ -97,5 +97,10 @@ public class PanelMenuControlCheckboxImpl extends PanelMenuControlAbstract {
 	@Override
 	public Integer getPanelHeight() {
 		return 25;
+	}
+
+	@Override
+	public Integer getPanelWidth() {
+		return 10;
 	}
 }

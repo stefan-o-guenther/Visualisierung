@@ -7,7 +7,9 @@ package Rechnernetze.Pipeline_Protocol;
 
 import javax.swing.JComboBox;
 
-public class ComboBoxStrategy extends JComboBox {
+public class ComboBoxStrategy extends JComboBox<Object> {
+
+	private static final long serialVersionUID = 1L;
 
 	public ComboBoxStrategy() {
 		super(strategies);		

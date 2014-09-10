@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	09.09.2014
+ */
+
 package Base;
 
 public abstract class ManagementCoordinateSystemAbstract extends

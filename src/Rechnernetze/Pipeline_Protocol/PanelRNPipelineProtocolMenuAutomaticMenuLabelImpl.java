@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	09.09.2014
+ */
+
 package Rechnernetze.Pipeline_Protocol;
 
 import javax.swing.GroupLayout;
@@ -6,10 +11,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import Base.PanelInitAbstract;
 import Base.PanelMenuAbstract;
 
 public class PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl extends PanelMenuAbstract {
+
+	private static final long serialVersionUID = 1L;
 
 	public PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl(ManagementPipelineProtocol pipeline) {
 		super(pipeline);
@@ -17,7 +23,7 @@ public class PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl extends PanelMenu
 	
 	private PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl() {
 		super(new ManagementPipelineProtocolImpl());
-		this.initComponents();
+		this.initComponentsMenu();
 		this.initLayout();
 	}
 	
@@ -99,12 +105,11 @@ public class PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl extends PanelMenu
 
 	@Override
 	public Integer getPanelHeight() {
-		return 125;
+		return 120;
 	}
 
 	@Override
 	public Integer getPanelWidth() {
-		// TODO Auto-generated method stub
-		return null;
+		return 150;
 	}
 }

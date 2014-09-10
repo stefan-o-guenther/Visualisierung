@@ -5,7 +5,6 @@
 
 package Rechnernetze.TCP_Fairness;
 
-import Base.FrameMainImpl;
 import Base.MainAbstract;
 
 public class TCP_Fairness extends MainAbstract {
@@ -15,8 +14,9 @@ public class TCP_Fairness extends MainAbstract {
 	}
 	
 	public static void main(String[] args) {
-		initToolTipManager();
-    	initLookAndFeel();
-    	baseMain(new FrameMainImpl(new ManagementFairnessImpl()));	
+		ManagementFairness fairness = new ManagementFairnessImpl();
+		initialize();
+		panelMain = new PanelRNTCPFairnessMainImpl(fairness);
+    	baseMain();	
     }
 }

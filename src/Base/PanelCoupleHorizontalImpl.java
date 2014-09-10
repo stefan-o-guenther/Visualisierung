@@ -1,14 +1,19 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	09.09.2014
+ */
+
 package Base;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
 
-public class PanelCoupleImpl extends PanelAbstract {
+public class PanelCoupleHorizontalImpl extends PanelAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelCoupleImpl(Management management, PanelAbstract panelLeft, PanelAbstract panelRight) {
+	public PanelCoupleHorizontalImpl(Management management, PanelAbstract panelLeft, PanelAbstract panelRight) {
 		super(management);
 		try {
 			if ((panelLeft == null) || (panelRight == null)) {
@@ -22,15 +27,15 @@ public class PanelCoupleImpl extends PanelAbstract {
 		}
 	}
 	
-	public PanelCoupleImpl() {
+	public PanelCoupleHorizontalImpl() {
 		super(new ManagementTestImpl());		
 		this.init(this.management);
 		this.initLayout();
 	}
 	
 	private void init(Management management) {
-		panelLeft = new PanelTestImpl(management);
-		panelRight = new PanelTestImpl(management);
+		panelLeft = new PanelEmptyImpl(management,0,0);
+		panelRight = new PanelEmptyImpl(management,0,0);
 		heightMenu = 100;
 		widthLeft = 300;
 	}

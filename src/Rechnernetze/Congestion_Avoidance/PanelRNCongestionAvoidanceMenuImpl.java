@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
+//import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JRadioButton;
@@ -59,14 +59,16 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuMenuButtonsAbst
 	private JLabel lblTCPTahoe;
 	private JLabel lblSSThreshTCPRenoBar;
 	private JLabel lblSSThreshTCPTahoeBar;
-		
+	
+	/*
 	private void init() {
 		rdbtnTrippleDuplACK = new JRadioButton("tripple dupl. ACK:");
 		rdbtnTimeout = new JRadioButton("timeout:");
 		rdbtnTimeout.setSelected(true);
 		btnExampleReset = new JButton("zur\u00FCcksetzen");
 		btnAssumeExecute = new JButton("n\u00E4chster Schritt");	
-	}	
+	}
+	*/	
 	
 	@Override
 	protected void initComponentsMenuButtons() {

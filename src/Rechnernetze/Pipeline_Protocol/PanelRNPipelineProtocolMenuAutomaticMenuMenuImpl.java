@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	09.09.2014
+ */
+
 package Rechnernetze.Pipeline_Protocol;
 
 import java.awt.event.ActionEvent;
@@ -12,19 +17,21 @@ import Base.PanelMenuAbstract;
 
 public class PanelRNPipelineProtocolMenuAutomaticMenuMenuImpl extends PanelMenuAbstract {
 
+	private static final long serialVersionUID = 1L;
+
 	public PanelRNPipelineProtocolMenuAutomaticMenuMenuImpl(ManagementPipelineProtocol pipeline) {
 		super(pipeline);
 	}
 
 	private PanelRNPipelineProtocolMenuAutomaticMenuMenuImpl() {
 		super(new ManagementPipelineProtocolImpl());		
-		this.initComponents();
+		this.initComponentsMenu();
 		this.initLayout();
 	}
 	
 	@Override
 	public Integer getPanelWidth() {
-		return 400;
+		return 330;
 	}
 
 	@Override

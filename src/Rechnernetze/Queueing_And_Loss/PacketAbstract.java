@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	09.09.2014
+ */
+
 package Rechnernetze.Queueing_And_Loss;
 
 import java.awt.Color;
@@ -33,7 +38,7 @@ public abstract class PacketAbstract implements Packet {
 	}
 	
 	public void incPosition() {
-		this.position += 5;
+		this.position += 2;
 	}
 	
 	protected abstract Color getColoredColor();

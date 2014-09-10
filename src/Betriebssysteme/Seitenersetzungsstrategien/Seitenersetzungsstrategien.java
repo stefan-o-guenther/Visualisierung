@@ -5,7 +5,6 @@
 
 package Betriebssysteme.Seitenersetzungsstrategien;
 
-import Base.FrameMainImpl;
 import Base.MainAbstract;
 
 public class Seitenersetzungsstrategien extends MainAbstract {
@@ -15,8 +14,9 @@ public class Seitenersetzungsstrategien extends MainAbstract {
 	}
 	
 	public static void main(String[] args) {
-		initToolTipManager();
-    	initLookAndFeel();
-    	baseMain(new FrameMainImpl(new ManagementPagingImpl()));	
+		ManagementPaging paging = new ManagementPagingImpl();
+		initialize();		
+    	panelMain = new PanelBSSeitenersetzungsstrategienMainImpl(paging);    	
+    	baseMain();	
     }
 }

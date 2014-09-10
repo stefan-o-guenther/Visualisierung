@@ -12,7 +12,6 @@ import java.util.Random;
 import Base.EnumAutomaticChecked;
 import Base.EnumVisualizationStatus;
 import Base.ManagementAbstract;
-import Base.PanelAbstract;
 
 public class ManagementQueueingAndLossImpl extends ManagementAbstract implements ManagementQueueingAndLoss {
 
@@ -244,7 +243,7 @@ public class ManagementQueueingAndLossImpl extends ManagementAbstract implements
 		this.executeInput();
 		this.executeNewPacket();
 		copyLists();
-		this.updateAllPanels();
+		this.updateViews();
 		return true;
 	}
 	
@@ -260,7 +259,6 @@ public class ManagementQueueingAndLossImpl extends ManagementAbstract implements
 
 	@Override
 	protected void updateSize() {
-		// TODO Auto-generated method stub
 		
 	}
 	
@@ -352,11 +350,6 @@ public class ManagementQueueingAndLossImpl extends ManagementAbstract implements
 	}
 
 	@Override
-	public Integer getAutomaticSpace() {
-		return 0;
-	}
-
-	@Override
 	public Integer getTransferRate() {
 		return this.termSpeed;
 	}
@@ -414,18 +407,6 @@ public class ManagementQueueingAndLossImpl extends ManagementAbstract implements
 		} catch (Exception ex) {
 			throw ex;
 		}
-	}
-
-	@Override
-	protected void createPanelMenu() {
-		PanelAbstract panelLeft = new PanelRNQueueingAndLossMenuImpl(this);
-		PanelAbstract panelRight = new PanelRNQueueingAndLossControlBoxImpl(this);
-		this.panelMenu = this.getPanelCouple(panelLeft, panelRight);
-	}
-
-	@Override
-	protected void createPanelModel() {
-		this.panelModel = new PanelRNQueueingAndLossModelImpl(this);
 	}
 
 	@Override

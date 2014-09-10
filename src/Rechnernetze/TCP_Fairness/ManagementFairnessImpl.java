@@ -14,8 +14,6 @@ import Base.EnumCoordinateSystem;
 import Base.EnumSurface;
 import Base.EnumVisualizationStatus;
 import Base.ManagementCoordinateSystemAbstract;
-import Base.PanelAbstract;
-import Base.PanelMenuControlBoxImpl;
 
 public class ManagementFairnessImpl extends ManagementCoordinateSystemAbstract implements ManagementFairness {
 
@@ -99,7 +97,7 @@ public class ManagementFairnessImpl extends ManagementCoordinateSystemAbstract i
 			} else {
 				result = false;
 			}
-			this.updateAllPanels();
+			this.updateViews();
 			return result;
 		} catch (Exception ex) {
 			throw ex;
@@ -257,7 +255,7 @@ public class ManagementFairnessImpl extends ManagementCoordinateSystemAbstract i
 				this.setMaxFlowRate();
 			}
 		}
-		this.updateAllPanels();
+		this.updateViews();
 	}
 
 	@Override
@@ -323,23 +321,6 @@ public class ManagementFairnessImpl extends ManagementCoordinateSystemAbstract i
 	@Override
 	protected Integer getGapBottom() {
 		return 30;
-	}
-
-	@Override
-	public Integer getAutomaticSpace() {
-		return 0;
-	}
-
-	@Override
-	protected void createPanelMenu() {
-		PanelAbstract panelLeft = new PanelRNTCPFairnessMenuImpl(this);
-		PanelAbstract panelRight = new PanelMenuControlBoxImpl(this);
-		this.panelMenu = this.getPanelCouple(panelLeft, panelRight);
-	}
-
-	@Override
-	protected void createPanelModel() {
-		this.panelModel = new PanelRNTCPFairnessModelImpl(this);		
 	}
 
 	@Override

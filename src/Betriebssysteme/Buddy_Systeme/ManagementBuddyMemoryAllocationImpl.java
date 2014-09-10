@@ -11,12 +11,9 @@ import java.util.HashMap;
 import java.util.List;
 
 import Base.EnumAutomaticChecked;
-import Base.EnumScrollbar;
 import Base.EnumSurface;
 import Base.EnumVisualizationStatus;
 import Base.ManagementAbstract;
-import Base.PanelAbstract;
-import Base.PanelScrollImpl;
 
 public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract implements ManagementBuddyMemoryAllocation {
 
@@ -171,7 +168,7 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 		} catch (Exception ex) {
 			throw ex;
 		}
-		this.updateAllPanels();
+		this.updateViews();
 	}
 
 	private void stopProcess() {
@@ -197,7 +194,7 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 		} catch (Exception ex) {
 			throw ex;
 		}
-		this.updateAllPanels();
+		this.updateViews();
 	}
 
 	@Override
@@ -212,7 +209,7 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 			root = new BuddyNodeImpl(value);
 			status = EnumVisualizationStatus.RUN;	
 			updateList("Hauptspeicher initialisiert.");
-			this.updateAllPanels();
+			this.updateViews();
 		} catch (Exception ex) {
 			throw ex;
 		}	
@@ -444,7 +441,7 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 				throw new NullPointerException();
 			}
 			this.processOperation = type;
-			this.updateAllPanels();
+			this.updateViews();
 		} catch (Exception ex) {
 			throw ex;
 		}
@@ -484,26 +481,6 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 	@Override
 	protected EnumAutomaticChecked keepAutomaticChecked() {
 		return EnumAutomaticChecked.NEVER;
-	}
-
-	@Override
-	public Integer getAutomaticSpace() {
-		return 0;
-	}
-
-	@Override
-	protected void createPanelMenu() {
-		PanelAbstract panelLeft = new PanelBSBuddySystemeMenuImpl(this);
-		PanelAbstract panelRightLeft = new PanelBSBuddySystemeTableImpl(this);
-		PanelAbstract panelRightRight = new PanelBSBuddySystemeLabelImpl(this);
-		PanelAbstract panelRight = this.getPanelCouple(panelRightLeft, panelRightRight);
-		panelMenu = this.getPanelCouple(panelLeft, panelRight);
-	}
-
-	@Override
-	protected void createPanelModel() {
-		PanelAbstract panel = new PanelBSBuddySystemeModelImpl(this);
-		this.panelModel = new PanelScrollImpl(this, panel, EnumScrollbar.NEVER, EnumScrollbar.ALWAYS);
 	}
 
 	@Override

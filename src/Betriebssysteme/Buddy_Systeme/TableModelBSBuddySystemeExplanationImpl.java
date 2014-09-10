@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	09.09.2014
+ */
+
 package Betriebssysteme.Buddy_Systeme;
 
 import java.util.ArrayList;
@@ -7,9 +12,6 @@ import javax.swing.table.AbstractTableModel;
 
 public class TableModelBSBuddySystemeExplanationImpl extends AbstractTableModel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public TableModelBSBuddySystemeExplanationImpl(ManagementBuddyMemoryAllocation buddy) {

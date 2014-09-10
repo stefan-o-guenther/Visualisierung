@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	09.09.2014
+ */
+
 package Rechnernetze.Queueing_And_Loss;
 
 import javax.swing.ImageIcon;
@@ -6,11 +11,13 @@ import Base.*;
 
 public class PanelRNQueueingAndLossControlProcessingImpl extends PanelMenuControlSliderAbstract {
 
+	private static final long serialVersionUID = 1L;	
+
 	public PanelRNQueueingAndLossControlProcessingImpl(Management management) {
 		super(management);
 	}
 	
-	public PanelRNQueueingAndLossControlProcessingImpl() {
+	private PanelRNQueueingAndLossControlProcessingImpl() {
 		super(new ManagementTestImpl());
 	}	
 
@@ -62,7 +69,7 @@ public class PanelRNQueueingAndLossControlProcessingImpl extends PanelMenuContro
 
 	@Override
 	protected String getToolTip() {
-		// TODO Auto-generated method stub
-		return null;
+		ToolTipManagerQueueingAndLoss tooltip = (ToolTipManagerQueueingAndLoss) management.getToolTipManager();
+		return tooltip.getToolTipProcessing();
 	}
 }

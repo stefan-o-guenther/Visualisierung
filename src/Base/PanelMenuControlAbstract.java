@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	09.09.2014
+ */
+
 package Base;
 
 public abstract class PanelMenuControlAbstract extends PanelMenuAbstract {
@@ -6,13 +11,5 @@ public abstract class PanelMenuControlAbstract extends PanelMenuAbstract {
 	
 	public PanelMenuControlAbstract(Management management) {
 		super(management);
-	}
-	
-	public Integer getPanelHeight() {
-		return 0;
-	}
-	
-	public Integer getPanelWidth() {
-		return 0;
 	}
 }

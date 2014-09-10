@@ -12,8 +12,6 @@ import java.util.List;
 import Base.EnumAutomaticChecked;
 import Base.EnumVisualizationStatus;
 import Base.ManagementAbstract;
-import Base.PanelAbstract;
-import Base.PanelMenuControlBoxImpl;
 
 public class ManagementDijkstraAlgorithmImpl extends ManagementAbstract implements ManagementDijkstraAlgorithm {
 	
@@ -403,7 +401,7 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAbstract implemen
 				}			
 			}		
 		}
-		this.updateAllPanels();
+		this.updateViews();
 		return true;
 	}	
 
@@ -532,23 +530,6 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAbstract implemen
 	@Override
 	protected EnumAutomaticChecked keepAutomaticChecked() {
 		return EnumAutomaticChecked.CHOICE;
-	}
-
-	@Override
-	public Integer getAutomaticSpace() {
-		return 0;
-	}
-
-	@Override
-	protected void createPanelMenu() {
-		PanelAbstract panelLeft = new PanelRNDijkstraAlgorithmMenuImpl(this);
-		PanelAbstract panelRight = new PanelMenuControlBoxImpl(this);
-		this.panelMenu = this.getPanelCouple(panelLeft, panelRight);
-	}
-
-	@Override
-	protected void createPanelModel() {
-		panelModel = new PanelRNDijkstraAlgorithmModelImpl(this);
 	}
 
 	@Override

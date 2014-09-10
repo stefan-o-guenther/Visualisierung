@@ -5,7 +5,6 @@
 
 package Betriebssysteme.Belegungsstrategien;
 
-import Base.FrameMainImpl;
 import Base.MainAbstract;
 
 public class Belegungsstrategien extends MainAbstract {
@@ -15,8 +14,9 @@ public class Belegungsstrategien extends MainAbstract {
 	}
 	
 	public static void main(String[] args) {
-		initToolTipManager();
-    	initLookAndFeel();
-    	baseMain(new FrameMainImpl(new ManagementFragmentationImpl()));
+		ManagementFragmentation fragmentation = new ManagementFragmentationImpl();
+		initialize();
+    	panelMain = new PanelBSBelegungsstrategienMainImpl(fragmentation);
+    	baseMain();
     }
 }

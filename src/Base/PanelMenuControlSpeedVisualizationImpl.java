@@ -1,3 +1,8 @@
+/**
+ * @author:	Stefan Otto Günther
+ * @date:	09.09.2014
+ */
+
 package Base;
 
 import javax.swing.ImageIcon;
@@ -10,7 +15,7 @@ public class PanelMenuControlSpeedVisualizationImpl extends PanelMenuControlSlid
 		super(management);
 	}
 	
-	public PanelMenuControlSpeedVisualizationImpl() {
+	private PanelMenuControlSpeedVisualizationImpl() {
 		super(new ManagementTestImpl());
 	}	
 

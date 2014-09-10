@@ -5,16 +5,17 @@
 
 package Base;
 
+import java.util.Observable;
 
-public abstract class ManagementAbstract implements Management {
+
+public abstract class ManagementAbstract extends Observable implements Management {
 
 	public ManagementAbstract() {
 		super();
 		this.createManagement();
 		this.initializeManagement();
 		this.createToolTipManager();
-		this.createPanels();
-		this.updateAllPanels();
+		this.updateViews();
 	}
 	
 	private void createManagement() {
@@ -31,16 +32,6 @@ public abstract class ManagementAbstract implements Management {
 		this.resetAutomatic();
 		this.initialize();
 	}
-	
-	private void createPanels() {
-		this.createPanelModel();
-		this.createPanelMenu();
-		this.createPanelTitle();
-	}
-	
-	protected PanelAbstract panelTitle;
-	protected PanelAbstract panelMenu;
-	protected PanelAbstract panelModel;
 	
 	protected ToolTipManager tooltip;
 	
@@ -60,16 +51,9 @@ public abstract class ManagementAbstract implements Management {
 	protected abstract void create();
 	protected abstract Boolean execute();
 	protected abstract void showErrorMessage();
-	protected abstract EnumAutomaticChecked keepAutomaticChecked();
-	
-	protected abstract void createPanelMenu();
-	protected abstract void createPanelModel();
+	protected abstract EnumAutomaticChecked keepAutomaticChecked();	
 	
 	protected abstract void createToolTipManager();
-	
-	protected void createPanelTitle() {
-		panelTitle = new PanelTitleImpl(this);
-	}	
 	
 	protected void executeWithCheck() {
 		if (!(this.execute())) {
@@ -77,22 +61,10 @@ public abstract class ManagementAbstract implements Management {
 		}
 	}
 	
-	protected PanelCoupleImpl getPanelCouple(PanelAbstract panelLeft, PanelAbstract panelRight) {
-		try {
-			if ((panelLeft == null) || (panelRight == null)) {
-				throw new NullPointerException();
-			}
-			PanelCoupleImpl panelCouple = new PanelCoupleImpl(this, panelLeft, panelRight);
-			return panelCouple;
-		} catch (Exception ex) {
-			throw ex;
-		}
-	}
-	
 	@Override
 	public void reset() {
 		initializeManagement();
-		this.updateAllPanels();
+		this.updateViews();
 	}
 	
 	@Override
@@ -107,23 +79,16 @@ public abstract class ManagementAbstract implements Management {
 				throw new NullPointerException();
 			}
 			this.surface = surface;
-			this.updateAllPanels();
+			this.updateViews();
 		} catch (Exception ex) {
 			throw ex;
 		}
 	}
 
 	@Override
-	public void updateAllPanels() {
-		if (this.panelTitle != null) {
-			this.panelTitle.updatePanel();
-		}
-		if (this.panelMenu != null) {
-			this.panelMenu.updatePanel();
-		}
-		if (this.panelModel != null) {
-			this.panelModel.updatePanel();
-		}
+	public void updateViews() {
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	@Override
@@ -175,9 +140,7 @@ public abstract class ManagementAbstract implements Management {
 			throw ex;
 		}
 	}
-	
-	
-			
+				
 	protected long getTime() {
 		return time;
 	}
@@ -210,7 +173,7 @@ public abstract class ManagementAbstract implements Management {
 		if (isAutomaticChecked() && isAutomaticPlay() && (timeDif >= this.getSpeed())) {
 			time = timeCurrent;
 			this.executeWithCheck();
-			this.updateAllPanels();
+			this.updateViews();
 		}
 	}
 	
@@ -221,7 +184,7 @@ public abstract class ManagementAbstract implements Management {
 		} else {
 			this.executeWithCheck();
 		}
-		this.updateAllPanels();	
+		this.updateViews();	
 	}
 	
 	@Override
@@ -329,7 +292,7 @@ public abstract class ManagementAbstract implements Management {
 			tAuto = new ThreadAutomatic(this);
 			tAuto.start();
 		}
-		this.updateAllPanels();
+		this.updateViews();
 	}
 	
 	
@@ -342,7 +305,7 @@ public abstract class ManagementAbstract implements Management {
 		if (isAutomaticRunning()) {
 			this.resetAutomatic();
 		}
-		this.updateAllPanels();
+		this.updateViews();
 	}
 	
 	@Override
@@ -352,30 +315,15 @@ public abstract class ManagementAbstract implements Management {
 		} else {
 			startAutomatic();
 		}
-		this.updateAllPanels();
+		this.updateViews();
 	}
 	
 	@Override
 	public void endThread() {
 		this.setAutomaticChecked(false);
 		this.setAutomaticPlay(false);
-		this.updateAllPanels();
+		this.updateViews();
 	}	
-	
-	@Override
-	public PanelAbstract getPanelTitle() {
-		return this.panelTitle;
-	}
-	
-	@Override
-	public PanelAbstract getPanelMenu() {
-		return this.panelMenu;
-	}
-	
-	@Override
-	public PanelAbstract getPanelModel() {
-		return this.panelModel;
-	}
 	
 	@Override
 	public ToolTipManager getToolTipManager() {

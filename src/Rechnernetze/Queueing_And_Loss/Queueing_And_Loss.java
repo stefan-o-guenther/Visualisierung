@@ -5,7 +5,6 @@
 
 package Rechnernetze.Queueing_And_Loss;
 
-import Base.FrameMainImpl;
 import Base.MainAbstract;
 
 public class Queueing_And_Loss extends MainAbstract {
@@ -15,8 +14,9 @@ public class Queueing_And_Loss extends MainAbstract {
 	}
 	
 	public static void main(String[] args) {
-		initToolTipManager();
-    	initLookAndFeel();
-    	baseMain(new FrameMainImpl(new ManagementQueueingAndLossImpl()));	
+		ManagementQueueingAndLoss qal = new ManagementQueueingAndLossImpl();
+		initialize();
+		panelMain = new PanelRNQueueingAndLossMainImpl(qal);
+    	baseMain();	
     }
 }

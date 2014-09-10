@@ -90,7 +90,7 @@ public class ManagementPipelineProtocolImpl extends ManagementGeometryAbstract i
 				setWidth(width);
 			}
 		}
-		this.updateAllPanels();
+		this.updateViews();
 	}
 	
 	@Override
@@ -250,25 +250,7 @@ public class ManagementPipelineProtocolImpl extends ManagementGeometryAbstract i
 	}
 
 	@Override
-	public Integer getAutomaticSpace() {
-		return 0;
-	}
-
-	@Override
-	protected void createPanelMenu() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	protected void createPanelModel() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	protected void createToolTipManager() {
-		// TODO Auto-generated method stub
-		
+		this.tooltip = new ToolTipManagerPipelineProtocolImpl();
 	}
 }

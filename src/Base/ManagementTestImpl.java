@@ -32,11 +32,6 @@ public class ManagementTestImpl extends ManagementAbstract implements Management
 	}
 
 	@Override
-	public EnumVisualizationStatus getStatus() {
-		return EnumVisualizationStatus.START;
-	}
-
-	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
 		

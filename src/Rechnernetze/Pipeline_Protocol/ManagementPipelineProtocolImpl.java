@@ -17,49 +17,44 @@ public class ManagementPipelineProtocolImpl extends ManagementGeometryAbstract i
 	public ManagementPipelineProtocolImpl() {
 		super();		
 	}
-
-	private Integer packetWidth;
-	private Integer packetHeight;
-	private EnumVisualizationStatus status;
-	private List<Packet> listPacket;
-	private Integer count;
 	
-	private List<Boolean> listStart;
-	private List<Boolean> listTarget;
+	private List<Packet> listPacket;
+	
+	private List<Boolean> listSender;
+	private List<Boolean> listReceiver;
 	
 	@Override
-	protected void initialize() {		
-		this.init();		
-		this.initCoordinateSystem();
-		this.initLists();
+	protected void initialize() {	
+		this.setStatus(EnumVisualizationStatus.START);
+		listPacket = new ArrayList<Packet>();
+		listSender = new ArrayList<Boolean>();
+		listReceiver= new ArrayList<Boolean>();
+		listSender.add(true);
+		listReceiver.add(true);		
+		this.fillLists();
+	}
+	
+	private void fillLists() {
+		while (listSender.size() < getXMax()) {
+			listSender.add(false);
+		}
+		while (listReceiver.size() < getXMax()) {
+			listReceiver.add(false);
+		}
+		while (listSender.size() > getXMax()) {
+			listSender.remove(listSender.size()-1);
+		}
+		while (listReceiver.size() > getXMax()) {
+			listReceiver.remove(listReceiver.size()-1);
+		}
 	}
 	
 	@Override
 	protected void create() {
-		packetWidth = 20;
-		packetHeight = 40;
-		count = 0;
+		
+		
 	}
 
-	private void init() {		
-		status = EnumVisualizationStatus.START;
-		listPacket = new ArrayList<Packet>();
-		
-	}
-	
-	private void initLists() {
-		listStart = new ArrayList<Boolean>();
-		listTarget = new ArrayList<Boolean>();
-		int max = getXMax();
-		for (int i = 0; i < max; i++) {
-			listStart.add(false);
-		}
-	}
-	
-	private void initCoordinateSystem() {
-		
-	}	
-	
 	@Override
 	protected Boolean execute() {
 		return true;
@@ -77,30 +72,15 @@ public class ManagementPipelineProtocolImpl extends ManagementGeometryAbstract i
 	}
 
 	@Override
-	protected void updateSize() {
-		count = width / 40;
-		if ((status == EnumVisualizationStatus.START)) {
-			
-			int widthO = getWidth().intValue();
-			int heightO = getHeight().intValue();
-			int widthN = width.intValue();
-			int heightN = height.intValue();
-			if ((widthO != widthN) || (heightO != heightN)) {
-				setHeight(height);
-				setWidth(width);
-			}
+	protected void updateSize() {	
+		if (this.getStatus() == EnumVisualizationStatus.START) {
+			this.fillLists();
 		}
-		this.updateViews();
 	}
 	
 	@Override
-	public Integer getCount() {
-		return this.count;
-	}
-
-	@Override
 	public List<Packet> getListPacket() {
-		return new ArrayList(listPacket);
+		return new ArrayList<Packet>(listPacket);
 	}
 
 	@Override
@@ -117,38 +97,22 @@ public class ManagementPipelineProtocolImpl extends ManagementGeometryAbstract i
 
 	@Override
 	public Integer getPacketHeight() {
-		return this.packetHeight;
+		return 40;
 	}
 
 	@Override
 	public Integer getPacketWidth() {
-		return this.packetWidth;
-	}
-
-	@Override
-	public EnumVisualizationStatus getStatus() {
-		// TODO Auto-generated method stub
-		return null;
+		return 20;
 	}
 
 	@Override
 	protected EnumAutomaticChecked keepAutomaticChecked() {
 		return EnumAutomaticChecked.ALWAYS;
 	}
-
-	/*
-	pd = new PipelineDrawImpl();
-	pd.setHeight(height);
-	pd.setWidth(width);
-	pd.setGapBetweenX(20);
-	pd.setGapBetweenY(1);
-	pd.setIntervalX(1);
-	pd.setIntervalY(1);
-	*/
 	
 	@Override
 	public Integer getGapBetweenX() {
-		return 20;
+		return this.getPacketWidth() + this.getGapBetweenPackets();
 	}
 
 	@Override
@@ -221,7 +185,7 @@ public class ManagementPipelineProtocolImpl extends ManagementGeometryAbstract i
 
 	@Override
 	protected Integer getGapLeft() {
-		return 0;
+		return 10;
 	}
 
 	@Override
@@ -231,12 +195,12 @@ public class ManagementPipelineProtocolImpl extends ManagementGeometryAbstract i
 
 	@Override
 	protected Integer getGapTop() {
-		return 0;
+		return 10 + this.getPacketHeight();
 	}
 
 	@Override
 	protected Integer getGapBottom() {
-		return 0;
+		return 10 + (2 * this.getPacketHeight());
 	}
 
 	@Override
@@ -252,5 +216,28 @@ public class ManagementPipelineProtocolImpl extends ManagementGeometryAbstract i
 	@Override
 	protected void createToolTipManager() {
 		this.tooltip = new ToolTipManagerPipelineProtocolImpl();
+	}
+
+	@Override
+	public Integer getGapBetweenPackets() {
+		return 10;
+	}
+
+	@Override
+	public List<Boolean> getListSender() {
+		return new ArrayList<Boolean>(this.listSender);
+	}
+
+	@Override
+	public List<Boolean> getListReceiver() {
+		return new ArrayList<Boolean>(this.listReceiver);
+	}
+
+	@Override
+	public void assume() {
+		listPacket.add(new PacketAckImpl(0, this.getYMax()));
+		listPacket.add(new PacketDataImpl(1, this.getY0()));
+		this.setStatusRUN();
+		this.updateViews();
 	}
 }

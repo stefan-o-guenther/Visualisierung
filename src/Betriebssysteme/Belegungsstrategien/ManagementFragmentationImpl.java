@@ -16,8 +16,7 @@ import Base.MessageBox;
 public class ManagementFragmentationImpl extends ManagementAbstract implements ManagementFragmentation {
 
 	public ManagementFragmentationImpl() {
-		super();
-		
+		super();		
 	}		
 	
 	private final Integer START = 0;
@@ -35,7 +34,6 @@ public class ManagementFragmentationImpl extends ManagementAbstract implements M
 	private EnumMemoryStrategy strategy;
 	
 	private EnumMemoryStatus statusMemory;
-	private EnumVisualizationStatus status;
 	
 	private Boolean suitable;
 	
@@ -44,7 +42,7 @@ public class ManagementFragmentationImpl extends ManagementAbstract implements M
 	
 	@Override
 	protected void initialize() {
-		status = EnumVisualizationStatus.START;
+		this.setStatusSTART();
 		strategy = EnumMemoryStrategy.NULL;
 		number = 0;
 		start = START;
@@ -326,15 +324,15 @@ public class ManagementFragmentationImpl extends ManagementAbstract implements M
 	
 	private void finish() {
 		if (hasEmptySpace()) {
-			status = EnumVisualizationStatus.NEXT;
+			this.setStatusNEXT();
 		} else {
-			status = EnumVisualizationStatus.FINISHED;	
+			this.setStatusFINISHED();
 		}
 		this.stopAutomatic();
 	}
 	
 	private void finishFit() {
-		status = EnumVisualizationStatus.RUN;
+		this.setStatusRUN();
 		statusMemory = EnumMemoryStatus.CHOOSE;
 		hideNegativeRestValues();
 	}
@@ -392,11 +390,11 @@ public class ManagementFragmentationImpl extends ManagementAbstract implements M
 			if (value <= 0) {
 				throw new IllegalArgumentException();
 			}
-			if ((strategy != EnumMemoryStrategy.NULL) && (status == EnumVisualizationStatus.INPUT)) {
+			if ((strategy != EnumMemoryStrategy.NULL) && (this.getStatus() == EnumVisualizationStatus.INPUT)) {
 				number = value;
 				inputOK();
 				this.setNewValue(value);
-				status = EnumVisualizationStatus.RUN;
+				this.setStatusRUN();
 				statusMemory = EnumMemoryStatus.SEARCH;
 				this.updateViews();
 			}			
@@ -406,25 +404,20 @@ public class ManagementFragmentationImpl extends ManagementAbstract implements M
 	}
 
 	@Override
-	public EnumVisualizationStatus getStatus() {
-		return status;	
-	}
-	
-	@Override
 	protected Boolean execute() {
 		if (strategy != EnumMemoryStrategy.NULL) {
 			if (listSpaceWork != null) {
 				this.deactivateValues();
-				if (status == EnumVisualizationStatus.RUN) {
+				if (this.getStatus() == EnumVisualizationStatus.RUN) {
 					if (statusMemory == EnumMemoryStatus.SEARCH) {				
 						search();
 					} else if (statusMemory == EnumMemoryStatus.CHOOSE) {
 						choose();
 					}
-				} else if (status == EnumVisualizationStatus.NEXT) {				
-					status = EnumVisualizationStatus.INPUT;
+				} else if (this.getStatus() == EnumVisualizationStatus.NEXT) {				
+					this.setStatusINPUT();
 					executionOK = true;
-				} else if (status == EnumVisualizationStatus.FINISHED) {
+				} else if (this.getStatus() == EnumVisualizationStatus.FINISHED) {
 					executionOK = true;
 				}
 			}
@@ -464,7 +457,7 @@ public class ManagementFragmentationImpl extends ManagementAbstract implements M
     		}    		
     	}
 		return free;
-	}
+	}	
 
 	@Override
 	public Integer getUsedSpace() {		
@@ -481,7 +474,20 @@ public class ManagementFragmentationImpl extends ManagementAbstract implements M
 	}
 
 	@Override
-	public Double getUsedRate() {
+	public Double getFreeSpaceRate() {
+		Integer total = getTotalSpace();
+		int t = total.intValue();
+		if (t <= 0) {
+			return 0.0;
+		} else {
+			Integer free = getFreeSpace();
+			Double rate = (((double) free) * 100.0) / ((double) total); 
+			return rate;		
+		}		
+	}
+	
+	@Override
+	public Double getUsedSpaceRate() {
 		Integer total = getTotalSpace();
 		int t = total.intValue();
 		if (t <= 0) {
@@ -492,7 +498,7 @@ public class ManagementFragmentationImpl extends ManagementAbstract implements M
 			return rate;		
 		}		
 	}
-
+	
 	@Override
 	public String getTitle() {
 		return "Belegungsstrategien";
@@ -551,7 +557,7 @@ public class ManagementFragmentationImpl extends ManagementAbstract implements M
 			this.strategy = strategy;
 			this.listSpaceWork = this.getGeneralStorage(list);		
 			copyListSpace();
-			status = EnumVisualizationStatus.INPUT;			
+			this.setStatusINPUT();
 			this.updateViews();		
 		} catch (Exception ex) {
 			throw ex;

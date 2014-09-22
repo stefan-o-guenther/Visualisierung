@@ -14,9 +14,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.EnumVisualizationStatus;
 import Base.MessageBox;
-import Base.PanelMenuMenuButtonsAbstract;
+import Base.PanelMenuButtonsAbstract;
 
-public class PanelRNTCPFairnessMenuImpl extends PanelMenuMenuButtonsAbstract {
+public class PanelRNTCPFairnessMenuImpl extends PanelMenuButtonsAbstract {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -152,7 +152,7 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuMenuButtonsAbstract {
 						.addComponent(lblCwndContent1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(this.btnAssumeExecute, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(this.btnAssumeSaveExecute, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(this.btnExampleReset, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblModusLabel)
@@ -169,7 +169,7 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuMenuButtonsAbstract {
 						.addComponent(tfConnection1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblCwndLabel1)
 						.addComponent(lblCwndContent1)
-						.addComponent(this.btnAssumeExecute))
+						.addComponent(this.btnAssumeSaveExecute))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblConnection2)
@@ -241,5 +241,15 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuMenuButtonsAbstract {
 	@Override
 	protected void executeExtra() {
 		// nothing
+	}
+
+	@Override
+	protected Boolean hasExample() {
+		return true;
+	}
+
+	@Override
+	protected void input() {
+		
 	}
 }

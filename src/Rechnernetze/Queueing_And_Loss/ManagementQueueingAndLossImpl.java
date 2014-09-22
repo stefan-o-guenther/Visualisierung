@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Random;
 
 import Base.EnumAutomaticChecked;
-import Base.EnumVisualizationStatus;
 import Base.ManagementAbstract;
 
 public class ManagementQueueingAndLossImpl extends ManagementAbstract implements ManagementQueueingAndLoss {
@@ -311,11 +310,6 @@ public class ManagementQueueingAndLossImpl extends ManagementAbstract implements
 	}
 
 	@Override
-	public EnumVisualizationStatus getStatus() {
-		return EnumVisualizationStatus.RUN;
-	}
-
-	@Override
 	protected void initialize() {
 		this.random = new Random();
 		updateCurrentTime();
@@ -339,6 +333,7 @@ public class ManagementQueueingAndLossImpl extends ManagementAbstract implements
 
 	@Override
 	protected void create() {
+		this.setStatusRUN();
 		this.termSpeed = 0;	// 1 - 30
 		this.interval = 0;	// 30 - 100
 		this.termProcessing = 0;

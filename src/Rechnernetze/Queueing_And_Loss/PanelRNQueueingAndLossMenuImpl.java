@@ -11,9 +11,9 @@ import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.ManagementTestImpl;
-import Base.PanelMenuMenuButtonsAbstract;
+import Base.PanelMenuButtonsAbstract;
 
-public class PanelRNQueueingAndLossMenuImpl extends PanelMenuMenuButtonsAbstract {
+public class PanelRNQueueingAndLossMenuImpl extends PanelMenuButtonsAbstract {
 
 	private static final long serialVersionUID = 1L;	
 
@@ -59,7 +59,7 @@ public class PanelRNQueueingAndLossMenuImpl extends PanelMenuMenuButtonsAbstract
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 							.addComponent(btnExampleReset, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-							.addComponent(btnAssumeExecute, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+							.addComponent(btnAssumeSaveExecute, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblTransfersLabel)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -76,7 +76,7 @@ public class PanelRNQueueingAndLossMenuImpl extends PanelMenuMenuButtonsAbstract
 					.addContainerGap()
 					.addComponent(btnExampleReset)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnAssumeExecute)
+					.addComponent(btnAssumeSaveExecute)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblTransfersLabel)
@@ -102,31 +102,36 @@ public class PanelRNQueueingAndLossMenuImpl extends PanelMenuMenuButtonsAbstract
 
 	@Override
 	protected void initMethodsMenuButtons() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	protected void loadExample() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	protected void assume() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	protected void clearFields() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	protected void executeExtra() {
-		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected Boolean hasExample() {
+		return false;
+	}
+
+	@Override
+	protected void input() {
 		
 	}		
 }

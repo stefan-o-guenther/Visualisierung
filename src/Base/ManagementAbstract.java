@@ -19,9 +19,10 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 	}
 	
 	private void createManagement() {
+		status = EnumVisualizationStatus.START;
 		surface = EnumSurface.COLORED;
-		height = 0;
-		width = 0;
+		height = 100;
+		width = 100;
 		this.isAutomaticRunning = false;
 		this.speed = 0;	
 		this.create();
@@ -32,6 +33,8 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 		this.resetAutomatic();
 		this.initialize();
 	}
+	
+	private EnumVisualizationStatus status;
 	
 	protected ToolTipManager tooltip;
 	
@@ -51,9 +54,9 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 	protected abstract void create();
 	protected abstract Boolean execute();
 	protected abstract void showErrorMessage();
-	protected abstract EnumAutomaticChecked keepAutomaticChecked();	
+	protected abstract EnumAutomaticChecked keepAutomaticChecked();
 	
-	protected abstract void createToolTipManager();
+	protected abstract void createToolTipManager();	
 	
 	protected void executeWithCheck() {
 		if (!(this.execute())) {
@@ -132,10 +135,17 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 		try {
 			if ((height == null) || (width == null)) {
 				throw new NullPointerException();
-			}			
-			this.height = height;
-			this.width = width;				
-			this.updateSize();
+			}
+			int widthOld = this.width.intValue();
+			int heightOld = this.height.intValue();
+			int widthNew = width.intValue();
+			int heightNew = height.intValue();
+			if ((widthOld != widthNew) || (heightOld != heightNew)) {
+				this.height = height;
+				this.width = width;				
+				this.updateSize();
+				this.updateViews();
+			}
 		} catch (Exception ex) {
 			throw ex;
 		}
@@ -269,22 +279,7 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 		} catch (Exception ex) {
 			throw ex;
 		}
-	}
-	
-	@Override
-	public String getButtonAutomaticText() {
-		String text = "";
-		if (isAutomaticChecked()) {
-    		if (isAutomaticRunning()) {
-        		text = Labeling.STOP;
-        	} else {
-        		text = Labeling.START;
-        	}
-    	} else {
-    		text = Labeling.NEXT_STEP;
-    	}
-		return text;
-	}
+	}	
 	
 	protected void startAutomatic() {
 		if ((!(isAutomaticRunning())) && (isAutomaticChecked())) {
@@ -325,6 +320,46 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 		this.updateViews();
 	}	
 	
+	@Override
+	public EnumVisualizationStatus getStatus() {
+		return status;
+	}
+	
+	protected void setStatus(EnumVisualizationStatus status) {
+		try {
+			if (status == null) {
+				throw new NullPointerException();
+			}
+			this.status = status;
+		} catch (Exception ex) {
+			throw ex;
+		}		
+	}
+	
+	protected void setStatusSTART() {
+		this.status = EnumVisualizationStatus.START;
+	}
+	
+	protected void setStatusINPUT() {
+		this.status = EnumVisualizationStatus.INPUT;
+	}
+	
+	protected void setStatusRUN() {
+		this.status = EnumVisualizationStatus.RUN;
+	}
+	
+	protected void setStatusNEXT() {
+		this.status = EnumVisualizationStatus.NEXT;
+	}
+	
+	protected void setStatusFINISHED() {
+		this.status = EnumVisualizationStatus.FINISHED;
+	}
+	
+	protected void setStatusERROR() {
+		this.status = EnumVisualizationStatus.ERROR;
+	}
+
 	@Override
 	public ToolTipManager getToolTipManager() {
 		return this.tooltip;

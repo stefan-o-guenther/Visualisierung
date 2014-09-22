@@ -19,8 +19,8 @@ public class PanelRNPipelineProtocolMainImpl extends PanelMainAbstract {
 	@Override
 	protected PanelAbstract getNewPanelMenu() {
 		ManagementPipelineProtocol pipeline = (ManagementPipelineProtocol) this.getManagement();
-		PanelAbstract panelLeft = new PanelRNPipelineProtocolMenuAutomaticMenuMenuImpl(pipeline);
-		PanelAbstract panelRight = new PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl(pipeline);
+		PanelAbstract panelLeft = new PanelRNPipelineProtocolMenuImpl(pipeline);
+		PanelAbstract panelRight = new PanelRNPipelineProtocolLabelImpl(pipeline);
 		PanelAbstract panelMenu = this.getPanelCoupleHorizontal(panelLeft, panelRight);
 		PanelAbstract panelSpeed = new PanelMenuControlSpeedImpl(pipeline);
 		PanelAbstract panelTimeout = new PanelMenuControlTimeoutImpl(pipeline);		

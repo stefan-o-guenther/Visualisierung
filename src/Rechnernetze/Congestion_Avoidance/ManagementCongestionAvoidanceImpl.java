@@ -23,7 +23,6 @@ public class ManagementCongestionAvoidanceImpl extends ManagementCoordinateSyste
 	private Boolean reno;
 	private Boolean tahoe;
 	private EnumNetworkStrategy strategy = EnumNetworkStrategy.TIMEOUT;
-	private Boolean start;
 	
 	private Integer maxTimeout;
 	private Integer maxTrippleDuplACK;
@@ -34,7 +33,7 @@ public class ManagementCongestionAvoidanceImpl extends ManagementCoordinateSyste
 	
 	@Override
 	protected void initialize() {
-		this.start = true;
+		this.setStatusSTART();
 		this.listPoints = new ArrayList<Point>();
 		initCoordinateSystem();
 	}
@@ -100,10 +99,10 @@ public class ManagementCongestionAvoidanceImpl extends ManagementCoordinateSyste
 	protected Boolean execute() {
 		try {
 			if (((reno == true) || (tahoe == true)) && (this.getStatus() != EnumVisualizationStatus.FINISHED)) {
-				if (start) {				
+				if (this.getStatus() == EnumVisualizationStatus.START) {				
 					Point firstPoint = new PointImpl(1,1, this.ssTreshTcpReno, this.ssTreshTcpTahoe);
 					this.listPoints.add(firstPoint);
-					start = false;
+					this.setStatusRUN();
 				} else {
 					Integer size = this.listPoints.size();
 					if (size > 0) {
@@ -134,17 +133,34 @@ public class ManagementCongestionAvoidanceImpl extends ManagementCoordinateSyste
 						listPoints.add(newPoint);
 					}					
 				}
+				this.checkTransmissionRound();
 				this.updateViews();
 				return true;
 			} else {
-				setAutomaticChecked(false);
-				setAutomaticRunning(false);
+				this.stopAutomatic();
 				return false;
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}	
 		return false;
+	}
+
+	@Override
+	protected void updateSize() {
+		this.checkTransmissionRound();
+	}
+	
+	private void checkTransmissionRound() {
+		if (this.getStatus() != EnumVisualizationStatus.START) {
+			Integer max = this.getMaxTransmissionRound();
+			Integer tr = this.getCurrentTransmissionRound();
+			if (tr < max) {
+				this.setStatusRUN();
+			} else {
+				this.setStatusFINISHED();
+			}
+		}
 	}
 
 	@Override
@@ -156,21 +172,6 @@ public class ManagementCongestionAvoidanceImpl extends ManagementCoordinateSyste
 	public void setNetworkStrategy(EnumNetworkStrategy strategy) {
 		if (strategy != null) {
 			this.strategy = strategy;
-		}
-	}
-
-	@Override
-	public EnumVisualizationStatus getStatus() {
-		if (start) {
-			return EnumVisualizationStatus.START;
-		} else {
-			Integer max = this.getMaxTransmissionRound();
-			Integer tr = this.getCurrentTransmissionRound();
-			if (tr < max) {
-				return EnumVisualizationStatus.RUN;
-			} else {
-				return EnumVisualizationStatus.FINISHED;
-			}
 		}
 	}
 
@@ -312,19 +313,6 @@ public class ManagementCongestionAvoidanceImpl extends ManagementCoordinateSyste
 	@Override
 	protected void showErrorMessage() {
 		
-	}
-
-	@Override
-	protected void updateSize() {
-		int widthO = getWidth().intValue();
-		int heightO = getHeight().intValue();
-		int widthN = width.intValue();
-		int heightN = height.intValue();
-		if ((widthO != widthN) || (heightO != heightN)) {
-			setHeight(height);
-			setWidth(width);
-		}		
-		this.updateViews();
 	}
 
 	@Override

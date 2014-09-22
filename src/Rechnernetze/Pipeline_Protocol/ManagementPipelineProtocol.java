@@ -16,5 +16,8 @@ public interface ManagementPipelineProtocol extends ManagementGeometry {
 	Integer getPositionTarget();
 	Integer getPacketHeight();
 	Integer getPacketWidth();
-	Integer getCount();
+	Integer getGapBetweenPackets();
+	List<Boolean> getListSender();
+	List<Boolean> getListReceiver();
+	void assume();
 }

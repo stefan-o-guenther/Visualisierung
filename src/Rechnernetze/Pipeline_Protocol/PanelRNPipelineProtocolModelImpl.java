@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.geom.Rectangle2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.SwingUtilities;
 
@@ -23,8 +24,7 @@ public class PanelRNPipelineProtocolModelImpl extends PanelModelDrawAbstract {
 	}
 	
 	private ManagementPipelineProtocol pipeline;
-	private Integer gap = 10;
-	private Rectangle2D rect = new Rectangle2D.Float(10, 60, 20, 40);
+	//private Rectangle2D rect = new Rectangle2D.Float(10, 60, 20, 40);
 	
 	private Color color = Color.BLACK;
 	
@@ -33,29 +33,22 @@ public class PanelRNPipelineProtocolModelImpl extends PanelModelDrawAbstract {
 	protected void doDrawing() {
 		if (pipeline != null) {
 			g2d.setColor(Color.BLACK);
-			pipeline.setSize(this.getHeight(), this.getWidth());
+			pipeline.setSize(this.getHeight(), this.getWidth());			
 			
-			Integer boxH = 40;
-			Integer boxW = 20;
-			Integer minX = 10;
-			Integer minY = 10;
-			Integer maxY = this.getHeight() - 10 - boxH;
+			this.drawSender();
+			this.drawReceiver();
 			
+			this.drawBox(2, 5, true);
+			this.drawBox(1, 1, false);
 			
-			Integer count = pipeline.getCount();
-			for (Integer i = 0; i < count; i++) {
-				g2d.drawRect(minX+(i*(boxW+gap)), minY, boxW, boxH);
-			}
-			for (Integer i = 0; i < count; i++) {
-				g2d.drawRect(minX+(i*(boxW+gap)), maxY, boxW, boxH);
-			}
-			g2d.drawRect(minX-5, minY-5, ((boxW * 5) + (4 * gap) + 10), 50);
-			g2d.drawRect(minX-5, maxY-5, 30, 50);
+			this.drawPackets();
 			
+			//this.drawPacket(0, minY, Color.BLUE);
+			//this.drawPacket(0, maxY, Color.RED);
 			
 			//g2d.draw(rect);
-			g2d.setColor(color);
-			g2d.fill(rect);
+			//g2d.setColor(color);
+			//g2d.fill(rect);
 		}
 		
 		
@@ -68,14 +61,94 @@ public class PanelRNPipelineProtocolModelImpl extends PanelModelDrawAbstract {
 			g2d.fill(rect);
 		}
 		*/		
+	}
+	
+	private void drawSender() {
+		Integer boxH = pipeline.getPacketHeight();
+		Integer minY = pipeline.getPositionY0();
+		List<Boolean> listSender = pipeline.getListSender();
+		for (int i = 0; i < listSender.size(); i++) {
+			Boolean s = listSender.get(i);
+			Color color = Color.WHITE;
+			if (s) {
+				color = Color.BLACK;
+			}
+			this.drawPacket(i, minY-boxH, color);
+		}
+	}
+	
+	private void drawReceiver() {
+		Integer boxH = pipeline.getPacketHeight();
+		Integer maxY = pipeline.getPositionYMax();
+		List<Boolean> listReceiver = pipeline.getListReceiver();		
+		for (int j = 0; j < listReceiver.size(); j++) {
+			Boolean r = listReceiver.get(j);
+			Color color = Color.WHITE;
+			if (r) {
+				color = Color.BLACK;
+			}
+			this.drawPacket(j, maxY+boxH, color);
+		}
+	}
+	
+	private void drawPackets() {
+		List<Packet> listPacket = pipeline.getListPacket();
+		for (Packet packet : listPacket) {
+			Color color = Color.WHITE;
+			if (packet.isOk()) {
+				if (packet.getPacketType() == EnumPacketType.DATA) {
+					color = Color.BLUE;
+				} else if (packet.getPacketType() == EnumPacketType.ACK) {
+					color = Color.RED;
+				}
+			} else {
+				color = Color.GRAY;
+			}
+			Integer position = packet.getPosition();
+			Integer y = pipeline.YToPositionY(position);
+			Integer number = packet.getNumber();
+			this.drawPacket(number, y, color);
+		}
 	}	
+	
+	private void drawBox(Integer number, Integer length, Boolean isTop) {
+		Integer minY = pipeline.getPositionY0();
+		Integer maxY = pipeline.getPositionYMax();
+		Integer boxW = pipeline.getPacketWidth();
+		Integer boxH = pipeline.getPacketHeight();
+		Integer gap = pipeline.getGapBetweenPackets();
+		Integer h = boxH + 10;
+		Integer w = ((boxW * length) + ((length - 1) * gap) + 10);
+		Integer x = pipeline.XToPositionX(number) - 5;
+		Integer y = 0;
+		if (isTop) {
+			y = minY - boxH - 5;
+		} else {
+			y = maxY + boxH - 5;
+		}
+		g2d.setColor(Color.BLACK);
+		g2d.drawRect(x, y, w, h);		
+	}
+	
+	private void drawPacket(Integer number, Integer y, Color color) {
+		Integer h = pipeline.getPacketHeight();
+		Integer w = pipeline.getPacketWidth();
+		Integer x = pipeline.XToPositionX(number);
+		g2d.setColor(Color.BLACK);
+		g2d.drawRect(x, y, w, h);
+		g2d.setColor(color);
+		g2d.fillRect(x+1, y+1, w-1, h-1);		
+	}
+	
+	
 
 	@Override
 	protected void initComponents() {
 		this.pipeline = (ManagementPipelineProtocol) this.getManagement();
-		this.addMouseListener(new HitTestAdapter());
+		//this.addMouseListener(new HitTestAdapter());
 	}
 	
+	/*
 	class HitTestAdapter extends MouseAdapter {	
 		@Override
 		public void mousePressed(MouseEvent e) {
@@ -118,4 +191,5 @@ public class PanelRNPipelineProtocolModelImpl extends PanelModelDrawAbstract {
 		    repaint();
 		}
 	}
+	*/
 }

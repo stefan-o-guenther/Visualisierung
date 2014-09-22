@@ -20,7 +20,13 @@ public class PanelBSSeitenersetzungsstrategienMainImpl extends PanelMainAbstract
 	protected PanelAbstract getNewPanelMenu() {
 		ManagementPaging paging = (ManagementPaging) this.getManagement();
 		PanelAbstract panelMenu = new PanelBSSeitenersetzungsstrategienMenuImpl(paging);
-		return this.getPanelMenuAutomatic(panelMenu, 5);
+		PanelAbstract panelReplacement = new PanelBSSeitenersetzungsstrategienReplacementImpl(paging);
+		PanelAbstract panelRM = new PanelBSSeitenersetzungsstrategienRMImpl(paging);
+		
+		PanelAbstract panelM = this.getPanelCoupleVertical(panelMenu, panelReplacement);
+		PanelAbstract panel = this.getPanelCoupleVertical(panelM, panelRM);
+		
+		return this.getPanelMenuAutomatic(panel, 5);
 	}
 
 	@Override

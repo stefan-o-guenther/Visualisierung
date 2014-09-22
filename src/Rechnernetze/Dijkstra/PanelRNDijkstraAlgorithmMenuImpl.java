@@ -9,9 +9,9 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import Base.PanelMenuMenuButtonsAbstract;
+import Base.PanelMenuButtonsAbstract;
 
-public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuMenuButtonsAbstract {
+public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuButtonsAbstract {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -33,14 +33,14 @@ public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuMenuButtonsAbstra
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addComponent(this.btnExampleReset, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(this.btnAssumeExecute, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+						.addComponent(this.btnAssumeSaveExecute, GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(this.btnAssumeExecute)
+					.addComponent(this.btnAssumeSaveExecute)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(this.btnExampleReset)
 					.addContainerGap(59, Short.MAX_VALUE))
@@ -85,6 +85,16 @@ public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuMenuButtonsAbstra
 
 	@Override
 	protected void executeExtra() {
+		
+	}
+
+	@Override
+	protected Boolean hasExample() {
+		return false;
+	}
+
+	@Override
+	protected void input() {
 		
 	}
 }

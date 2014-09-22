@@ -33,7 +33,6 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAbstract implemen
 	private List<Edge> listEdges;
 	
 	private EnumDijkstraStatus statusDijkstra;
-	private EnumVisualizationStatus status;
 	
 	private Node nodeFrom;
 	private Node nodeStart;
@@ -65,7 +64,7 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAbstract implemen
 	
 	@Override
 	protected void initialize() {
-		status = EnumVisualizationStatus.RUN;
+		this.setStatusRUN();
 		statusDijkstra = EnumDijkstraStatus.EXECUTE_START;		
 		setAutomaticChecked(false);
 		setAutomaticRunning(false);
@@ -334,7 +333,6 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAbstract implemen
 		this.executeFinish();
 	}
 	
-	
 	private void executeRoute() {
 		if (nodeRoute != null) {
 			listRoute.add(nodeRoute.getName());
@@ -360,13 +358,13 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAbstract implemen
 	}
 	
 	private void executeFinish() {
-		status = EnumVisualizationStatus.FINISHED;
+		this.setStatusFINISHED();
 		this.stopAutomatic();		
 	}
 		
 	@Override
 	protected Boolean execute() {
-		if (status == EnumVisualizationStatus.RUN) {
+		if (this.getStatus() == EnumVisualizationStatus.RUN) {
 			switch (statusDijkstra) {
 				case EXECUTE_START: {
 					executeStart();
@@ -471,11 +469,6 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAbstract implemen
 			}
 		}
 		return false;
-	}
-
-	@Override
-	public EnumVisualizationStatus getStatus() {
-		return status;
 	}
 
 	@Override

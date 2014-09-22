@@ -43,7 +43,7 @@ public class PanelBSBuddySystemeTableImpl extends PanelInitAbstract {
 
 	@Override
 	public Integer getPanelHeight() {
-		return 0;
+		return 50;
 	}
 
 	@Override

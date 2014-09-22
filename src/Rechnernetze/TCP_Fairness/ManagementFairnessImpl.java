@@ -21,14 +21,13 @@ public class ManagementFairnessImpl extends ManagementCoordinateSystemAbstract i
 		super();
 	}
 	
-	private EnumVisualizationStatus status;	
 	private List<Point> listPoints;
 	private Integer maxFlowRate;
 
 	@Override
 	protected void initialize() {
 		listPoints = new ArrayList<Point>();
-		status = EnumVisualizationStatus.START;
+		this.setStatusSTART();
 		this.setMaxFlowRate();
 	}
 	
@@ -42,12 +41,12 @@ public class ManagementFairnessImpl extends ManagementCoordinateSystemAbstract i
 					Integer c2 = point.getConnection2();
 					if (c1.equals(c2)) {
 						if (point.getType() == EnumPoint.START) {
-							status = EnumVisualizationStatus.FINISHED;
+							this.setStatusFINISHED();
 						} else {
 							throw new IllegalArgumentException();
 						}						
 					} else {
-						status = EnumVisualizationStatus.RUN;
+						this.setStatusRUN();
 					}
 				}			
 			}			
@@ -63,7 +62,7 @@ public class ManagementFairnessImpl extends ManagementCoordinateSystemAbstract i
 			if (listPoints != null) {
 				Integer size = listPoints.size();
 				if (size > 0) {
-					if (status == EnumVisualizationStatus.RUN) {					
+					if (this.getStatus() == EnumVisualizationStatus.RUN) {					
 						Point point = listPoints.get(size-1);
 						Integer c1 = point.getConnection1();
 						Integer c2 = point.getConnection2();
@@ -88,7 +87,7 @@ public class ManagementFairnessImpl extends ManagementCoordinateSystemAbstract i
 						}
 					}
 					this.testListPoints();
-					if (status == EnumVisualizationStatus.FINISHED) {
+					if (this.getStatus() == EnumVisualizationStatus.FINISHED) {
 						result = false;
 					}
 				} else {
@@ -107,11 +106,6 @@ public class ManagementFairnessImpl extends ManagementCoordinateSystemAbstract i
 	@Override
 	public String getTitle() {
 		return "TCP-Fairness";
-	}
-
-	@Override
-	public EnumVisualizationStatus getStatus() {
-		return status;
 	}
 
 	private void setMaxFlowRate() {
@@ -188,7 +182,7 @@ public class ManagementFairnessImpl extends ManagementCoordinateSystemAbstract i
 
 	@Override
 	public String getModus() {
-		if (status == EnumVisualizationStatus.START) {
+		if (this.getStatus() == EnumVisualizationStatus.START) {
 			return "-";
 		} else {
 			return "Congestion Avoidance"; 
@@ -242,20 +236,9 @@ public class ManagementFairnessImpl extends ManagementCoordinateSystemAbstract i
 
 	@Override
 	protected void updateSize() {
-		if ((status == EnumVisualizationStatus.START)) {
-			int widthO = getWidth().intValue();
-			int heightO = getHeight().intValue();
-			int widthN = width.intValue();
-			int heightN = height.intValue();
-			if ((widthO != widthN) || (heightO != heightN)) {
-				setHeight(height);
-				setWidth(width);
-			}
-			if (this.getStatus() == EnumVisualizationStatus.START) {
-				this.setMaxFlowRate();
-			}
+		if (this.getStatus() == EnumVisualizationStatus.START) {
+			this.setMaxFlowRate();
 		}
-		this.updateViews();
 	}
 
 	@Override

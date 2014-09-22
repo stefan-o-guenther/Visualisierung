@@ -19,7 +19,9 @@ public class PanelBSBelegungsstrategienMainImpl extends PanelMainAbstract {
 	@Override
 	protected PanelAbstract getNewPanelMenu() {
 		ManagementFragmentation fragmentation = (ManagementFragmentation) this.management;
-		PanelAbstract panelMenu = new PanelBSBelegungsstrategienMenuImpl(fragmentation);
+		PanelAbstract panelTop = new PanelBSBelegungsstrategienMenuImpl(fragmentation);
+		PanelAbstract panelBottom = new PanelBSBelegungsstrategienLabelImpl(fragmentation);
+		PanelAbstract panelMenu = this.getPanelCoupleVertical(panelTop, panelBottom);
 		return this.getPanelMenuAutomatic(panelMenu, 5);	
 	}
 

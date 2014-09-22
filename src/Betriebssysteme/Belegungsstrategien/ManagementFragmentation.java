@@ -17,6 +17,7 @@ public interface ManagementFragmentation extends Management {
 	public Integer getTotalSpace();
 	public Integer getFreeSpace();
 	public Integer getUsedSpace();
-	public Double getUsedRate();
+	public Double getFreeSpaceRate();
+	public Double getUsedSpaceRate();
 	public void assume(EnumMemoryStrategy strategy, List<Integer> list);
 }

@@ -22,7 +22,6 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 	
 	private Boolean oldStates; 
 	private EnumPagingStrategy strategy;
-	private EnumVisualizationStatus status;
 	
 	private Cache cache;
 	
@@ -36,7 +35,7 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 	
 	@Override
 	protected void initialize() {
-		status = EnumVisualizationStatus.START;
+		this.setStatusSTART();
 		strategy = EnumPagingStrategy.NULL;
 		oldStates = true;
 		listCacheBox = new ArrayList<CacheBox>();
@@ -188,7 +187,7 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 				CacheBox cb = new CacheBoxImpl(i);
 				listCacheBox.add(cb);			
 			}
-			status = EnumVisualizationStatus.RUN;
+			this.setStatusRUN();
 			this.deactivateCacheBoxes();
 			this.activateCacheBox();
 			this.updateViews();
@@ -215,7 +214,7 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 
 	@Override
 	protected Boolean execute() {
-		if (this.status == EnumVisualizationStatus.RUN) {
+		if (this.getStatus() == EnumVisualizationStatus.RUN) {
 			if (maxRam > 0) {
 				cache = null;
 				position += 1;
@@ -269,13 +268,13 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 					cb.initializeRMDisk();
 					cb.initializeRMPrevious();
 					if ((position.intValue()+1) == listCacheBox.size()) {
-						status = EnumVisualizationStatus.FINISHED;
+						this.setStatusFINISHED();
 						this.stopAutomatic();
 					}
 					this.deactivateCacheBoxes();
 					this.activateCacheBox();
 				} else {				
-					status = EnumVisualizationStatus.FINISHED;
+					this.setStatusFINISHED();
 					if (position != null) {
 						position -= 1;
 					}				
@@ -288,11 +287,6 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 		}
 	}	
 	
-	@Override
-	public EnumVisualizationStatus getStatus() {
-		return this.status;	
-	}
-
 	@Override
 	public List<CacheBox> getListCache() {
 		return new ArrayList<CacheBox>(listCacheBox);

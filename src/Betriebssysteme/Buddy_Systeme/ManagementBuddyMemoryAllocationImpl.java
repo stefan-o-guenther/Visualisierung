@@ -12,7 +12,6 @@ import java.util.List;
 
 import Base.EnumAutomaticChecked;
 import Base.EnumSurface;
-import Base.EnumVisualizationStatus;
 import Base.ManagementAbstract;
 
 public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract implements ManagementBuddyMemoryAllocation {
@@ -25,7 +24,6 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 	private HashMap<String, Color> mapColors;
 	private List<Color> listColor;
 	private List<ProcessNode> listRunningProcesses;
-	private EnumVisualizationStatus status;
 	private List<BuddyOperation> listBuddyOperations;
 	private Integer limit = 0;
 	private EnumProcess processOperation;
@@ -36,7 +34,7 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 	protected void initialize() {
 		root = null;
 		listRunningProcesses = new ArrayList<ProcessNode>();
-		status = EnumVisualizationStatus.START;
+		this.setStatusSTART();
 		listBuddyOperations = new ArrayList<BuddyOperation>();
 		limit = 0;
 		processOperation = EnumProcess.PROCESS_START;
@@ -207,7 +205,7 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 				throw new IllegalArgumentException();
 			}
 			root = new BuddyNodeImpl(value);
-			status = EnumVisualizationStatus.RUN;	
+			this.setStatusRUN();
 			updateList("Hauptspeicher initialisiert.");
 			this.updateViews();
 		} catch (Exception ex) {
@@ -220,11 +218,6 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 		if (root != null) {
 			root.print();
 		}
-	}
-
-	@Override
-	public EnumVisualizationStatus getStatus() {
-		return status;
 	}
 
 	@Override

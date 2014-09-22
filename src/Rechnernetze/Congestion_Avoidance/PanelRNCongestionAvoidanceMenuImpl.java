@@ -22,9 +22,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.EnumVisualizationStatus;
 import Base.MessageBox;
-import Base.PanelMenuMenuButtonsAbstract;
+import Base.PanelMenuButtonsAbstract;
 
-public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuMenuButtonsAbstract {
+public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuButtonsAbstract {
 	
 	private static final long serialVersionUID = 1L;
 
@@ -50,7 +50,7 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuMenuButtonsAbst
 	private JLabel lblSSThreshTCPRenoLabel;
 	private JLabel lblSSThreshTCPTahoeLabel;
 	//private JButton btnExampleReset;
-	//private JButton btnAssumeExecute;	
+	//private JButton btnAssumeInputExecute;	
 	private JRadioButton rdbtnTimeout;
 	private JRadioButton rdbtnTrippleDuplACK;
 	private JLabel lblTimeout;
@@ -156,7 +156,7 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuMenuButtonsAbst
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(chckbxTCPReno, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
 								.addComponent(chckbxTCPTahoe, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)))
-						.addComponent(btnAssumeExecute, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(btnAssumeSaveExecute, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
@@ -222,7 +222,7 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuMenuButtonsAbst
 						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 							.addComponent(lblSSThreshTCPRenoLabel, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
 							.addComponent(btnExampleReset, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-						.addComponent(btnAssumeExecute, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addComponent(btnAssumeSaveExecute, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		setLayout(groupLayout);
@@ -429,5 +429,15 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuMenuButtonsAbst
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
+	}
+
+	@Override
+	protected Boolean hasExample() {
+		return true;
+	}
+
+	@Override
+	protected void input() {
+		
 	}
 }

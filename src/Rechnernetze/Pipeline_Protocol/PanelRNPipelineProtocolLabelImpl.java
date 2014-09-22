@@ -13,15 +13,15 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.PanelMenuAbstract;
 
-public class PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl extends PanelMenuAbstract {
+public class PanelRNPipelineProtocolLabelImpl extends PanelMenuAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl(ManagementPipelineProtocol pipeline) {
+	public PanelRNPipelineProtocolLabelImpl(ManagementPipelineProtocol pipeline) {
 		super(pipeline);
 	}
 	
-	private PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl() {
+	private PanelRNPipelineProtocolLabelImpl() {
 		super(new ManagementPipelineProtocolImpl());
 		this.initComponentsMenu();
 		this.initLayout();
@@ -41,19 +41,19 @@ public class PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl extends PanelMenu
 	@Override
 	protected void initComponentsMenu() {
 		lblPacket = new JLabel("Paket");
-		lblPacket.setIcon(new ImageIcon(PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl.class.getResource("/Base/img/boxCyan.png")));
+		lblPacket.setIcon(new ImageIcon(PanelRNPipelineProtocolLabelImpl.class.getResource("/Base/img/boxCyan.png")));
 		
 		lblPacketReceived = new JLabel("Paket empfangen");
-		lblPacketReceived.setIcon(new ImageIcon(PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl.class.getResource("/Base/img/boxRed.png")));
+		lblPacketReceived.setIcon(new ImageIcon(PanelRNPipelineProtocolLabelImpl.class.getResource("/Base/img/boxRed.png")));
 		
 		lblAck = new JLabel("ACK");
-		lblAck.setIcon(new ImageIcon(PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl.class.getResource("/Base/img/boxYellow.png")));
+		lblAck.setIcon(new ImageIcon(PanelRNPipelineProtocolLabelImpl.class.getResource("/Base/img/boxYellow.png")));
 		
 		lblAckReceived = new JLabel("ACK empfangen");
-		lblAckReceived.setIcon(new ImageIcon(PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl.class.getResource("/Base/img/boxBlue.png")));
+		lblAckReceived.setIcon(new ImageIcon(PanelRNPipelineProtocolLabelImpl.class.getResource("/Base/img/boxBlue.png")));
 		
 		lblPacketAckFalsified = new JLabel("Paket/ACK verf\u00E4lscht");
-		lblPacketAckFalsified.setIcon(new ImageIcon(PanelRNPipelineProtocolMenuAutomaticMenuLabelImpl.class.getResource("/Base/img/boxLightGray.png")));
+		lblPacketAckFalsified.setIcon(new ImageIcon(PanelRNPipelineProtocolLabelImpl.class.getResource("/Base/img/boxLightGray.png")));
 	}
 
 	@Override

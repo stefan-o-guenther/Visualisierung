@@ -33,7 +33,6 @@ public interface Management {
 	public Boolean isAutomaticEnabled();
 	public Integer getSpeed();
 	public void setSpeed(Integer value);
-	public String getButtonAutomaticText();
 	public void switchAutomatic();
 	public void endThread();
 	public void executeThread();

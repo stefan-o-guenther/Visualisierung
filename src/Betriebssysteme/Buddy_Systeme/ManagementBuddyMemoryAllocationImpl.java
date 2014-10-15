@@ -13,12 +13,19 @@ import java.util.List;
 import Base.EnumAutomaticChecked;
 import Base.EnumSurface;
 import Base.ManagementAbstract;
+import Base.ToolTipManager;
 
 public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract implements ManagementBuddyMemoryAllocation {
 
-	public ManagementBuddyMemoryAllocationImpl() {
-		super();
-	}
+    private static ManagementBuddyMemoryAllocation instance = new ManagementBuddyMemoryAllocationImpl();
+    
+    private ManagementBuddyMemoryAllocationImpl() {
+    	super();
+    }
+ 
+    public static ManagementBuddyMemoryAllocation getInstance() {
+    	return instance;
+    }
 	
 	private BuddyNode root;
 	private HashMap<String, Color> mapColors;
@@ -34,7 +41,6 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 	protected void initialize() {
 		root = null;
 		listRunningProcesses = new ArrayList<ProcessNode>();
-		this.setStatusSTART();
 		listBuddyOperations = new ArrayList<BuddyOperation>();
 		limit = 0;
 		processOperation = EnumProcess.PROCESS_START;
@@ -150,7 +156,7 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 						ProcessNode node = buddy.insertSpace(processName, processSize);
 						if (node != null) {
 							listRunningProcesses.add(node);
-							updateList("Prozess " + processName + " gestartet.");
+							updateList("Prozess " + processName + " (" + processSize + ") gestartet.");
 						} else {
 							updateList("Prozess " + processName + " ist zu groﬂ.");
 						}						
@@ -477,7 +483,7 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 	}
 
 	@Override
-	protected void createToolTipManager() {
-		this.tooltip = new ToolTipManagerBuddyMemoryAllocationImpl();
+	public ToolTipManager getToolTipManager() {
+		return ToolTipManagerBuddyMemoryAllocationImpl.getInstance();
 	}
 }

@@ -9,33 +9,33 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
 
-public class PanelCoupleVerticalImpl extends PanelAbstract {
+public class PanelCoupleVerticalImpl extends PanelLayoutAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelCoupleVerticalImpl(Management management, PanelAbstract panelTop, PanelAbstract panelBottom) {
-		super(management);
+	public PanelCoupleVerticalImpl(PanelAbstract panelTop, PanelAbstract panelBottom) {
+		super();
 		try {
 			if ((panelTop == null) || (panelBottom == null)) {
 				throw new NullPointerException();
 			}
 			this.panelTop = panelTop;
 			this.panelBottom = panelBottom;
-			initPanel();
+			createPanel();
 		} catch (Exception ex) {
 			throw ex;
 		}
 	}
 	
 	public PanelCoupleVerticalImpl() {
-		super(new ManagementTestImpl());		
-		this.init(this.management);
-		this.initLayout();
+		super();		
+		this.init();
+		this.createLayout();
 	}
 	
-	private void init(Management management) {
-		panelTop = new PanelEmptyImpl(management,0,0);	
-		panelBottom = new PanelEmptyImpl(management,0,0);
+	private void init() {
+		panelTop = new PanelEmptyImpl(0,0);	
+		panelBottom = new PanelEmptyImpl(0,0);
 		heightTop = 100;
 		widthMenu = 300;
 	}
@@ -52,13 +52,13 @@ public class PanelCoupleVerticalImpl extends PanelAbstract {
 	}
 
 	@Override
-	protected void initComponents() {
+	protected void createComponents() {
 		widthMenu = this.getPanelWidth();
 		heightTop = panelTop.getPanelHeight();
 	}
 
 	@Override
-	protected void initLayout() {
+	protected void createLayout() {
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)

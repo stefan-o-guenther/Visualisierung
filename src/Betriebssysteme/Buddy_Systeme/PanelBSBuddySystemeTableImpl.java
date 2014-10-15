@@ -13,23 +13,25 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 
-import Base.PanelInitAbstract;
+import Base.PanelLayoutAbstract;
 
-public class PanelBSBuddySystemeTableImpl extends PanelInitAbstract {
+public class PanelBSBuddySystemeTableImpl extends PanelLayoutAbstract {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public PanelBSBuddySystemeTableImpl(ManagementBuddyMemoryAllocation management) {
-		super(management);
+	public PanelBSBuddySystemeTableImpl() {
+		super();
+		//this.initializeExtra();
+		this.createPanel();
 	}
 	
-	private PanelBSBuddySystemeTableImpl() {
-		super(new ManagementBuddyMemoryAllocationImpl());
-		this.initComponents();
-		this.initLayout();
-	}	
+	/*
+	private void initializeExtra() {
+		this.initializeComponents();
+		this.initializeLayout();
+	}
+	*/
 	
-	private ManagementBuddyMemoryAllocation buddy;
 	private JTable table;
 	private TableModelBSBuddySystemeExplanationImpl tableModel;
 	private TableColumnModelBSBuddySystemeExplanationImpl tableColumnModel;
@@ -52,10 +54,9 @@ public class PanelBSBuddySystemeTableImpl extends PanelInitAbstract {
 	}
 
 	@Override
-	protected void initComponents() {
-		buddy = (ManagementBuddyMemoryAllocation) this.getManagement();
-		tableModel = new TableModelBSBuddySystemeExplanationImpl(buddy);
-		tableColumnModel = new TableColumnModelBSBuddySystemeExplanationImpl(buddy);
+	protected void createComponents() {
+		tableModel = new TableModelBSBuddySystemeExplanationImpl();
+		tableColumnModel = new TableColumnModelBSBuddySystemeExplanationImpl();
 		table = new JTable(tableModel, tableColumnModel);
 		table.setEnabled(false);
 		table.setBackground(Color.WHITE);
@@ -72,7 +73,7 @@ public class PanelBSBuddySystemeTableImpl extends PanelInitAbstract {
 	}
 
 	@Override
-	protected void initLayout() {		
+	protected void createLayout() {		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)

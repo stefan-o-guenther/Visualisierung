@@ -5,18 +5,16 @@
 
 package Betriebssysteme.Seitenersetzungsstrategien;
 
-import Base.MainAbstract;
+import Base.VisualizationAbstract;
 
-public class Seitenersetzungsstrategien extends MainAbstract {
+public class Seitenersetzungsstrategien extends VisualizationAbstract {
 
 	public Seitenersetzungsstrategien() {
 		super();
 	}
 	
 	public static void main(String[] args) {
-		ManagementPaging paging = new ManagementPagingImpl();
 		initialize();		
-    	panelMain = new PanelBSSeitenersetzungsstrategienMainImpl(paging);    	
-    	baseMain();	
+    	baseVisualization(new PanelBSSeitenersetzungsstrategienMainImpl());	
     }
 }

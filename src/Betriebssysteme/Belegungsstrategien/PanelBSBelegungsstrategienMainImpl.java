@@ -12,22 +12,21 @@ public class PanelBSBelegungsstrategienMainImpl extends PanelMainAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelBSBelegungsstrategienMainImpl(ManagementFragmentation fragmentation) {
-		super(fragmentation);
+	public PanelBSBelegungsstrategienMainImpl() {
+		super(ManagementFragmentationImpl.getInstance());
+		this.createPanel();
 	}
 
 	@Override
 	protected PanelAbstract getNewPanelMenu() {
-		ManagementFragmentation fragmentation = (ManagementFragmentation) this.management;
-		PanelAbstract panelTop = new PanelBSBelegungsstrategienMenuImpl(fragmentation);
-		PanelAbstract panelBottom = new PanelBSBelegungsstrategienLabelImpl(fragmentation);
+		PanelAbstract panelTop = new PanelBSBelegungsstrategienMenuImpl();
+		PanelAbstract panelBottom = new PanelBSBelegungsstrategienLabelImpl();
 		PanelAbstract panelMenu = this.getPanelCoupleVertical(panelTop, panelBottom);
 		return this.getPanelMenuAutomatic(panelMenu, 5);	
 	}
 
 	@Override
 	protected PanelAbstract getNewPanelModel() {
-		ManagementFragmentation fragmentation = (ManagementFragmentation) this.management;
-		return new PanelBSBelegungsstrategienModelImpl(fragmentation);
+		return new PanelBSBelegungsstrategienModelImpl();
 	}
 }

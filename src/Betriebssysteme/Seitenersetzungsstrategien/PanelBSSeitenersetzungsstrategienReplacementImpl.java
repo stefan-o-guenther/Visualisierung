@@ -5,28 +5,31 @@
 
 package Betriebssysteme.Seitenersetzungsstrategien;
 
-import Base.Labeling;
-import Base.PanelMenuAbstract;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JLabel;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class PanelBSSeitenersetzungsstrategienReplacementImpl extends PanelMenuAbstract {
+import Base.ImageLoader;
+import Base.PanelLayoutAbstract;
+
+public class PanelBSSeitenersetzungsstrategienReplacementImpl extends PanelLayoutAbstract {
 
 	private static final long serialVersionUID = 1L;
 	
-	public PanelBSSeitenersetzungsstrategienReplacementImpl(ManagementPaging paging) {
-		super(paging);
-	}	
-	
 	public PanelBSSeitenersetzungsstrategienReplacementImpl() {
-		super(new ManagementPagingImpl());		
-		this.initComponentsMenu();
-		this.initLayout();
+		super();		
+		///this.initializeExtra();
+		this.createPanel();
 	}
+	
+	/*
+	private void initializeExtra() {
+		this.initializeComponents();
+		this.initializeLayout();
+	}
+	*/
 	
 	private JLabel lblReplacementLabel;
 	private JLabel lblReplacementValue;
@@ -35,22 +38,16 @@ public class PanelBSSeitenersetzungsstrategienReplacementImpl extends PanelMenuA
 	private ToolTipManagerPaging tooltip;
 
 	@Override
-	protected void initComponentsMenu() {
-		this.paging = (ManagementPaging) this.getManagement();
-		this.tooltip = (ToolTipManagerPaging) paging.getToolTipManager();
+	protected void createComponents() {
+		this.paging = ManagementPagingImpl.getInstance();
+		this.tooltip = ToolTipManagerPagingImpl.getInstance();
 		
-		ImageIcon imgHelp = super.getImageIconHelp();
+		ImageIcon imgHelp = ImageLoader.getImageIconHelp16();
 		
-		lblReplacementLabel = new JLabel(Labeling.COUNT_PAGING+":");
+		lblReplacementLabel = new JLabel(LabelingPaging.COUNT_PAGING+":");
 		lblReplacementLabel.setIcon(imgHelp);	
 		lblReplacementLabel.setToolTipText(tooltip.getToolTipPagingError());
 		lblReplacementValue = new JLabel(" ");
-	}
-
-	@Override
-	protected void initMethods() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -71,7 +68,7 @@ public class PanelBSSeitenersetzungsstrategienReplacementImpl extends PanelMenuA
 	}
 
 	@Override
-	protected void initLayout() {
+	protected void createLayout() {
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)

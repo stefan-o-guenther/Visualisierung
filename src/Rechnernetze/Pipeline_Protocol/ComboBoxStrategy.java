@@ -16,9 +16,9 @@ public class ComboBoxStrategy extends JComboBox<Object> {
 	}
 	
 	private static String[] strategies = {"Stop And Wait", "Go Back N", "Selective Repeat"};
-	private static EnumPipelineProtocolStrategy[] vals = {EnumPipelineProtocolStrategy.GO_BACK_N, EnumPipelineProtocolStrategy.SELECTIVE_REPEAT};
+	private static EnumARQStrategy[] vals = {EnumARQStrategy.STOP_AND_WAIT, EnumARQStrategy.GO_BACK_N, EnumARQStrategy.SELECTIVE_REPEAT};
 		
-	public EnumPipelineProtocolStrategy getStrategy() {
+	public EnumARQStrategy getStrategy() {
 		return  vals[super.getSelectedIndex()];
 	}
 }

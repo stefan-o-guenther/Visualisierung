@@ -9,6 +9,16 @@ import Base.ToolTipManagerAbstract;
 
 public class ToolTipManagerRetransmissionImpl extends ToolTipManagerAbstract implements ToolTipManagerRetransmission {
 	
+	private static ToolTipManagerRetransmission instance = new ToolTipManagerRetransmissionImpl();
+	
+	private ToolTipManagerRetransmissionImpl() {
+		
+	}
+	
+	public static ToolTipManagerRetransmission getInstance() {
+		return instance;
+	}	
+	
 	public String getToolTipTitle() {
 		String tooltipTitle = ""
 			+ "<html>"

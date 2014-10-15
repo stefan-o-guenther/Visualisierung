@@ -5,14 +5,15 @@
 
 package Rechnernetze.TCP_Retransmission;
 
-import Base.PanelModelDrawAbstract;
+import Base.PanelDrawingAbstract;
 
-public class PanelRNTCPRetransmissionModelImpl extends PanelModelDrawAbstract {
+public class PanelRNTCPRetransmissionModelImpl extends PanelDrawingAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelRNTCPRetransmissionModelImpl(ManagementRetransmission retransmission) {
-		super(retransmission);
+	public PanelRNTCPRetransmissionModelImpl() {
+		super();
+		this.createPanel();
 	}
 	
 	private ManagementRetransmission retransmission;
@@ -24,8 +25,17 @@ public class PanelRNTCPRetransmissionModelImpl extends PanelModelDrawAbstract {
 	}
 
 	@Override
-	protected void initComponents() {
-		this.retransmission = (ManagementRetransmission) this.getManagement();
+	protected void createDrawing() {
+		this.retransmission = ManagementRetransmissionImpl.getInstance();
 	}
 
+	@Override
+	public Integer getPanelHeight() {
+		return 100;
+	}
+
+	@Override
+	public Integer getPanelWidth() {
+		return 100;
+	}
 }

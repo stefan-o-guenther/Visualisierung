@@ -13,17 +13,18 @@ import java.util.List;
 
 import javax.swing.SwingUtilities;
 
-import Base.PanelModelDrawAbstract;
+import Base.PanelDrawingAbstract;
 
-public class PanelRNPipelineProtocolModelImpl extends PanelModelDrawAbstract {
+public class PanelRNPipelineProtocolModelImpl extends PanelDrawingAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelRNPipelineProtocolModelImpl(ManagementPipelineProtocol pipeline) {
-		super(pipeline);
+	public PanelRNPipelineProtocolModelImpl() {
+		super();
+		this.createPanel();
 	}
 	
-	private ManagementPipelineProtocol pipeline;
+	private ManagementARQ pipeline;
 	//private Rectangle2D rect = new Rectangle2D.Float(10, 60, 20, 40);
 	
 	private Color color = Color.BLACK;
@@ -143,9 +144,19 @@ public class PanelRNPipelineProtocolModelImpl extends PanelModelDrawAbstract {
 	
 
 	@Override
-	protected void initComponents() {
-		this.pipeline = (ManagementPipelineProtocol) this.getManagement();
+	protected void createDrawing() {
+		this.pipeline = ManagementARQImpl.getInstance();
 		//this.addMouseListener(new HitTestAdapter());
+	}
+
+	@Override
+	public Integer getPanelHeight() {
+		return 100;
+	}
+
+	@Override
+	public Integer getPanelWidth() {
+		return 100;
 	}
 	
 	/*

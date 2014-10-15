@@ -11,20 +11,35 @@ import java.util.Observer;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
-public abstract class PanelMainAbstract extends PanelInitAbstract implements Observer {
+public abstract class PanelMainAbstract extends PanelLayoutAbstract implements Observer {
 
 	private static final long serialVersionUID = 1L;
 
 	public PanelMainAbstract(Management management) {
-		super(management);
+		super();
+		try {
+			if (management == null) {
+				throw new NullPointerException();
+			}
+			this.management = management;
+		} catch (Exception ex) {
+			throw ex;
+		}
 	}
 	
+	/*
 	private PanelMainAbstract() {
-		super(new ManagementTestImpl());
-		init(this.management);
+		super();
+		panelModel = new PanelEmptyImpl(0,0);
+		panelMenu = new PanelEmptyImpl(0,0);
+		panelTitle = new PanelEmptyImpl(0,0);
+		sizeTitle = 50;
+		sizeMenu = 100;
 		this.initLayout();
-	}	
+	}
+	*/	
 	
+	private Management management;
 	private PanelAbstract panelTitle;
 	private PanelAbstract panelMenu;
 	private PanelAbstract panelModel;
@@ -44,7 +59,7 @@ public abstract class PanelMainAbstract extends PanelInitAbstract implements Obs
 			if ((panelLeft == null) || (panelRight == null)) {
 				throw new NullPointerException();
 			}
-			return new PanelCoupleHorizontalImpl(management, panelLeft, panelRight);
+			return new PanelCoupleHorizontalImpl(panelLeft, panelRight);
 		} catch (Exception ex) {
 			throw ex;
 		}
@@ -55,7 +70,7 @@ public abstract class PanelMainAbstract extends PanelInitAbstract implements Obs
 			if ((panelTop == null) || (panelBottom == null)) {
 				throw new NullPointerException();
 			}
-			return new PanelCoupleVerticalImpl(management, panelTop, panelBottom);
+			return new PanelCoupleVerticalImpl(panelTop, panelBottom);
 		} catch (Exception ex) {
 			throw ex;
 		}
@@ -66,7 +81,7 @@ public abstract class PanelMainAbstract extends PanelInitAbstract implements Obs
 			if (gapTop < 0) {
 				throw new IllegalArgumentException();
 			}
-			PanelAbstract panelGap = new PanelEmptyImpl(management,gapTop,1);
+			PanelAbstract panelGap = new PanelEmptyImpl(gapTop,1);
 			PanelAbstract panelCheckbox = new PanelMenuControlCheckboxImpl(management);
 			PanelAbstract panelSlider = new PanelMenuControlSpeedVisualizationImpl(management);
 			PanelAbstract panelCouple = this.getPanelCoupleVertical(panelCheckbox, panelSlider);
@@ -91,7 +106,8 @@ public abstract class PanelMainAbstract extends PanelInitAbstract implements Obs
 		}
 	}
 	
-	protected void initComponents() {
+	@Override
+	protected void createComponents() {
 		Observable observable = (Observable) management;
 		observable.addObserver(this);
 		
@@ -103,15 +119,8 @@ public abstract class PanelMainAbstract extends PanelInitAbstract implements Obs
 		management.updateViews();
 	}	
 	
-	private void init(Management management) {
-		panelModel = new PanelEmptyImpl(management,0,0);
-		panelMenu = new PanelEmptyImpl(management,0,0);
-		panelTitle = new PanelEmptyImpl(management,0,0);
-		sizeTitle = 50;
-		sizeMenu = 100;
-	}
-	
-	protected void initLayout() {
+	@Override
+	protected void createLayout() {
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -147,6 +156,10 @@ public abstract class PanelMainAbstract extends PanelInitAbstract implements Obs
 		if (panelModel != null) {
 			panelModel.updatePanel();
 		}
+	}
+	
+	public String getTitle() {
+		return management.getTitle();
 	}
 
 	@Override

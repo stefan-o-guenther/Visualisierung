@@ -27,9 +27,11 @@ public abstract class PacketAbstract implements Packet {
 	protected Integer number;
 	protected Integer position;
 	protected Boolean ok;
+	protected Integer step;
 	
 	private void initialize() {
 		this.ok = true;
+		this.step = 2;
 	}
 	
 	@Override

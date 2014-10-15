@@ -9,14 +9,15 @@ import java.awt.BasicStroke;
 import java.awt.Polygon;
 import java.util.List;
 
-import Base.PanelModelDrawCoordinateSystemAbstract;
+import Base.PanelDrawingCoordinateSystemAbstract;
 
-public class PanelRNTCPFairnessModelImpl extends PanelModelDrawCoordinateSystemAbstract {
+public class PanelRNTCPFairnessModelImpl extends PanelDrawingCoordinateSystemAbstract {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public PanelRNTCPFairnessModelImpl(ManagementFairness fairness) {
-		super(fairness);
+	public PanelRNTCPFairnessModelImpl() {
+		super(ManagementFairnessImpl.getInstance());
+		this.createPanel();
 	}
 	
 	private ManagementFairness fairness;
@@ -117,7 +118,17 @@ public class PanelRNTCPFairnessModelImpl extends PanelModelDrawCoordinateSystemA
 	}
 
 	@Override
-	protected void initComponents() {
-		this.fairness = (ManagementFairness) this.getManagement();
+	protected void createDrawing() {
+		this.fairness = ManagementFairnessImpl.getInstance();
+	}
+
+	@Override
+	public Integer getPanelHeight() {
+		return 100;
+	}
+
+	@Override
+	public Integer getPanelWidth() {
+		return 100;
 	}		
 }

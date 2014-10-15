@@ -14,24 +14,23 @@ public class PanelBSBuddySystemeMainImpl extends PanelMainAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelBSBuddySystemeMainImpl(ManagementBuddyMemoryAllocation buddy) {
-		super(buddy);
+	public PanelBSBuddySystemeMainImpl() {
+		super(ManagementBuddyMemoryAllocationImpl.getInstance());
+		this.createPanel();
 	}
 
 	@Override
 	protected PanelAbstract getNewPanelMenu() {
-		ManagementBuddyMemoryAllocation buddy = (ManagementBuddyMemoryAllocation) management;
-		PanelAbstract panelLeft = new PanelBSBuddySystemeMenuImpl(buddy);
-		PanelAbstract panelRightLeft = new PanelBSBuddySystemeTableImpl(buddy);
-		PanelAbstract panelRightRight = new PanelBSBuddySystemeLabelImpl(buddy);
+		PanelAbstract panelLeft = new PanelBSBuddySystemeMenuImpl();
+		PanelAbstract panelRightLeft = new PanelBSBuddySystemeTableImpl();
+		PanelAbstract panelRightRight = new PanelBSBuddySystemeLabelImpl();
 		PanelAbstract panelRight = this.getPanelCoupleHorizontal(panelRightLeft, panelRightRight);
 		return this.getPanelCoupleHorizontal(panelLeft, panelRight);
 	}
 
 	@Override
 	protected PanelAbstract getNewPanelModel() {
-		ManagementBuddyMemoryAllocation buddy = (ManagementBuddyMemoryAllocation) management;
-		PanelAbstract panel = new PanelBSBuddySystemeModelImpl(buddy);
-		return new PanelScrollImpl(buddy, panel, EnumScrollbar.NEVER, EnumScrollbar.ALWAYS);
+		PanelAbstract panel = new PanelBSBuddySystemeModelImpl();
+		return new PanelScrollImpl(panel, EnumScrollbar.NEVER, EnumScrollbar.ALWAYS);
 	}
 }

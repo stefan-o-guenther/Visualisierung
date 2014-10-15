@@ -11,19 +11,19 @@ import java.awt.Dimension;
 import java.awt.RenderingHints;
 import java.util.List;
 
-import Base.PanelModelDrawAbstract;
+import Base.PanelDrawingAbstract;
 
-public class PanelBSBelegungsstrategienModelImpl extends PanelModelDrawAbstract {
+public class PanelBSBelegungsstrategienModelImpl extends PanelDrawingAbstract {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public PanelBSBelegungsstrategienModelImpl(ManagementFragmentation fragmentation) {
-		super(fragmentation);
+	public PanelBSBelegungsstrategienModelImpl() {
+		super();
 	}
 	
 	@Override
-	protected void initComponents() {
-		this.fragmentation = (ManagementFragmentation) this.getManagement();
+	protected void createDrawing() {
+		this.fragmentation = ManagementFragmentationImpl.getInstance();
 		xPoint = 0;
 		yPoint = 0;
 		xRect = xPoint + 5;
@@ -33,7 +33,7 @@ public class PanelBSBelegungsstrategienModelImpl extends PanelModelDrawAbstract 
 		yNV = 0;
 		yRV = 0;
 		width = 0;
-		height = 100;		       
+		height = 100;
 	}
 	
 	private Integer widthMaximum = 1000;	
@@ -80,7 +80,7 @@ public class PanelBSBelegungsstrategienModelImpl extends PanelModelDrawAbstract 
 	@Override
 	protected void doDrawing() {
 		try {			         	
-    		initComponents();
+			createDrawing();
     		
     		dim = this.getSize();    		
     		widthMaximum = dim.width;
@@ -147,5 +147,10 @@ public class PanelBSBelegungsstrategienModelImpl extends PanelModelDrawAbstract 
 	@Override
 	public Integer getPanelHeight() {
 		return 700;
+	}
+
+	@Override
+	public Integer getPanelWidth() {
+		return 100;
 	}
 }

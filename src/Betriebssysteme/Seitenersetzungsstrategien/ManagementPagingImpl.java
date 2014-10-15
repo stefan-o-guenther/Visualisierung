@@ -13,12 +13,19 @@ import Base.EnumAutomaticChecked;
 import Base.EnumSurface;
 import Base.EnumVisualizationStatus;
 import Base.ManagementAbstract;
+import Base.ToolTipManager;
 
 public class ManagementPagingImpl extends ManagementAbstract implements ManagementPaging {	
 	
-	public ManagementPagingImpl() {
-		super();
-	}	
+    private static ManagementPaging instance = new ManagementPagingImpl();
+    
+    private ManagementPagingImpl() {
+    	super();
+    }
+ 
+    public static ManagementPaging getInstance() {
+    	return instance;
+    }
 	
 	private Boolean oldStates; 
 	private EnumPagingStrategy strategy;
@@ -35,7 +42,6 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 	
 	@Override
 	protected void initialize() {
-		this.setStatusSTART();
 		strategy = EnumPagingStrategy.NULL;
 		oldStates = true;
 		listCacheBox = new ArrayList<CacheBox>();
@@ -416,7 +422,7 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 	}
 
 	@Override
-	protected void createToolTipManager() {
-		this.tooltip = new ToolTipManagerPagingImpl();
+	public ToolTipManager getToolTipManager() {
+		return ToolTipManagerPagingImpl.getInstance();
 	}
 }

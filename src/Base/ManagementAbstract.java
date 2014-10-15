@@ -9,17 +9,16 @@ import java.util.Observable;
 
 
 public abstract class ManagementAbstract extends Observable implements Management {
-
-	public ManagementAbstract() {
+	
+	protected ManagementAbstract() {
 		super();
 		this.createManagement();
 		this.initializeManagement();
-		this.createToolTipManager();
 		this.updateViews();
 	}
 	
 	private void createManagement() {
-		status = EnumVisualizationStatus.START;
+		this.setStatusSTART();
 		surface = EnumSurface.COLORED;
 		height = 100;
 		width = 100;
@@ -30,6 +29,7 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 	
 	private void initializeManagement() {
 		this.time = System.currentTimeMillis();
+		this.setStatusSTART();
 		this.resetAutomatic();
 		this.initialize();
 	}
@@ -55,8 +55,6 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 	protected abstract Boolean execute();
 	protected abstract void showErrorMessage();
 	protected abstract EnumAutomaticChecked keepAutomaticChecked();
-	
-	protected abstract void createToolTipManager();	
 	
 	protected void executeWithCheck() {
 		if (!(this.execute())) {
@@ -310,7 +308,6 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 		} else {
 			startAutomatic();
 		}
-		this.updateViews();
 	}
 	
 	@Override
@@ -325,7 +322,8 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 		return status;
 	}
 	
-	protected void setStatus(EnumVisualizationStatus status) {
+	@Override
+	public void setStatus(EnumVisualizationStatus status) {
 		try {
 			if (status == null) {
 				throw new NullPointerException();
@@ -358,10 +356,5 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 	
 	protected void setStatusERROR() {
 		this.status = EnumVisualizationStatus.ERROR;
-	}
-
-	@Override
-	public ToolTipManager getToolTipManager() {
-		return this.tooltip;
 	}
 }

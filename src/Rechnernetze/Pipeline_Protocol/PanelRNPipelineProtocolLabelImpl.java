@@ -17,14 +17,15 @@ public class PanelRNPipelineProtocolLabelImpl extends PanelMenuAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelRNPipelineProtocolLabelImpl(ManagementPipelineProtocol pipeline) {
-		super(pipeline);
+	public PanelRNPipelineProtocolLabelImpl() {
+		super();
+		//this.initializeExtra();
+		this.createPanel();		
 	}
 	
-	private PanelRNPipelineProtocolLabelImpl() {
-		super(new ManagementPipelineProtocolImpl());
-		this.initComponentsMenu();
-		this.initLayout();
+	private void initializeExtra() {		
+		this.createMenuComponents();
+		this.createLayout();
 	}
 	
 	private JLabel lblPacket;
@@ -39,7 +40,7 @@ public class PanelRNPipelineProtocolLabelImpl extends PanelMenuAbstract {
 	}
 
 	@Override
-	protected void initComponentsMenu() {
+	protected void createMenuComponents() {
 		lblPacket = new JLabel("Paket");
 		lblPacket.setIcon(new ImageIcon(PanelRNPipelineProtocolLabelImpl.class.getResource("/Base/img/boxCyan.png")));
 		
@@ -57,7 +58,7 @@ public class PanelRNPipelineProtocolLabelImpl extends PanelMenuAbstract {
 	}
 
 	@Override
-	protected void initLayout() {		
+	protected void createLayout() {		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -99,7 +100,7 @@ public class PanelRNPipelineProtocolLabelImpl extends PanelMenuAbstract {
 	}
 
 	@Override
-	protected void initMethods() {
+	protected void createMenuMethods() {
 		// nothing
 	}	
 

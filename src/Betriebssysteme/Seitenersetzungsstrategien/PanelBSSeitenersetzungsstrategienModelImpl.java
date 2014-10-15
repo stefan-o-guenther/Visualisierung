@@ -9,14 +9,15 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.List;
 
-import Base.PanelModelDrawAbstract;
+import Base.PanelDrawingAbstract;
 
-public class PanelBSSeitenersetzungsstrategienModelImpl extends PanelModelDrawAbstract {
+public class PanelBSSeitenersetzungsstrategienModelImpl extends PanelDrawingAbstract {
 	
 	private static final long serialVersionUID = 1L;
 
-	public PanelBSSeitenersetzungsstrategienModelImpl(ManagementPaging paging) {
-		super(paging);
+	public PanelBSSeitenersetzungsstrategienModelImpl() {
+		super();
+		this.createPanel();
 	}
 	
 	private final int HEIGHT_BOX = 35;
@@ -31,8 +32,8 @@ public class PanelBSSeitenersetzungsstrategienModelImpl extends PanelModelDrawAb
 	private ManagementPaging paging;
 	
 	@Override
-	public void initComponents() {
-		this.paging = (ManagementPaging) getManagement();
+	public void createDrawing() {
+		this.paging = ManagementPagingImpl.getInstance();
 	}
 	
 	private void labelNames(String text, Integer countY, Boolean gapY) {		
@@ -214,5 +215,15 @@ public class PanelBSSeitenersetzungsstrategienModelImpl extends PanelModelDrawAb
 				}
 			}
 		}
+	}
+
+	@Override
+	public Integer getPanelHeight() {
+		return 100;
+	}
+
+	@Override
+	public Integer getPanelWidth() {
+		return 100;
 	}
 }

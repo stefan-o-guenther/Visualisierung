@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 //import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -28,15 +29,28 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuButtonsAbstract
 	
 	private static final long serialVersionUID = 1L;
 
-	public PanelRNCongestionAvoidanceMenuImpl(ManagementCongestionAvoidance network) {
-		super(network);
+	public PanelRNCongestionAvoidanceMenuImpl() {
+		super(ManagementCongestionAvoidanceImpl.getInstance());
+		//this.initializeExtra();
+		this.createPanel();
 	}	
 	
-	private PanelRNCongestionAvoidanceMenuImpl() {
-		super(new ManagementCongestionAvoidanceImpl());
-		this.initComponentsMenuButtons();
-		this.initLayout();
+	private void initializeExtra() {
+		this.createMenuComponentsExtra();
+		this.initializeButtons();
+		this.createLayout();
 	}
+	
+	private void initializeButtons() {
+		rdbtnTrippleDuplACK = new JRadioButton("tripple dupl. ACK:");
+		rdbtnTimeout = new JRadioButton("timeout:");
+		rdbtnTimeout.setSelected(true);
+		btnExampleReset = new JButton("zur\u00FCcksetzen");
+		btnAssumeSaveExecute = new JButton("n\u00E4chster Schritt");
+	}
+	
+	//private JButton btnExampleReset;
+	//private JButton btnAssumeSaveExecute;
 	
 	private ButtonGroupNetworkStrategyImpl groupNetworkStrategy;
 	private ManagementCongestionAvoidance network;
@@ -48,9 +62,7 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuButtonsAbstract
 	private JCheckBox chckbxTCPTahoe;
 	private JLabel lblSSThresh;
 	private JLabel lblSSThreshTCPRenoLabel;
-	private JLabel lblSSThreshTCPTahoeLabel;
-	//private JButton btnExampleReset;
-	//private JButton btnAssumeInputExecute;	
+	private JLabel lblSSThreshTCPTahoeLabel;		
 	private JRadioButton rdbtnTimeout;
 	private JRadioButton rdbtnTrippleDuplACK;
 	private JLabel lblTimeout;
@@ -60,20 +72,10 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuButtonsAbstract
 	private JLabel lblSSThreshTCPRenoBar;
 	private JLabel lblSSThreshTCPTahoeBar;
 	
-	/*
-	private void init() {
-		rdbtnTrippleDuplACK = new JRadioButton("tripple dupl. ACK:");
-		rdbtnTimeout = new JRadioButton("timeout:");
-		rdbtnTimeout.setSelected(true);
-		btnExampleReset = new JButton("zur\u00FCcksetzen");
-		btnAssumeExecute = new JButton("n\u00E4chster Schritt");	
-	}
-	*/	
-	
 	@Override
-	protected void initComponentsMenuButtons() {
-		this.network = (ManagementCongestionAvoidance) this.getManagement();
-		this.tooltip = (ToolTipManagerCongestionAvoidance) network.getToolTipManager();
+	protected void createMenuComponentsExtra() {
+		this.network = ManagementCongestionAvoidanceImpl.getInstance();
+		this.tooltip = ToolTipManagerCongestionAvoidanceImpl.getInstance();
 		
 		ImageIcon imgHelp = super.getImageIconHelp();
 		
@@ -141,7 +143,7 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuButtonsAbstract
 	}
 	
 	@Override
-	protected void initLayout() {		
+	protected void createLayout() {		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -231,7 +233,7 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuButtonsAbstract
 
 
 	@Override
-	protected void initMethodsMenuButtons() {	
+	protected void createMenuMethodsExtra() {	
 		
 		ActionListener ActionTcpReno = new ActionListener() {
 			public void actionPerformed (ActionEvent e) {
@@ -258,8 +260,7 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuButtonsAbstract
 	}
 
 	@Override
-	public void updatePanelMenuButtons() {
-		
+	public void updatePanelExtra() {		
 		EnumVisualizationStatus status = network.getStatus();
 		switch (status) {
 			case START: {

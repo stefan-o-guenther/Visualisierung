@@ -13,12 +13,21 @@ import javax.swing.JRadioButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 
-public class PanelTitleImpl extends PanelInitAbstract {
+public class PanelTitleImpl extends PanelLayoutAbstract {
 	
 	private static final long serialVersionUID = 1L;
 
 	public PanelTitleImpl(Management management) {
-		super(management);
+		super();
+		try {
+			if (management == null) {
+				throw new NullPointerException();
+			}
+			this.management = management;
+			this.createPanel();
+		} catch (Exception ex) {
+			throw ex;
+		}
 	}
 	
 	@Override
@@ -26,13 +35,15 @@ public class PanelTitleImpl extends PanelInitAbstract {
 		// nothing
 	}	
 
-	protected ButtonGroupColorImpl groupColor;
-	protected JRadioButton rdbtnColored;	
-	protected JRadioButton rdbtnGray;	
-	protected JLabel lblTitle;	
+	private Management management;
+	
+	private ButtonGroupColorImpl groupColor;
+	private JRadioButton rdbtnColored;	
+	private JRadioButton rdbtnGray;	
+	private JLabel lblTitle;	
 	
 	@Override
-	protected void initComponents() {
+	protected void createComponents() {
 		ImageIcon imgIconHelp = ImageLoader.getImageIconHelp22();		
 		ToolTipManager tooltip = management.getToolTipManager();
 		
@@ -46,9 +57,9 @@ public class PanelTitleImpl extends PanelInitAbstract {
 		lblTitle.setIcon(imgIconHelp);
 		lblTitle.setToolTipText(tooltip.getToolTipTitle());
 	}
-	
+
 	@Override
-	protected void initLayout() {
+	protected void createLayout() {
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -81,6 +92,6 @@ public class PanelTitleImpl extends PanelInitAbstract {
 
 	@Override
 	public Integer getPanelWidth() {
-		return 0;
+		return 50;
 	}
 }

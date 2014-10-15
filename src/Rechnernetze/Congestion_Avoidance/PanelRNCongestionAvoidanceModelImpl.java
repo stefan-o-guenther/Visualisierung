@@ -9,20 +9,20 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.util.List;
 
-import Base.PanelModelDrawCoordinateSystemAbstract;
+import Base.PanelDrawingCoordinateSystemAbstract;
 
-public class PanelRNCongestionAvoidanceModelImpl extends PanelModelDrawCoordinateSystemAbstract {
+public class PanelRNCongestionAvoidanceModelImpl extends PanelDrawingCoordinateSystemAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelRNCongestionAvoidanceModelImpl(ManagementCongestionAvoidance network) {
-		super(network);
+	public PanelRNCongestionAvoidanceModelImpl() {
+		super(ManagementCongestionAvoidanceImpl.getInstance());
+		this.createPanel();
 	}
 
 	private ManagementCongestionAvoidance network;
 	
-	private void printOvals() {	
-		
+	private void printOvals() {		
 		BasicStroke bs = new BasicStroke(3, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_BEVEL);
 		g2d.setStroke(bs);		
 		
@@ -44,8 +44,7 @@ public class PanelRNCongestionAvoidanceModelImpl extends PanelModelDrawCoordinat
 		}				
 	}
 	
-	private void printLines() {
-		
+	private void printLines() {		
 		BasicStroke bs = new BasicStroke(3, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_BEVEL);
 		g2d.setStroke(bs);	
 		
@@ -74,8 +73,7 @@ public class PanelRNCongestionAvoidanceModelImpl extends PanelModelDrawCoordinat
 		}	
 	}
 	
-	private void printSsTreshs() {
-		
+	private void printSsTreshs() {		
 		BasicStroke bs = new BasicStroke(3, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_BEVEL);
 		g2d.setStroke(bs);	
 		
@@ -126,7 +124,17 @@ public class PanelRNCongestionAvoidanceModelImpl extends PanelModelDrawCoordinat
 	}
 
 	@Override
-	protected void initComponents() {
-		this.network = (ManagementCongestionAvoidance) this.getManagement();
+	protected void createDrawing() {
+		this.network = ManagementCongestionAvoidanceImpl.getInstance();
+	}
+
+	@Override
+	public Integer getPanelHeight() {
+		return 100;
+	}
+
+	@Override
+	public Integer getPanelWidth() {
+		return 100;
 	}
 }

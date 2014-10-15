@@ -12,20 +12,19 @@ public class PanelRNTCPFairnessMainImpl extends PanelMainAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelRNTCPFairnessMainImpl(ManagementFairness fairness) {
-		super(fairness);
+	public PanelRNTCPFairnessMainImpl() {
+		super(ManagementFairnessImpl.getInstance());
+		this.createPanel();
 	}
 
 	@Override
 	protected PanelAbstract getNewPanelMenu() {
-		ManagementFairness fairness = (ManagementFairness) this.getManagement();
-		PanelAbstract panelMenu = new PanelRNTCPFairnessMenuImpl(fairness);
+		PanelAbstract panelMenu = new PanelRNTCPFairnessMenuImpl();
 		return this.getPanelMenuAutomatic(panelMenu, 5);
 	}
 
 	@Override
 	protected PanelAbstract getNewPanelModel() {
-		ManagementFairness fairness = (ManagementFairness) this.getManagement();
-		return new PanelRNTCPFairnessModelImpl(fairness);
+		return new PanelRNTCPFairnessModelImpl();
 	}
 }

@@ -31,6 +31,7 @@ public class ThreadAutomatic extends Thread {
 			management.setAutomaticRunning(false);
 			management.setAutomaticChecked(false);
 			management.setAutomaticRunning(false);
+			management.updateViews();
 		} catch (InterruptedException e) {
 			System.out.println("Thread abgebrochen");
 		}

@@ -12,12 +12,19 @@ import Base.EnumAutomaticChecked;
 import Base.EnumVisualizationStatus;
 import Base.ManagementAbstract;
 import Base.MessageBox;
+import Base.ToolTipManager;
 
 public class ManagementFragmentationImpl extends ManagementAbstract implements ManagementFragmentation {
 
-	public ManagementFragmentationImpl() {
-		super();		
-	}		
+    private static ManagementFragmentation instance = new ManagementFragmentationImpl();
+    
+    private ManagementFragmentationImpl() {
+    	super();
+    }
+ 
+    public static ManagementFragmentation getInstance() {
+    	return instance;
+    }
 	
 	private final Integer START = 0;
 	
@@ -42,7 +49,6 @@ public class ManagementFragmentationImpl extends ManagementAbstract implements M
 	
 	@Override
 	protected void initialize() {
-		this.setStatusSTART();
 		strategy = EnumMemoryStrategy.NULL;
 		number = 0;
 		start = START;
@@ -346,8 +352,7 @@ public class ManagementFragmentationImpl extends ManagementAbstract implements M
 				Space space = listSpaceWork.get(pos);
 				Integer value = space.getCurrentValue();		
 				if (space.getType() == EnumSpace.EMPTY) {
-					Space newSpace = new SpaceUsedImpl(number);
-					listSpaceWork.add(pos, newSpace);
+					listSpaceWork.add(pos, SpaceFactory.getSpaceUsed(number));
 					if (value > number) {					
 						space.setCurrentValue(value - number);						
 					} else if (value.equals(number)) {
@@ -525,15 +530,11 @@ public class ManagementFragmentationImpl extends ManagementAbstract implements M
 				}
 			}
 			for (Integer i = 0; i < list.size(); i++) {
-				int j = i.intValue();
-				Space space;
-				if (j > 0) {
-					space = new SpaceFullImpl(1);
-					listSpace.add(space);					
+				if (i.intValue() > 0) {
+					listSpace.add(SpaceFactory.getSpaceFullOne());					
 				}
 				Integer number = list.get(i);
-				space = new SpaceEmptyImpl(number);
-				listSpace.add(space);
+				listSpace.add(SpaceFactory.getSpaceEmpty(number));
 			}
 		} catch (Exception ex) {
 			throw ex;
@@ -575,7 +576,7 @@ public class ManagementFragmentationImpl extends ManagementAbstract implements M
 	}
 	
 	@Override
-	protected void createToolTipManager() {
-		tooltip = new ToolTipManagerFragmentationImpl();
+	public ToolTipManager getToolTipManager() {
+		return ToolTipManagerFragmentationImpl.getInstance();
 	}
 }

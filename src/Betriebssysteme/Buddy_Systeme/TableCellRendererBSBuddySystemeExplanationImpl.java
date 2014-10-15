@@ -17,22 +17,13 @@ import javax.swing.table.TableCellRenderer;
 
 public class TableCellRendererBSBuddySystemeExplanationImpl implements TableCellRenderer {
 
-	public TableCellRendererBSBuddySystemeExplanationImpl(ManagementBuddyMemoryAllocation buddy) {
-		super();
-		try {
-			if (buddy == null) {
-				throw new NullPointerException();
-			}
-			this.buddy = buddy;			
-		} catch (Exception ex) {
-			throw ex;
-		}
+	public TableCellRendererBSBuddySystemeExplanationImpl() {
+		super();		
 	}
-	
-	private ManagementBuddyMemoryAllocation buddy;
 	
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+		ManagementBuddyMemoryAllocation buddy = ManagementBuddyMemoryAllocationImpl.getInstance();
 		JLabel label = new JLabel((String)value);
 		label.setOpaque(true);
 		Border b = BorderFactory.createEmptyBorder(1, 5, 1, 1);

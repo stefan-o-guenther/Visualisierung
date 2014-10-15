@@ -5,18 +5,16 @@
 
 package Rechnernetze.Queueing_And_Loss;
 
-import Base.MainAbstract;
+import Base.VisualizationAbstract;
 
-public class Queueing_And_Loss extends MainAbstract {
+public class Queueing_And_Loss extends VisualizationAbstract {
 
 	public Queueing_And_Loss() {
 		super();
 	}
 	
 	public static void main(String[] args) {
-		ManagementQueueingAndLoss qal = new ManagementQueueingAndLossImpl();
 		initialize();
-		panelMain = new PanelRNQueueingAndLossMainImpl(qal);
-    	baseMain();	
+		baseVisualization(new PanelRNQueueingAndLossMainImpl());	
     }
 }

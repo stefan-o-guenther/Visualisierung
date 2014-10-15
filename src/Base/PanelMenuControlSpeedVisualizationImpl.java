@@ -13,12 +13,9 @@ public class PanelMenuControlSpeedVisualizationImpl extends PanelMenuControlSlid
 	
 	public PanelMenuControlSpeedVisualizationImpl(Management management) {
 		super(management);
+		this.createPanel();
 	}
 	
-	private PanelMenuControlSpeedVisualizationImpl() {
-		super(new ManagementTestImpl());
-	}	
-
 	@Override
 	protected Integer getMax() {
 		return 2000;

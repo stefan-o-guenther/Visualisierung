@@ -22,6 +22,7 @@ public interface Management {
 	public void setSize(Integer height, Integer width);
 	
 	public EnumVisualizationStatus getStatus();
+	public void setStatus(EnumVisualizationStatus status);
 	
 	// automatic
 	public Boolean isAutomaticChecked();

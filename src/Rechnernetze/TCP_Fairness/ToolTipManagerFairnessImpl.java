@@ -9,6 +9,16 @@ import Base.ToolTipManagerAbstract;
 
 public class ToolTipManagerFairnessImpl extends ToolTipManagerAbstract implements ToolTipManagerFairness {
 	
+	private static ToolTipManagerFairness instance = new ToolTipManagerFairnessImpl();
+	
+	private ToolTipManagerFairnessImpl() {
+		
+	}
+	
+	public static ToolTipManagerFairness getInstance() {
+		return instance;
+	}	
+	
 	public String getToolTipTitle() {
 		String tooltipTitle = ""
 			+ "<html>"

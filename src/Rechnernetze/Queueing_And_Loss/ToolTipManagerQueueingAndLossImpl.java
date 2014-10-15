@@ -9,6 +9,16 @@ import Base.ToolTipManagerAbstract;
 
 public class ToolTipManagerQueueingAndLossImpl extends ToolTipManagerAbstract implements ToolTipManagerQueueingAndLoss {
 	
+	private static ToolTipManagerQueueingAndLoss instance = new ToolTipManagerQueueingAndLossImpl();
+	
+	private ToolTipManagerQueueingAndLossImpl() {
+		
+	}
+	
+	public static ToolTipManagerQueueingAndLoss getInstance() {
+		return instance;
+	}	
+	
 	public String getToolTipTitle() {
 		String tooltipTitle = ""
 	        + "<html>"

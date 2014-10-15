@@ -2,29 +2,29 @@ package Betriebssysteme.Belegungsstrategien;
 
 import java.text.DecimalFormat;
 
-import Base.Labeling;
-import Base.Management;
-import Base.PanelInitAbstract;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class PanelBSBelegungsstrategienLabelImpl extends PanelInitAbstract {
+import Base.Labeling;
+import Base.PanelLayoutAbstract;
+
+public class PanelBSBelegungsstrategienLabelImpl extends PanelLayoutAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelBSBelegungsstrategienLabelImpl(Management management) {
-		super(management);
+	public PanelBSBelegungsstrategienLabelImpl() {
+		super();
+		//this.initializeExtra();
+		this.createPanel();
 	}
-
-	private PanelBSBelegungsstrategienLabelImpl() {
-		super(new ManagementFragmentationImpl());
-	}
-
-	private ManagementFragmentation fragmentation;
 	
+	private void initializeExtra() {
+		this.createComponents();
+		this.createLayout();
+	}
+
 	private JLabel lblTotalSpaceLabel;
 	private JLabel lblTotalSpaceOutput;
 	private JLabel lblFreeSpaceLabel;
@@ -34,9 +34,7 @@ public class PanelBSBelegungsstrategienLabelImpl extends PanelInitAbstract {
 	
 
 	@Override
-	protected void initComponents() {
-		fragmentation = (ManagementFragmentation) this.getManagement();	
-		
+	protected void createComponents() {		
 		lblTotalSpaceLabel = new JLabel(Labeling.WHOLE_SPACE+":");		
 		lblTotalSpaceOutput = new JLabel("");		
 		lblFreeSpaceLabel = new JLabel(Labeling.FREE_SPACE+":");		
@@ -46,7 +44,7 @@ public class PanelBSBelegungsstrategienLabelImpl extends PanelInitAbstract {
 	}
 
 	@Override
-	protected void initLayout() {
+	protected void createLayout() {
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -90,6 +88,8 @@ public class PanelBSBelegungsstrategienLabelImpl extends PanelInitAbstract {
 	
 	@Override
 	public void updatePanel() {
+		ManagementFragmentation fragmentation = ManagementFragmentationImpl.getInstance();
+		
 		DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 		
 		Integer totalSpace = fragmentation.getTotalSpace();

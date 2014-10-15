@@ -12,24 +12,24 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import Base.ManagementTestImpl;
-import Base.PanelInitAbstract;
+import Base.Labeling;
+import Base.PanelLayoutAbstract;
 
-public class PanelBSBuddySystemeLabelImpl extends PanelInitAbstract {
+public class PanelBSBuddySystemeLabelImpl extends PanelLayoutAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelBSBuddySystemeLabelImpl(ManagementBuddyMemoryAllocation buddy) {
-		super(buddy);
+	public PanelBSBuddySystemeLabelImpl() {
+		super();
+		this.initializeExtra();
+		this.createPanel();
 	}
 	
-	private PanelBSBuddySystemeLabelImpl() {
-		super(new ManagementTestImpl());
-		this.initComponents();
-		this.initLayout();
+	private void initializeExtra() {
+		this.createComponents();
+		this.createLayout();
 	}
-		
-	private ManagementBuddyMemoryAllocation buddy;
+	
 	private JLabel lblProcessCountLabel;	
 	private JLabel lblProcessSpaceLabel;	
 	private JLabel lblFreeSpaceLabel;	
@@ -38,23 +38,25 @@ public class PanelBSBuddySystemeLabelImpl extends PanelInitAbstract {
 	private JLabel lblProcessSpaceOutput;	
 	private JLabel lblFreeSpaceOutput;	
 	private JLabel lblRestSpaceOutput;
+	private JLabel lblWholeSpaceLabel;
+	private JLabel lblWholeSpaceOutput;
 			
 	@Override
-	protected void initComponents() {
-		buddy = (ManagementBuddyMemoryAllocation) this.getManagement();	
-		
+	protected void createComponents() {		
 		lblProcessCountLabel = new JLabel("Anzahl der Prozesse:");
-		lblProcessSpaceLabel = new JLabel("Belegter Speicherplatz:");
-		lblFreeSpaceLabel = new JLabel("Freier Speicherplatz:");
+		lblProcessSpaceLabel = new JLabel(Labeling.USED_SPACE+":");
+		lblFreeSpaceLabel = new JLabel(Labeling.FREE_SPACE+":");
 		lblRestSpaceLable = new JLabel("Verschnitt:");
+		lblWholeSpaceLabel = new JLabel(Labeling.WHOLE_SPACE+":");
 		lblProcessCountOutput = new JLabel("0000");
 		lblProcessSpaceOutput = new JLabel("0000");
 		lblFreeSpaceOutput = new JLabel("0000");
-		lblRestSpaceOutput = new JLabel("0000");
+		lblRestSpaceOutput = new JLabel("0000");		
+		lblWholeSpaceOutput = new JLabel("0000");
 	}
 	
 	@Override
-	protected void initLayout() {		
+	protected void createLayout() {	
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -62,27 +64,35 @@ public class PanelBSBuddySystemeLabelImpl extends PanelInitAbstract {
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblRestSpaceLable)
+							.addComponent(lblProcessCountLabel)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblRestSpaceOutput, GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE))
+							.addComponent(lblProcessCountOutput, GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblWholeSpaceLabel)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblWholeSpaceOutput, GroupLayout.DEFAULT_SIZE, 109, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblProcessSpaceLabel)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblProcessSpaceOutput, GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblProcessCountLabel)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblProcessCountOutput, GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE))
+							.addComponent(lblProcessSpaceOutput, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblFreeSpaceLabel)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblFreeSpaceOutput, GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)))
+							.addComponent(lblFreeSpaceOutput, GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblRestSpaceLable)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblRestSpaceOutput, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblWholeSpaceLabel)
+						.addComponent(lblWholeSpaceOutput))
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblProcessCountLabel)
 						.addComponent(lblProcessCountOutput))
@@ -98,13 +108,15 @@ public class PanelBSBuddySystemeLabelImpl extends PanelInitAbstract {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblRestSpaceLable)
 						.addComponent(lblRestSpaceOutput))
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addContainerGap(138, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 	}
 
 	@Override
-	public void updatePanel() {		
+	public void updatePanel() {
+		ManagementBuddyMemoryAllocation buddy = ManagementBuddyMemoryAllocationImpl.getInstance();
+		
 		DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 		
 		Integer processCount = buddy.getProcessCount();
@@ -121,6 +133,9 @@ public class PanelBSBuddySystemeLabelImpl extends PanelInitAbstract {
 		Integer restSpace = buddy.getRestSpace();
 		Double restRate = buddy.getRestRate();
 		lblRestSpaceOutput.setText(restSpace + " (" + decimalFormat.format(restRate) + "%)");
+		
+		Integer wholeSpace = buddy.getTotalSpace();
+		lblWholeSpaceOutput.setText(wholeSpace.toString());		
 	}	
 	
 	@Override

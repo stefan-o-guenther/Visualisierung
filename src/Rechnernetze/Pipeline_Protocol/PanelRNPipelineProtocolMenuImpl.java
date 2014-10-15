@@ -13,22 +13,22 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import Base.PanelMenuAbstract;
 import Base.PanelMenuButtonsAbstract;
 
 public class PanelRNPipelineProtocolMenuImpl extends PanelMenuButtonsAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelRNPipelineProtocolMenuImpl(ManagementPipelineProtocol pipeline) {
-		super(pipeline);
+	public PanelRNPipelineProtocolMenuImpl() {
+		super(ManagementARQImpl.getInstance());
+		//this.initializeExtra();
+		this.createPanel();
 	}
-
-	private PanelRNPipelineProtocolMenuImpl() {
-		super(new ManagementPipelineProtocolImpl());
-		this.initButtonts();
-		this.initComponentsMenuButtons();
-		this.initLayout();
+	
+	private void initializeExtra() {		
+		this.createMenuComponentsExtra();
+		this.initButtons();
+		this.createLayout();
 	}
 	
 	@Override
@@ -41,7 +41,8 @@ public class PanelRNPipelineProtocolMenuImpl extends PanelMenuButtonsAbstract {
 		return 150;
 	}
 	
-	private ManagementPipelineProtocol pipeline;
+	private ManagementARQ pipeline;
+	private ToolTipManagerARQ tooltip;
 
 	//private JButton btnExampleReset;
 	//private JButton btnAssumeInputExecute;
@@ -49,21 +50,22 @@ public class PanelRNPipelineProtocolMenuImpl extends PanelMenuButtonsAbstract {
 	private ComboBoxStrategy comboBox;
 	private JButton btnTransmit;
 	
-	private void initButtonts() {
+	private void initButtons() {
 		btnExampleReset = new JButton("Reset");	
 		btnAssumeSaveExecute = new JButton("Next");
 	}
 	
 	@Override
-	protected void initComponentsMenuButtons() {
-		this.pipeline = (ManagementPipelineProtocol) this.getManagement();
-		comboBox = new ComboBoxStrategy();
+	protected void createMenuComponentsExtra() {
+		this.pipeline = ManagementARQImpl.getInstance();
+		this.tooltip = ToolTipManagerARQImpl.getInstance();
+		
+		this.comboBox = new ComboBoxStrategy();
+		this.btnTransmit = new JButton("Paket senden");
 	}
 
 	@Override
-	protected void initLayout() {		
-		
-		btnTransmit = new JButton("Paket senden");
+	protected void createLayout() {	
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -93,15 +95,19 @@ public class PanelRNPipelineProtocolMenuImpl extends PanelMenuButtonsAbstract {
 	}	
 
 	@Override
-	protected void updatePanelMenuButtons() {
-		// TODO Auto-generated method stub
-		
+	protected void updatePanelExtra() {
+		this.btnTransmit.setEnabled(pipeline.canSendPacket());
 	}
 
 	@Override
-	protected void initMethodsMenuButtons() {
-		// TODO Auto-generated method stub
+	protected void createMenuMethodsExtra() {
+		ActionListener actionSendPacket = new ActionListener() {
+			public void actionPerformed (ActionEvent e) {
+				pipeline.sendPacket();
+			}
+		};
 		
+		this.btnTransmit.addActionListener(actionSendPacket);
 	}
 
 	@Override
@@ -112,7 +118,7 @@ public class PanelRNPipelineProtocolMenuImpl extends PanelMenuButtonsAbstract {
 
 	@Override
 	protected void assume() {
-		pipeline.assume();
+		pipeline.assume(this.comboBox.getStrategy());
 	}
 
 	@Override

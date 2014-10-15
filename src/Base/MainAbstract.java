@@ -5,7 +5,6 @@
 
 package Base;
 
-import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
@@ -20,8 +19,6 @@ public abstract class MainAbstract {
 		initToolTipManager();
 		initLookAndFeel();
 	}
-	
-	protected static PanelMainAbstract panelMain;
 	
 	protected static void initToolTipManager() {
 		ToolTipManager.sharedInstance().setDismissDelay(2147483647);
@@ -46,13 +43,11 @@ public abstract class MainAbstract {
 		}
 	}
 	
-	protected static void baseMain() {
+	protected static void baseMain(FrameAbstract frame) {
 		try {
-			if (panelMain == null) {
+			if (frame == null) {
 				throw new NullPointerException();
 			}
-			panelMain.updatePanel();
-			JFrame frame = new FrameMainImpl(panelMain);
 			SwingUtilities.invokeLater(new RunnableImpl(frame));	
 		} catch (Exception ex) {
 			throw ex;

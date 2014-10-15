@@ -7,23 +7,24 @@ package Base;
 
 import javax.swing.ImageIcon;
 
-public abstract class PanelMenuAbstract extends PanelInitAbstract {
+public abstract class PanelMenuAbstract extends PanelLayoutAbstract {
 
 	private static final long serialVersionUID = 1L;
 	
-	public PanelMenuAbstract(Management management) {
-		super(management);
+	public PanelMenuAbstract() {
+		super();
 	}
 	
 	protected ImageIcon getImageIconHelp() {
 		return ImageLoader.getImageIconHelp16();
 	}
 	
-	protected abstract void initComponentsMenu();
-	protected abstract void initMethods();
+	protected abstract void createMenuComponents();
+	protected abstract void createMenuMethods();
 	
-	protected void initComponents() {
-		this.initComponentsMenu();
-		this.initMethods();
+	@Override
+	protected void createComponents() {
+		this.createMenuComponents();
+		this.createMenuMethods();
 	}
 }

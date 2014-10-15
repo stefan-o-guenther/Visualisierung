@@ -5,6 +5,6 @@
 
 package Rechnernetze.Pipeline_Protocol;
 
-public interface PacketAck extends Packet {
+public interface PacketAck extends PacketResult {
 
 }

@@ -5,18 +5,16 @@
 
 package Betriebssysteme.Belegungsstrategien;
 
-import Base.MainAbstract;
+import Base.VisualizationAbstract;
 
-public class Belegungsstrategien extends MainAbstract {
+public class Belegungsstrategien extends VisualizationAbstract {
 	
 	public Belegungsstrategien() {
 		super();
 	}
 	
 	public static void main(String[] args) {
-		ManagementFragmentation fragmentation = new ManagementFragmentationImpl();
 		initialize();
-    	panelMain = new PanelBSBelegungsstrategienMainImpl(fragmentation);
-    	baseMain();
+    	baseVisualization(new PanelBSBelegungsstrategienMainImpl());
     }
 }

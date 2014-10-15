@@ -13,12 +13,9 @@ public class PanelRNQueueingAndLossControlProcessingImpl extends PanelMenuContro
 
 	private static final long serialVersionUID = 1L;	
 
-	public PanelRNQueueingAndLossControlProcessingImpl(Management management) {
-		super(management);
-	}
-	
-	private PanelRNQueueingAndLossControlProcessingImpl() {
-		super(new ManagementTestImpl());
+	public PanelRNQueueingAndLossControlProcessingImpl() {
+		super(ManagementQALImpl.getInstance());
+		this.createPanel();
 	}	
 
 	@Override
@@ -58,7 +55,7 @@ public class PanelRNQueueingAndLossControlProcessingImpl extends PanelMenuContro
 
 	@Override
 	protected void setSliderValueToManagement(Integer value) {
-		ManagementQueueingAndLoss qal = (ManagementQueueingAndLoss) this.getManagement();
+		ManagementQAL qal = ManagementQALImpl.getInstance();
 		qal.setProcessingTime(value);
 	}
 
@@ -69,7 +66,7 @@ public class PanelRNQueueingAndLossControlProcessingImpl extends PanelMenuContro
 
 	@Override
 	protected String getToolTip() {
-		ToolTipManagerQueueingAndLoss tooltip = (ToolTipManagerQueueingAndLoss) management.getToolTipManager();
+		ToolTipManagerQueueingAndLoss tooltip = ToolTipManagerQueueingAndLossImpl.getInstance();
 		return tooltip.getToolTipProcessing();
 	}
 }

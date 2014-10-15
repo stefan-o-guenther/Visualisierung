@@ -20,16 +20,19 @@ public class PanelMenuControlCheckboxImpl extends PanelMenuControlAbstract {
 	
 	public PanelMenuControlCheckboxImpl(Management management) {
 		super(management);
+		this.createPanel();
 	}
 	
 	private PanelMenuControlCheckboxImpl() {
-		super(new ManagementTestImpl());
+		super(ManagementTestImpl.getInstance());
+		this.createMenuComponents();
+		this.createLayout();
 	}
 	
 	private JCheckBox chckbxAutomatic;	
 	private JLabel lblToolTip;
 	
-	protected void initComponentsMenu() {	
+	protected void createMenuComponents() {
 		ToolTipManager tooltip = management.getToolTipManager();
 		lblToolTip = new JLabel(" ");
 		lblToolTip.setIcon(ImageLoader.getImageIconHelp16());
@@ -41,7 +44,7 @@ public class PanelMenuControlCheckboxImpl extends PanelMenuControlAbstract {
 	}
 	
 	@Override
-	protected void initLayout() {		
+	protected void createLayout() {		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -65,7 +68,7 @@ public class PanelMenuControlCheckboxImpl extends PanelMenuControlAbstract {
 	}
 	
 	@Override
-	protected void initMethods() {
+	protected void createMenuMethods() {
 		ActionListener actionAuto = new ActionListener() {
 			public void actionPerformed (ActionEvent e) {
 				if (management != null) {

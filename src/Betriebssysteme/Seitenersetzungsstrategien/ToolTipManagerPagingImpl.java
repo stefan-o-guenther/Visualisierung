@@ -9,6 +9,16 @@ import Base.ToolTipManagerAbstract;
 
 public class ToolTipManagerPagingImpl extends ToolTipManagerAbstract implements ToolTipManagerPaging {
 
+	private static ToolTipManagerPaging instance = new ToolTipManagerPagingImpl();
+	
+	private ToolTipManagerPagingImpl() {
+		
+	}
+	
+	public static ToolTipManagerPaging getInstance() {
+		return instance;
+	}	
+	
 	public String getToolTipTitle() {
 		String tooltipTitle = ""
 	        + "<html>"

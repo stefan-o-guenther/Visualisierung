@@ -17,17 +17,12 @@ public class PacketDataImpl extends PacketAbstract implements PacketData {
 	}
 
 	@Override
-	public void doStep(Integer value) {
-		try {
-			if (value == null) {
-				throw new NullPointerException();
-			}
-			if (value.intValue() <= 0) {
-				throw new IllegalArgumentException();
-			}
-			this.position += value;
-		} catch (Exception ex) {
-			throw ex;
-		}
+	public void doStep() {
+		this.position += this.step;
+	}
+
+	@Override
+	public Packet getCopy() {
+		return new PacketDataImpl(this.number, this.position);
 	}
 }

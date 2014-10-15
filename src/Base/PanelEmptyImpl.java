@@ -9,24 +9,23 @@ public class PanelEmptyImpl extends PanelAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelEmptyImpl(Management management, int height, int width) {
-		super(management);
+	public PanelEmptyImpl(int height, int width) {
+		super();
 		try {
 			if ((height < 0) || (width < 0)) {
 				throw new IllegalArgumentException();
 			}
 			this.height = height;
 			this.width = width;
-			this.initPanel();
+			this.createPanel();
 		} catch (Exception ex) {
 			throw ex;
 		}		
 	}
 	
 	public PanelEmptyImpl() {
-		super(new ManagementTestImpl());
-		this.initComponents();
-		this.initLayout();
+		super();
+		this.createPanel();
 	}
 	
 	private int height;
@@ -48,12 +47,7 @@ public class PanelEmptyImpl extends PanelAbstract {
 	}
 
 	@Override
-	protected void initComponents() {
-		// nothing
-	}
-
-	@Override
-	protected void initLayout() {
-		// nothing
+	protected void createPanel() {
+		
 	}
 }

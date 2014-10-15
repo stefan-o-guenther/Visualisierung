@@ -12,25 +12,24 @@ public class PanelRNPipelineProtocolMainImpl extends PanelMainAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelRNPipelineProtocolMainImpl(ManagementPipelineProtocol pipeline) {
-		super(pipeline);
+	public PanelRNPipelineProtocolMainImpl() {
+		super(ManagementARQImpl.getInstance());
+		this.createPanel();
 	}
 
 	@Override
 	protected PanelAbstract getNewPanelMenu() {
-		ManagementPipelineProtocol pipeline = (ManagementPipelineProtocol) this.getManagement();
-		PanelAbstract panelLeft = new PanelRNPipelineProtocolMenuImpl(pipeline);
-		PanelAbstract panelRight = new PanelRNPipelineProtocolLabelImpl(pipeline);
+		PanelAbstract panelLeft = new PanelRNPipelineProtocolMenuImpl();
+		PanelAbstract panelRight = new PanelRNPipelineProtocolLabelImpl();
 		PanelAbstract panelMenu = this.getPanelCoupleHorizontal(panelLeft, panelRight);
-		PanelAbstract panelSpeed = new PanelMenuControlSpeedImpl(pipeline);
-		PanelAbstract panelTimeout = new PanelMenuControlTimeoutImpl(pipeline);		
+		PanelAbstract panelSpeed = new PanelRNPipelineProtocolMenuControlSpeedImpl();
+		PanelAbstract panelTimeout = new PanelRNPipelineProtocolMenuControlTimeoutImpl();		
 		PanelAbstract panelAutomatic = this.getPanelCoupleVertical(panelSpeed, panelTimeout);
 		return this.getPanelCoupleHorizontal(panelMenu, panelAutomatic);
 	}
 
 	@Override
 	protected PanelAbstract getNewPanelModel() {
-		ManagementPipelineProtocol pipeline = (ManagementPipelineProtocol) this.getManagement();
-		return new PanelRNPipelineProtocolModelImpl(pipeline);
+		return new PanelRNPipelineProtocolModelImpl();
 	}
 }

@@ -25,15 +25,16 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuButtonsA
 	
 private static final long serialVersionUID = 1L;
 
-public PanelBSSeitenersetzungsstrategienMenuImpl(ManagementPaging paging) {
-		super(paging);
+	public PanelBSSeitenersetzungsstrategienMenuImpl() {
+		super(ManagementPagingImpl.getInstance());
+		//this.initializeExtra();
+		this.createPanel();
 	}
 	
-	private PanelBSSeitenersetzungsstrategienMenuImpl() {
-		super(new ManagementPagingImpl());
+	private void initializeExtra() {
 		this.initButtons();
-		this.initComponentsMenuButtons();
-		this.initLayout();
+		this.createMenuComponentsExtra();
+		this.createLayout();
 	}	
 	
 	private void initButtons() {
@@ -62,7 +63,7 @@ public PanelBSSeitenersetzungsstrategienMenuImpl(ManagementPaging paging) {
 	private ToolTipManagerPaging tooltip;
 	
 	@Override
-	public void updatePanelMenuButtons() {		
+	public void updatePanelExtra() {		
 		lblStrategie.setEnabled(true);
 		lblReferenzfolge.setEnabled(true);
 		lblRam.setEnabled(true);
@@ -106,9 +107,9 @@ public PanelBSSeitenersetzungsstrategienMenuImpl(ManagementPaging paging) {
 	}
 	
 	@Override
-	protected void initComponentsMenuButtons() {		
-		this.paging = (ManagementPaging) this.getManagement();
-		this.tooltip = (ToolTipManagerPaging) paging.getToolTipManager();
+	protected void createMenuComponentsExtra() {		
+		this.paging = ManagementPagingImpl.getInstance();
+		this.tooltip = ToolTipManagerPagingImpl.getInstance();
 		
 		ImageIcon imgHelp = super.getImageIconHelp();		
 		
@@ -116,7 +117,7 @@ public PanelBSSeitenersetzungsstrategienMenuImpl(ManagementPaging paging) {
 		lblStrategie.setIcon(imgHelp);
 		lblStrategie.setToolTipText(tooltip.getToolTipStrategy());
 		
-		lblReferenzfolge = new JLabel(Labeling.REFERENCE+":");
+		lblReferenzfolge = new JLabel(LabelingPaging.REFERENCE+":");
 		lblReferenzfolge.setIcon(imgHelp);
 		lblReferenzfolge.setToolTipText(tooltip.getToolTipReference());
 		
@@ -125,11 +126,11 @@ public PanelBSSeitenersetzungsstrategienMenuImpl(ManagementPaging paging) {
 		
 		cbStrategie = new ComboBoxStrategyImpl();
 		
-		lblRam = new JLabel(Labeling.COUNT_RAM+":");
+		lblRam = new JLabel(LabelingPaging.COUNT_RAM+":");
 		lblRam.setIcon(imgHelp);
 		lblRam.setToolTipText(tooltip.getToolTipRam());
 		
-		lblDisk = new JLabel(Labeling.COUNT_DISK+":");
+		lblDisk = new JLabel(LabelingPaging.COUNT_DISK+":");
 		lblDisk.setIcon(imgHelp);
 		lblDisk.setToolTipText(tooltip.getToolTipDisk());
 		
@@ -141,7 +142,7 @@ public PanelBSSeitenersetzungsstrategienMenuImpl(ManagementPaging paging) {
 	}
 	
 	@Override
-	protected void initLayout() {		
+	protected void createLayout() {		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -191,7 +192,7 @@ public PanelBSSeitenersetzungsstrategienMenuImpl(ManagementPaging paging) {
 	}
 	
 	@Override
-	protected void initMethodsMenuButtons() {
+	protected void createMenuMethodsExtra() {
 		
 	}
 	
@@ -235,7 +236,7 @@ public PanelBSSeitenersetzungsstrategienMenuImpl(ManagementPaging paging) {
 			}
 		} catch (Exception ex) {
 			tfRam.setText("");
-			MessageBox.showErrorMessage(Labeling.WRONG_COUNT_RAM);
+			MessageBox.showErrorMessage(LabelingPaging.WRONG_COUNT_RAM);
 			result = null;
 		} finally {
 			
@@ -253,7 +254,7 @@ public PanelBSSeitenersetzungsstrategienMenuImpl(ManagementPaging paging) {
 			}
 		} catch (Exception ex) {
 			tfDisk.setText("");
-			MessageBox.showErrorMessage(Labeling.WRONG_COUNT_DISK);
+			MessageBox.showErrorMessage(LabelingPaging.WRONG_COUNT_DISK);
 			result = null;
 		} finally {
 			

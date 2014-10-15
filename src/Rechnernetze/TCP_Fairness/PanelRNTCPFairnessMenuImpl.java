@@ -20,18 +20,18 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuButtonsAbstract {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public PanelRNTCPFairnessMenuImpl(ManagementFairness fairness) {
-		super(fairness);
-	}
-	
-	// only for Designer
-	private PanelRNTCPFairnessMenuImpl() {
-		super(new ManagementFairnessImpl());
-		this.initComponents();
-		this.initLayout();
-		this.updatePanel();
+	public PanelRNTCPFairnessMenuImpl() {
+		super(ManagementFairnessImpl.getInstance());
+		//this.initializeExtra();
+		this.createPanel();
 	}
 
+	private void initializeExtra() {
+		this.createMenuComponentsExtra();
+		this.createLayout();
+		this.updatePanel();
+	}
+	
 	private ManagementFairness fairness;
 	private ToolTipManagerFairness tooltip;
 	
@@ -51,9 +51,9 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuButtonsAbstract {
 	private JLabel lblDifferenceContent;	
 	
 	@Override
-	protected void initComponentsMenuButtons() {
-		this.fairness = (ManagementFairness) this.getManagement();
-		this.tooltip = (ToolTipManagerFairness) fairness.getToolTipManager();
+	protected void createMenuComponentsExtra() {
+		this.fairness = ManagementFairnessImpl.getInstance();
+		this.tooltip = ToolTipManagerFairnessImpl.getInstance();
 		
 		ImageIcon imgHelp = super.getImageIconHelp();		
 		lblConnection1 = new JLabel("Verbindung 1 cwnd Startwert:");
@@ -100,7 +100,7 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuButtonsAbstract {
 	}
 	
 	@Override
-	public void updatePanelMenuButtons() {
+	public void updatePanelExtra() {
 		EnumVisualizationStatus status = fairness.getStatus();
 		Boolean isStart = (status == EnumVisualizationStatus.START);
 		String modus = fairness.getModus();
@@ -121,8 +121,7 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuButtonsAbstract {
 	}	
 	
 	@Override
-	protected void initLayout() {				
-		
+	protected void createLayout() {		
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -191,7 +190,7 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuButtonsAbstract {
 	}
 
 	@Override
-	protected void initMethodsMenuButtons() {
+	protected void createMenuMethodsExtra() {
 		
 	}
 

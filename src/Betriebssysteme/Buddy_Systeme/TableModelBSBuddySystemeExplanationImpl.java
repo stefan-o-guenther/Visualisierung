@@ -14,23 +14,15 @@ public class TableModelBSBuddySystemeExplanationImpl extends AbstractTableModel 
 
 	private static final long serialVersionUID = 1L;
 
-	public TableModelBSBuddySystemeExplanationImpl(ManagementBuddyMemoryAllocation buddy) {
+	public TableModelBSBuddySystemeExplanationImpl() {
 		super();
-		try {
-			if (buddy == null) {
-				throw new NullPointerException();
-			}
-			this.buddy = buddy;
-			this.initializeListContent();
-		} catch (Exception ex) {
-			throw ex;
-		}
+		this.initializeListContent();		
 	}
 	
-	private ManagementBuddyMemoryAllocation buddy;
 	private List<String> listContent;
 	
 	private void initializeListContent() {
+		ManagementBuddyMemoryAllocation buddy = ManagementBuddyMemoryAllocationImpl.getInstance();
 		listContent = new ArrayList<String>();
 		listContent.add("Frei");
 		listContent.add("Verschnitt");
@@ -63,9 +55,9 @@ public class TableModelBSBuddySystemeExplanationImpl extends AbstractTableModel 
 	}
 	
 	@Override
-	public Object getValueAt(int column, int row) {
-		if (row == 1) {
-			return listContent.get(column);			
+	public Object getValueAt(int row, int column) {
+		if (column == 1) {
+			return listContent.get(row);			
 		} else {
 			return "";					
 		}

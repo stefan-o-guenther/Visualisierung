@@ -9,33 +9,33 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
 
-public class PanelCoupleHorizontalImpl extends PanelAbstract {
+public class PanelCoupleHorizontalImpl extends PanelLayoutAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelCoupleHorizontalImpl(Management management, PanelAbstract panelLeft, PanelAbstract panelRight) {
-		super(management);
+	public PanelCoupleHorizontalImpl(PanelAbstract panelLeft, PanelAbstract panelRight) {
+		super();
 		try {
 			if ((panelLeft == null) || (panelRight == null)) {
 				throw new NullPointerException();
 			}
 			this.panelLeft = panelLeft;
 			this.panelRight = panelRight;
-			initPanel();
+			createPanel();
 		} catch (Exception ex) {
 			throw ex;
 		}
 	}
 	
 	public PanelCoupleHorizontalImpl() {
-		super(new ManagementTestImpl());		
-		this.init(this.management);
-		this.initLayout();
+		super();		
+		this.init();
+		this.createLayout();
 	}
 	
-	private void init(Management management) {
-		panelLeft = new PanelEmptyImpl(management,0,0);
-		panelRight = new PanelEmptyImpl(management,0,0);
+	private void init() {
+		panelLeft = new PanelEmptyImpl(0,0);
+		panelRight = new PanelEmptyImpl(0,0);
 		heightMenu = 100;
 		widthLeft = 300;
 	}
@@ -52,13 +52,13 @@ public class PanelCoupleHorizontalImpl extends PanelAbstract {
 	}	
 
 	@Override
-	protected void initComponents() {
+	protected void createComponents() {
 		heightMenu = this.getPanelHeight();
 		widthLeft = panelLeft.getPanelWidth();
 	}
 
 	@Override
-	protected void initLayout() {
+	protected void createLayout() {
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)

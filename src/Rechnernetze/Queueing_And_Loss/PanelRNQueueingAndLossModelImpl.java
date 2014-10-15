@@ -10,17 +10,18 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 import Base.ImageLoader;
-import Base.PanelModelDrawAbstract;
+import Base.PanelDrawingAbstract;
 
-public class PanelRNQueueingAndLossModelImpl extends PanelModelDrawAbstract {
+public class PanelRNQueueingAndLossModelImpl extends PanelDrawingAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelRNQueueingAndLossModelImpl(ManagementQueueingAndLoss qal) {
-		super(qal);
+	public PanelRNQueueingAndLossModelImpl() {
+		super();
+		this.createPanel();
 	}
 	
-	private ManagementQueueingAndLoss qal;
+	private ManagementQAL qal;
 	private Integer x = 300;
 	private Integer y = 20;
 	
@@ -109,7 +110,17 @@ public class PanelRNQueueingAndLossModelImpl extends PanelModelDrawAbstract {
 	}
 
 	@Override
-	protected void initComponents() {
-		this.qal = (ManagementQueueingAndLoss) this.getManagement();
+	protected void createDrawing() {
+		this.qal = ManagementQALImpl.getInstance();
+	}
+
+	@Override
+	public Integer getPanelHeight() {
+		return 100;
+	}
+
+	@Override
+	public Integer getPanelWidth() {
+		return 100;
 	}
 }

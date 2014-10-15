@@ -11,25 +11,26 @@ public class PanelRNTCPRetransmissionMenuImpl extends PanelMenuAbstract {
 
 	private static final long serialVersionUID = 1L;
 	
-	public PanelRNTCPRetransmissionMenuImpl(ManagementRetransmission retransmission) {
-		super(retransmission);
+	public PanelRNTCPRetransmissionMenuImpl() {
+		super();
+		this.createPanel();
 	}
 
 	private ManagementRetransmission retransmission;
 	
 	@Override
-	protected void initComponentsMenu() {
-		this.retransmission = (ManagementRetransmission) this.getManagement();
+	protected void createMenuComponents() {
+		this.retransmission = ManagementRetransmissionImpl.getInstance();
 	}
 	
 	@Override
-	protected void initLayout() {
+	protected void createLayout() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	protected void initMethods() {
+	protected void createMenuMethods() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -47,7 +48,6 @@ public class PanelRNTCPRetransmissionMenuImpl extends PanelMenuAbstract {
 
 	@Override
 	public Integer getPanelWidth() {
-		// TODO Auto-generated method stub
-		return null;
+		return 200;
 	}
 }

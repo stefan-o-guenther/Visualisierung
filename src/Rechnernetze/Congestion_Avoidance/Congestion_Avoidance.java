@@ -5,18 +5,16 @@
 
 package Rechnernetze.Congestion_Avoidance;
 
-import Base.MainAbstract;
+import Base.VisualizationAbstract;
 
-public class Congestion_Avoidance extends MainAbstract {
+public class Congestion_Avoidance extends VisualizationAbstract {
 
 	public Congestion_Avoidance() {
 		super();
 	}
 	
 	public static void main(String[] args) {
-		ManagementCongestionAvoidance ca = new ManagementCongestionAvoidanceImpl();
 		initialize();
-		panelMain = new PanelRNCongestionAvoidanceMainImpl(ca);
-		baseMain();	
+		baseVisualization(new PanelRNCongestionAvoidanceMainImpl());	
     }
 }

@@ -5,18 +5,16 @@
 
 package Rechnernetze.TCP_Fairness;
 
-import Base.MainAbstract;
+import Base.VisualizationAbstract;
 
-public class TCP_Fairness extends MainAbstract {
+public class TCP_Fairness extends VisualizationAbstract {
 
 	public TCP_Fairness() {
 		super();
 	}
 	
 	public static void main(String[] args) {
-		ManagementFairness fairness = new ManagementFairnessImpl();
 		initialize();
-		panelMain = new PanelRNTCPFairnessMainImpl(fairness);
-    	baseMain();	
+		baseVisualization(new PanelRNTCPFairnessMainImpl());	
     }
 }

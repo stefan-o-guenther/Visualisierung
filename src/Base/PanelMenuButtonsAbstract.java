@@ -10,25 +10,32 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
-public abstract class PanelMenuButtonsAbstract extends PanelMenuAbstract {
+public abstract class PanelMenuButtonsAbstract extends PanelMenuAbstract implements PanelMenuButtons {
 
 	private static final long serialVersionUID = 1L;
 	
 	public PanelMenuButtonsAbstract(Management management) {
-		super(management);
+		super();
+		try {
+			if (management == null) {
+				throw new NullPointerException();
+			}
+			this.management = management;
+		} catch (Exception ex) {
+			throw ex;
+		}
 	}	
 
-	protected JButton btnExampleReset;
-	protected JButton btnAssumeSaveExecute;	
+	private Management management;
 	
-	protected abstract void updatePanelMenuButtons();
-	protected abstract void initComponentsMenuButtons();
-	protected abstract void initMethodsMenuButtons();
+	protected JButton btnExampleReset;
+	protected JButton btnAssumeSaveExecute;
+	
 	protected abstract void loadExample();
 	protected abstract void assume();
 	protected abstract void input();
 	protected abstract void clearFields();
-	protected abstract void executeExtra();
+	
 	protected abstract Boolean hasExample();
 	
 	@Override
@@ -67,8 +74,10 @@ public abstract class PanelMenuButtonsAbstract extends PanelMenuAbstract {
 				break;
 			}
 		}
-		this.updatePanelMenuButtons();
+		this.updatePanelExtra();
 	}
+	
+	protected abstract void updatePanelExtra();
 	
 	private Boolean enableBtnExampleReset() {
 		Boolean hasExample = this.hasExample();
@@ -131,20 +140,24 @@ public abstract class PanelMenuButtonsAbstract extends PanelMenuAbstract {
 		management.executeNormal();
 	}	
 	
+	protected abstract void executeExtra();
+	
 	protected void reset() {
 		clearFields();
 		management.reset();
 	}
 	
 	@Override
-	protected void initComponentsMenu() {
+	protected void createMenuComponents() {
 		btnExampleReset = new JButton(Labeling.LOAD_EXAMPLE);		
 		btnAssumeSaveExecute = new JButton(Labeling.ASSUME);
-		this.initComponentsMenuButtons();
+		this.createMenuComponentsExtra();
 	}
+	
+	protected abstract void createMenuComponentsExtra();
 
 	@Override
-	protected void initMethods() {
+	protected void createMenuMethods() {
 		ActionListener actionExampleReset = new ActionListener() {
 			public void actionPerformed (ActionEvent e) {
 				switch (management.getStatus()) {
@@ -180,7 +193,7 @@ public abstract class PanelMenuButtonsAbstract extends PanelMenuAbstract {
 			}
 		};		
 		
-		ActionListener actionAssumeExecute = new ActionListener() {
+		ActionListener actionAssumeInputExecute = new ActionListener() {
 			public void actionPerformed (ActionEvent e) {
 				switch (management.getStatus()) {
 					case START: {				
@@ -215,8 +228,10 @@ public abstract class PanelMenuButtonsAbstract extends PanelMenuAbstract {
 			}
 		};
 		btnExampleReset.addActionListener(actionExampleReset);
-		btnAssumeSaveExecute.addActionListener(actionAssumeExecute);		
+		btnAssumeSaveExecute.addActionListener(actionAssumeInputExecute);		
 		
-		this.initMethodsMenuButtons();
+		this.createMenuMethodsExtra();
 	}
+	
+	protected abstract void createMenuMethodsExtra();
 }

@@ -5,18 +5,16 @@
 
 package Betriebssysteme.Buddy_Systeme;
 
-import Base.MainAbstract;
+import Base.VisualizationAbstract;
 
-public class Buddy_Systeme extends MainAbstract {
+public class Buddy_Systeme extends VisualizationAbstract {
 
 	public Buddy_Systeme() {
 		super();
 	}
 	
 	public static void main(String[] args) {
-		ManagementBuddyMemoryAllocation buddy = new ManagementBuddyMemoryAllocationImpl();
 		initialize();
-		panelMain = new PanelBSBuddySystemeMainImpl(buddy);
-    	baseMain();	
+		baseVisualization(new PanelBSBuddySystemeMainImpl());	
     }
 }

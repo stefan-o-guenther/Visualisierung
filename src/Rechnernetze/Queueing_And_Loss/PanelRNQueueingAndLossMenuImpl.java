@@ -7,27 +7,38 @@ package Rechnernetze.Queueing_And_Loss;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import Base.ManagementTestImpl;
+import Base.Labeling;
 import Base.PanelMenuButtonsAbstract;
 
 public class PanelRNQueueingAndLossMenuImpl extends PanelMenuButtonsAbstract {
 
 	private static final long serialVersionUID = 1L;	
 
-	public PanelRNQueueingAndLossMenuImpl(ManagementQueueingAndLoss qal) {
-		super(qal);
-	}
-
-	private PanelRNQueueingAndLossMenuImpl() {
-		super(new ManagementTestImpl());
-		this.initComponentsMenu();
-		this.initLayout();
+	public PanelRNQueueingAndLossMenuImpl() {
+		super(ManagementQALImpl.getInstance());
+		//this.initializeExtra();
+		this.createPanel();
 	}
 	
-	private ManagementQueueingAndLoss qal;
+	private void initializeExtra() {
+		this.createMenuComponents();
+		this.initializeButtons();
+		this.createLayout();
+	}
+	
+	private void initializeButtons() {
+		this.btnAssumeSaveExecute = new JButton(Labeling.ASSUME);
+		this.btnExampleReset = new JButton(Labeling.LOAD_EXAMPLE);
+	}
+	
+	private ManagementQAL qal;
+	
+	//private JButton btnAssumeSaveExecute;
+	//private JButton btnExampleReset;
 	
 	private JLabel lblTransfersLabel;
 	private JLabel lblTransfersContent;
@@ -35,14 +46,14 @@ public class PanelRNQueueingAndLossMenuImpl extends PanelMenuButtonsAbstract {
 	private JLabel lblLossContent;
 	
 	@Override
-	protected void updatePanelMenuButtons() {
+	protected void updatePanelExtra() {
 		this.lblLossContent.setText(qal.getCountLoss().toString());
 		this.lblTransfersContent.setText(qal.getCountTransfered().toString());
 	}
 	
 	@Override
-	protected void initComponentsMenuButtons() {
-		this.qal = (ManagementQueueingAndLoss) this.getManagement();		
+	protected void createMenuComponentsExtra() {
+		this.qal = ManagementQALImpl.getInstance();	
 		lblTransfersLabel = new JLabel("\u00DCbertragungen:");		
 		lblTransfersContent = new JLabel("00");		
 		lblLossLabel = new JLabel("Verlust:");		
@@ -50,7 +61,7 @@ public class PanelRNQueueingAndLossMenuImpl extends PanelMenuButtonsAbstract {
 	}
 	
 	@Override
-	protected void initLayout() {	
+	protected void createLayout() {	
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -101,7 +112,7 @@ public class PanelRNQueueingAndLossMenuImpl extends PanelMenuButtonsAbstract {
 	}
 
 	@Override
-	protected void initMethodsMenuButtons() {
+	protected void createMenuMethodsExtra() {
 		
 	}
 

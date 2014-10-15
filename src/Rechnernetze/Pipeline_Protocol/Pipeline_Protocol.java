@@ -5,18 +5,16 @@
 
 package Rechnernetze.Pipeline_Protocol;
 
-import Base.MainAbstract;
+import Base.VisualizationAbstract;
 
-public class Pipeline_Protocol extends MainAbstract {
+public class Pipeline_Protocol extends VisualizationAbstract {
 
 	public Pipeline_Protocol() {
 		super();
 	}
 	
 	public static void main(String[] args) {
-		ManagementPipelineProtocol pipeline = new ManagementPipelineProtocolImpl();
 		initialize();
-		panelMain = new PanelRNPipelineProtocolMainImpl(pipeline);
-		baseMain();	
+		baseVisualization(new PanelRNPipelineProtocolMainImpl());	
     }
 }

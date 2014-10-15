@@ -11,5 +11,6 @@ public interface Packet {
 	Boolean isOk();
 	void setOk(Boolean value);
 	EnumPacketType getPacketType();
-	void doStep(Integer value);
+	void doStep();
+	Packet getCopy();
 }

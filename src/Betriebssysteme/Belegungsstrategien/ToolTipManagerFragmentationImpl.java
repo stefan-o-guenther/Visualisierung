@@ -9,6 +9,16 @@ import Base.ToolTipManagerAbstract;
 
 public class ToolTipManagerFragmentationImpl extends ToolTipManagerAbstract implements ToolTipManagerFragmentation {
 
+	private static ToolTipManagerFragmentation instance = new ToolTipManagerFragmentationImpl();
+	
+	private ToolTipManagerFragmentationImpl() {
+		
+	}
+	
+	public static ToolTipManagerFragmentation getInstance() {
+		return instance;
+	}
+	
 	public String getToolTipTitle() {
 		String tooltipTitle = ""
 			+ "<html>"

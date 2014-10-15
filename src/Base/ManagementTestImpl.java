@@ -5,11 +5,17 @@
 
 package Base;
 
-public class ManagementTestImpl extends ManagementAbstract implements Management {
+public class ManagementTestImpl extends ManagementAbstract implements ManagementTest {
 
-	public ManagementTestImpl() {
-		super();
-	}
+    private static ManagementTest instance = new ManagementTestImpl();
+    
+    private ManagementTestImpl() {
+    	super();
+    }
+ 
+    public static ManagementTest getInstance() {
+    	return instance;
+    }
 	
 	@Override
 	protected Boolean execute() {
@@ -33,13 +39,11 @@ public class ManagementTestImpl extends ManagementAbstract implements Management
 
 	@Override
 	protected void initialize() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	protected void create() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -49,7 +53,7 @@ public class ManagementTestImpl extends ManagementAbstract implements Management
 	}
 
 	@Override
-	protected void createToolTipManager() {
-		this.tooltip = new ToolTipManagerTestImpl();
+	public ToolTipManager getToolTipManager() {
+		return ToolTipManagerTestImpl.getInstance();
 	}
 }

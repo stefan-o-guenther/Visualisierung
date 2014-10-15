@@ -18,22 +18,24 @@ import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.EnumVisualizationStatus;
-import Base.Labeling;
 import Base.PanelMenuAbstract;
 
 public class PanelBSSeitenersetzungsstrategienRMImpl extends PanelMenuAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelBSSeitenersetzungsstrategienRMImpl(ManagementPaging paging) {
-		super(paging);
+	public PanelBSSeitenersetzungsstrategienRMImpl() {
+		super();
+		//this.initializeExtra();
+		this.createPanel();
 	}
 
-	private PanelBSSeitenersetzungsstrategienRMImpl() {
-		super(new ManagementPagingImpl());
-		this.initComponentsMenu();
-		this.initLayout();
+	/*
+	private void initializeExtra() {
+		this.initializeMenuComponents();
+		this.initializeLayout();
 	}
+	*/
 	
 	private JLabel lblToolTipR;
 	private JLabel lblToolTipM;
@@ -117,9 +119,9 @@ public class PanelBSSeitenersetzungsstrategienRMImpl extends PanelMenuAbstract {
 	}
 
 	@Override
-	protected void initComponentsMenu() {
-		this.paging = (ManagementPaging) this.getManagement();
-		this.tooltip = (ToolTipManagerPaging) paging.getToolTipManager();
+	protected void createMenuComponents() {
+		this.paging = ManagementPagingImpl.getInstance();
+		this.tooltip = ToolTipManagerPagingImpl.getInstance();
 		
 		ImageIcon imgHelp = super.getImageIconHelp();
 		
@@ -127,24 +129,24 @@ public class PanelBSSeitenersetzungsstrategienRMImpl extends PanelMenuAbstract {
 		lblToolTipR.setIcon(imgHelp);
 		lblToolTipR.setToolTipText(tooltip.getToolTipR());
 		
-		btnR = new JButton(Labeling.RESET_R_BITS);		
+		btnR = new JButton(LabelingPaging.RESET_R_BITS);		
 		
 		lblToolTipM = new JLabel(" ");
 		lblToolTipM.setIcon(imgHelp);
 		lblToolTipM.setToolTipText(tooltip.getToolTipM());
 		
-		btnM = new JButton(Labeling.SET_M_BIT);		
+		btnM = new JButton(LabelingPaging.SET_M_BIT);		
 		
 		lblOldStates = new JLabel(" ");
 		lblOldStates.setIcon(imgHelp);
 		lblOldStates.setToolTipText(tooltip.getToolTipOldStates());
 		
-		chckbxkOldStates = new JCheckBox(Labeling.OLD_STATES);
+		chckbxkOldStates = new JCheckBox(LabelingPaging.OLD_STATES);
 		chckbxkOldStates.setBackground(Color.WHITE);
 	}
 
 	@Override
-	protected void initLayout() {
+	protected void createLayout() {
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -180,7 +182,7 @@ public class PanelBSSeitenersetzungsstrategienRMImpl extends PanelMenuAbstract {
 	}
 
 	@Override
-	protected void initMethods() {
+	protected void createMenuMethods() {
 		ActionListener actionResetR = new ActionListener() {
 			public void actionPerformed (ActionEvent e) {
 				paging.resetRBits();

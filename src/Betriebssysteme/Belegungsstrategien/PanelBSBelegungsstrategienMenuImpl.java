@@ -25,20 +25,17 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuButtonsAbstract
 
 	private static final long serialVersionUID = 1L;
 	
-	public PanelBSBelegungsstrategienMenuImpl(ManagementFragmentation fragmentation) {
-		super(fragmentation);
+	public PanelBSBelegungsstrategienMenuImpl() {
+		super(ManagementFragmentationImpl.getInstance());
+		//this.initializeExtra();
+		this.createPanel();
 	}
 	
-	private PanelBSBelegungsstrategienMenuImpl() {
-		super(new ManagementFragmentationImpl());
-		this.initButtons();
-		this.initComponentsMenuButtons();
-		this.initLayout();
-	}
-	
-	private void initButtons() {
+	private void initializeExtra() {
 		this.btnAssumeSaveExecute = new JButton(this.getBtnExecuteText());
 		this.btnExampleReset = new JButton(this.getBtnExampleText());
+		this.createMenuComponentsExtra();
+		this.createLayout();
 	}
 	
 	private ManagementFragmentation fragmentation;
@@ -72,7 +69,7 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuButtonsAbstract
 	}
 	
 	@Override
-	protected void updatePanelMenuButtons() {
+	protected void updatePanelExtra() {
     	lblStrategy.setEnabled(true);
     	lblSpace.setEnabled(true);
     	
@@ -128,9 +125,9 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuButtonsAbstract
 	}	
 	
 	@Override
-	protected void initComponentsMenuButtons() {
-		this.fragmentation = (ManagementFragmentation) getManagement();
-		this.tooltip = (ToolTipManagerFragmentation) fragmentation.getToolTipManager();
+	protected void createMenuComponentsExtra() {
+		fragmentation = ManagementFragmentationImpl.getInstance();
+		tooltip = ToolTipManagerFragmentationImpl.getInstance();
 		
 		ImageIcon imgHelp = super.getImageIconHelp();
 		
@@ -160,8 +157,7 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuButtonsAbstract
 	}	
 	
 	@Override
-	protected void initLayout() {
-		
+	protected void createLayout() {
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -205,7 +201,7 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuButtonsAbstract
 	}
 	
 	@Override
-	protected void initMethodsMenuButtons() {
+	protected void createMenuMethodsExtra() {
 		
 	}
 	

@@ -9,6 +9,16 @@ import Base.ToolTipManagerAbstract;
 
 public class ToolTipManagerCongestionAvoidanceImpl extends ToolTipManagerAbstract implements ToolTipManagerCongestionAvoidance {
 	
+	private static ToolTipManagerCongestionAvoidance instance = new ToolTipManagerCongestionAvoidanceImpl();
+	
+	private ToolTipManagerCongestionAvoidanceImpl() {
+		
+	}
+	
+	public static ToolTipManagerCongestionAvoidance getInstance() {
+		return instance;
+	}	
+	
 	public String getToolTipTitle() {
 		String tooltipTitle = ""
 			+ "<html>"

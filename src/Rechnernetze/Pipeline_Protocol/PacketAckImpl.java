@@ -5,7 +5,7 @@
 
 package Rechnernetze.Pipeline_Protocol;
 
-public class PacketAckImpl extends PacketAbstract implements PacketAck {
+public class PacketAckImpl extends PacketResultAbstract implements PacketAck {
 
 	public PacketAckImpl(Integer number, Integer position) {
 		super(number, position);
@@ -17,17 +17,7 @@ public class PacketAckImpl extends PacketAbstract implements PacketAck {
 	}
 
 	@Override
-	public void doStep(Integer value) {
-		try {
-			if (value == null) {
-				throw new NullPointerException();
-			}
-			if (value.intValue() <= 0) {
-				throw new IllegalArgumentException();
-			}
-			this.position -= value;
-		} catch (Exception ex) {
-			throw ex;
-		}
+	public Packet getCopy() {
+		return new PacketAckImpl(this.number, this.position);
 	}
 }

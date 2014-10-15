@@ -13,12 +13,19 @@ import Base.EnumAutomaticChecked;
 import Base.EnumCoordinateSystem;
 import Base.EnumVisualizationStatus;
 import Base.ManagementCoordinateSystemAbstract;
+import Base.ToolTipManager;
 
 public class ManagementCongestionAvoidanceImpl extends ManagementCoordinateSystemAbstract implements ManagementCongestionAvoidance {
 
-	public ManagementCongestionAvoidanceImpl() {
-		super();	
-	}
+    private static ManagementCongestionAvoidance instance = new ManagementCongestionAvoidanceImpl();
+    
+    private ManagementCongestionAvoidanceImpl() {
+    	super();
+    }
+ 
+    public static ManagementCongestionAvoidance getInstance() {
+    	return instance;
+    }
 
 	private Boolean reno;
 	private Boolean tahoe;
@@ -33,7 +40,6 @@ public class ManagementCongestionAvoidanceImpl extends ManagementCoordinateSyste
 	
 	@Override
 	protected void initialize() {
-		this.setStatusSTART();
 		this.listPoints = new ArrayList<Point>();
 		initCoordinateSystem();
 	}
@@ -381,7 +387,7 @@ public class ManagementCongestionAvoidanceImpl extends ManagementCoordinateSyste
 	}
 
 	@Override
-	protected void createToolTipManager() {
-		tooltip = new ToolTipManagerCongestionAvoidanceImpl();
+	public ToolTipManager getToolTipManager() {
+		return ToolTipManagerCongestionAvoidanceImpl.getInstance();
 	}
 }

@@ -8,12 +8,19 @@ package Rechnernetze.TCP_Retransmission;
 import Base.EnumAutomaticChecked;
 import Base.EnumVisualizationStatus;
 import Base.ManagementAbstract;
+import Base.ToolTipManager;
 
 public class ManagementRetransmissionImpl extends ManagementAbstract implements ManagementRetransmission {
 
-	public ManagementRetransmissionImpl() {
-		super();
-	}
+    private static ManagementRetransmission instance = new ManagementRetransmissionImpl();
+    
+    private ManagementRetransmissionImpl() {
+    	super();
+    }
+ 
+    public static ManagementRetransmission getInstance() {
+    	return instance;
+    }
 
 	@Override
 	public String getTitle() {
@@ -62,8 +69,7 @@ public class ManagementRetransmissionImpl extends ManagementAbstract implements 
 	}
 
 	@Override
-	protected void createToolTipManager() {
-		// TODO Auto-generated method stub
-		
+	public ToolTipManager getToolTipManager() {
+		return ToolTipManagerRetransmissionImpl.getInstance();
 	}
 }

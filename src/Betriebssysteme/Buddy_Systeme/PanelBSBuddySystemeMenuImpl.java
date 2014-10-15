@@ -15,7 +15,6 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.EnumVisualizationStatus;
-import Base.Labeling;
 import Base.MessageBox;
 import Base.PanelMenuButtonsAbstract;
 
@@ -23,23 +22,22 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuButtonsAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelBSBuddySystemeMenuImpl(ManagementBuddyMemoryAllocation buddy) {
-		super(buddy);
+	public PanelBSBuddySystemeMenuImpl() {
+		super(ManagementBuddyMemoryAllocationImpl.getInstance());
+		//this.initializeExtra();
+		this.createPanel();
 	}
 
-	private PanelBSBuddySystemeMenuImpl() {
-		super(new ManagementBuddyMemoryAllocationImpl());
-		this.initButtons();
-		this.initComponentsMenuButtons();
-		this.rdbtnProcessStart = new JRadioButton("start");
-		this.rdbtnProcessStop = new JRadioButton("stop");
-		this.initLayout();
+	private void initializeExtra() {
+		this.initializeButtons();
+		this.createMenuComponentsExtra();
+		this.createLayout();
 	}
-	
-	private void initButtons() {
+		
+	private void initializeButtons() {
 		this.btnAssumeSaveExecute = new JButton(this.getBtnExecuteText());
 		this.btnExampleReset = new JButton(this.getBtnExampleText());
-	}
+	}	
 	
 	private ManagementBuddyMemoryAllocation buddy;
 	private ToolTipManagerBuddyMemoryAllocation tooltip;
@@ -61,19 +59,19 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuButtonsAbstract {
 	private ButtonGroupProcessImpl groupProcess;
 	
 	@Override
-	protected void initComponentsMenuButtons() {
-		buddy = (ManagementBuddyMemoryAllocation) this.getManagement();
-		tooltip = (ToolTipManagerBuddyMemoryAllocation) buddy.getToolTipManager();
+	protected void createMenuComponentsExtra() {
+		buddy = ManagementBuddyMemoryAllocationImpl.getInstance();
+		tooltip = ToolTipManagerBuddyMemoryAllocationImpl.getInstance();
 		
 		ImageIcon imgHelp = this.getImageIconHelp();		
 		
-		lblSpace = new JLabel(Labeling.SIZE_SPACE + ":");	
+		lblSpace = new JLabel(LabelingBuddyMemoryAllocation.SIZE_SPACE + ":");	
 		lblSpace.setIcon(imgHelp);
 		lblSpace.setToolTipText(tooltip.getToolTipSpaceSize());
 		lblProcessName = new JLabel("Prozessname:");	
 		lblProcessName.setIcon(imgHelp);
 		lblProcessName.setToolTipText(tooltip.getToolTipProcessName());
-		lblProcessSize = new JLabel(Labeling.SIZE_PROCESS + ":");
+		lblProcessSize = new JLabel(LabelingBuddyMemoryAllocation.SIZE_PROCESS + ":");
 		lblProcessSize.setIcon(imgHelp);
 		lblProcessSize.setToolTipText(tooltip.getToolTipProcessSize());
 		
@@ -93,7 +91,7 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuButtonsAbstract {
 	}
 	
 	@Override
-	protected void initLayout() {
+	protected void createLayout() {
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -149,7 +147,7 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuButtonsAbstract {
 	}
 
 	@Override
-	public void updatePanelMenuButtons() {		
+	public void updatePanelExtra() {		
 		lblSpace.setEnabled(true);
 		lblProcessName.setEnabled(true);
 		lblProcessSize.setEnabled(true);
@@ -187,7 +185,7 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuButtonsAbstract {
 	}
 
 	@Override
-	protected void initMethodsMenuButtons() {
+	protected void createMenuMethodsExtra() {
 		
 	}	
 	
@@ -314,18 +312,24 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuButtonsAbstract {
 	@Override
 	protected void loadExample() {
 		automaticTotalSpace(1024);			
-		automaticStartProcess("a", 400);			
+		automaticStartProcess("a", 100);			
 		automaticStartProcess("b", 200);
-		automaticStartProcess("c", 70);
+		automaticStartProcess("c", 200);
+		automaticStartProcess("d", 250);
+		automaticStopProcess("b");		
 		automaticStopProcess("c");
-		automaticStartProcess("d", 100);
-		automaticStartProcess("e", 50);
-		automaticStopProcess("b");			
-		automaticStopProcess("d");						
-		automaticStopProcess("a");
 		automaticStartProcess("f", 50);
-		automaticStopProcess("e");
+		automaticStopProcess("a");
 		automaticStopProcess("f");
+		automaticStartProcess("e", 200);
+		automaticStopProcess("d");
+		automaticStartProcess("g", 100);
+		automaticStartProcess("h", 50);
+		automaticStopProcess("e");
+		automaticStopProcess("g");
+		automaticStartProcess("i", 30);
+		automaticStopProcess("h");
+		automaticStopProcess("i");
 		groupProcess.selectRadioButtonStart();
 	}
 	

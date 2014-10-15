@@ -12,8 +12,9 @@ public class PanelRNTCPRetransmissionMainImpl extends PanelMainAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelRNTCPRetransmissionMainImpl(ManagementRetransmission retransmission) {
-		super(retransmission);
+	public PanelRNTCPRetransmissionMainImpl() {
+		super(ManagementRetransmissionImpl.getInstance());
+		this.createPanel();
 	}
 
 	@Override

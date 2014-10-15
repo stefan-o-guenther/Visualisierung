@@ -12,19 +12,18 @@ public class PanelRNQueueingAndLossMainImpl extends PanelMainAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelRNQueueingAndLossMainImpl(ManagementQueueingAndLoss qal) {
-		super(qal);
+	public PanelRNQueueingAndLossMainImpl() {
+		super(ManagementQALImpl.getInstance());
+		this.createPanel();
 	}
 
 	@Override
 	protected PanelAbstract getNewPanelMenu() {
-		ManagementQueueingAndLoss qal = (ManagementQueueingAndLoss) this.getManagement();
+		PanelAbstract panelLeft = new PanelRNQueueingAndLossMenuImpl();
 		
-		PanelAbstract panelLeft = new PanelRNQueueingAndLossMenuImpl(qal);
-		
-		PanelAbstract panelSpeed = new PanelRNQueueingAndLossControlSpeedImpl(management);
-		PanelAbstract panelProcessing = new PanelRNQueueingAndLossControlProcessingImpl(management);
-		PanelAbstract panelInterval = new PanelRNQueueingAndLossControlIntervalImpl(management);
+		PanelAbstract panelSpeed = new PanelRNQueueingAndLossControlSpeedImpl();
+		PanelAbstract panelProcessing = new PanelRNQueueingAndLossControlProcessingImpl();
+		PanelAbstract panelInterval = new PanelRNQueueingAndLossControlIntervalImpl();
 		
 		PanelAbstract panelCoupleVertical = this.getPanelCoupleVertical(panelSpeed, panelProcessing);
 		PanelAbstract panelRight = this.getPanelCoupleVertical(panelCoupleVertical, panelInterval);		
@@ -34,7 +33,6 @@ public class PanelRNQueueingAndLossMainImpl extends PanelMainAbstract {
 
 	@Override
 	protected PanelAbstract getNewPanelModel() {
-		ManagementQueueingAndLoss qal = (ManagementQueueingAndLoss) this.getManagement();
-		return new PanelRNQueueingAndLossModelImpl(qal);
+		return new PanelRNQueueingAndLossModelImpl();
 	}
 }

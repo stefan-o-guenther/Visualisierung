@@ -13,26 +13,16 @@ public class TableColumnModelBSBuddySystemeExplanationImpl extends DefaultTableC
 
 	private static final long serialVersionUID = 1L;
 
-	public TableColumnModelBSBuddySystemeExplanationImpl(ManagementBuddyMemoryAllocation buddy) {
+	public TableColumnModelBSBuddySystemeExplanationImpl() {
 		super();
-		try {
-			if (buddy == null) {
-				throw new NullPointerException();
-			}
-			this.buddy = buddy;	
-			addColumn("", 0);
-			addColumn("Legende", 1);
-		} catch (Exception ex) {
-			throw ex;
-		}		
+		addColumn("", 0);
+		addColumn("Legende", 1);				
 	}
-	
-	private ManagementBuddyMemoryAllocation buddy;
 	
 	private void addColumn(String columnName, int modelIndex) {
 		TableColumn column= new TableColumn(modelIndex);
 		column.setHeaderValue(columnName);
-		column.setCellRenderer(new TableCellRendererBSBuddySystemeExplanationImpl(buddy));
+		column.setCellRenderer(new TableCellRendererBSBuddySystemeExplanationImpl());
 		addColumn(column);
 	}
 }

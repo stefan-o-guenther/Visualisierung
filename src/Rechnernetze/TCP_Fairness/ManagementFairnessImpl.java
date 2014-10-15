@@ -14,12 +14,19 @@ import Base.EnumCoordinateSystem;
 import Base.EnumSurface;
 import Base.EnumVisualizationStatus;
 import Base.ManagementCoordinateSystemAbstract;
+import Base.ToolTipManager;
 
 public class ManagementFairnessImpl extends ManagementCoordinateSystemAbstract implements ManagementFairness {
 
-	public ManagementFairnessImpl() {
-		super();
-	}
+    private static ManagementFairness instance = new ManagementFairnessImpl();
+    
+    private ManagementFairnessImpl() {
+    	super();
+    }
+ 
+    public static ManagementFairness getInstance() {
+    	return instance;
+    }
 	
 	private List<Point> listPoints;
 	private Integer maxFlowRate;
@@ -27,7 +34,6 @@ public class ManagementFairnessImpl extends ManagementCoordinateSystemAbstract i
 	@Override
 	protected void initialize() {
 		listPoints = new ArrayList<Point>();
-		this.setStatusSTART();
 		this.setMaxFlowRate();
 	}
 	
@@ -307,7 +313,7 @@ public class ManagementFairnessImpl extends ManagementCoordinateSystemAbstract i
 	}
 
 	@Override
-	protected void createToolTipManager() {
-		this.tooltip = new ToolTipManagerFairnessImpl();
+	public ToolTipManager getToolTipManager() {
+		return ToolTipManagerFairnessImpl.getInstance();
 	}
 }

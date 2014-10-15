@@ -12,16 +12,16 @@ public class PanelBSSeitenersetzungsstrategienMainImpl extends PanelMainAbstract
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelBSSeitenersetzungsstrategienMainImpl(ManagementPaging paging) {
-		super(paging);
+	public PanelBSSeitenersetzungsstrategienMainImpl() {
+		super(ManagementPagingImpl.getInstance());
+		this.createPanel();
 	}
 
 	@Override
 	protected PanelAbstract getNewPanelMenu() {
-		ManagementPaging paging = (ManagementPaging) this.getManagement();
-		PanelAbstract panelMenu = new PanelBSSeitenersetzungsstrategienMenuImpl(paging);
-		PanelAbstract panelReplacement = new PanelBSSeitenersetzungsstrategienReplacementImpl(paging);
-		PanelAbstract panelRM = new PanelBSSeitenersetzungsstrategienRMImpl(paging);
+		PanelAbstract panelMenu = new PanelBSSeitenersetzungsstrategienMenuImpl();
+		PanelAbstract panelReplacement = new PanelBSSeitenersetzungsstrategienReplacementImpl();
+		PanelAbstract panelRM = new PanelBSSeitenersetzungsstrategienRMImpl();
 		
 		PanelAbstract panelM = this.getPanelCoupleVertical(panelMenu, panelReplacement);
 		PanelAbstract panel = this.getPanelCoupleVertical(panelM, panelRM);
@@ -31,7 +31,6 @@ public class PanelBSSeitenersetzungsstrategienMainImpl extends PanelMainAbstract
 
 	@Override
 	protected PanelAbstract getNewPanelModel() {
-		ManagementPaging paging = (ManagementPaging) this.getManagement();
-		return new PanelBSSeitenersetzungsstrategienModelImpl(paging);
+		return new PanelBSSeitenersetzungsstrategienModelImpl();
 	}
 }

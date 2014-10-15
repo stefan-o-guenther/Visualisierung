@@ -13,14 +13,11 @@ public class PanelRNQueueingAndLossControlIntervalImpl extends PanelMenuControlS
 
 	private static final long serialVersionUID = 1L;	
 
-	public PanelRNQueueingAndLossControlIntervalImpl(Management management) {
-		super(management);
+	public PanelRNQueueingAndLossControlIntervalImpl() {
+		super(ManagementQALImpl.getInstance());
+		this.createPanel();
 	}
 	
-	private PanelRNQueueingAndLossControlIntervalImpl() {
-		super(new ManagementTestImpl());
-	}	
-
 	@Override
 	protected Integer getMax() {
 		return 200;
@@ -58,7 +55,7 @@ public class PanelRNQueueingAndLossControlIntervalImpl extends PanelMenuControlS
 
 	@Override
 	protected void setSliderValueToManagement(Integer value) {
-		ManagementQueueingAndLoss qal = (ManagementQueueingAndLoss) this.getManagement();
+		ManagementQAL qal = ManagementQALImpl.getInstance();
 		qal.setPacketInterval(value);
 	}
 
@@ -69,7 +66,7 @@ public class PanelRNQueueingAndLossControlIntervalImpl extends PanelMenuControlS
 
 	@Override
 	protected String getToolTip() {
-		ToolTipManagerQueueingAndLoss tooltip = (ToolTipManagerQueueingAndLoss) management.getToolTipManager();
+		ToolTipManagerQueueingAndLoss tooltip = ToolTipManagerQueueingAndLossImpl.getInstance();
 		return tooltip.getToolTipInterval();
 	}
 }

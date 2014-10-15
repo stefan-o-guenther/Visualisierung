@@ -20,10 +20,13 @@ public abstract class PanelMenuControlSliderAbstract extends PanelMenuControlAbs
 	
 	public PanelMenuControlSliderAbstract(Management management) {
 		super(management);
+		this.createPanel();
 	}
 	
 	private PanelMenuControlSliderAbstract() {
-		super(new ManagementTestImpl());		
+		super(ManagementTestImpl.getInstance());
+		this.createMenuComponents();
+		this.createLayout();
 	}
 	
 	private JLabel lblImageIconLeft;
@@ -40,9 +43,9 @@ public abstract class PanelMenuControlSliderAbstract extends PanelMenuControlAbs
 	protected abstract String getLabel();
 	protected abstract Boolean isInverted();
 	protected abstract void setSliderValueToManagement(Integer value);
-	protected abstract String getToolTip();
+	protected abstract String getToolTip();	
 	
-	protected void initComponentsMenu() {	
+	protected void createMenuComponents() {	
 		lblLabel = new JLabel(this.getLabel());
 		lblLabel.setIcon(this.getImageIconHelp());
 		lblLabel.setToolTipText(getToolTip());
@@ -69,7 +72,7 @@ public abstract class PanelMenuControlSliderAbstract extends PanelMenuControlAbs
 	}
 	
 	@Override
-	protected void initLayout() {			
+	protected void createLayout() {			
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -100,7 +103,7 @@ public abstract class PanelMenuControlSliderAbstract extends PanelMenuControlAbs
 	}
 	
 	@Override
-	protected void initMethods() {
+	protected void createMenuMethods() {
 		ChangeListener changeSpeed = new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
 				updateSliderValue();

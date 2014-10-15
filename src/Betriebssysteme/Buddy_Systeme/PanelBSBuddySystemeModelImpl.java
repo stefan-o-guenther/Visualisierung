@@ -10,17 +10,17 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
-import Base.PanelModelDrawAbstract;
+import Base.PanelDrawingAbstract;
 
-public class PanelBSBuddySystemeModelImpl extends PanelModelDrawAbstract {
+public class PanelBSBuddySystemeModelImpl extends PanelDrawingAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelBSBuddySystemeModelImpl(ManagementBuddyMemoryAllocation buddy) {
-		super(buddy);
+	public PanelBSBuddySystemeModelImpl() {
+		super();
+		this.createPanel();
 	}
 
-	private ManagementBuddyMemoryAllocation buddy;
 	private List<BuddyOperation> list = new ArrayList<BuddyOperation>();	
 	
 	private final Integer WIDTH = 512;
@@ -30,6 +30,8 @@ public class PanelBSBuddySystemeModelImpl extends PanelModelDrawAbstract {
 	
 	@Override
 	protected void doDrawing() {
+		ManagementBuddyMemoryAllocation buddy = ManagementBuddyMemoryAllocationImpl.getInstance();
+		
 		Integer height = 0;
 		Integer size = buddy.getTotalSpace();					
 		if (size > 0) {
@@ -91,7 +93,17 @@ public class PanelBSBuddySystemeModelImpl extends PanelModelDrawAbstract {
 	}
 	
 	@Override
-	protected void initComponents() {
-		this.buddy = (ManagementBuddyMemoryAllocation) this.getManagement();
+	protected void createDrawing() {
+		
+	}
+
+	@Override
+	public Integer getPanelHeight() {
+		return 100;
+	}
+
+	@Override
+	public Integer getPanelWidth() {
+		return 100;
 	}
 }

@@ -5,8 +5,19 @@
 
 package Base;
 
-public class ToolTipManagerTestImpl extends ToolTipManagerAbstract implements ToolTipManager {
 
+public class ToolTipManagerTestImpl extends ToolTipManagerAbstract implements ToolTipManagerTest {
+
+	private static ToolTipManagerTest instance = new ToolTipManagerTestImpl();
+	
+	private ToolTipManagerTestImpl() {
+		
+	}
+	
+	public static ToolTipManagerTest getInstance() {
+		return instance;
+	}	
+	
 	@Override
 	public String getToolTipTitle() {
 		return "";

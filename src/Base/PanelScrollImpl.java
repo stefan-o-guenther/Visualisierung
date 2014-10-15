@@ -12,12 +12,12 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-public class PanelScrollImpl extends PanelAbstract {
+public class PanelScrollImpl extends PanelLayoutAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelScrollImpl(Management management, PanelAbstract panel, EnumScrollbar scrollbarHorizontal, EnumScrollbar scrollbarVertical) {
-		super(management);
+	public PanelScrollImpl(PanelAbstract panel, EnumScrollbar scrollbarHorizontal, EnumScrollbar scrollbarVertical) {
+		super();
 		try {
 			if ((panel == null) || (scrollbarHorizontal == null) || (scrollbarVertical == null)) {
 				throw new NullPointerException();
@@ -25,10 +25,10 @@ public class PanelScrollImpl extends PanelAbstract {
 			this.panel = panel;
 			this.createHorizontalScrollBarPolicy(scrollbarHorizontal);
 			this.createVerticalScrollBarPolicy(scrollbarVertical);
+			this.createPanel();
 		} catch (Exception ex) {
 			throw ex;
 		}		
-		this.initPanel();
 	}
 	
 	private JScrollPane scrollPane;
@@ -60,7 +60,7 @@ public class PanelScrollImpl extends PanelAbstract {
 	}
 	
 	@Override
-	protected void initComponents() {
+	protected void createComponents() {
 		//Put the drawing area in a scroll pane.
 		scrollPane = new JScrollPane(panel);
 		scrollPane.setHorizontalScrollBarPolicy(this.horizontalScrollBarPolicy);
@@ -69,7 +69,8 @@ public class PanelScrollImpl extends PanelAbstract {
 		scrollPane.setViewportView(panel);
 	}	
 	
-	protected void initLayout() {		
+	@Override
+	protected void createLayout() {		
 		GroupLayout groupLayout = new GroupLayout(this);
         groupLayout.setHorizontalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)

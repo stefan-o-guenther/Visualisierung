@@ -12,20 +12,19 @@ public class PanelRNCongestionAvoidanceMainImpl extends PanelMainAbstract {
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelRNCongestionAvoidanceMainImpl(ManagementCongestionAvoidance ca) {
-		super(ca);
+	public PanelRNCongestionAvoidanceMainImpl() {
+		super(ManagementCongestionAvoidanceImpl.getInstance());
+		this.createPanel();
 	}
 
 	@Override
 	protected PanelAbstract getNewPanelMenu() {
-		ManagementCongestionAvoidance ca = (ManagementCongestionAvoidance) this.getManagement();
-		PanelAbstract panelMenu = new PanelRNCongestionAvoidanceMenuImpl(ca);
+		PanelAbstract panelMenu = new PanelRNCongestionAvoidanceMenuImpl();
 		return this.getPanelMenuAutomatic(panelMenu, 12);
 	}
 
 	@Override
 	protected PanelAbstract getNewPanelModel() {
-		ManagementCongestionAvoidance ca = (ManagementCongestionAvoidance) this.getManagement();
-		return new PanelRNCongestionAvoidanceModelImpl(ca);
+		return new PanelRNCongestionAvoidanceModelImpl();
 	}
 }

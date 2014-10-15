@@ -13,14 +13,11 @@ public class PanelRNQueueingAndLossControlSpeedImpl extends PanelMenuControlSlid
 
 	private static final long serialVersionUID = 1L;
 
-	public PanelRNQueueingAndLossControlSpeedImpl(Management management) {
-		super(management);
+	public PanelRNQueueingAndLossControlSpeedImpl() {
+		super(ManagementQALImpl.getInstance());
+		this.createPanel();
 	}
 	
-	private PanelRNQueueingAndLossControlSpeedImpl() {
-		super(new ManagementTestImpl());
-	}	
-
 	@Override
 	protected Integer getMax() {
 		return 50;
@@ -58,7 +55,7 @@ public class PanelRNQueueingAndLossControlSpeedImpl extends PanelMenuControlSlid
 
 	@Override
 	protected void setSliderValueToManagement(Integer value) {
-		ManagementQueueingAndLoss qal = (ManagementQueueingAndLoss) this.getManagement();
+		ManagementQAL qal = ManagementQALImpl.getInstance();
 		qal.setTransferRate(value);
 	}
 
@@ -69,7 +66,7 @@ public class PanelRNQueueingAndLossControlSpeedImpl extends PanelMenuControlSlid
 
 	@Override
 	protected String getToolTip() {
-		ToolTipManagerQueueingAndLoss tooltip = (ToolTipManagerQueueingAndLoss) management.getToolTipManager();
+		ToolTipManagerQueueingAndLoss tooltip = ToolTipManagerQueueingAndLossImpl.getInstance();
 		return tooltip.getToolTipTransferRate();
 	}
 }

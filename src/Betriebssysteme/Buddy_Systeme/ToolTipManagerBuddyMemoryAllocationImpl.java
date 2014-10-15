@@ -9,6 +9,16 @@ import Base.ToolTipManagerAbstract;
 
 public class ToolTipManagerBuddyMemoryAllocationImpl extends ToolTipManagerAbstract implements ToolTipManagerBuddyMemoryAllocation {
 
+	private static ToolTipManagerBuddyMemoryAllocation instance = new ToolTipManagerBuddyMemoryAllocationImpl();
+	
+	private ToolTipManagerBuddyMemoryAllocationImpl() {
+		
+	}
+	
+	public static ToolTipManagerBuddyMemoryAllocation getInstance() {
+		return instance;
+	}
+	
 	public String getToolTipTitle() {
 		String tooltipTitle = ""
 			+ "<html>"

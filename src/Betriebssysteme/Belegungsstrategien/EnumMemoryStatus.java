@@ -7,5 +7,6 @@ package Betriebssysteme.Belegungsstrategien;
 
 public enum EnumMemoryStatus {
 	SEARCH,
-	CHOOSE
+	CHOOSE,
+	ADJUST
 }

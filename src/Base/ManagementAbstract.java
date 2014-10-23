@@ -18,7 +18,7 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 	}
 	
 	private void createManagement() {
-		this.setStatusSTART();
+		this.setStatus(EnumVisualizationStatus.START);
 		surface = EnumSurface.COLORED;
 		height = 100;
 		width = 100;
@@ -29,7 +29,7 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 	
 	private void initializeManagement() {
 		this.time = System.currentTimeMillis();
-		this.setStatusSTART();
+		this.setStatus(EnumVisualizationStatus.START);
 		this.resetAutomatic();
 		this.initialize();
 	}
@@ -329,32 +329,9 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 				throw new NullPointerException();
 			}
 			this.status = status;
+			this.updateViews();
 		} catch (Exception ex) {
 			throw ex;
 		}		
-	}
-	
-	protected void setStatusSTART() {
-		this.status = EnumVisualizationStatus.START;
-	}
-	
-	protected void setStatusINPUT() {
-		this.status = EnumVisualizationStatus.INPUT;
-	}
-	
-	protected void setStatusRUN() {
-		this.status = EnumVisualizationStatus.RUN;
-	}
-	
-	protected void setStatusNEXT() {
-		this.status = EnumVisualizationStatus.NEXT;
-	}
-	
-	protected void setStatusFINISHED() {
-		this.status = EnumVisualizationStatus.FINISHED;
-	}
-	
-	protected void setStatusERROR() {
-		this.status = EnumVisualizationStatus.ERROR;
 	}
 }

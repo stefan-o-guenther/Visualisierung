@@ -13,7 +13,7 @@ import Base.Management;
 
 public interface ManagementPaging extends Management {
 	public EnumPagingStrategy getStrategy();	
-	public void setStrategy(EnumPagingStrategy enumStrategy, List<Integer> listSequence, Integer ram, Integer disk);		
+	public void assume(EnumPagingStrategy enumStrategy, List<Integer> listSequence, Integer ram, Integer disk);		
 	public Integer getMaxRam();	
 	public Integer getMaxDisk();		
 	public Boolean resetRBits();	

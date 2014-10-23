@@ -472,7 +472,7 @@ public class ManagementARQImpl extends ManagementGeometryAbstract implements Man
 				throw new IllegalArgumentException();
 			}
 			this.strategy = strategy;
-			this.setStatusRUN();
+			this.setStatus(EnumVisualizationStatus.RUN);
 			this.updateViews();
 		} catch (Exception ex) {
 			throw ex;

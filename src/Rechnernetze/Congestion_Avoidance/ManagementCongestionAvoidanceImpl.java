@@ -108,7 +108,7 @@ public class ManagementCongestionAvoidanceImpl extends ManagementCoordinateSyste
 				if (this.getStatus() == EnumVisualizationStatus.START) {				
 					Point firstPoint = new PointImpl(1,1, this.ssTreshTcpReno, this.ssTreshTcpTahoe);
 					this.listPoints.add(firstPoint);
-					this.setStatusRUN();
+					this.setStatus(EnumVisualizationStatus.RUN);
 				} else {
 					Integer size = this.listPoints.size();
 					if (size > 0) {
@@ -162,9 +162,9 @@ public class ManagementCongestionAvoidanceImpl extends ManagementCoordinateSyste
 			Integer max = this.getMaxTransmissionRound();
 			Integer tr = this.getCurrentTransmissionRound();
 			if (tr < max) {
-				this.setStatusRUN();
+				this.setStatus(EnumVisualizationStatus.RUN);
 			} else {
-				this.setStatusFINISHED();
+				this.setStatus(EnumVisualizationStatus.FINISHED);
 			}
 		}
 	}

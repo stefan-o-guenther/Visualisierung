@@ -294,7 +294,7 @@ private static final long serialVersionUID = 1L;
 				MessageBox.showErrorMessage("Die Anzahl des RAM muss mindestens 1 sein!");
 			}
 			if (ok) {
-				paging.setStrategy(cbStrategie.getStrategy(), listSequence, ram, disk);
+				paging.assume(cbStrategie.getStrategy(), listSequence, ram, disk);
 			}						
 		}
 	}

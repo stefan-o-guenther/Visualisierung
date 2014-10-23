@@ -19,6 +19,8 @@ import Rechnernetze.Dijkstra_Algorithmus.ManagementDijkstraAlgorithm;
 import Rechnernetze.Dijkstra_Algorithmus.ManagementDijkstraAlgorithmImpl;
 import Rechnernetze.Dijkstra_Algorithmus.ToolTipManagerDijkstraAlgorithm;
 import Rechnernetze.Dijkstra_Algorithmus.ToolTipManagerDijkstraAlgorithmImpl;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
 
 public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuButtonsAbstract {
 
@@ -26,7 +28,7 @@ public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuButtonsAbstract {
 
 	public PanelRNDijkstraAlgorithmMenuImpl() {
 		super(ManagementDijkstraAlgorithmImpl.getInstance());		
-		//this.initializeExra();
+		this.initializeExra();
 		this.createPanel();
 	}
 	
@@ -41,8 +43,8 @@ public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuButtonsAbstract {
 		this.btnAssumeSaveExecute = new JButton(Labeling.ASSUME);		
 	}
 	
-	//private JButton btnExampleReset;
-	//private JButton btnAssumeSaveExecute;
+	private JButton btnExampleReset;
+	private JButton btnAssumeSaveExecute;
 	
 	private JLabel lblStart;
 	private JLabel lblTarget;
@@ -51,6 +53,7 @@ public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuButtonsAbstract {
 	
 	private ManagementDijkstraAlgorithm dijkstra;
 	private ToolTipManagerDijkstraAlgorithm tooltip;
+	private JTextField textField;
 	
 	@Override
 	protected void createMenuComponentsExtra() {
@@ -80,25 +83,49 @@ public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuButtonsAbstract {
 	
 	@Override
 	protected void createLayout() {
+		
+		JLabel lblEdge = new JLabel("Achse:");
+		
+		JComboBox comboBox = new JComboBox();
+		
+		JButton btnChangeWeight = new JButton("\u00E4ndern");
+		
+		textField = new JTextField();
+		textField.setColumns(10);
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(10)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnExampleReset, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(lblStart))
+							.addGap(10)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(btnExampleReset, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(lblStart)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(cbStart, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+									.addGap(0, 0, Short.MAX_VALUE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(btnAssumeSaveExecute, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addGap(86)
+											.addComponent(textField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)))
+									.addGap(18)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(btnChangeWeight, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(lblTarget, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(cbTarget, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))))))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnAssumeSaveExecute, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(lblTarget, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(cbTarget, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(cbStart, 0, 39, Short.MAX_VALUE))
-					.addContainerGap(214, Short.MAX_VALUE))
+							.addContainerGap()
+							.addComponent(lblEdge)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)))
+					.addGap(283))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -112,7 +139,14 @@ public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuButtonsAbstract {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnAssumeSaveExecute)
 						.addComponent(lblTarget)
-						.addComponent(cbTarget, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(cbTarget, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblEdge)
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnChangeWeight)
+						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(208, Short.MAX_VALUE))
 		);
 		setLayout(groupLayout);
 	}

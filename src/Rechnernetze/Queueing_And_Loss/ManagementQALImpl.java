@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 import Base.EnumAutomaticChecked;
+import Base.EnumVisualizationStatus;
 import Base.ManagementAbstract;
 import Base.ToolTipManager;
 
@@ -318,7 +319,7 @@ public class ManagementQALImpl extends ManagementAbstract implements ManagementQ
 
 	@Override
 	protected void initialize() {
-		this.setStatusRUN();
+		this.setStatus(EnumVisualizationStatus.RUN);
 		this.random = new Random();
 		updateCurrentTime();
 		this.timeInput = timeCurrent;
@@ -340,7 +341,7 @@ public class ManagementQALImpl extends ManagementAbstract implements ManagementQ
 
 	@Override
 	protected void create() {
-		this.setStatusRUN();
+		this.setStatus(EnumVisualizationStatus.RUN);
 		this.termSpeed = 0;	// 1 - 30
 		this.interval = 0;	// 30 - 100
 		this.termProcessing = 0;

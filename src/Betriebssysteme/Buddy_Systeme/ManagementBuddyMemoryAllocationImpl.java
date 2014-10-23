@@ -12,6 +12,7 @@ import java.util.List;
 
 import Base.EnumAutomaticChecked;
 import Base.EnumSurface;
+import Base.EnumVisualizationStatus;
 import Base.ManagementAbstract;
 import Base.ToolTipManager;
 
@@ -211,7 +212,7 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 				throw new IllegalArgumentException();
 			}
 			root = new BuddyNodeImpl(value);
-			this.setStatusRUN();
+			this.setStatus(EnumVisualizationStatus.RUN);
 			updateList("Hauptspeicher initialisiert.");
 			this.updateViews();
 		} catch (Exception ex) {

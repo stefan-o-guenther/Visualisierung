@@ -376,7 +376,7 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAbstract implemen
 	}
 	
 	private void executeFinish() {
-		this.setStatusFINISHED();
+		this.setStatus(EnumVisualizationStatus.FINISHED);
 		this.stopAutomatic();		
 	}
 		
@@ -529,7 +529,7 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAbstract implemen
 			nodeStart.setType(EnumNodeType.START);
 			nodeTarget.setType(EnumNodeType.TARGET);
 			this.updateListNodeTargetNames();
-			this.setStatusRUN();
+			this.setStatus(EnumVisualizationStatus.RUN);
 			this.updateViews();
 		} catch (Exception ex) {
 			MessageBox.showErrorMessage("falscher Start, falsches Ziel");
@@ -544,5 +544,11 @@ public class ManagementDijkstraAlgorithmImpl extends ManagementAbstract implemen
 	@Override
 	public ToolTipManager getToolTipManager() {
 		return ToolTipManagerDijkstraAlgorithmImpl.getInstance();
+	}
+
+	@Override
+	public void changeWeight(EnumEdge edge, Integer weight) {
+		// TODO Auto-generated method stub
+		
 	}
 }

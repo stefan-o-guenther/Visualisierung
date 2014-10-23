@@ -27,4 +27,6 @@ public interface ManagementDijkstraAlgorithm extends Management {
 	public List<String> getListRoute();
 	
 	public void assume(String start, String target);	
+	
+	public void changeWeight(EnumEdge edge, Integer weight);
 }

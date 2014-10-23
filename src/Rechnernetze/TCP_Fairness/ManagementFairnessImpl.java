@@ -47,12 +47,12 @@ public class ManagementFairnessImpl extends ManagementCoordinateSystemAbstract i
 					Integer c2 = point.getConnection2();
 					if (c1.equals(c2)) {
 						if (point.getType() == EnumPoint.START) {
-							this.setStatusFINISHED();
+							this.setStatus(EnumVisualizationStatus.FINISHED);
 						} else {
 							throw new IllegalArgumentException();
 						}						
 					} else {
-						this.setStatusRUN();
+						this.setStatus(EnumVisualizationStatus.RUN);
 					}
 				}			
 			}			

@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.Labeling;
+import Base.ManagementFactory;
 import Base.PanelMenuButtonsAbstract;
 
 public class PanelRNQueueingAndLossMenuImpl extends PanelMenuButtonsAbstract {
@@ -19,7 +20,7 @@ public class PanelRNQueueingAndLossMenuImpl extends PanelMenuButtonsAbstract {
 	private static final long serialVersionUID = 1L;	
 
 	public PanelRNQueueingAndLossMenuImpl() {
-		super(ManagementQALImpl.getInstance());
+		super(ManagementFactory.getManagementQueueingAndLoss());
 		//this.initializeExtra();
 		this.createPanel();
 	}
@@ -35,7 +36,7 @@ public class PanelRNQueueingAndLossMenuImpl extends PanelMenuButtonsAbstract {
 		this.btnExampleReset = new JButton(Labeling.LOAD_EXAMPLE);
 	}
 	
-	private ManagementQAL qal;
+	private ManagementQueueingAndLoss qal;
 	
 	//private JButton btnAssumeSaveExecute;
 	//private JButton btnExampleReset;
@@ -53,7 +54,7 @@ public class PanelRNQueueingAndLossMenuImpl extends PanelMenuButtonsAbstract {
 	
 	@Override
 	protected void createMenuComponentsExtra() {
-		this.qal = ManagementQALImpl.getInstance();	
+		this.qal = ManagementFactory.getManagementQueueingAndLoss();	
 		lblTransfersLabel = new JLabel("\u00DCbertragungen:");		
 		lblTransfersContent = new JLabel("00");		
 		lblLossLabel = new JLabel("Verlust:");		

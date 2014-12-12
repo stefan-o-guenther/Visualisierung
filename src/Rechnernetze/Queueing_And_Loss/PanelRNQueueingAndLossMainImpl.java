@@ -5,7 +5,9 @@
 
 package Rechnernetze.Queueing_And_Loss;
 
+import Base.ManagementFactory;
 import Base.PanelAbstract;
+import Base.PanelControlSpeedPacketImpl;
 import Base.PanelMainAbstract;
 
 public class PanelRNQueueingAndLossMainImpl extends PanelMainAbstract {
@@ -13,7 +15,7 @@ public class PanelRNQueueingAndLossMainImpl extends PanelMainAbstract {
 	private static final long serialVersionUID = 1L;
 
 	public PanelRNQueueingAndLossMainImpl() {
-		super(ManagementQALImpl.getInstance());
+		super(ManagementFactory.getManagementQueueingAndLoss());
 		this.createPanel();
 	}
 
@@ -21,7 +23,8 @@ public class PanelRNQueueingAndLossMainImpl extends PanelMainAbstract {
 	protected PanelAbstract getNewPanelMenu() {
 		PanelAbstract panelLeft = new PanelRNQueueingAndLossMenuImpl();
 		
-		PanelAbstract panelSpeed = new PanelRNQueueingAndLossControlSpeedImpl();
+		PanelAbstract panelSpeed = new PanelControlSpeedPacketImpl(ManagementFactory.getManagementQueueingAndLoss(), "Übertragungsrate Eingang:");
+		
 		PanelAbstract panelProcessing = new PanelRNQueueingAndLossControlProcessingImpl();
 		PanelAbstract panelInterval = new PanelRNQueueingAndLossControlIntervalImpl();
 		

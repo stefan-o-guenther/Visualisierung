@@ -18,14 +18,8 @@ import Base.ToolTipManager;
 
 public class ManagementDijkstraAlgorithmImpl extends ManagementAbstract implements ManagementDijkstraAlgorithm {
 	
-    private static ManagementDijkstraAlgorithm instance = new ManagementDijkstraAlgorithmImpl();
-    
-    private ManagementDijkstraAlgorithmImpl() {
+    public ManagementDijkstraAlgorithmImpl() {
     	super();
-    }
- 
-    public static ManagementDijkstraAlgorithm getInstance() {
-    	return instance;
     }
 	
 	private Map<String, Node> mapNodes;

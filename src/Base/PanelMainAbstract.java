@@ -16,11 +16,9 @@ public abstract class PanelMainAbstract extends PanelLayoutAbstract implements O
 	private static final long serialVersionUID = 1L;
 
 	public PanelMainAbstract(Management management) {
-		super();
+		super();		
 		try {
-			if (management == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(management);
 			this.management = management;
 		} catch (Exception ex) {
 			throw ex;
@@ -82,8 +80,8 @@ public abstract class PanelMainAbstract extends PanelLayoutAbstract implements O
 				throw new IllegalArgumentException();
 			}
 			PanelAbstract panelGap = new PanelEmptyImpl(gapTop,1);
-			PanelAbstract panelCheckbox = new PanelMenuControlCheckboxImpl(management);
-			PanelAbstract panelSlider = new PanelMenuControlSpeedVisualizationImpl(management);
+			PanelAbstract panelCheckbox = new PanelControlCheckboxImpl(management);
+			PanelAbstract panelSlider = new PanelControlSpeedVisualizationImpl(management);
 			PanelAbstract panelCouple = this.getPanelCoupleVertical(panelCheckbox, panelSlider);
 			return this.getPanelCoupleVertical(panelGap, panelCouple);
 		} catch (Exception ex) {

@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.ImageLoader;
+import Base.ManagementFactory;
 import Base.PanelLayoutAbstract;
 
 public class PanelBSSeitenersetzungsstrategienReplacementImpl extends PanelLayoutAbstract {
@@ -39,7 +40,7 @@ public class PanelBSSeitenersetzungsstrategienReplacementImpl extends PanelLayou
 
 	@Override
 	protected void createComponents() {
-		this.paging = ManagementPagingImpl.getInstance();
+		this.paging = ManagementFactory.getManagementPaging();
 		this.tooltip = ToolTipManagerPagingImpl.getInstance();
 		
 		ImageIcon imgHelp = ImageLoader.getImageIconHelp16();

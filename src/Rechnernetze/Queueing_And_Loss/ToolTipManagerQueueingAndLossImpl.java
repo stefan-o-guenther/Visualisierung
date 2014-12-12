@@ -5,9 +5,9 @@
 
 package Rechnernetze.Queueing_And_Loss;
 
-import Base.ToolTipManagerAbstract;
+import Base.ToolTipManagerSpeedPacketAbstract;
 
-public class ToolTipManagerQueueingAndLossImpl extends ToolTipManagerAbstract implements ToolTipManagerQueueingAndLoss {
+public class ToolTipManagerQueueingAndLossImpl extends ToolTipManagerSpeedPacketAbstract implements ToolTipManagerQueueingAndLoss {
 	
 	private static ToolTipManagerQueueingAndLoss instance = new ToolTipManagerQueueingAndLossImpl();
 	
@@ -37,18 +37,6 @@ public class ToolTipManagerQueueingAndLossImpl extends ToolTipManagerAbstract im
 		return tooltipTitle;
 	}	
 	
-	@Override
-	public String getToolTipTransferRate() {
-		String tooltipTransferRate = ""
-		        + "<html>"
-		        + "<p>"
-		        + "Mit diesen Geschwindigkeitsregelern können Sie einstellen,<br/>"
-		        + "mit welcher Geschwindigkeit sich die Pakete bewegen sollen.<br/>"
-		        + "</p>"
-		        + "</html>";
-			return tooltipTransferRate;
-	}
-
 	@Override
 	public String getToolTipProcessing() {
 		String tooltipProcessing = ""

@@ -5,11 +5,10 @@
 
 package Rechnernetze.Queueing_And_Loss;
 
-import Base.ToolTipManager;
+import Base.ToolTipManagerSpeedPacket;
 
-public interface ToolTipManagerQueueingAndLoss extends ToolTipManager {
+public interface ToolTipManagerQueueingAndLoss extends ToolTipManagerSpeedPacket {
 
-	public String getToolTipTransferRate();
 	public String getToolTipProcessing();
 	public String getToolTipInterval();
 }

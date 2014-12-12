@@ -7,6 +7,8 @@ package Betriebssysteme.Belegungsstrategien;
 
 import java.util.List;
 
+import Base.Checker;
+
 public class MemoryStrategyBestFitImpl extends MemoryStrategyBestWorstAbstract implements MemoryStrategyBestFit {
 
 	public MemoryStrategyBestFitImpl(List<Space> example) {
@@ -21,12 +23,8 @@ public class MemoryStrategyBestFitImpl extends MemoryStrategyBestWorstAbstract i
 	@Override
 	protected Boolean isSpaceSuitable(Integer number, Integer value) {
 		try {
-			if ((number == null) || (value == null)) {
-				throw new NullPointerException();
-			}
-			if ((number.intValue() < 0) || (value.intValue() < 0)) {
-				throw new IllegalArgumentException();
-			}
+			Checker.checkIfIntegerNotLessZero(number);
+			Checker.checkIfIntegerNotLessZero(value);
 			if (number.intValue() <= value.intValue()) {
 				this.checkIfBest(value);
 				if (number.intValue() == value.intValue()) {

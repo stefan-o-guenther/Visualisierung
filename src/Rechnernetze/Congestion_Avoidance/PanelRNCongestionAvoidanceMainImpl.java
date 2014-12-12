@@ -5,6 +5,7 @@
 
 package Rechnernetze.Congestion_Avoidance;
 
+import Base.ManagementFactory;
 import Base.PanelAbstract;
 import Base.PanelMainAbstract;
 
@@ -13,7 +14,7 @@ public class PanelRNCongestionAvoidanceMainImpl extends PanelMainAbstract {
 	private static final long serialVersionUID = 1L;
 
 	public PanelRNCongestionAvoidanceMainImpl() {
-		super(ManagementCongestionAvoidanceImpl.getInstance());
+		super(ManagementFactory.getManagementCongestionAvoidance());
 		this.createPanel();
 	}
 

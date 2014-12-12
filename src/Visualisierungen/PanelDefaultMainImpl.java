@@ -5,6 +5,7 @@
 
 package Visualisierungen;
 
+import Base.ManagementFactory;
 import Base.PanelAbstract;
 import Base.PanelMainAbstract;
 
@@ -13,7 +14,7 @@ public class PanelDefaultMainImpl extends PanelMainAbstract {
 	private static final long serialVersionUID = 1L;
 
 	public PanelDefaultMainImpl() {
-		super(ManagementDefaultImpl.getInstance());
+		super(ManagementFactory.getManagementDefault());
 		this.createPanel();
 	}
 

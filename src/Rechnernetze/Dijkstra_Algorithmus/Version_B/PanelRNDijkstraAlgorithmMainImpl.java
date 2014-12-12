@@ -5,9 +5,9 @@
 
 package Rechnernetze.Dijkstra_Algorithmus.Version_B;
 
+import Base.ManagementFactory;
 import Base.PanelAbstract;
 import Base.PanelMainAbstract;
-import Rechnernetze.Dijkstra_Algorithmus.ManagementDijkstraAlgorithmImpl;
 import Rechnernetze.Dijkstra_Algorithmus.PanelRNDijkstraAlgorithmModelImpl;
 import Rechnernetze.Dijkstra_Algorithmus.PanelRNDijkstraAlgorithmTableImpl;
 
@@ -16,7 +16,7 @@ public class PanelRNDijkstraAlgorithmMainImpl extends PanelMainAbstract {
 	private static final long serialVersionUID = 1L;
 
 	public PanelRNDijkstraAlgorithmMainImpl() {
-		super(ManagementDijkstraAlgorithmImpl.getInstance());
+		super(ManagementFactory.getManagementDijkstraAlgorithm());
 		this.createPanel();
 	}
 

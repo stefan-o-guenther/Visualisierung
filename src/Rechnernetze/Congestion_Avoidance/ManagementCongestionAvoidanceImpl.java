@@ -17,14 +17,8 @@ import Base.ToolTipManager;
 
 public class ManagementCongestionAvoidanceImpl extends ManagementCoordinateSystemAbstract implements ManagementCongestionAvoidance {
 
-    private static ManagementCongestionAvoidance instance = new ManagementCongestionAvoidanceImpl();
-    
-    private ManagementCongestionAvoidanceImpl() {
+    public ManagementCongestionAvoidanceImpl() {
     	super();
-    }
- 
-    public static ManagementCongestionAvoidance getInstance() {
-    	return instance;
     }
 
 	private Boolean reno;

@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.Labeling;
+import Base.ManagementFactory;
 import Base.PanelLayoutAbstract;
 
 public class PanelBSBuddySystemeLabelImpl extends PanelLayoutAbstract {
@@ -115,7 +116,7 @@ public class PanelBSBuddySystemeLabelImpl extends PanelLayoutAbstract {
 
 	@Override
 	public void updatePanel() {
-		ManagementBuddyMemoryAllocation buddy = ManagementBuddyMemoryAllocationImpl.getInstance();
+		ManagementBuddyMemoryAllocation buddy = ManagementFactory.getManagementBuddyMemoryAllocation();
 		
 		DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 		

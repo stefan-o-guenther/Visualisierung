@@ -9,6 +9,7 @@ import java.awt.BasicStroke;
 import java.awt.Polygon;
 import java.util.List;
 
+import Base.ManagementFactory;
 import Base.PanelDrawingCoordinateSystemAbstract;
 
 public class PanelRNTCPFairnessModelImpl extends PanelDrawingCoordinateSystemAbstract {
@@ -16,11 +17,11 @@ public class PanelRNTCPFairnessModelImpl extends PanelDrawingCoordinateSystemAbs
 	private static final long serialVersionUID = 1L;
 	
 	public PanelRNTCPFairnessModelImpl() {
-		super(ManagementFairnessImpl.getInstance());
+		super(ManagementFactory.getManagementTCPFairness());
 		this.createPanel();
 	}
 	
-	private ManagementFairness fairness;
+	private ManagementTCPFairness fairness;
 	
 	private void printLines() {
 		BasicStroke bs = new BasicStroke(3, BasicStroke.CAP_SQUARE, BasicStroke.JOIN_BEVEL);
@@ -119,7 +120,7 @@ public class PanelRNTCPFairnessModelImpl extends PanelDrawingCoordinateSystemAbs
 
 	@Override
 	protected void createDrawing() {
-		this.fairness = ManagementFairnessImpl.getInstance();
+		this.fairness = ManagementFactory.getManagementTCPFairness();
 	}
 
 	@Override

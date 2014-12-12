@@ -8,6 +8,7 @@ package Betriebssysteme.Belegungsstrategien;
 import java.util.ArrayList;
 import java.util.List;
 
+import Base.Checker;
 import Base.EnumAutomaticChecked;
 import Base.EnumVisualizationStatus;
 import Base.ManagementAbstract;
@@ -16,16 +17,10 @@ import Base.ToolTipManager;
 
 public class ManagementFragmentationImpl extends ManagementAbstract implements ManagementFragmentation {
 
-    private static ManagementFragmentation instance = new ManagementFragmentationImpl();
-    
-    private ManagementFragmentationImpl() {
+    public ManagementFragmentationImpl() {
     	super();
     }
  
-    public static ManagementFragmentation getInstance() {
-    	return instance;
-    }
-    
     private MemoryStrategy memStrategy;
     
     @Override
@@ -45,12 +40,7 @@ public class ManagementFragmentationImpl extends ManagementAbstract implements M
 	@Override
 	public void inputNumber(Integer value) {
 		try {
-			if (value == null) {
-				throw new NullPointerException();
-			}
-			if (value <= 0) {
-				throw new IllegalArgumentException();
-			}
+			Checker.checkIfIntegerNotLessZero(value);
 			if ((memStrategy != null) && (this.getStatus() == EnumVisualizationStatus.INPUT)) {
 				memStrategy.inputNumber(value);
 				this.updateViews();
@@ -185,9 +175,8 @@ public class ManagementFragmentationImpl extends ManagementAbstract implements M
 	
 	@Override
 	public void assume(EnumMemoryStrategy strategy, List<Integer> list) {
-		if ((strategy == null) || (list == null)) {
-			throw new NullPointerException();
-		}
+		Checker.checkIfNotNull(strategy);
+		Checker.checkIfNotNull(list);
 		if ((strategy == EnumMemoryStrategy.NULL) || (list.size() <= 0)) {
 			throw new IllegalArgumentException();
 		}

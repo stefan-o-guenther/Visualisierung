@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 
+import Base.ManagementFactory;
 import Base.PanelDrawingAbstract;
 
 public class PanelBSBuddySystemeModelImpl extends PanelDrawingAbstract {
@@ -30,7 +31,7 @@ public class PanelBSBuddySystemeModelImpl extends PanelDrawingAbstract {
 	
 	@Override
 	protected void doDrawing() {
-		ManagementBuddyMemoryAllocation buddy = ManagementBuddyMemoryAllocationImpl.getInstance();
+		ManagementBuddyMemoryAllocation buddy = ManagementFactory.getManagementBuddyMemoryAllocation();
 		
 		Integer height = 0;
 		Integer size = buddy.getTotalSpace();					
@@ -39,43 +40,28 @@ public class PanelBSBuddySystemeModelImpl extends PanelDrawingAbstract {
 			Integer length = list.size();			
 			for (Integer i = 0; i < length; i++) {
 				BuddyOperation operation = list.get(i);				
-				List<BuddySpace> listps = operation.getBuddyList();
-				if (listps != null) {
+				List<BuddySpace> listbs = operation.getBuddyList();
+				if (listbs != null) {
 					Integer sum = 0;
-					for (BuddySpace ps : listps) {
-						Integer widthNode = (ps.getSize() * WIDTH) / size;;						
+					for (BuddySpace bs : listbs) {
+						Integer widthNode = (bs.getSize() * WIDTH) / size;;						
 						g2d.setColor(Color.BLACK);
 						g2d.drawRect(sum+GAP_X, i*(HEIGHT+GAP_Y)+GAP_Y, widthNode, HEIGHT);
-						EnumNode type = ps.getType();
+						EnumNode type = bs.getType();
 						if (type != null) {
 							Color color = null;
 							switch (type) {
-								case BUDDY: {
-									color = buddy.getBuddyColor();
-									break;
-								}
-								case SPACE: {									
-									color = buddy.getProcessNodeColor(ps.getName());
-									break;
-								}
-								case REST: {
-									color = buddy.getRestColor();
-									break;
-								}
-								case USED: {
-									color = buddy.getUsedColor();
-									break;
-								}
-								default: {
-									color = Color.WHITE;
-									break;
-								}
+								case BUDDY: color = buddy.getColorBuddy(); break;
+								case SPACE: color = buddy.getColorProcessNode(bs.getName()); break;
+								case REST: color = buddy.getColorRest(); break;
+								case USED: color = buddy.getColorUsed(); break;								
+								default: color = Color.WHITE; break;								
 							}
 							g2d.setColor(color);
 							g2d.fillRect(sum+GAP_X+1, i*(HEIGHT+GAP_Y)+GAP_Y+1, widthNode-1, HEIGHT-1);
 							if (type == EnumNode.SPACE) {
 								g2d.setColor(Color.BLACK);
-								g2d.drawString(ps.getName(), sum+GAP_X+2, i*(HEIGHT+GAP_Y)+GAP_Y+15);
+								g2d.drawString(bs.getName(), sum+GAP_X+2, i*(HEIGHT+GAP_Y)+GAP_Y+15);
 							}							
 							sum += widthNode;
 						}					

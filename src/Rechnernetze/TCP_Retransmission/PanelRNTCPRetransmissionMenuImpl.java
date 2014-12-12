@@ -5,6 +5,7 @@
 
 package Rechnernetze.TCP_Retransmission;
 
+import Base.ManagementFactory;
 import Base.PanelMenuAbstract;
 
 public class PanelRNTCPRetransmissionMenuImpl extends PanelMenuAbstract {
@@ -16,11 +17,11 @@ public class PanelRNTCPRetransmissionMenuImpl extends PanelMenuAbstract {
 		this.createPanel();
 	}
 
-	private ManagementRetransmission retransmission;
+	private ManagementTCPRetransmission retransmission;
 	
 	@Override
 	protected void createMenuComponents() {
-		this.retransmission = ManagementRetransmissionImpl.getInstance();
+		this.retransmission = ManagementFactory.getManagementTCPRetransmission();
 	}
 	
 	@Override

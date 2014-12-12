@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.EnumVisualizationStatus;
+import Base.ManagementFactory;
 import Base.MessageBox;
 import Base.PanelMenuButtonsAbstract;
 
@@ -21,7 +22,7 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuButtonsAbstract {
 	private static final long serialVersionUID = 1L;
 	
 	public PanelRNTCPFairnessMenuImpl() {
-		super(ManagementFairnessImpl.getInstance());
+		super(ManagementFactory.getManagementTCPFairness());
 		//this.initializeExtra();
 		this.createPanel();
 	}
@@ -32,7 +33,7 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuButtonsAbstract {
 		this.updatePanel();
 	}
 	
-	private ManagementFairness fairness;
+	private ManagementTCPFairness fairness;
 	private ToolTipManagerFairness tooltip;
 	
 	private JTextField tfConnection1;
@@ -52,7 +53,7 @@ public class PanelRNTCPFairnessMenuImpl extends PanelMenuButtonsAbstract {
 	
 	@Override
 	protected void createMenuComponentsExtra() {
-		this.fairness = ManagementFairnessImpl.getInstance();
+		this.fairness = ManagementFactory.getManagementTCPFairness();
 		this.tooltip = ToolTipManagerFairnessImpl.getInstance();
 		
 		ImageIcon imgHelp = super.getImageIconHelp();		

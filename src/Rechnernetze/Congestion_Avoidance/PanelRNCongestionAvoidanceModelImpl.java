@@ -9,6 +9,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.util.List;
 
+import Base.ManagementFactory;
 import Base.PanelDrawingCoordinateSystemAbstract;
 
 public class PanelRNCongestionAvoidanceModelImpl extends PanelDrawingCoordinateSystemAbstract {
@@ -16,7 +17,7 @@ public class PanelRNCongestionAvoidanceModelImpl extends PanelDrawingCoordinateS
 	private static final long serialVersionUID = 1L;
 
 	public PanelRNCongestionAvoidanceModelImpl() {
-		super(ManagementCongestionAvoidanceImpl.getInstance());
+		super(ManagementFactory.getManagementCongestionAvoidance());
 		this.createPanel();
 	}
 
@@ -125,7 +126,7 @@ public class PanelRNCongestionAvoidanceModelImpl extends PanelDrawingCoordinateS
 
 	@Override
 	protected void createDrawing() {
-		this.network = ManagementCongestionAvoidanceImpl.getInstance();
+		this.network = ManagementFactory.getManagementCongestionAvoidance();
 	}
 
 	@Override

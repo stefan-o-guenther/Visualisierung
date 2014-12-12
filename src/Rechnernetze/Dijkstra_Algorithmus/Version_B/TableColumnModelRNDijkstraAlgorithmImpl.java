@@ -11,8 +11,8 @@ import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
+import Base.ManagementFactory;
 import Rechnernetze.Dijkstra_Algorithmus.ManagementDijkstraAlgorithm;
-import Rechnernetze.Dijkstra_Algorithmus.ManagementDijkstraAlgorithmImpl;
 
 public class TableColumnModelRNDijkstraAlgorithmImpl extends DefaultTableColumnModel implements TableColumnModel {
 
@@ -20,7 +20,7 @@ public class TableColumnModelRNDijkstraAlgorithmImpl extends DefaultTableColumnM
 
 	public TableColumnModelRNDijkstraAlgorithmImpl() {
 		super();
-		ManagementDijkstraAlgorithm dijkstra = ManagementDijkstraAlgorithmImpl.getInstance();
+		ManagementDijkstraAlgorithm dijkstra = ManagementFactory.getManagementDijkstraAlgorithm();
 		List<String> listNames = dijkstra.getListNodeTargetNames();
 		int x = 0;
 		addColumn("STEP", x);

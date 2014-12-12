@@ -15,15 +15,17 @@ import javax.swing.JTable;
 import javax.swing.border.Border;
 import javax.swing.table.TableCellRenderer;
 
+import Base.ManagementFactory;
+
 public class TableCellRendererBSBuddySystemeExplanationImpl implements TableCellRenderer {
 
 	public TableCellRendererBSBuddySystemeExplanationImpl() {
-		super();		
+		super();
 	}
 	
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-		ManagementBuddyMemoryAllocation buddy = ManagementBuddyMemoryAllocationImpl.getInstance();
+		ManagementBuddyMemoryAllocation buddy = ManagementFactory.getManagementBuddyMemoryAllocation();
 		JLabel label = new JLabel((String)value);
 		label.setOpaque(true);
 		Border b = BorderFactory.createEmptyBorder(1, 5, 1, 1);
@@ -35,15 +37,15 @@ public class TableCellRendererBSBuddySystemeExplanationImpl implements TableCell
 			label.setBackground(Color.WHITE);
 		} else {
 			if (row == 0) {
-				label.setBackground(buddy.getBuddyColor());
+				label.setBackground(buddy.getColorBuddy());
 			} else if (row == 1) {
-				label.setBackground(buddy.getRestColor());
+				label.setBackground(buddy.getColorRest());
 			} else {
 				int i = row - 2;
 				List<ProcessNode> listProcesses = buddy.getListRunningProcesses();
 				ProcessNode pn = listProcesses.get(i);
 				String name = pn.getName();
-				Color color = buddy.getProcessNodeColor(name);
+				Color color = buddy.getColorProcessNode(name);
 				label.setBackground(color);
 			}
 		}

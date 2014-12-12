@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.Labeling;
+import Base.ManagementFactory;
 import Base.PanelLayoutAbstract;
 
 public class PanelBSBelegungsstrategienLabelImpl extends PanelLayoutAbstract {
@@ -88,7 +89,7 @@ public class PanelBSBelegungsstrategienLabelImpl extends PanelLayoutAbstract {
 	
 	@Override
 	public void updatePanel() {
-		ManagementFragmentation fragmentation = ManagementFragmentationImpl.getInstance();
+		ManagementFragmentation fragmentation = ManagementFactory.getManagementFragmentation();
 		
 		DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 		

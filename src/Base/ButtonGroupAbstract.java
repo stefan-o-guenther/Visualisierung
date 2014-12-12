@@ -7,6 +7,7 @@ package Base;
 
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
@@ -19,9 +20,7 @@ public abstract class ButtonGroupAbstract extends ButtonGroup {
 	public ButtonGroupAbstract(Management management) {
 		super();
 		try {
-			if (management == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(management);
 			this.management = management;
 			initButtonGroup();
 		} catch (Exception ex) {
@@ -29,7 +28,7 @@ public abstract class ButtonGroupAbstract extends ButtonGroup {
 		}		
 	}
 	
-	protected HashMap<String, JRadioButton> mapRadioButtons = new HashMap<String, JRadioButton>();
+	protected Map<String, JRadioButton> mapRadioButtons = new HashMap<String, JRadioButton>();
 	protected ActionListener actionListener;	
 	protected Management management;
 	protected String[] arrayNames = {};
@@ -70,9 +69,7 @@ public abstract class ButtonGroupAbstract extends ButtonGroup {
 	
 	protected JRadioButton getRadioButton(String name) {
 		try {
-			if (name == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(name);
 			return mapRadioButtons.get(name);
 		} catch (Exception ex) {
 			throw ex;
@@ -81,9 +78,7 @@ public abstract class ButtonGroupAbstract extends ButtonGroup {
 	
 	protected void selectRadioButton(JRadioButton radioButton) {
 		try {
-			if (radioButton == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(radioButton);
 			this.setSelected(radioButton.getModel(), true);
 			this.actionListener.actionPerformed(null);
 		} catch (Exception ex) {

@@ -7,6 +7,7 @@ package Betriebssysteme.Belegungsstrategien;
 
 import java.awt.Color;
 
+import Base.Checker;
 import Base.EnumSurface;
 
 public class SpaceUsedImpl extends SpaceAbstract implements SpaceUsed {
@@ -23,9 +24,7 @@ public class SpaceUsedImpl extends SpaceAbstract implements SpaceUsed {
 	@Override
 	public Color getColorFont(EnumSurface surface) {
 		try {
-			if (surface == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(surface);
 			return Color.BLACK;
 		} catch (Exception ex) {
 			throw ex;
@@ -35,18 +34,24 @@ public class SpaceUsedImpl extends SpaceAbstract implements SpaceUsed {
 	@Override
 	public Color getColorBox(EnumSurface surface) {
 		try {
-			if (surface == null) {
-				throw new NullPointerException();
-			} else if (surface == EnumSurface.COLORED) {
-				return new Color(135,206,250);
-			} else if (surface == EnumSurface.GRAY) {
-				return Color.LIGHT_GRAY;
-			} else {
-				throw new IllegalArgumentException();
+			Checker.checkIfNotNull(surface);
+			Color color = null;
+			switch (surface) {
+				case COLORED: {
+					color = new Color(135,206,250);
+					break;
+				}
+				case GRAY: {
+					color = Color.LIGHT_GRAY;
+					break;
+				}
+				default: {
+					throw new IllegalArgumentException();
+				}
 			}
+			return color;
 		} catch (Exception ex) {
 			throw ex;
 		}		
-		
 	}
 }

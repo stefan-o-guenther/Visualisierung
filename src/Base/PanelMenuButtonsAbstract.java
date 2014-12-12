@@ -17,15 +17,13 @@ public abstract class PanelMenuButtonsAbstract extends PanelMenuAbstract impleme
 	public PanelMenuButtonsAbstract(Management management) {
 		super();
 		try {
-			if (management == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(management);
 			this.management = management;
 		} catch (Exception ex) {
 			throw ex;
 		}
 	}	
-
+	
 	private Management management;
 	
 	protected JButton btnExampleReset;

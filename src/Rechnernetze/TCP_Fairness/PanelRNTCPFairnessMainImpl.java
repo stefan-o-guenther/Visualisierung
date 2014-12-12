@@ -5,6 +5,7 @@
 
 package Rechnernetze.TCP_Fairness;
 
+import Base.ManagementFactory;
 import Base.PanelAbstract;
 import Base.PanelMainAbstract;
 
@@ -13,7 +14,7 @@ public class PanelRNTCPFairnessMainImpl extends PanelMainAbstract {
 	private static final long serialVersionUID = 1L;
 
 	public PanelRNTCPFairnessMainImpl() {
-		super(ManagementFairnessImpl.getInstance());
+		super(ManagementFactory.getManagementTCPFairness());
 		this.createPanel();
 	}
 

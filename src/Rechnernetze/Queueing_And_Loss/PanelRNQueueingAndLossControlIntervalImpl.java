@@ -9,12 +9,12 @@ import javax.swing.ImageIcon;
 
 import Base.*;
 
-public class PanelRNQueueingAndLossControlIntervalImpl extends PanelMenuControlSliderAbstract {
+public class PanelRNQueueingAndLossControlIntervalImpl extends PanelControlSliderAbstract {
 
 	private static final long serialVersionUID = 1L;	
 
 	public PanelRNQueueingAndLossControlIntervalImpl() {
-		super(ManagementQALImpl.getInstance());
+		super(ManagementFactory.getManagementQueueingAndLoss());
 		this.createPanel();
 	}
 	
@@ -40,23 +40,23 @@ public class PanelRNQueueingAndLossControlIntervalImpl extends PanelMenuControlS
 
 	@Override
 	protected ImageIcon getImageIconLeft() {
-		return ImageLoader.getImageIconTurtle();
+		return ImageLoader.getImageIconTimeout02();
 	}
 
 	@Override
 	protected ImageIcon getImageIconRight() {
-		return ImageLoader.getImageIconRabbit();
+		return ImageLoader.getImageIconTimeout01();		
 	}
 
 	@Override
 	protected Boolean isInverted() {
-		return false;
+		return true;
 	}
 
 	@Override
 	protected void setSliderValueToManagement(Integer value) {
-		ManagementQAL qal = ManagementQALImpl.getInstance();
-		qal.setPacketInterval(value);
+		ManagementQueueingAndLoss qal = ManagementFactory.getManagementQueueingAndLoss();
+		qal.setIntervalPacket(value);
 	}
 
 	@Override
@@ -68,5 +68,10 @@ public class PanelRNQueueingAndLossControlIntervalImpl extends PanelMenuControlS
 	protected String getToolTip() {
 		ToolTipManagerQueueingAndLoss tooltip = ToolTipManagerQueueingAndLossImpl.getInstance();
 		return tooltip.getToolTipInterval();
+	}
+
+	@Override
+	protected Boolean isLabelsEnabled() {
+		return false;
 	}
 }

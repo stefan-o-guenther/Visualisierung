@@ -4,7 +4,7 @@
   <class id="1" language="java" name="Rechnernetze.Pipeline_Protocol.ManagementARQImpl" project="Visualisierung" 
     file="/Visualisierung/src/Rechnernetze/Pipeline_Protocol/ManagementARQImpl.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="1359" width="304" x="-71" y="-588"/>    
+    <position height="-1" width="-1" x="170" y="292"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      

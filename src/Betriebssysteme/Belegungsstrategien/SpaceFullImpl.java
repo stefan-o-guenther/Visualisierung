@@ -7,6 +7,7 @@ package Betriebssysteme.Belegungsstrategien;
 
 import java.awt.Color;
 
+import Base.Checker;
 import Base.EnumSurface;
 
 public class SpaceFullImpl extends SpaceAbstract implements SpaceFull {
@@ -23,9 +24,7 @@ public class SpaceFullImpl extends SpaceAbstract implements SpaceFull {
 	@Override
 	public Color getColorFont(EnumSurface surface) {
 		try {
-			if (surface == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(surface);
 			return Color.BLACK;
 		} catch (Exception ex) {
 			throw ex;
@@ -35,9 +34,7 @@ public class SpaceFullImpl extends SpaceAbstract implements SpaceFull {
 	@Override
 	public Color getColorBox(EnumSurface surface) {
 		try {
-			if (surface == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(surface);
 			return Color.BLACK;
 		} catch (Exception ex) {
 			throw ex;

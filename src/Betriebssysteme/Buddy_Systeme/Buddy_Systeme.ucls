@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.6" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
-  <class id="1" language="java" name="Betriebssysteme.Buddy_Systeme.PanelBSBuddySystemeModelImpl" 
-    project="Visualisierung" file="/Visualisierung/src/Betriebssysteme/Buddy_Systeme/PanelBSBuddySystemeModelImpl.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="180" y="134"/>    
+  <class id="1" language="java" name="Betriebssysteme.Buddy_Systeme.ManagementBuddyMemoryAllocationImpl" 
+    project="Visualisierung" 
+    file="/Visualisierung/src/Betriebssysteme/Buddy_Systeme/ManagementBuddyMemoryAllocationImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="257" y="484"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      

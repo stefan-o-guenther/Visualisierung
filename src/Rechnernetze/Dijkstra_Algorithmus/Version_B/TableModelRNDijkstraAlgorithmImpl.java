@@ -10,8 +10,8 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import Base.ManagementFactory;
 import Rechnernetze.Dijkstra_Algorithmus.ManagementDijkstraAlgorithm;
-import Rechnernetze.Dijkstra_Algorithmus.ManagementDijkstraAlgorithmImpl;
 import Rechnernetze.Dijkstra_Algorithmus.MinOutput;
 import Rechnernetze.Dijkstra_Algorithmus.NodeOutput;
 
@@ -69,7 +69,7 @@ public class TableModelRNDijkstraAlgorithmImpl extends AbstractTableModel {
 	}
 	
 	private void initializeListContent() {
-		dijkstra = ManagementDijkstraAlgorithmImpl.getInstance();
+		dijkstra = ManagementFactory.getManagementDijkstraAlgorithm();
 		this.initListUsedNodes();
 		this.initListListNodeOutput();
 		this.initListMin();

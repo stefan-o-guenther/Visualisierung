@@ -5,8 +5,8 @@
 
 package Rechnernetze.Pipeline_Protocol;
 
-import Base.ToolTipManager;
+import Base.ToolTipManagerSpeedPacket;
 
-public interface ToolTipManagerARQ extends ToolTipManager {
+public interface ToolTipManagerARQ extends ToolTipManagerSpeedPacket {
 
 }

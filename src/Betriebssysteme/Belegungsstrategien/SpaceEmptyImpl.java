@@ -7,6 +7,7 @@ package Betriebssysteme.Belegungsstrategien;
 
 import java.awt.Color;
 
+import Base.Checker;
 import Base.EnumSurface;
 
 public class SpaceEmptyImpl extends SpaceAbstract implements SpaceEmpty {
@@ -32,9 +33,7 @@ public class SpaceEmptyImpl extends SpaceAbstract implements SpaceEmpty {
 	@Override
 	public Color getColorFont(EnumSurface surface) {
 		try {
-			if (surface == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(surface);
 			if ((isActivated) && (surface == EnumSurface.COLORED)) {
 				return Color.RED;
 			} else {
@@ -48,9 +47,7 @@ public class SpaceEmptyImpl extends SpaceAbstract implements SpaceEmpty {
 	@Override
 	public Color getColorBox(EnumSurface surface) {
 		try {
-			if (surface == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(surface);
 			return Color.WHITE;
 		} catch (Exception ex) {
 			throw ex;
@@ -65,9 +62,7 @@ public class SpaceEmptyImpl extends SpaceAbstract implements SpaceEmpty {
 	@Override
 	public void activate(Boolean value) {
 		try {
-			if (value == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(value);
 			isActivated = value;
 		} catch (Exception ex) {
 			throw ex;
@@ -82,12 +77,7 @@ public class SpaceEmptyImpl extends SpaceAbstract implements SpaceEmpty {
 	@Override
 	public void setNewValue(Integer value) {
 		try {
-			if (value == null) {
-				throw new NullPointerException();
-			}
-			if (value < 0) {
-				throw new IllegalArgumentException();
-			}
+			Checker.checkIfIntegerNotLessZero(value);
 			newValue = value;
 		} catch (Exception ex) {
 			throw ex;
@@ -107,9 +97,7 @@ public class SpaceEmptyImpl extends SpaceAbstract implements SpaceEmpty {
 	@Override
 	public void showRestValue(Boolean value) {
 		try {
-			if (value == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(value);
 			this.showRestValue = value;
 		} catch (Exception ex) {
 			throw ex;
@@ -124,9 +112,7 @@ public class SpaceEmptyImpl extends SpaceAbstract implements SpaceEmpty {
 	@Override
 	public void showNewValue(Boolean value) {
 		try {
-			if (value == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(value);
 			this.showNewValue = value;
 		} catch (Exception ex) {
 			throw ex;

@@ -10,7 +10,7 @@ public abstract class ToolTipManagerAbstract implements ToolTipManager {
 	public String getToolTipAutomaticCheckbox() {
 		String tooltipSpeed = ""
 			+ "<html>"
-        	+ "Einstellung, ob die Animation automatisch ablaufen soll..<br>"
+        	+ "Einstellung, ob die Animation automatisch ablaufen soll.<br>"
         	+ "</html>";
 		return tooltipSpeed;
 	}

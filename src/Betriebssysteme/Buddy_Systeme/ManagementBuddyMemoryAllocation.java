@@ -16,10 +16,10 @@ public interface ManagementBuddyMemoryAllocation extends Management {
 	public void print();
 	public List<BuddyOperation> getNodeList();
 	public void limitOutput(Integer value);	
-	public Color getProcessNodeColor(String name);
-	public Color getRestColor();
-	public Color getUsedColor();
-	public Color getBuddyColor();
+	public Color getColorProcessNode(String name);
+	public Color getColorRest();
+	public Color getColorUsed();
+	public Color getColorBuddy();
 	public List<String> getListProcessNames();
 	public List<Color> getListUsedColors();	
 	public Integer getTotalSpace();	

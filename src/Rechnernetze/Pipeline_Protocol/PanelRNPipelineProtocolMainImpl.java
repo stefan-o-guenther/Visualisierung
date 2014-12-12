@@ -5,7 +5,9 @@
 
 package Rechnernetze.Pipeline_Protocol;
 
+import Base.ManagementFactory;
 import Base.PanelAbstract;
+import Base.PanelControlSpeedPacketImpl;
 import Base.PanelMainAbstract;
 
 public class PanelRNPipelineProtocolMainImpl extends PanelMainAbstract {
@@ -13,17 +15,18 @@ public class PanelRNPipelineProtocolMainImpl extends PanelMainAbstract {
 	private static final long serialVersionUID = 1L;
 
 	public PanelRNPipelineProtocolMainImpl() {
-		super(ManagementARQImpl.getInstance());
+		super(ManagementFactory.getManagementAutomaticRepeatRequest());
 		this.createPanel();
 	}
 
 	@Override
 	protected PanelAbstract getNewPanelMenu() {
 		PanelAbstract panelLeft = new PanelRNPipelineProtocolMenuImpl();
-		PanelAbstract panelRight = new PanelRNPipelineProtocolLabelImpl();
+		PanelAbstract panelRight = new PanelRNPipelineProtocolTableExplanationImpl();
 		PanelAbstract panelMenu = this.getPanelCoupleHorizontal(panelLeft, panelRight);
-		PanelAbstract panelSpeed = new PanelRNPipelineProtocolMenuControlSpeedImpl();
-		PanelAbstract panelTimeout = new PanelRNPipelineProtocolMenuControlTimeoutImpl();		
+		
+		PanelAbstract panelSpeed = new PanelControlSpeedPacketImpl(ManagementFactory.getManagementAutomaticRepeatRequest(), "Geschwindigkeit:");
+		PanelAbstract panelTimeout = new PanelRNPipelineProtocolControlTimeoutImpl();		
 		PanelAbstract panelAutomatic = this.getPanelCoupleVertical(panelSpeed, panelTimeout);
 		return this.getPanelCoupleHorizontal(panelMenu, panelAutomatic);
 	}

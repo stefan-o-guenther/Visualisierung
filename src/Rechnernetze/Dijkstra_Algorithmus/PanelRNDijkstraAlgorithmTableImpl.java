@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.util.List;
 
 import Base.EnumSurface;
+import Base.ManagementFactory;
 import Base.PanelDrawingAbstract;
 
 public class PanelRNDijkstraAlgorithmTableImpl extends PanelDrawingAbstract {
@@ -30,7 +31,7 @@ public class PanelRNDijkstraAlgorithmTableImpl extends PanelDrawingAbstract {
 
 	@Override
 	protected void createDrawing() {
-		this.dijkstra = ManagementDijkstraAlgorithmImpl.getInstance();		
+		this.dijkstra = ManagementFactory.getManagementDijkstraAlgorithm();		
 	}
 
 	@Override

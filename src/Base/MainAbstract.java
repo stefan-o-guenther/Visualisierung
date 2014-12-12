@@ -45,9 +45,7 @@ public abstract class MainAbstract {
 	
 	protected static void baseMain(FrameAbstract frame) {
 		try {
-			if (frame == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(frame);
 			SwingUtilities.invokeLater(new RunnableImpl(frame));	
 		} catch (Exception ex) {
 			throw ex;

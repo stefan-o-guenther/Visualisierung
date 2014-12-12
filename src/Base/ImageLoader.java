@@ -19,18 +19,15 @@ public class ImageLoader {
 	private static ImageIcon imgIconHelp48 = null;
 	private static ImageIcon imgIconRabbit = null;
 	private static ImageIcon imgIconTurtle = null;
+	private static ImageIcon imgIconTimeout01 = null;
+	private static ImageIcon imgIconTimeout02 = null;
 	
 	private static BufferedImage imgRouter = null;
 	private static BufferedImage imgRouter2 = null;
 	
 	private static BufferedImage loadImage(String path) throws Exception {
 		try {
-			if (path == null) {
-				throw new NullPointerException();
-			}
-			if (path.equals("")) {
-				throw new IllegalArgumentException();
-			}			
+			Checker.checkIfString(path);		
 			InputStream stream = ImageLoader.class.getResourceAsStream(path);
 			BufferedImage image = ImageIO.read(stream);	
 			return image;
@@ -60,12 +57,8 @@ public class ImageLoader {
 	
 	private static ImageIcon loadImageIconDirectly(String path) {
 		try {
-			if (path == null) {
-				throw new NullPointerException();
-			}
-			if (path.equals("")) {
-				throw new IllegalArgumentException();
-			}
+			Checker.checkIfNotNull(path);
+			Checker.checkIfString(path);
 			ImageIcon icon = new ImageIcon(ImageLoader.class.getResource(path));
 			return icon;
 		} catch (Exception ex) {
@@ -113,6 +106,20 @@ public class ImageLoader {
 			imgIconTurtle = loadImageIconDirectly("/Base/img/turtle.png");
 		}
 		return imgIconTurtle;
+	}
+	
+	public static ImageIcon getImageIconTimeout01() {
+		if (imgIconTimeout01 == null) {
+			imgIconTimeout01 = loadImageIconDirectly("/Base/img/timeout01.png");
+		}
+		return imgIconTimeout01;
+	}
+	
+	public static ImageIcon getImageIconTimeout02() {
+		if (imgIconTimeout02 == null) {
+			imgIconTimeout02 = loadImageIconDirectly("/Base/img/timeout02.png");
+		}
+		return imgIconTimeout02;
 	}
 	
 	public static BufferedImage getBufferedImageRouter() throws Exception {

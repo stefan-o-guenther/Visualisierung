@@ -5,6 +5,7 @@
 
 package Betriebssysteme.Seitenersetzungsstrategien;
 
+import Base.ManagementFactory;
 import Base.PanelAbstract;
 import Base.PanelMainAbstract;
 
@@ -13,7 +14,7 @@ public class PanelBSSeitenersetzungsstrategienMainImpl extends PanelMainAbstract
 	private static final long serialVersionUID = 1L;
 
 	public PanelBSSeitenersetzungsstrategienMainImpl() {
-		super(ManagementPagingImpl.getInstance());
+		super(ManagementFactory.getManagementPaging());
 		this.createPanel();
 	}
 

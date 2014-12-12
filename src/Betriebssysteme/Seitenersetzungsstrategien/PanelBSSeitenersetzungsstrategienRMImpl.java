@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.EnumVisualizationStatus;
+import Base.ManagementFactory;
 import Base.PanelMenuAbstract;
 
 public class PanelBSSeitenersetzungsstrategienRMImpl extends PanelMenuAbstract {
@@ -120,7 +121,7 @@ public class PanelBSSeitenersetzungsstrategienRMImpl extends PanelMenuAbstract {
 
 	@Override
 	protected void createMenuComponents() {
-		this.paging = ManagementPagingImpl.getInstance();
+		this.paging = ManagementFactory.getManagementPaging();
 		this.tooltip = ToolTipManagerPagingImpl.getInstance();
 		
 		ImageIcon imgHelp = super.getImageIconHelp();

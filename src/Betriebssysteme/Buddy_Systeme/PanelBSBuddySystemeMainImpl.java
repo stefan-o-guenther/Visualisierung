@@ -5,17 +5,18 @@
 
 package Betriebssysteme.Buddy_Systeme;
 
-import Base.EnumScrollbar;
+import Base.EnumScrollbarPolicy;
+import Base.ManagementFactory;
 import Base.PanelAbstract;
 import Base.PanelMainAbstract;
-import Base.PanelScrollImpl;
+import Base.PanelScrollPanelImpl;
 
 public class PanelBSBuddySystemeMainImpl extends PanelMainAbstract {
 
 	private static final long serialVersionUID = 1L;
 
 	public PanelBSBuddySystemeMainImpl() {
-		super(ManagementBuddyMemoryAllocationImpl.getInstance());
+		super(ManagementFactory.getManagementBuddyMemoryAllocation());
 		this.createPanel();
 	}
 
@@ -31,6 +32,6 @@ public class PanelBSBuddySystemeMainImpl extends PanelMainAbstract {
 	@Override
 	protected PanelAbstract getNewPanelModel() {
 		PanelAbstract panel = new PanelBSBuddySystemeModelImpl();
-		return new PanelScrollImpl(panel, EnumScrollbar.NEVER, EnumScrollbar.ALWAYS);
+		return new PanelScrollPanelImpl(panel, EnumScrollbarPolicy.NEVER, EnumScrollbarPolicy.ALWAYS);
 	}
 }

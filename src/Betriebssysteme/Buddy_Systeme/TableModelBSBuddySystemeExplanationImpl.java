@@ -8,22 +8,21 @@ package Betriebssysteme.Buddy_Systeme;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.table.AbstractTableModel;
+import Base.ManagementFactory;
+import Base.TableModelExplanationAbstract;
 
-public class TableModelBSBuddySystemeExplanationImpl extends AbstractTableModel {
+public class TableModelBSBuddySystemeExplanationImpl extends TableModelExplanationAbstract {
 
 	private static final long serialVersionUID = 1L;
 
 	public TableModelBSBuddySystemeExplanationImpl() {
-		super();
-		this.initializeListContent();		
+		super();	
 	}
 	
-	private List<String> listContent;
-	
-	private void initializeListContent() {
-		ManagementBuddyMemoryAllocation buddy = ManagementBuddyMemoryAllocationImpl.getInstance();
-		listContent = new ArrayList<String>();
+	@Override
+	protected List<String> getListContent() {
+		ManagementBuddyMemoryAllocation buddy = ManagementFactory.getManagementBuddyMemoryAllocation();
+		List<String> listContent = new ArrayList<String>();
 		listContent.add("Frei");
 		listContent.add("Verschnitt");
 		List<ProcessNode> listProcesses = buddy.getListRunningProcesses();
@@ -36,30 +35,6 @@ public class TableModelBSBuddySystemeExplanationImpl extends AbstractTableModel 
 			String text = (name + " (" + processValue + " / " + restValue + ")");
 			listContent.add(text);
 		}		
-	}
-	
-	
-	public void updateTableModel() {
-		this.initializeListContent();
-		this.fireTableDataChanged();
-	}
-	
-	@Override
-	public int getColumnCount() {
-		return 2;
-	}	
-
-	@Override
-	public int getRowCount() {
-		return (this.listContent.size());
-	}
-	
-	@Override
-	public Object getValueAt(int row, int column) {
-		if (column == 1) {
-			return listContent.get(row);			
-		} else {
-			return "";					
-		}
+		return listContent;
 	}
 }

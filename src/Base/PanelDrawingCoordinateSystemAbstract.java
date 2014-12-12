@@ -17,9 +17,7 @@ public abstract class PanelDrawingCoordinateSystemAbstract extends PanelDrawingA
 	public PanelDrawingCoordinateSystemAbstract(ManagementCoordinateSystem coordinate) {
 		super();		
 		try {
-			if (coordinate == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(coordinate);
 			this.coordinate = coordinate;
 		} catch (Exception ex) {
 			throw ex;

@@ -18,6 +18,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.EnumVisualizationStatus;
 import Base.Labeling;
+import Base.ManagementFactory;
 import Base.MessageBox;
 import Base.PanelMenuButtonsAbstract;
 
@@ -26,7 +27,7 @@ public class PanelBSSeitenersetzungsstrategienMenuImpl extends PanelMenuButtonsA
 private static final long serialVersionUID = 1L;
 
 	public PanelBSSeitenersetzungsstrategienMenuImpl() {
-		super(ManagementPagingImpl.getInstance());
+		super(ManagementFactory.getManagementPaging());
 		//this.initializeExtra();
 		this.createPanel();
 	}
@@ -108,7 +109,7 @@ private static final long serialVersionUID = 1L;
 	
 	@Override
 	protected void createMenuComponentsExtra() {		
-		this.paging = ManagementPagingImpl.getInstance();
+		this.paging = ManagementFactory.getManagementPaging();
 		this.tooltip = ToolTipManagerPagingImpl.getInstance();
 		
 		ImageIcon imgHelp = super.getImageIconHelp();		

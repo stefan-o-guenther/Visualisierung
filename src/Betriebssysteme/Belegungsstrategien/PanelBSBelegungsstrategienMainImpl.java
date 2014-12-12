@@ -5,6 +5,7 @@
 
 package Betriebssysteme.Belegungsstrategien;
 
+import Base.ManagementFactory;
 import Base.PanelAbstract;
 import Base.PanelMainAbstract;
 
@@ -13,7 +14,7 @@ public class PanelBSBelegungsstrategienMainImpl extends PanelMainAbstract {
 	private static final long serialVersionUID = 1L;
 
 	public PanelBSBelegungsstrategienMainImpl() {
-		super(ManagementFragmentationImpl.getInstance());
+		super(ManagementFactory.getManagementFragmentation());
 		this.createPanel();
 	}
 

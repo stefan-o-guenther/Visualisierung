@@ -14,6 +14,7 @@ import java.util.List;
 
 import Base.EnumSurface;
 import Base.ImageLoader;
+import Base.ManagementFactory;
 import Base.PanelDrawingAbstract;
 
 public class PanelRNDijkstraAlgorithmModelImpl extends PanelDrawingAbstract {
@@ -44,7 +45,7 @@ public class PanelRNDijkstraAlgorithmModelImpl extends PanelDrawingAbstract {
 	
 	@Override
 	protected void createDrawing() {
-		this.dijkstra = ManagementDijkstraAlgorithmImpl.getInstance();
+		this.dijkstra = ManagementFactory.getManagementDijkstraAlgorithm();
 		
 		difPicX = 35;
 		difPicY = 26;

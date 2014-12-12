@@ -5,6 +5,7 @@
 
 package Rechnernetze.TCP_Retransmission;
 
+import Base.ManagementFactory;
 import Base.PanelDrawingAbstract;
 
 public class PanelRNTCPRetransmissionModelImpl extends PanelDrawingAbstract {
@@ -16,7 +17,7 @@ public class PanelRNTCPRetransmissionModelImpl extends PanelDrawingAbstract {
 		this.createPanel();
 	}
 	
-	private ManagementRetransmission retransmission;
+	private ManagementTCPRetransmission retransmission;
 
 	@Override
 	protected void doDrawing() {
@@ -26,7 +27,7 @@ public class PanelRNTCPRetransmissionModelImpl extends PanelDrawingAbstract {
 
 	@Override
 	protected void createDrawing() {
-		this.retransmission = ManagementRetransmissionImpl.getInstance();
+		this.retransmission = ManagementFactory.getManagementTCPRetransmission();
 	}
 
 	@Override

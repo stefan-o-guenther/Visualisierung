@@ -8,6 +8,7 @@ package Betriebssysteme.Belegungsstrategien;
 import java.util.List;
 
 import Base.EnumVisualizationStatus;
+import Base.ManagementFactory;
 
 public class MemoryStrategyNextFitImpl extends MemoryStrategyFirstNextAbstract implements MemoryStrategyNextFit {
 	
@@ -22,7 +23,7 @@ public class MemoryStrategyNextFitImpl extends MemoryStrategyFirstNextAbstract i
 	
 	@Override
 	protected void initialize() {
-		ManagementFragmentation fragmentation = ManagementFragmentationImpl.getInstance();
+		ManagementFragmentation fragmentation = ManagementFactory.getManagementFragmentation();
 		fragmentation.setStatus(EnumVisualizationStatus.INPUT);
 		this.setStart(this.getPosition());
 		this.setNumber(1);

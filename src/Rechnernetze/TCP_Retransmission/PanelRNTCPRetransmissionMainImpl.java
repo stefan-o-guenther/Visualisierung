@@ -5,6 +5,7 @@
 
 package Rechnernetze.TCP_Retransmission;
 
+import Base.ManagementFactory;
 import Base.PanelAbstract;
 import Base.PanelMainAbstract;
 
@@ -13,7 +14,7 @@ public class PanelRNTCPRetransmissionMainImpl extends PanelMainAbstract {
 	private static final long serialVersionUID = 1L;
 
 	public PanelRNTCPRetransmissionMainImpl() {
-		super(ManagementRetransmissionImpl.getInstance());
+		super(ManagementFactory.getManagementTCPRetransmission());
 		this.createPanel();
 	}
 

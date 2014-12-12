@@ -5,9 +5,9 @@
 
 package Rechnernetze.Pipeline_Protocol;
 
-import Base.ToolTipManagerAbstract;
+import Base.ToolTipManagerSpeedPacketAbstract;
 
-public class ToolTipManagerARQImpl extends ToolTipManagerAbstract implements ToolTipManagerARQ {
+public class ToolTipManagerARQImpl extends ToolTipManagerSpeedPacketAbstract implements ToolTipManagerARQ {
 	
 	private static ToolTipManagerARQ instance = new ToolTipManagerARQImpl();
 	

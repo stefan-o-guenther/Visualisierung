@@ -8,15 +8,15 @@ package Betriebssysteme.Belegungsstrategien;
 import java.util.ArrayList;
 import java.util.List;
 
+import Base.Checker;
 import Base.EnumVisualizationStatus;
+import Base.ManagementFactory;
 
 public abstract class MemoryStrategyAbstract implements MemoryStrategy {
 
 	public MemoryStrategyAbstract(List<Space> example) {
 		try {
-			if (example == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(example);
 			listSpaceWork = example;
 			start = START;
 			position = START;
@@ -44,12 +44,7 @@ public abstract class MemoryStrategyAbstract implements MemoryStrategy {
 	
 	protected void setNumber(Integer number) {
 		try {
-			if (number == null) {
-				throw new NullPointerException();
-			}
-			if (number.intValue() <= 0) {
-				throw new IllegalArgumentException();
-			}
+			Checker.checkIfIntegerNotLessZero(number);
 			this.number = number;
 		} catch (Exception ex) {
 			throw ex;
@@ -62,9 +57,7 @@ public abstract class MemoryStrategyAbstract implements MemoryStrategy {
 	
 	protected void setStart(Integer start) {
 		try {
-			if (start == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(start);
 			this.start = start;
 		} catch (Exception ex) {
 			throw ex;
@@ -77,9 +70,7 @@ public abstract class MemoryStrategyAbstract implements MemoryStrategy {
 	
 	protected void setPosition(Integer position) {
 		try {
-			if (position == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(position);
 			this.position = position;
 		} catch (Exception ex) {
 			throw ex;
@@ -151,9 +142,7 @@ public abstract class MemoryStrategyAbstract implements MemoryStrategy {
 	
 	private void setNewValue(Integer newValue) {
 		try {
-			if (newValue == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(newValue);
 			if (listSpaceWork != null) {
 				for (Space space : listSpaceWork) {
 					if (space.getType() == EnumSpace.EMPTY) {
@@ -269,7 +258,7 @@ public abstract class MemoryStrategyAbstract implements MemoryStrategy {
 	}
 	
 	protected void finish() {
-		ManagementFragmentation fragmentation = ManagementFragmentationImpl.getInstance();
+		ManagementFragmentation fragmentation = ManagementFactory.getManagementFragmentation();
 		if (hasEmptySpace()) {
 			fragmentation.setStatus(EnumVisualizationStatus.NEXT);
 		} else {
@@ -306,7 +295,7 @@ public abstract class MemoryStrategyAbstract implements MemoryStrategy {
 	@Override
 	public void inputNumber(Integer value) {
 		try {
-			ManagementFragmentation fragmentation = ManagementFragmentationImpl.getInstance();
+			ManagementFragmentation fragmentation = ManagementFactory.getManagementFragmentation();
 			if (fragmentation.getStatus() == EnumVisualizationStatus.INPUT) {
 				this.setNumber(value);
 				this.setNewValue(value);
@@ -321,7 +310,7 @@ public abstract class MemoryStrategyAbstract implements MemoryStrategy {
 	@Override
 	public Boolean execute() {
 		Boolean result = false;
-		ManagementFragmentation fragmentation = ManagementFragmentationImpl.getInstance();
+		ManagementFragmentation fragmentation = ManagementFactory.getManagementFragmentation();
 		if (listSpaceWork != null) {
 			this.deactivateValues();
 			if (fragmentation.getStatus() == EnumVisualizationStatus.RUN) {

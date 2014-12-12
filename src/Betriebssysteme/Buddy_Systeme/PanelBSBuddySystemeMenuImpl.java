@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.EnumVisualizationStatus;
+import Base.ManagementFactory;
 import Base.MessageBox;
 import Base.PanelMenuButtonsAbstract;
 
@@ -23,7 +24,7 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuButtonsAbstract {
 	private static final long serialVersionUID = 1L;
 
 	public PanelBSBuddySystemeMenuImpl() {
-		super(ManagementBuddyMemoryAllocationImpl.getInstance());
+		super(ManagementFactory.getManagementBuddyMemoryAllocation());
 		//this.initializeExtra();
 		this.createPanel();
 	}
@@ -60,7 +61,7 @@ public class PanelBSBuddySystemeMenuImpl extends PanelMenuButtonsAbstract {
 	
 	@Override
 	protected void createMenuComponentsExtra() {
-		buddy = ManagementBuddyMemoryAllocationImpl.getInstance();
+		buddy = ManagementFactory.getManagementBuddyMemoryAllocation();
 		tooltip = ToolTipManagerBuddyMemoryAllocationImpl.getInstance();
 		
 		ImageIcon imgHelp = this.getImageIconHelp();		

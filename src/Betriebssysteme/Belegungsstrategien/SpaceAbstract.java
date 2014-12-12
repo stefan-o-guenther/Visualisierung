@@ -5,16 +5,13 @@
 
 package Betriebssysteme.Belegungsstrategien;
 
+import Base.Checker;
+
 public abstract class SpaceAbstract implements Space {
 
 	public SpaceAbstract(Integer value) {		
-		try {			
-			if (value == null) {
-				throw new NullPointerException();
-			}
-			if (value <= 0) {
-				throw new IllegalArgumentException();
-			}			
+		try {
+			Checker.checkIfIntegerNotLessZero(value);
 			currentValue = value;		
 		} catch (Exception ex) {
 			throw ex;
@@ -31,12 +28,7 @@ public abstract class SpaceAbstract implements Space {
 	@Override
 	public void setCurrentValue(Integer value) {
 		try {
-			if (value == null) {
-				throw new NullPointerException();
-			}
-			if (value < 0) {
-				throw new IllegalArgumentException();
-			}
+			Checker.checkIfIntegerNotLessZero(value);
 			currentValue = value;
 		} catch (Exception ex) {
 			throw ex;

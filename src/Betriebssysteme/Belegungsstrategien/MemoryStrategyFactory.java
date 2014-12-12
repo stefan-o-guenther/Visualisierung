@@ -7,25 +7,41 @@ package Betriebssysteme.Belegungsstrategien;
 
 import java.util.List;
 
+import Base.Checker;
+
 public class MemoryStrategyFactory {
 
-	public static MemoryStrategy getStrategy(EnumMemoryStrategy value, List<Space> example) {
+	public static MemoryStrategy getStrategy(EnumMemoryStrategy enumStrategy, List<Space> listExample) {
 		try {
-			if ((value == null) || (example == null)) {
-				throw new NullPointerException();
-			} else if (value == EnumMemoryStrategy.FIRST_FIT) {
-				return new MemoryStrategyFirstFitImpl(example);
-			} else if (value == EnumMemoryStrategy.NEXT_FIT) {
-				return new MemoryStrategyNextFitImpl(example);
-			} else if (value == EnumMemoryStrategy.BEST_FIT) {
-				return new MemoryStrategyBestFitImpl(example);
-			} else if (value == EnumMemoryStrategy.WORST_FIT) {
-				return new MemoryStrategyWorstFitImpl(example);
-			} else if (value == EnumMemoryStrategy.SCHNEIDERINNEN_BEST_FIT) {
-				return new MemoryStrategySchneiderinnenBestFitImpl(example);
-			} else {
-				throw new IllegalArgumentException();
+			Checker.checkIfNotNull(enumStrategy);
+			Checker.checkIfNotNull(listExample);
+			MemoryStrategy strategy = null;
+			switch (enumStrategy) {
+				case FIRST_FIT: {
+					strategy = new MemoryStrategyFirstFitImpl(listExample);
+					break;
+				}
+				case NEXT_FIT: {
+					strategy = new MemoryStrategyNextFitImpl(listExample);
+					break;
+				}
+				case BEST_FIT: {
+					strategy = new MemoryStrategyBestFitImpl(listExample);
+					break;
+				}
+				case WORST_FIT: {
+					strategy = new MemoryStrategyWorstFitImpl(listExample);
+					break;
+				}
+				case SCHNEIDERINNEN_BEST_FIT: {
+					strategy = new MemoryStrategySchneiderinnenBestFitImpl(listExample);
+					break;
+				}
+				default: {
+					throw new IllegalArgumentException();
+				}
 			}
+			return strategy;
 		} catch (Exception ex) {
 			throw ex;
 		}

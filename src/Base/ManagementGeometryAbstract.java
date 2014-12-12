@@ -5,11 +5,10 @@
 
 package Base;
 
-public abstract class ManagementGeometryAbstract extends ManagementAbstract implements
-		ManagementGeometry {
+public abstract class ManagementGeometryAbstract extends ManagementAbstract implements ManagementGeometry {
 
 	public ManagementGeometryAbstract() {
-		
+		super();
 	}
 	
 	protected abstract Integer getGapLeft();

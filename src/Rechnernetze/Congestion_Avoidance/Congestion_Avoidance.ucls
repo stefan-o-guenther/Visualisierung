@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<class-diagram version="1.1.5" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
+<class-diagram version="1.1.6" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
-  <interface id="1" language="java" name="Rechnernetze.Congestion_Avoidance.Point" project="Visualisierung" 
-    file="/Visualisierung/src/Rechnernetze/Congestion_Avoidance/Point.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="207" width="192" x="149" y="104"/>    
+  <class id="1" language="java" name="Rechnernetze.Congestion_Avoidance.ManagementCongestionAvoidanceImpl" 
+    project="Visualisierung" 
+    file="/Visualisierung/src/Rechnernetze/Congestion_Avoidance/ManagementCongestionAvoidanceImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="273" y="542"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
-  </interface>  
+  </class>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

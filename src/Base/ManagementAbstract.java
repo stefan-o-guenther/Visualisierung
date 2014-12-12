@@ -28,7 +28,7 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 	}
 	
 	private void initializeManagement() {
-		this.time = System.currentTimeMillis();
+		this.timeThread = System.currentTimeMillis();
 		this.setStatus(EnumVisualizationStatus.START);
 		this.resetAutomatic();
 		this.initialize();
@@ -47,7 +47,8 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 	private Boolean isAutomaticPlay;
 	protected Integer speed;
 	protected ThreadAutomatic tAuto;
-	protected long time;	
+	
+	private Long timeThread;	
 	
 	protected abstract void updateSize();
 	protected abstract void initialize();
@@ -76,9 +77,7 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 	@Override
 	public void setSurface(EnumSurface surface) {
 		try {
-			if (surface == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(surface);
 			this.surface = surface;
 			this.updateViews();
 		} catch (Exception ex) {
@@ -100,9 +99,7 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 	@Override
 	public void setHeight(Integer height) {
 		try {
-			if (height == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(height);
 			this.height = height;
 			this.updateSize();
 		} catch (Exception ex) {
@@ -118,9 +115,7 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 	@Override
 	public void setWidth(Integer width) {
 		try {
-			if (width == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(width);
 			this.width = width;
 			this.updateSize();
 		} catch (Exception ex) {
@@ -131,9 +126,8 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 	@Override
 	public void setSize(Integer height, Integer width) {
 		try {
-			if ((height == null) || (width == null)) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(height);
+			Checker.checkIfNotNull(width);
 			int widthOld = this.width.intValue();
 			int heightOld = this.height.intValue();
 			int widthNew = width.intValue();
@@ -149,21 +143,6 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 		}
 	}
 				
-	protected long getTime() {
-		return time;
-	}
-	
-	protected void setTime(long time) {
-		try {
-			if (time < 0) {
-				throw new IllegalArgumentException();
-			}
-			this.time = time;
-		} catch (Exception ex) {
-			throw ex;
-		}
-	}
-	
 	@Override
 	public Boolean isAutomaticEnabled() {
 		EnumVisualizationStatus status = this.getStatus();
@@ -176,10 +155,9 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 	
 	@Override
 	public void executeThread() {
-		long timeCurrent = System.currentTimeMillis();
-		long timeDif = timeCurrent - time;
+		long timeDif = System.currentTimeMillis() - timeThread;
 		if (isAutomaticChecked() && isAutomaticPlay() && (timeDif >= this.getSpeed())) {
-			time = timeCurrent;
+			timeThread = System.currentTimeMillis();
 			this.executeWithCheck();
 			this.updateViews();
 		}
@@ -203,9 +181,7 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 	@Override
 	public void setAutomaticChecked(Boolean value) {
 		try {
-			if (value == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(value);
 			switch (this.keepAutomaticChecked()) {
 				case ALWAYS: {
 					this.isAutomaticChecked = true;
@@ -236,9 +212,7 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 	@Override
 	public void setAutomaticRunning(Boolean value) {
 		try {
-			if (value == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(value);
 			isAutomaticRunning = value;
 		} catch (Exception ex) {
 			throw ex;
@@ -253,9 +227,7 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 	@Override
 	public void setAutomaticPlay(Boolean value) {
 		try {
-			if (value == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(value);
 			isAutomaticPlay = value;
 		} catch (Exception ex) {
 			throw ex;
@@ -270,9 +242,7 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 	@Override
 	public void setSpeed(Integer value) {
 		try {
-			if (value == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(value);
 			speed = value;
 		} catch (Exception ex) {
 			throw ex;
@@ -325,9 +295,7 @@ public abstract class ManagementAbstract extends Observable implements Managemen
 	@Override
 	public void setStatus(EnumVisualizationStatus status) {
 		try {
-			if (status == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(status);
 			this.status = status;
 			this.updateViews();
 		} catch (Exception ex) {

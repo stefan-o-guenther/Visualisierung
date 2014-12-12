@@ -18,6 +18,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.EnumVisualizationStatus;
 import Base.Labeling;
+import Base.ManagementFactory;
 import Base.MessageBox;
 import Base.PanelMenuButtonsAbstract;
 
@@ -26,7 +27,7 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuButtonsAbstract
 	private static final long serialVersionUID = 1L;
 	
 	public PanelBSBelegungsstrategienMenuImpl() {
-		super(ManagementFragmentationImpl.getInstance());
+		super(ManagementFactory.getManagementFragmentation());
 		//this.initializeExtra();
 		this.createPanel();
 	}
@@ -126,7 +127,7 @@ public class PanelBSBelegungsstrategienMenuImpl extends PanelMenuButtonsAbstract
 	
 	@Override
 	protected void createMenuComponentsExtra() {
-		fragmentation = ManagementFragmentationImpl.getInstance();
+		fragmentation = ManagementFactory.getManagementFragmentation();
 		tooltip = ToolTipManagerFragmentationImpl.getInstance();
 		
 		ImageIcon imgHelp = super.getImageIconHelp();

@@ -9,26 +9,26 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.EnumVisualizationStatus;
 import Base.Labeling;
+import Base.ManagementFactory;
 import Base.PanelMenuButtonsAbstract;
 import Rechnernetze.Dijkstra_Algorithmus.ManagementDijkstraAlgorithm;
-import Rechnernetze.Dijkstra_Algorithmus.ManagementDijkstraAlgorithmImpl;
 import Rechnernetze.Dijkstra_Algorithmus.ToolTipManagerDijkstraAlgorithm;
 import Rechnernetze.Dijkstra_Algorithmus.ToolTipManagerDijkstraAlgorithmImpl;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
 
 public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuButtonsAbstract {
 
 	private static final long serialVersionUID = 1L;
 
 	public PanelRNDijkstraAlgorithmMenuImpl() {
-		super(ManagementDijkstraAlgorithmImpl.getInstance());		
-		this.initializeExra();
+		super(ManagementFactory.getManagementDijkstraAlgorithm());		
+		//this.initializeExra();
 		this.createPanel();
 	}
 	
@@ -43,8 +43,8 @@ public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuButtonsAbstract {
 		this.btnAssumeSaveExecute = new JButton(Labeling.ASSUME);		
 	}
 	
-	private JButton btnExampleReset;
-	private JButton btnAssumeSaveExecute;
+	//private JButton btnExampleReset;
+	//private JButton btnAssumeSaveExecute;
 	
 	private JLabel lblStart;
 	private JLabel lblTarget;
@@ -57,7 +57,7 @@ public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuButtonsAbstract {
 	
 	@Override
 	protected void createMenuComponentsExtra() {
-		dijkstra = ManagementDijkstraAlgorithmImpl.getInstance();
+		dijkstra = ManagementFactory.getManagementDijkstraAlgorithm();
 		tooltip = ToolTipManagerDijkstraAlgorithmImpl.getInstance();
 		
 		ImageIcon imgHelp = super.getImageIconHelp();
@@ -86,7 +86,7 @@ public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuButtonsAbstract {
 		
 		JLabel lblEdge = new JLabel("Achse:");
 		
-		JComboBox comboBox = new JComboBox();
+		JComboBox<Object> comboBox = new JComboBox<Object>();
 		
 		JButton btnChangeWeight = new JButton("\u00E4ndern");
 		
@@ -105,8 +105,7 @@ public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuButtonsAbstract {
 									.addGap(18)
 									.addComponent(lblStart)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(cbStart, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-									.addGap(0, 0, Short.MAX_VALUE))
+									.addComponent(cbStart, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE))
 								.addGroup(groupLayout.createSequentialGroup()
 									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addComponent(btnAssumeSaveExecute, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
@@ -114,18 +113,18 @@ public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuButtonsAbstract {
 											.addGap(86)
 											.addComponent(textField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)))
 									.addGap(18)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 										.addComponent(btnChangeWeight, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addGroup(groupLayout.createSequentialGroup()
 											.addComponent(lblTarget, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
 											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(cbTarget, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))))))
+											.addComponent(cbTarget, GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE))))))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(lblEdge)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)))
-					.addGap(283))
+					.addGap(270))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)

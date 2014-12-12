@@ -11,14 +11,8 @@ import Base.ToolTipManager;
 
 public class ManagementDefaultImpl extends ManagementAbstract implements ManagementDefault {
 
-	private static ManagementDefault instance = new ManagementDefaultImpl();
-    
-    private ManagementDefaultImpl() {
+	public ManagementDefaultImpl() {
     	super();
-    }
- 
-    public static ManagementDefault getInstance() {
-    	return instance;
     }
 	
 	@Override

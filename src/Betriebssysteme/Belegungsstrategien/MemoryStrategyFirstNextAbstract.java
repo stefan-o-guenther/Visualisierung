@@ -7,6 +7,8 @@ package Betriebssysteme.Belegungsstrategien;
 
 import java.util.List;
 
+import Base.Checker;
+
 public abstract class MemoryStrategyFirstNextAbstract extends MemoryStrategyAbstract {
 
 	public MemoryStrategyFirstNextAbstract(List<Space> example) {
@@ -19,12 +21,8 @@ public abstract class MemoryStrategyFirstNextAbstract extends MemoryStrategyAbst
 	
 	protected Boolean isSpaceSuitable(Integer number, Integer value) {
 		try {
-			if ((number == null) || (value == null)) {
-				throw new NullPointerException();
-			}
-			if ((number.intValue() < 0) || (value.intValue() < 0)) {
-				throw new IllegalArgumentException();
-			}
+			Checker.checkIfIntegerNotLessZero(number);
+			Checker.checkIfIntegerNotLessZero(value);
 			return (number.intValue() <= value.intValue());
 		} catch (Exception ex) {
 			throw ex;

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.6" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
-  <class id="1" language="java" name="Visualisierungen.ManagementDefaultImpl" project="Visualisierung" 
-    file="/Visualisierung/src/Visualisierungen/ManagementDefaultImpl.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="192" y="167"/>    
+  <class id="1" language="java" name="Visualisierungen.FrameDefaultImpl" project="Visualisierung" 
+    file="/Visualisierung/src/Visualisierungen/FrameDefaultImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="163" y="218"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      

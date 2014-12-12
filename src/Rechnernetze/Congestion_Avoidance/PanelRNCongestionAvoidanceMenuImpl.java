@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.EnumVisualizationStatus;
+import Base.ManagementFactory;
 import Base.MessageBox;
 import Base.PanelMenuButtonsAbstract;
 
@@ -30,7 +31,7 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuButtonsAbstract
 	private static final long serialVersionUID = 1L;
 
 	public PanelRNCongestionAvoidanceMenuImpl() {
-		super(ManagementCongestionAvoidanceImpl.getInstance());
+		super(ManagementFactory.getManagementCongestionAvoidance());
 		//this.initializeExtra();
 		this.createPanel();
 	}	
@@ -74,7 +75,7 @@ public class PanelRNCongestionAvoidanceMenuImpl extends PanelMenuButtonsAbstract
 	
 	@Override
 	protected void createMenuComponentsExtra() {
-		this.network = ManagementCongestionAvoidanceImpl.getInstance();
+		this.network = ManagementFactory.getManagementCongestionAvoidance();
 		this.tooltip = ToolTipManagerCongestionAvoidanceImpl.getInstance();
 		
 		ImageIcon imgHelp = super.getImageIconHelp();

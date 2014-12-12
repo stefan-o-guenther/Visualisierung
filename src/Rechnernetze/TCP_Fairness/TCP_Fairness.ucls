@@ -4,7 +4,7 @@
   <class id="1" language="java" name="Rechnernetze.TCP_Fairness.ManagementFairnessImpl" project="Visualisierung" 
     file="/Visualisierung/src/Rechnernetze/TCP_Fairness/ManagementFairnessImpl.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="190" y="383"/>    
+    <position height="711" width="342" x="-19" y="-94"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      

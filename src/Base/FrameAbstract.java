@@ -17,9 +17,7 @@ public class FrameAbstract extends JFrame {
 	public FrameAbstract(PanelMainAbstract panelMain) {
 		super();
 		try {
-			if (panelMain == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(panelMain);
 			this.panelMain = panelMain;
 			
 			Rectangle maxBounds = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();

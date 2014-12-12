@@ -11,6 +11,8 @@ import java.awt.Dimension;
 import java.awt.RenderingHints;
 import java.util.List;
 
+import Base.Checker;
+import Base.ManagementFactory;
 import Base.PanelDrawingAbstract;
 
 public class PanelBSBelegungsstrategienModelImpl extends PanelDrawingAbstract {
@@ -23,7 +25,7 @@ public class PanelBSBelegungsstrategienModelImpl extends PanelDrawingAbstract {
 	
 	@Override
 	protected void createDrawing() {
-		this.fragmentation = ManagementFragmentationImpl.getInstance();
+		this.fragmentation = ManagementFactory.getManagementFragmentation();
 		xPoint = 0;
 		yPoint = 0;
 		xRect = xPoint + 5;
@@ -63,9 +65,7 @@ public class PanelBSBelegungsstrategienModelImpl extends PanelDrawingAbstract {
 	
 	private void calculateValues(Space space) {
 		try {
-			if (space == null) {
-				throw new NullPointerException();
-			}
+			Checker.checkIfNotNull(space);
 			Integer currentValue = space.getCurrentValue();
 			width = currentValue * getMultiply();
 			xValue = xRect + (width / 2) - 3;

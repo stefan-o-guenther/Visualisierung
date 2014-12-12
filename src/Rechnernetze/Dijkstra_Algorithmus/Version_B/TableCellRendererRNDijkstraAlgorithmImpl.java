@@ -16,8 +16,8 @@ import javax.swing.border.Border;
 import javax.swing.table.TableCellRenderer;
 
 import Base.EnumSurface;
+import Base.ManagementFactory;
 import Rechnernetze.Dijkstra_Algorithmus.ManagementDijkstraAlgorithm;
-import Rechnernetze.Dijkstra_Algorithmus.ManagementDijkstraAlgorithmImpl;
 import Rechnernetze.Dijkstra_Algorithmus.MinOutput;
 import Rechnernetze.Dijkstra_Algorithmus.NodeOutput;
 
@@ -29,7 +29,7 @@ public class TableCellRendererRNDijkstraAlgorithmImpl implements TableCellRender
 	
 	@Override
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-		ManagementDijkstraAlgorithm dijkstra = ManagementDijkstraAlgorithmImpl.getInstance();
+		ManagementDijkstraAlgorithm dijkstra = ManagementFactory.getManagementDijkstraAlgorithm();
 		EnumSurface surface = dijkstra.getSurface();
 		List<String> listNames = dijkstra.getListNodeTargetNames();
 		List<MinOutput> listMinOutput = dijkstra.getListMin();

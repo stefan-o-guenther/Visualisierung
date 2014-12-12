@@ -7,7 +7,9 @@ package Betriebssysteme.Belegungsstrategien;
 
 import java.util.List;
 
+import Base.Checker;
 import Base.EnumVisualizationStatus;
+import Base.ManagementFactory;
 
 public abstract class MemoryStrategyBestWorstAbstract extends MemoryStrategyAbstract {
 
@@ -20,7 +22,7 @@ public abstract class MemoryStrategyBestWorstAbstract extends MemoryStrategyAbst
 
 	@Override
 	protected void initialize() {
-		ManagementFragmentation fragmentation = ManagementFragmentationImpl.getInstance();
+		ManagementFragmentation fragmentation = ManagementFactory.getManagementFragmentation();
 		fragmentation.setStatus(EnumVisualizationStatus.INPUT);
 		this.setStart(START);
 		this.setPosition(START);		
@@ -53,14 +55,8 @@ public abstract class MemoryStrategyBestWorstAbstract extends MemoryStrategyAbst
 	
 	protected void checkIfBest(Integer value) {
 		try {
-			if (value == null) {
-				throw new NullPointerException();
-			}
-			int ival = value.intValue();
-			if (ival < 0) {
-				throw new IllegalArgumentException();
-			}
-			if ((zBestWorst == null) || (ival < zBestWorst.intValue())) {
+			Checker.checkIfIntegerNotLessZero(value);
+			if ((zBestWorst == null) || (value.intValue() < zBestWorst.intValue())) {
 				zBestWorst = value;
 				pBestWorst = this.getPosition();
 				
@@ -72,13 +68,8 @@ public abstract class MemoryStrategyBestWorstAbstract extends MemoryStrategyAbst
 	
 	protected void checkIfWorst(Integer value) {
 		try {
-			if (value == null) {
-				throw new NullPointerException();
-			}
-			if (value < 0) {
-				throw new IllegalArgumentException();
-			}
-			if ((zBestWorst == null) || (value > zBestWorst)) {									
+			Checker.checkIfIntegerNotLessZero(value);
+			if ((zBestWorst == null) || (value.intValue() > zBestWorst)) {									
 				zBestWorst = value;
 				pBestWorst = this.getPosition();
 			}

@@ -5,24 +5,23 @@
 
 package Rechnernetze.Dijkstra_Algorithmus.Version_A;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 import Base.EnumVisualizationStatus;
 import Base.Labeling;
+import Base.ManagementFactory;
 import Base.PanelMenuButtonsAbstract;
 import Rechnernetze.Dijkstra_Algorithmus.ManagementDijkstraAlgorithm;
-import Rechnernetze.Dijkstra_Algorithmus.ManagementDijkstraAlgorithmImpl;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuButtonsAbstract {
 
 	private static final long serialVersionUID = 1L;
 
 	public PanelRNDijkstraAlgorithmMenuImpl() {
-		super(ManagementDijkstraAlgorithmImpl.getInstance());	
+		super(ManagementFactory.getManagementDijkstraAlgorithm());	
 		//this.initializeExtra();
 		this.createPanel();		
 	}
@@ -46,7 +45,7 @@ public class PanelRNDijkstraAlgorithmMenuImpl extends PanelMenuButtonsAbstract {
 	
 	@Override
 	protected void createMenuComponentsExtra() {
-		dijkstra = ManagementDijkstraAlgorithmImpl.getInstance();
+		dijkstra = ManagementFactory.getManagementDijkstraAlgorithm();
 	}
 
 	@Override

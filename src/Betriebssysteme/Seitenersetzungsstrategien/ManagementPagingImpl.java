@@ -17,18 +17,12 @@ import Base.ToolTipManager;
 
 public class ManagementPagingImpl extends ManagementAbstract implements ManagementPaging {	
 	
-    private static ManagementPaging instance = new ManagementPagingImpl();
-    
-    private ManagementPagingImpl() {
+    public ManagementPagingImpl() {
     	super();
     }
  
-    public static ManagementPaging getInstance() {
-    	return instance;
-    }
-	
-	private Boolean oldStates; 
-	private ReplacementStrategy repStrategy;
+    private Boolean oldStates; 
+	private PageReplacementAlgorithm repStrategy;
 	
 	@Override
 	protected void initialize() {
@@ -50,7 +44,7 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 		try {
 			this.initialize();
 			if ((strategy != null) && (listSequence != null) && (maxRam != null) && (maxDisk != null)) {
-				repStrategy = ReplacementStrategyFactory.getStrategy(strategy, listSequence, maxRam, maxDisk);
+				repStrategy = PageReplacementAlgorithmFactory.getStrategy(strategy, listSequence, maxRam, maxDisk);
 				this.updateViews();
 			}
 		} catch (Exception ex) {

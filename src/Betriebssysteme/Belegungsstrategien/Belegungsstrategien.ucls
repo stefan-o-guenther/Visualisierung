@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.6" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
   realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
-  <class id="1" language="java" name="Betriebssysteme.Belegungsstrategien.PanelBSBelegungsstrategienMenuImpl" 
+  <class id="1" language="java" name="Betriebssysteme.Belegungsstrategien.ManagementFragmentationImpl" 
     project="Visualisierung" 
-    file="/Visualisierung/src/Betriebssysteme/Belegungsstrategien/PanelBSBelegungsstrategienMenuImpl.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="320" y="260"/>    
+    file="/Visualisierung/src/Betriebssysteme/Belegungsstrategien/ManagementFragmentationImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="204" y="235"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
       visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      

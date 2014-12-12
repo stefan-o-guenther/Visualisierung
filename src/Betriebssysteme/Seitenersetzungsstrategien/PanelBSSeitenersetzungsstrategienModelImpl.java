@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.List;
 
+import Base.ManagementFactory;
 import Base.PanelDrawingAbstract;
 
 public class PanelBSSeitenersetzungsstrategienModelImpl extends PanelDrawingAbstract {
@@ -33,7 +34,7 @@ public class PanelBSSeitenersetzungsstrategienModelImpl extends PanelDrawingAbst
 	
 	@Override
 	public void createDrawing() {
-		this.paging = ManagementPagingImpl.getInstance();
+		this.paging = ManagementFactory.getManagementPaging();
 	}
 	
 	private void labelNames(String text, Integer countY, Boolean gapY) {		

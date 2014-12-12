@@ -18,14 +18,8 @@ import Base.ToolTipManager;
 
 public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract implements ManagementBuddyMemoryAllocation {
 
-    private static ManagementBuddyMemoryAllocation instance = new ManagementBuddyMemoryAllocationImpl();
-    
-    private ManagementBuddyMemoryAllocationImpl() {
+    public ManagementBuddyMemoryAllocationImpl() {
     	super();
-    }
- 
-    public static ManagementBuddyMemoryAllocation getInstance() {
-    	return instance;
     }
 	
 	private BuddyNode root;
@@ -257,7 +251,7 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 	}	
 
 	@Override
-	public Color getProcessNodeColor(String name) {
+	public Color getColorProcessNode(String name) {
 		try {
 			if (name == null) {
 				throw new NullPointerException();
@@ -274,7 +268,7 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 			if (surface == EnumSurface.COLORED) {
 				return mapColors.get(name);
 			} else {
-				return Color.BLACK;
+				return Color.LIGHT_GRAY;
 			}			
 		} catch (Exception ex) {
 			throw ex;
@@ -282,22 +276,22 @@ public class ManagementBuddyMemoryAllocationImpl extends ManagementAbstract impl
 	}
 
 	@Override
-	public Color getRestColor() {
+	public Color getColorRest() {
 		if (surface == EnumSurface.COLORED) {
-			return  new Color(128,0,0);
+			return new Color(128,0,0);
 		} else {
 			return Color.BLACK;
 		}
 	}
 
 	@Override
-	public Color getUsedColor() {
-		Color color = Color.GRAY;
+	public Color getColorUsed() {
+		Color color = Color.LIGHT_GRAY;
 		return color;
 	}
 
 	@Override
-	public Color getBuddyColor() {
+	public Color getColorBuddy() {
 		Color color = Color.WHITE;
 		return color;
 	}

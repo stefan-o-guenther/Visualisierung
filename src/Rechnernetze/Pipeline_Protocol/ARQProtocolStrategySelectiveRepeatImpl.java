@@ -7,8 +7,13 @@ public class ARQProtocolStrategySelectiveRepeatImpl extends	ARQProtocolStrategyA
 
 	public ARQProtocolStrategySelectiveRepeatImpl(Integer max) {
 		super(max);
+		this.initialize();
 	}
 
+	private void initialize() {
+			
+	}
+	
 	@Override
 	public EnumARQStrategy getStrategy() {
 		return EnumARQStrategy.SELECTIVE_REPEAT;
@@ -20,8 +25,8 @@ public class ARQProtocolStrategySelectiveRepeatImpl extends	ARQProtocolStrategyA
 			Sender sender;
 			this.send(this.getNextSeqnum());
 			sender = this.getSender(this.getNextSeqnum());
-			sender.setType(EnumARQSender.SENT);
-			this.setTimeTimeout(this.getNextSeqnum());
+			sender.setSent();
+			this.resetTimer(this.getNextSeqnum());
 			this.incNextSeqnum();
 		}
 	}
@@ -41,37 +46,56 @@ public class ARQProtocolStrategySelectiveRepeatImpl extends	ARQProtocolStrategyA
 		for (int i = this.getBaseSender().intValue(); i <= this.getMaxSender().intValue(); i++) {
 			Sender sender = this.getSender(i);
 			if (sender.getType() == EnumARQSender.SENT) {
-				long timeDif = System.currentTimeMillis() - sender.getTimestamp();
-				if (timeDif >= this.getTimeout().intValue()) {
-					this.send(i);
-					this.setTimeTimeout(i);
+				int timeDif = this.getTimeout() - sender.getTimer();
+				if (timeDif <= 0) {
+					this.sendSentAgain(i);
 				}
 			}
 		}
 	}
-
-	@Override
-	protected void executeReceived() {
-		
+	
+	private void sendSentAgain(Integer number) {
+		Checker.checkIfIntegerNotLessZero(number);
+		this.send(number);
+		this.resetTimer(number);
 	}
 
 	@Override
-	protected void setTimeTimeout(Integer number) {
+	protected void resetTimer(Integer number) {
 		Checker.checkIfIntegerNotLessZero(number);
 		if (number.intValue() > this.getMaxSender().intValue()) {
 			throw new IllegalArgumentException();
 		}
 		Sender sender = this.getSender(number);
-		sender.setTimestamp(System.currentTimeMillis());
+		sender.resetTimer();
 	}
 
 	@Override
-	protected void acknowledgePacket(Integer number) {
+	protected void receiveAck(Integer number) {
 		Checker.checkIfIntegerNotLessZero(number);
 		if (number.intValue() > this.getMaxSender().intValue()) {
 			throw new IllegalArgumentException();
 		}
 		Sender sender = this.getSender(number);
-		sender.setType(EnumARQSender.ACK);
+		sender.setReceived();
+	}
+	
+	@Override
+	protected void receiveNak(Integer number) {
+		Checker.checkIfIntegerNotLessZero(number);
+		if (number.intValue() > this.getMaxSender().intValue()) {
+			throw new IllegalArgumentException();
+		}
+		this.sendSentAgain(number);
+	}
+
+	@Override
+	protected void executeTimer() {
+		int base = this.getBaseSender();
+		int max = this.getMaxSender();
+		for (int i = base; i <= max; i++) {
+			Sender sender = this.getSender(i);
+			sender.incTimer();
+		}
 	}
 }

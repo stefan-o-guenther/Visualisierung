@@ -15,8 +15,8 @@ public class ComboBoxStrategy extends JComboBox<Object> {
 		super(strategies);		
 	}
 	
-	private static String[] strategies = {"Stop And Wait", "Go Back N", "Selective Repeat"};
-	private static EnumARQStrategy[] vals = {EnumARQStrategy.STOP_AND_WAIT, EnumARQStrategy.GO_BACK_N, EnumARQStrategy.SELECTIVE_REPEAT};
+	private static String[] strategies = {"Go Back N", "Selective Repeat"};
+	private static EnumARQStrategy[] vals = {EnumARQStrategy.GO_BACK_N, EnumARQStrategy.SELECTIVE_REPEAT};
 		
 	public EnumARQStrategy getStrategy() {
 		return  vals[super.getSelectedIndex()];

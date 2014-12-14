@@ -21,14 +21,18 @@ public class PanelRNPipelineProtocolMainImpl extends PanelMainAbstract {
 
 	@Override
 	protected PanelAbstract getNewPanelMenu() {
-		PanelAbstract panelLeft = new PanelRNPipelineProtocolMenuImpl();
-		PanelAbstract panelRight = new PanelRNPipelineProtocolTableExplanationImpl();
-		PanelAbstract panelMenu = this.getPanelCoupleHorizontal(panelLeft, panelRight);
+		PanelAbstract panelMenu = new PanelRNPipelineProtocolMenuImpl();
+		PanelAbstract panelLabel = new PanelRNPipelineProtocolTableExplanationImpl();
+		PanelAbstract panelLeft = this.getPanelCoupleHorizontal(panelMenu, panelLabel);
 		
 		PanelAbstract panelSpeed = new PanelControlSpeedPacketImpl(ManagementFactory.getManagementAutomaticRepeatRequest(), "Geschwindigkeit:");
 		PanelAbstract panelTimeout = new PanelRNPipelineProtocolControlTimeoutImpl();		
 		PanelAbstract panelAutomatic = this.getPanelCoupleVertical(panelSpeed, panelTimeout);
-		return this.getPanelCoupleHorizontal(panelMenu, panelAutomatic);
+		
+		PanelAbstract panelMessage = new PanelRNPipelineProtocolMessageImpl();
+		PanelAbstract panelRight = this.getPanelCoupleVertical(panelAutomatic, panelMessage);
+		
+		return this.getPanelCoupleHorizontal(panelLeft, panelRight);
 	}
 
 	@Override

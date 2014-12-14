@@ -63,8 +63,6 @@ public abstract class PageReplacementAlgorithmAbstract implements PageReplacemen
 		paging.setStatus(EnumVisualizationStatus.RUN);		
 		cache = null;
 		position = -1;
-		maxRam = 0;
-		maxDisk = 0;
 		errorCount = 0;
 		initialize();					
 	}

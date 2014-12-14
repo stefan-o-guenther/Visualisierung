@@ -64,7 +64,7 @@ private static final long serialVersionUID = 1L;
 	private ToolTipManagerPaging tooltip;
 	
 	@Override
-	public void updatePanelExtra() {		
+	public void updatePanelExtra() {
 		lblStrategie.setEnabled(true);
 		lblReferenzfolge.setEnabled(true);
 		lblRam.setEnabled(true);

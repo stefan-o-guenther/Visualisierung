@@ -8,5 +8,6 @@ package Rechnernetze.Pipeline_Protocol;
 import Base.ToolTipManagerSpeedPacket;
 
 public interface ToolTipManagerARQ extends ToolTipManagerSpeedPacket {
+	public String getToolTipTimeout();
 
 }

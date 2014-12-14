@@ -1,14 +1,16 @@
 package Rechnernetze.Pipeline_Protocol;
 
+
 public class SenderImpl implements Sender {
 
 	public SenderImpl() {
+		super();
 		type = EnumARQSender.EMPTY;
-		timestamp = System.currentTimeMillis();
+		timer = 0;
 	}
 	
-	private EnumARQSender type;	
-	private long timestamp;
+	private EnumARQSender type;
+	private Integer timer;
 	
 	@Override
 	public EnumARQSender getType() {
@@ -16,31 +18,34 @@ public class SenderImpl implements Sender {
 	}
 
 	@Override
-	public void setType(EnumARQSender type) {
-		try {
-			if (type == null) {
-				throw new NullPointerException();
-			}
-			this.type = type;
-		} catch (Exception ex) {
-			throw ex;
-		}
-	}
-	
-	@Override
-	public long getTimestamp() {
-		return this.timestamp;
+	public Boolean hasReceived() {
+		return (type == EnumARQSender.ACK);
 	}
 
 	@Override
-	public void setTimestamp(long timestamp) {
-		try {
-			if (timestamp < 0) {
-				throw new IllegalArgumentException();
-			}
-			this.timestamp = timestamp;
-		} catch (Exception ex) {
-			throw ex;
-		}
+	public void resetTimer() {
+		timer = 0;
+	}
+
+	@Override
+	public void incTimer() {
+		if (type == EnumARQSender.SENT) {
+			timer += 1;
+		}		
+	}
+
+	@Override
+	public Integer getTimer() {
+		return timer;
+	}
+
+	@Override
+	public void setReceived() {
+		type = EnumARQSender.ACK;
+	}
+
+	@Override
+	public void setSent() {
+		type = EnumARQSender.SENT;
 	}
 }

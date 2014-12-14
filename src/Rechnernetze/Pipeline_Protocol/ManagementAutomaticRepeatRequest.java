@@ -19,8 +19,8 @@ public interface ManagementAutomaticRepeatRequest extends ManagementGeometry, Ma
 	public Integer getPacketHeight();
 	public Integer getPacketWidth();
 	public Integer getGapBetweenPackets();
-	public List<Sender> getListSender();
-	public List<Receiver> getListReceiver();
+	public Sender[] getArraySender();
+	public Receiver[] getArrayReceiver();
 	public void assume(EnumARQStrategy strategy);
 	public Boolean canSendPacket();
 	public void sendPacket();
@@ -37,4 +37,5 @@ public interface ManagementAutomaticRepeatRequest extends ManagementGeometry, Ma
 	public Color getColorBroken();
 	public Color getColorSenderOk();
 	public Color getColorReceiverOk();
+	public String getMessage();
 }

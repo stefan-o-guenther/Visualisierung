@@ -10,10 +10,6 @@ public class ARQProtocolStrategyFactory {
 			Checker.checkIfNotNull(max);
 			ARQProtocolStrategy strategy = null;
 			switch (enumStrategy) {
-				case STOP_AND_WAIT: {
-					strategy = new ARQProtocolStrategyStopAndWaitImpl(max);
-					break;
-				}
 				case GO_BACK_N: {
 					strategy = new ARQProtocolStrategyGoBackNImpl(max);
 					break;

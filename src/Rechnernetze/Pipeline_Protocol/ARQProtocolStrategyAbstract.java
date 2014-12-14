@@ -26,25 +26,27 @@ public abstract class ARQProtocolStrategyAbstract implements ARQProtocolStrategy
 		this.baseSender = 0;
 		this.baseReceiver = 0;
 		this.nextSeqnum = 0;
+		this.message = "";
+		this.oldTime = 0;
 		this.initializeLists();
 	}
 	
 	private void initializeLists() {
 		this.listPacket = new ArrayList<PacketArq>();
-		this.listSender = new ArrayList<Sender>();
-		this.listReceiver= new ArrayList<Receiver>();
-		
-		for (int i = 0; i < length; i++) {
-			listSender.add(new SenderImpl());
-			listReceiver.add(new ReceiverImpl());
+		this.arraySender = new Sender[length.intValue()];
+		this.arrayReceiver= new Receiver[length.intValue()];
+		int l = this.length.intValue();		
+		for (int i = 0; i < l; i++) {
+			arraySender[i] = new SenderImpl();
+			arrayReceiver[i] = new ReceiverImpl();
 		}
 	}
 	
 	protected ManagementAutomaticRepeatRequest pipeline;
 	
 	private List<PacketArq> listPacket;
-	private List<Sender> listSender;
-	private List<Receiver> listReceiver;
+	private Sender[] arraySender;
+	private Receiver[] arrayReceiver;
 	
 	private Integer length;
 	
@@ -56,29 +58,50 @@ public abstract class ARQProtocolStrategyAbstract implements ARQProtocolStrategy
 	
 	private Integer speed;
 	private Integer timeout;
+	private String message;
+	
+	private long oldTime;
 	
 	protected abstract void executeTimeout();
+	protected abstract void executeTimer();
 	
-	protected abstract void executeReceived();
+	protected abstract void resetTimer(Integer number);
 	
-	protected abstract void setTimeTimeout(Integer number);
+	protected abstract void receiveAck(Integer number);
+	protected abstract void receiveNak(Integer number);	
 	
-	protected abstract void acknowledgePacket(Integer number);
+	protected void setMessage(String message) {
+		Checker.checkIfString(message);
+		this.message = message;
+	}
 	
 	protected Sender getSender(Integer number) {
 		Checker.checkIfIntegerNotLessZero(number);
-		if (number.intValue() >= this.listSender.size()) {
+		if (number.intValue() >= this.arraySender.length) {
 			throw new IllegalArgumentException();
 		}
-		return this.listSender.get(number);
+		return this.arraySender[number];
+	}
+	
+	protected Boolean isAnySent() {
+		int base = this.getBaseSender();
+		int max = this.getMaxSender();
+		Boolean result = false;
+		for (int i = base; i <= max; i++) {
+			Sender sender = this.arraySender[i];
+			if (sender.getType() == EnumARQSender.SENT) {
+				result = true;
+			}
+		}
+		return result;
 	}
 	
 	protected Receiver getReceiver(Integer number) {
 		Checker.checkIfIntegerNotLessZero(number);
-		if (number.intValue() >= this.listReceiver.size()) {
+		if (number.intValue() >= this.arrayReceiver.length) {
 			throw new IllegalArgumentException();
 		}
-		return this.listReceiver.get(number);
+		return this.arrayReceiver[number];
 	}
 	
 	protected PacketArq getPacket(Integer number) {
@@ -113,12 +136,12 @@ public abstract class ARQProtocolStrategyAbstract implements ARQProtocolStrategy
 		return this.listPacket.size();
 	}
 	
-	protected Integer getSizeListSender() {
-		return this.listSender.size();
+	protected Integer getSizeArraySender() {
+		return this.arraySender.length;
 	}
 	
-	protected Integer getSizeListReceiver() {
-		return this.listReceiver.size();
+	protected Integer getSizeArrayReceiver() {
+		return this.arrayReceiver.length;
 	}
 	
 	protected void addPacket(PacketArq packet) {
@@ -151,7 +174,7 @@ public abstract class ARQProtocolStrategyAbstract implements ARQProtocolStrategy
 		Checker.checkIfIntegerNotLessZero(size);
 		int newBase = base;
 		int newLast = newBase + window - 1;
-		int sizeSender = this.getSizeListSender();
+		int sizeSender = this.getSizeArraySender();
 		if (newLast >= sizeSender) {
 			newBase = sizeSender - window;
 		}
@@ -161,14 +184,14 @@ public abstract class ARQProtocolStrategyAbstract implements ARQProtocolStrategy
 	protected void setBaseSender(Integer base) {
 		Checker.checkIfIntegerNotLessZero(base);
 		int window = this.getWindowSizeSender();
-		int size = this.getSizeListSender();
+		int size = this.getSizeArraySender();
 		this.baseSender = this.getNewBase(base, window, size);
 	}
 	
 	protected void setBaseReceiver(Integer base) {
 		Checker.checkIfIntegerNotLessZero(base);
 		int window = this.getWindowSizeReceiver();
-		int size = this.getSizeListReceiver();
+		int size = this.getSizeArrayReceiver();
 		this.baseReceiver = this.getNewBase(base, window, size);
 	}
 	
@@ -199,7 +222,28 @@ public abstract class ARQProtocolStrategyAbstract implements ARQProtocolStrategy
 		}		
 	}
 	
-	private void executeSender() {		
+	private Integer findNewBase(Actor[] arrayActor) {
+		Checker.checkIfNotNull(arrayActor);
+		Integer lastReceived = null;
+		Boolean ok = true;
+		int i = 0;
+		while ((i < arrayActor.length) && ok) {
+			Actor actor = arrayActor[i];
+			if (actor.hasReceived()) {
+				lastReceived = i;
+				i += 1;
+			} else {
+				ok = false;
+			}
+		}
+		if (lastReceived != null) {
+			return (lastReceived + 1);
+		} else {
+			return 0;
+		}		
+	}
+	
+	private void executeSender() {
 		int i = 0;
 		while (i < this.getSizeListPacket()) {
 			PacketArq packet = this.getPacket(i);
@@ -211,33 +255,13 @@ public abstract class ARQProtocolStrategyAbstract implements ARQProtocolStrategy
 				this.removerPacket(packet);				
 				PacketArqResult result = (PacketArqResult) packet;
 				if ((result.getPacketStatus() == EnumPacketStatus.OK) && (packetType == EnumPacketType.ACK)) {
-					this.acknowledgePacket(packetNumber);
-					if (packetNumber >= base) {
-						Integer lastAck = null;
-						Boolean ok = true;
-						int j = base;
-						while ((j <= this.getMaxSender().intValue()) && ok) {
-							Sender s = this.getSender(j);
-							if (s.getType() == EnumARQSender.ACK) {
-								lastAck = j;
-								j += 1;
-							} else {
-								ok = false;
-							}
-						}
-						if (lastAck != null) {
-							this.setBaseSender(lastAck + 1);
-						}
-					}								
+					this.receiveAck(packetNumber);													
 				} else if (packetNumber >= base) {
-					for (int j = base; j <= packetNumber; j++) {
-						Sender sender = this.getSender(j);
-						if (sender.getType() == EnumARQSender.SENT) {
-							this.send(j);
-							this.setTimeTimeout(j);
-						}							
-					}
+					this.receiveNak(packetNumber);					
 				}
+				int newBase = this.findNewBase(this.arraySender);
+				this.setBaseSender(newBase);
+				this.resetTimer(packetNumber);
 			} else {
 				i += 1;
 			}
@@ -249,45 +273,28 @@ public abstract class ARQProtocolStrategyAbstract implements ARQProtocolStrategy
 		while (i < this.getSizeListPacket().intValue()) {
 			PacketArq packet = this.getPacket(i);
 			EnumPacketType packetType = packet.getPacketType();
-			int base = this.getBaseReceiver().intValue();
-			int max = this.getMaxReceiver().intValue();
 			int packetNumber = packet.getNumber().intValue();
+			int max = this.getMaxReceiver();
 			int position = packet.getPosition().intValue();
 			int yMax = pipeline.getYMax();
 			if ((packetType == EnumPacketType.DATA) && (position > yMax)) {
 				this.removerPacket(packet);
+				Receiver receiver = this.arrayReceiver[packetNumber];
+				PacketArqData data = (PacketArqData) packet;
+				PacketArqResult result;
 				if (packetNumber <= max) {
-					Receiver receiver = this.listReceiver.get(packetNumber);
-					PacketArqData data = (PacketArqData) packet;
-					PacketArqResult result;					
 					if (data.getPacketStatus() == EnumPacketStatus.OK) {
-						receiver.setType(EnumARQReceiver.RECEIVED);
-						this.executeReceived();
+						receiver.setReceived();
 					}
 					if (receiver.getType() == EnumARQReceiver.RECEIVED) {
 						result = new PacketArqAckImpl(packetNumber, yMax);
-						if (packetNumber >= base) {
-							Integer lastReceived = null;
-							Boolean ok = true;
-							int j = base;
-							while ((j <= max) && ok) {
-								Receiver r = this.getReceiver(j);
-								if (r.getType() == EnumARQReceiver.RECEIVED) {
-									lastReceived = j;
-									j += 1;
-								} else {
-									ok = false;
-								}
-							}
-							if (lastReceived != null) {
-								this.setBaseReceiver(lastReceived + 1);
-							}
-						}
+						int newBase = this.findNewBase(arrayReceiver);
+						this.setBaseReceiver(newBase);
 					} else {
 						result = new PacketArqNakImpl(packetNumber, yMax);
 					}
 					this.addPacket(result);
-				}
+				}				
 			} else {
 				i += 1;
 			}
@@ -297,13 +304,15 @@ public abstract class ARQProtocolStrategyAbstract implements ARQProtocolStrategy
 	private void executeFinish() {
 		int sizePacket = this.listPacket.size();
 		int sizeSender = 0;
-		for (Sender sender : this.listSender) {
+		for (Sender sender : this.arraySender) {
 			if (sender.getType() != EnumARQSender.ACK) {
 				sizeSender += 1;
 			}
 		}
 		if ((sizePacket == 0) && (sizeSender == 0)) {
 			this.pipeline.setStatus(EnumVisualizationStatus.FINISHED);
+		} else if (!pipeline.isAutomaticRunning()) {
+			this.oldTime = 0;
 		}
 	}
 
@@ -312,8 +321,18 @@ public abstract class ARQProtocolStrategyAbstract implements ARQProtocolStrategy
 		this.executePackets();
 		this.executeReceiver();
 		this.executeSender();
+		long time = System.currentTimeMillis();
+		if (this.oldTime == 0) {
+			this.oldTime = time;
+		}
+		long dif = time - oldTime;
+		if (dif >= 1) {
+			this.executeTimer();
+			this.oldTime = time;
+		}
 		this.executeTimeout();
 		this.executeFinish();
+		
 	}
 	
 	@Override
@@ -322,13 +341,13 @@ public abstract class ARQProtocolStrategyAbstract implements ARQProtocolStrategy
 	}
 
 	@Override
-	public List<Sender> getListSender() {
-		return new ArrayList<Sender>(this.listSender);
+	public Sender[] getArraySender() {
+		return arraySender.clone();
 	}
 
 	@Override
-	public List<Receiver> getListReceiver() {
-		return new ArrayList<Receiver>(this.listReceiver);
+	public Receiver[] getArrayReceiver() {
+		return arrayReceiver.clone();
 	}
 	
 	@Override
@@ -380,5 +399,10 @@ public abstract class ARQProtocolStrategyAbstract implements ARQProtocolStrategy
 	@Override
 	public Integer getBaseReceiver() {
 		return this.baseReceiver;
+	}
+	
+	@Override
+	public String getMessage() {
+		return this.message;
 	}
 }

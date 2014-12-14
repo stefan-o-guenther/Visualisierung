@@ -8,19 +8,27 @@ package Betriebssysteme.Seitenersetzungsstrategien;
 import java.util.ArrayList;
 import java.util.List;
 
+import Base.Checker;
+
 
 public class CacheBoxImpl implements CacheBox {
 
 	public CacheBoxImpl(Integer value) {
-		number = value;
-		listRam = new ArrayList<Cache>();
-		listDisk = new ArrayList<Cache>();
+		Checker.checkIfIntegerNotLessZero(value);
+		this.number = value;
+		this.initialize();
 	}	
 	
-	private Integer number = null;
-	private List<Cache> listRam = new ArrayList<Cache>();
-	private List<Cache> listDisk = new ArrayList<Cache>();
-	private Boolean activated = false;
+	private void initialize() {
+		listRam = new ArrayList<Cache>();
+		listDisk = new ArrayList<Cache>();
+		activated = false;
+	}
+	
+	private Integer number;
+	private List<Cache> listRam;
+	private List<Cache> listDisk;
+	private Boolean activated;
 	
 	@Override
 	public Integer getNumber() {
@@ -29,9 +37,8 @@ public class CacheBoxImpl implements CacheBox {
 
 	@Override
 	public void setNumber(Integer value) {
-		if (value != null) {
-			number = value;
-		}
+		Checker.checkIfIntegerNotLessZero(value);
+		this.number = value;
 	}
 
 	@Override
@@ -41,9 +48,8 @@ public class CacheBoxImpl implements CacheBox {
 
 	@Override
 	public void setRam(List<Cache> value) {
-		if (value != null) {
-			listRam = value;
-		}
+		Checker.checkIfNotNull(value);
+		this.listRam = value;
 	}
 
 	@Override
@@ -53,12 +59,12 @@ public class CacheBoxImpl implements CacheBox {
 
 	@Override
 	public void setDisk(List<Cache> value) {
-		if (value != null) {
-			listDisk = value;
-		}
+		Checker.checkIfNotNull(value);
+		this.listDisk = value;
 	}	
 	
 	private List<Cache> copyList(List<Cache> list) {
+		Checker.checkIfNotNull(list);
 		List<Cache> newList = new ArrayList<Cache>();
 		if (list != null) {
 			for (Cache cache : list) {
@@ -86,9 +92,8 @@ public class CacheBoxImpl implements CacheBox {
 
 	@Override
 	public void setActivated(Boolean value) {
-		if (value != null) {
-			activated = value;
-		}
+		Checker.checkIfNotNull(value);
+		this.activated = value;
 	}
 
 	@Override

@@ -187,7 +187,6 @@ public abstract class PanelMenuButtonsAbstract extends PanelMenuAbstract impleme
 						break;
 					}
 				}
-				updatePanel();
 			}
 		};		
 		
@@ -222,7 +221,6 @@ public abstract class PanelMenuButtonsAbstract extends PanelMenuAbstract impleme
 						break;
 					}
 				}
-				updatePanel();
 			}
 		};
 		btnExampleReset.addActionListener(actionExampleReset);

@@ -3,7 +3,8 @@ package Rechnernetze.Pipeline_Protocol;
 public class ReceiverImpl implements Receiver {
 
 	public ReceiverImpl() {
-		
+		super();
+		type = EnumARQReceiver.EMPTY;
 	}
 	
 	private EnumARQReceiver type;
@@ -14,14 +15,12 @@ public class ReceiverImpl implements Receiver {
 	}
 
 	@Override
-	public void setType(EnumARQReceiver type) {
-		try {
-			if (type == null) {
-				throw new NullPointerException();
-			}
-			this.type = type;
-		} catch (Exception ex) {
-			throw ex;
-		}
+	public Boolean hasReceived() {
+		return (type == EnumARQReceiver.RECEIVED);
+	}
+
+	@Override
+	public void setReceived() {
+		type = EnumARQReceiver.RECEIVED;
 	}
 }

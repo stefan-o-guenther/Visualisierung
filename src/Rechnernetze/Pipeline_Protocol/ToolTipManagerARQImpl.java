@@ -43,4 +43,16 @@ public class ToolTipManagerARQImpl extends ToolTipManagerSpeedPacketAbstract imp
 	        + "</html>";
 		return tooltipTitle;
 	}
+
+	@Override
+	public String getToolTipTimeout() {
+		String tooltipTransferRate = ""
+	        + "<html>"
+	        + "<p>"
+	        + "Mit diesen Regelern können Sie einstellen,<br/>"
+	        + "nach welcher Zeit die Pakete erneut gesendet werden sollen.<br/>"
+	        + "</p>"
+	        + "</html>";
+		return tooltipTransferRate;
+	}
 }

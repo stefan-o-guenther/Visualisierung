@@ -6,6 +6,7 @@
 package Rechnernetze.Pipeline_Protocol;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
@@ -100,32 +101,48 @@ public class PanelRNPipelineProtocolModelImpl extends PanelDrawingAbstract {
 		}		
 	}
 	
-	private void drawSender() {
-		Integer boxH = pipeline.getPacketHeight();
-		Integer minY = pipeline.getPositionY0();
-		List<Sender> listSender = pipeline.getListSender();
-		for (int i = 0; i < listSender.size(); i++) {
-			Sender s = listSender.get(i);
-			Color color = Color.WHITE;
-			if (s.getType() == EnumARQSender.ACK) {
-				color = pipeline.getColorSenderOk();
-			}
-			this.drawRectangle(i, minY-boxH, color);
+	private void drawActor(Actor[] arrayActor, Color color, Boolean isSender) {
+		Checker.checkIfNotNull(arrayActor);
+		Checker.checkIfNotNull(color);
+		Checker.checkIfNotNull(isSender);
+		int boxH = pipeline.getPacketHeight().intValue();
+		int minY = pipeline.getPositionY0().intValue();
+		int maxY = pipeline.getPositionYMax().intValue();
+		Integer positionBox;
+		Integer positionNumber;
+		if (isSender) {
+			positionBox = minY - boxH;
+			positionNumber = positionBox - 10;
+		} else {
+			positionBox = maxY + boxH;
+			positionNumber = positionBox + boxH + 24;
 		}
+		for (int i = 0; i < arrayActor.length; i++) {
+			Actor actor = arrayActor[i];
+			Color colorBox = Color.WHITE;
+			if (actor.hasReceived()) {
+				colorBox = color;
+			} else {
+				colorBox = Color.WHITE;
+			}
+			this.drawRectangle(i, positionBox, colorBox);
+			Color colorNumber = Color.BLACK;
+			int extra = 2;
+			if (i < 10) {
+				extra = 7;
+			}
+			g2d.setColor(colorNumber);
+			g2d.setFont(new Font(g2d.getFont().getFontName(), Font.BOLD, 16));
+			g2d.drawString(i+"", pipeline.XToPositionX(i) + extra, positionNumber);
+		}	
+	}
+	
+	private void drawSender() {
+		this.drawActor(pipeline.getArraySender(), pipeline.getColorSenderOk(), true);
 	}
 	
 	private void drawReceiver() {
-		Integer boxH = pipeline.getPacketHeight();
-		Integer maxY = pipeline.getPositionYMax();
-		List<Receiver> listReceiver = pipeline.getListReceiver();		
-		for (int j = 0; j < listReceiver.size(); j++) {
-			Receiver r = listReceiver.get(j);
-			Color color = Color.WHITE;
-			if (r.getType() == EnumARQReceiver.RECEIVED) {
-				color = pipeline.getColorReceiverOk();
-			}
-			this.drawRectangle(j, maxY+boxH, color);
-		}
+		this.drawActor(pipeline.getArrayReceiver(), pipeline.getColorReceiverOk(), false);
 	}
 	
 	private void drawPackets() {

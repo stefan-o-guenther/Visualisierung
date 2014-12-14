@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+import Base.Checker;
 import Base.EnumAutomaticChecked;
 import Base.EnumSurface;
 import Base.EnumVisualizationStatus;
@@ -43,10 +44,12 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 	public void assume(EnumPagingStrategy strategy, List<Integer> listSequence, Integer maxRam, Integer maxDisk) {
 		try {
 			this.initialize();
-			if ((strategy != null) && (listSequence != null) && (maxRam != null) && (maxDisk != null)) {
-				repStrategy = PageReplacementAlgorithmFactory.getStrategy(strategy, listSequence, maxRam, maxDisk);
-				this.updateViews();
-			}
+			Checker.checkIfNotNull(strategy);
+			Checker.checkIfNotNull(listSequence);
+			Checker.checkIfIntegerNotLessZero(maxRam);
+			Checker.checkIfIntegerNotLessZero(maxDisk);
+			repStrategy = PageReplacementAlgorithmFactory.getStrategy(strategy, listSequence, maxRam, maxDisk);
+			this.updateViews();			
 		} catch (Exception ex) {
 			throw ex;
 		}
@@ -56,7 +59,6 @@ public class ManagementPagingImpl extends ManagementAbstract implements Manageme
 	protected Boolean execute() {
 		if ((repStrategy != null) && (this.getStatus() == EnumVisualizationStatus.RUN)) {
 			repStrategy.execute();
-			this.updateViews();
 		}
 		return true;
 	}	

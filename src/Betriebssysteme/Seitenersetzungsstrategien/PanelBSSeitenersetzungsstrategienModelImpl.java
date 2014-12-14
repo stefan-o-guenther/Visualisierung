@@ -162,18 +162,18 @@ public class PanelBSSeitenersetzungsstrategienModelImpl extends PanelDrawingAbst
 		g2d.setFont(new Font(g2d.getFont().getFontName(), Font.BOLD, 18)); 
 		
 		List<CacheBox> listCacheBox = paging.getListCache();		 
-		Integer maxRam = paging.getMaxRam();
-		Integer maxDisk = paging.getMaxDisk();		
+		int maxRam = paging.getMaxRam().intValue();
+		int maxDisk = paging.getMaxDisk().intValue();		
 		
-		Integer sizeX = listCacheBox.size();
-		Integer sizeY = maxRam + maxDisk + 1;
+		int sizeX = listCacheBox.size();
+		int sizeY = maxRam + maxDisk + 1;
 		
-		for (Integer indexX = 0; indexX < sizeX; indexX++) {
+		for (int indexX = 0; indexX < sizeX; indexX++) {
 			Boolean gapX = (indexX >= maxRam);
 			CacheBox cacheBox = listCacheBox.get(indexX);
 			List<Cache> listRam = cacheBox.getRam();
 			List<Cache> listDisk = cacheBox.getDisk();  
-			for (Integer indexY = 0; indexY < sizeY; indexY++) {
+			for (int indexY = 0; indexY < sizeY; indexY++) {
 				if (indexY > 0) {
 					// Beschriftung auf Y-Achse
 					if (indexY <= maxRam) {

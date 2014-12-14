@@ -15,8 +15,9 @@ public interface ARQProtocolStrategy {
 	public Integer getWindowSizeSender();	
 	public Integer getWindowSizeReceiver();
 	public List<PacketArq> getListPacket();
-	public List<Sender> getListSender();
-	public List<Receiver> getListReceiver();
+	public Sender[] getArraySender();
+	public Receiver[] getArrayReceiver();
 	public void disablePacket(PacketArq packet);
 	public void deletePacket(PacketArq packet);
+	public String getMessage();
 }

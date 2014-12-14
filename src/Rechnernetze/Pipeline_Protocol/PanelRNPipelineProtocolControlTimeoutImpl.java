@@ -22,7 +22,7 @@ public class PanelRNPipelineProtocolControlTimeoutImpl extends PanelControlSlide
 	
 	@Override
 	protected Integer getMax() {
-		return 30;
+		return 60;
 	}
 
 	@Override
@@ -32,22 +32,22 @@ public class PanelRNPipelineProtocolControlTimeoutImpl extends PanelControlSlide
 
 	@Override
 	protected Integer getStep() {
-		return 1;
+		return 5;
 	}
 
 	@Override
 	protected Integer getInit() {
-		return 10;
+		return 15;
 	}
 
 	@Override
 	protected ImageIcon getImageIconLeft() {
-		return ImageLoader.getImageIconTurtle();
+		return ImageLoader.getImageIconTimeout02();
 	}
 
 	@Override
 	protected ImageIcon getImageIconRight() {
-		return ImageLoader.getImageIconRabbit();
+		return ImageLoader.getImageIconTimeout01();
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class PanelRNPipelineProtocolControlTimeoutImpl extends PanelControlSlide
 	@Override
 	protected String getToolTip() {
 		ToolTipManagerARQ tooltip = (ToolTipManagerARQ) management.getToolTipManager();
-		return tooltip.getToolTipAutomaticSlider();
+		return tooltip.getToolTipTimeout();
 	}
 
 	@Override

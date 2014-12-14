@@ -132,11 +132,15 @@ public abstract class PanelControlSliderAbstract extends PanelControlAbstract {
 	
 	@Override
 	public Integer getPanelHeight() {
-		return 35;
+		if (this.isLabelsEnabled()) {
+			return 50;
+		} else {
+			return 35;
+		}
 	}
 	
 	@Override
 	public Integer getPanelWidth() {
-		return 35;
+		return 40;
 	}
 }

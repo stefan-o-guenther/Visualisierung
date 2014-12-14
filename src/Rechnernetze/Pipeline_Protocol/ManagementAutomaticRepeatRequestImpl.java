@@ -178,12 +178,12 @@ public class ManagementAutomaticRepeatRequestImpl extends ManagementGeometryAbst
 
 	@Override
 	protected Integer getGapTop() {
-		return 10 + this.getPacketHeight();
+		return 10 + this.getPacketHeight() + 25;
 	}
 
 	@Override
 	protected Integer getGapBottom() {
-		return 10 + (2 * this.getPacketHeight());
+		return 10 + (2 * this.getPacketHeight()) + 25;
 	}
 
 	@Override
@@ -202,20 +202,20 @@ public class ManagementAutomaticRepeatRequestImpl extends ManagementGeometryAbst
 	}
 
 	@Override
-	public List<Sender> getListSender() {
+	public Sender[] getArraySender() {
 		if (arq != null) {
-			return arq.getListSender();
+			return arq.getArraySender();
 		} else {
-			return new ArrayList<Sender>();
+			return new Sender[0];
 		}
 	}
 
 	@Override
-	public List<Receiver> getListReceiver() {
+	public Receiver[] getArrayReceiver() {
 		if (arq != null) {
-			return arq.getListReceiver();
+			return arq.getArrayReceiver();
 		} else {
-			return new ArrayList<Receiver>();
+			return new Receiver[0];
 		}
 	}
 
@@ -223,9 +223,6 @@ public class ManagementAutomaticRepeatRequestImpl extends ManagementGeometryAbst
 	public void assume(EnumARQStrategy strategy) {
 		try {
 			Checker.checkIfNotNull(strategy);
-			if (strategy == EnumARQStrategy.NULL) {
-				throw new IllegalArgumentException();
-			}
 			this.arq = ARQProtocolStrategyFactory.getStrategy(strategy, this.getXMax());
 			this.arq.setSpeedPacket(speedPacket);
 			this.arq.setTimeout(timeout);
@@ -397,5 +394,14 @@ public class ManagementAutomaticRepeatRequestImpl extends ManagementGeometryAbst
 	@Override
 	public Integer getSpeedPacket() {
 		return this.speedPacket;
+	}
+
+	@Override
+	public String getMessage() {
+		if (arq != null) {
+			return arq.getMessage();
+		} else {
+			return "";//"Strategie auswählen";
+		}
 	}
 }

@@ -1,7 +1,6 @@
 package Rechnernetze.Pipeline_Protocol;
 
-public interface Receiver {
+public interface Receiver extends Actor {
 
 	public EnumARQReceiver getType();
-	public void setType(EnumARQReceiver type);
 }

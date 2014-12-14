@@ -1,9 +1,10 @@
 package Rechnernetze.Pipeline_Protocol;
 
-public interface Sender {
+public interface Sender extends Actor {
 
 	public EnumARQSender getType();
-	public void setType(EnumARQSender type);
-	public long getTimestamp();
-	public void setTimestamp(long timestamp);
+	public void resetTimer();
+	public void incTimer();
+	public Integer getTimer();
+	public void setSent();
 }

@@ -16,7 +16,7 @@ public class PanelRNPipelineProtocolMessageImpl extends PanelLayoutAbstract {
 		//this.createExtra();
 		this.createPanel();
 	}
-	
+
 	private void createExtra() {
 		this.createComponents();
 		this.createLayout();
@@ -24,7 +24,7 @@ public class PanelRNPipelineProtocolMessageImpl extends PanelLayoutAbstract {
 
 	private ManagementAutomaticRepeatRequest pipeline;
 	private JLabel lblMessage;
-	
+
 	@Override
 	protected void createComponents() {
 		pipeline = ManagementFactory.getManagementAutomaticRepeatRequest();
@@ -38,7 +38,7 @@ public class PanelRNPipelineProtocolMessageImpl extends PanelLayoutAbstract {
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblMessage)
+					.addComponent(lblMessage)		
 					.addContainerGap(394, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
@@ -50,17 +50,17 @@ public class PanelRNPipelineProtocolMessageImpl extends PanelLayoutAbstract {
 		);
 		setLayout(groupLayout);
 	}
-
+	
 	@Override
 	public void updatePanel() {
 		lblMessage.setText(pipeline.getMessage() + " ");
 	}
-
+	
 	@Override
 	public Integer getPanelHeight() {
 		return 30;
 	}
-
+	
 	@Override
 	public Integer getPanelWidth() {
 		return 100;

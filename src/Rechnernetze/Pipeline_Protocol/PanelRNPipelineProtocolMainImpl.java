@@ -30,6 +30,7 @@ public class PanelRNPipelineProtocolMainImpl extends PanelMainAbstract {
 		PanelAbstract panelAutomatic = this.getPanelCoupleVertical(panelSpeed, panelTimeout);
 		
 		PanelAbstract panelMessage = new PanelRNPipelineProtocolMessageImpl();
+		//PanelAbstract panelMessage = new PanelRNPipelineProtocolTestImpl();
 		PanelAbstract panelRight = this.getPanelCoupleVertical(panelAutomatic, panelMessage);
 		
 		return this.getPanelCoupleHorizontal(panelLeft, panelRight);

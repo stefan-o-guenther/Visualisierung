@@ -18,7 +18,7 @@ public class SenderImpl implements Sender {
 	}
 
 	@Override
-	public Boolean hasReceived() {
+	public Boolean isReceived() {
 		return (type == EnumARQSender.ACK);
 	}
 
@@ -47,5 +47,15 @@ public class SenderImpl implements Sender {
 	@Override
 	public void setSent() {
 		type = EnumARQSender.SENT;
+	}
+
+	@Override
+	public Boolean isEmpty() {
+		return (type == EnumARQSender.EMPTY);
+	}
+
+	@Override
+	public Boolean isSent() {
+		return (type == EnumARQSender.SENT);
 	}
 }

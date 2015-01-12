@@ -229,7 +229,7 @@ public abstract class ARQProtocolStrategyAbstract implements ARQProtocolStrategy
 		int i = 0;
 		while ((i < arrayActor.length) && ok) {
 			Actor actor = arrayActor[i];
-			if (actor.hasReceived()) {
+			if (actor.isReceived()) {
 				lastReceived = i;
 				i += 1;
 			} else {

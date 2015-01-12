@@ -28,7 +28,7 @@ public class PanelRNPipelineProtocolTableExplanationImpl extends PanelScrollTabl
 
 	@Override
 	public Integer getPanelWidth() {
-		return 170;
+		return 200;
 	}
 
 	@Override

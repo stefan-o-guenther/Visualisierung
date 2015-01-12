@@ -21,9 +21,10 @@ public abstract class PanelScrollAbstract extends PanelLayoutAbstract {
 		try {
 			Checker.checkIfNotNull(scrollbarPolicyHorizontal);
 			Checker.checkIfNotNull(scrollbarPolicyVertical);
+			System.out.println(scrollbarPolicyHorizontal + " / " + scrollbarPolicyVertical);
 			this.createHorizontalScrollBarPolicy(scrollbarPolicyHorizontal);
 			this.createVerticalScrollBarPolicy(scrollbarPolicyVertical);
-			//this.createExtra();
+			this.createExtra();
 		} catch (Exception ex) {
 			throw ex;
 		}		

@@ -7,4 +7,5 @@ public interface Sender extends Actor {
 	public void incTimer();
 	public Integer getTimer();
 	public void setSent();
+	public Boolean isSent();
 }

@@ -9,7 +9,7 @@ public class HitTesting extends JFrame {
         
         setTitle("Hit testing");
         
-        add(new Surface());
+        add(new Surface2());
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(250, 150);

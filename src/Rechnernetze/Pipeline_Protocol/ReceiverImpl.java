@@ -15,12 +15,17 @@ public class ReceiverImpl implements Receiver {
 	}
 
 	@Override
-	public Boolean hasReceived() {
+	public Boolean isReceived() {
 		return (type == EnumARQReceiver.RECEIVED);
 	}
 
 	@Override
 	public void setReceived() {
 		type = EnumARQReceiver.RECEIVED;
+	}
+
+	@Override
+	public Boolean isEmpty() {
+		return (type == EnumARQReceiver.EMPTY);
 	}
 }
